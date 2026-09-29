@@ -38,6 +38,11 @@ jobs:
       - name: Instalar dependencias
         run: pip install -r requirements.txt
 
+      - name: Resolver ENFEN por DNS público (el DNS de GitHub no lo encuentra)
+        run: |
+          IP=$(curl -s "https://dns.google/resolve?name=enfen.imarpe.gob.pe&type=A" | python3 -c "import json,sys; a=[x['data'] for x in json.load(sys.stdin).get('Answer',[]) if x.get('type')==1]; print(a[-1] if a else '')")
+          if [ -n "$IP" ]; then echo "$IP enfen.imarpe.gob.pe" | sudo tee -a /etc/hosts; fi
+
       - name: Ejecutar monitor
         run: python -u monitor_fen.py
         timeout-minutes: 15
