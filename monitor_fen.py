@@ -407,6 +407,10 @@ def fuente_tmin_10d(tiendas: pd.DataFrame) -> dict:
 
 
 BOLETINES_RAW: list[dict] = []
+
+
+def es_aviso_lluvia(a) -> bool:
+    return any(k in norm(a.get("evento", "")) for k in ("PRECIPIT", "LLUVIA", "TORMENTA", "GRANIZO"))
 DEPARTAMENTOS_PE = ["AMAZONAS", "ANCASH", "APURIMAC", "AREQUIPA", "AYACUCHO", "CAJAMARCA", "CALLAO", "CUSCO",
                     "HUANCAVELICA", "HUANUCO", "ICA", "JUNIN", "LA LIBERTAD", "LAMBAYEQUE", "LIMA", "LORETO",
                     "MADRE DE DIOS", "MOQUEGUA", "PASCO", "PIURA", "PUNO", "SAN MARTIN", "TACNA", "TUMBES", "UCAYALI"]
@@ -707,8 +711,12 @@ def interpretar(r, enfen):
         a = max(sen, key=lambda a: a["nivel"])
         nombre, accion = NIVEL_TXT.get(a["nivel"], ("Aviso", "esté atento"))
         lineas.append(("SENAMHI", f"{nombre} por {TIPO_AVISO_TXT[tipo_aviso(a['origen'])]}. {accion.capitalize()}."))
+    elif r.get("avisos_indeci") and not any(es_aviso_lluvia(x) for x in r["avisos_indeci"]):
+        otros = r["avisos_indeci"]
+        lineas.append(("SENAMHI", f"Sin avisos de lluvia para el departamento ({len(otros)} aviso(s) de otro tipo, p. ej. "
+                                  f"N° {e(otros[0]['numero'])}{' ' + e(otros[0]['evento'].lower()) if otros[0]['evento'] else ''})."))
     elif r.get("avisos_indeci"):
-        a = r["avisos_indeci"][0]
+        a = next(x for x in r["avisos_indeci"] if es_aviso_lluvia(x))
         lineas.append(("SENAMHI", f"Aviso N° {a['numero']}"
                                   + (f" ({e(a['evento'].lower())})" if a['evento'] else "") + " para el departamento"
                                   + (f", vigencia: {e(a['vigencia'].lower())}" if a['vigencia'] else "") + ". "
@@ -1156,7 +1164,7 @@ def chip_escenario(esc):
     return f'<span class="chip {clase}">{e(esc)}</span>'
 
 
-def generar_html(filas, enfen, noaa, errores, escenarios=()):
+def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
     zonas = sorted({(f["orden_zona"], f["zona"], f["frecuencia_reporte"]) for f in filas})
     cuenta = {n: sum(f["nivel_plan"] == n for f in filas) for n in (1, 2, 3, 4)}
     fase, fase_obj = fase_actual()
@@ -1219,7 +1227,7 @@ def generar_html(filas, enfen, noaa, errores, escenarios=()):
                 metrica3 = f"<div><small>Lluvia</small><strong>{prec_txt}</strong></div>"
                 etq_max, etq_min, etq_serie = "T. máx", "T. mín", "T. máx últimos 15 registros"
             tarjetas.append(f"""
-      <article class="card sem-{f['semaforo']}" data-zona="{e(z)}">
+      <article class="card sem-{f['semaforo']}" id="t-{e(f['cod_p'])}" data-zona="{e(z)}">
         <header><div><h3>{e(f['tienda'])}</h3><p class="muted">{e(f['ciudad'])} · {e(f['distrito'].title())} · {e(f['cod_p'])}</p>
           <p class="tags"><span class="riesgo r-{e(str(f['riesgo_plan']).lower().replace(' ', '-'))}">Riesgo {e(f['riesgo_plan'])}</span>{'' if f['tipo'] == 'Tienda' else f'<span class="tipo">{e(f["tipo"])}</span>'}</p></div>
           <div class="badges"><span class="sem-badge">Nivel {f['nivel_plan']} · {e(NIVELES_PLAN[f['nivel_plan']]['nombre'].replace('Alerta ', ''))}</span>
@@ -1252,8 +1260,14 @@ def generar_html(filas, enfen, noaa, errores, escenarios=()):
 
     err_html = ""
     if errores:
-        err_html = '<div class="aviso-sistema"><b>Fuentes no disponibles en esta corrida:</b> ' + \
-            "; ".join(f"{e(k)}" for k in errores) + " — se muestran los datos que sí respondieron.</div>"
+        otros_err = [k for k in errores if k != "SENAMHI (IDESEP)"]
+        partes = []
+        if "SENAMHI (IDESEP)" in errores:
+            partes.append("SENAMHI no es accesible desde el servidor: los avisos se toman de INDECI, el riesgo por distrito "
+                          "de CENEPRED y la temperatura de los aeropuertos CORPAC.")
+        if otros_err:
+            partes.append("<b>No respondieron en esta actualización:</b> " + ", ".join(e(k) for k in otros_err) + ".")
+        err_html = '<div class="aviso-sistema">' + " ".join(partes) + "</div>"
 
     esc_html = " · ".join(
         f'<a href="{e(x["url"])}" target="_blank" rel="noopener">{e(x["ambito"].title())} ({e(x["inicio"][8:10])}/{e(x["inicio"][5:7])} – '
@@ -1265,107 +1279,242 @@ def generar_html(filas, enfen, noaa, errores, escenarios=()):
         enlace = (f' · <a href="https://github.com/{e(REPO_GITHUB)}/actions/workflows/monitor_fen.yml" target="_blank" '
                   f'rel="noopener">forzar actualización</a>' if REPO_GITHUB else "")
         boton_actualizar = (f'<button class="btn" onclick="location.reload()">Ver última versión</button>'
-                            f'<span class="muted small">Se actualiza solo a las {HORAS_AUTOMATICAS}{enlace}</span>')
+                            f'<span class="muted small">Se actualiza solo {HORAS_AUTOMATICAS}{enlace}</span>')
     fuentes = " · ".join(f'<a href="{e(u)}" target="_blank" rel="noopener">{e(n)}</a>' for n, u in LINKS.items())
+    extra = extra or {}
+
+    # ---------------- RESUMEN ----------------
+    alertas = sorted([f for f in filas if f["nivel_plan"] >= 2],
+                     key=lambda f: (-f["nivel_plan"], ORDEN_RIESGO.get(f["riesgo_plan"], 9), f["tienda"]))
+    if alertas:
+        filas_tabla = "".join(
+            f'<tr class="fila-alerta" data-ir="t-{e(f["cod_p"])}">'
+            f'<td><b>{e(f["tienda"])}</b><br><span class="muted small">{e(f["ciudad"])} · Riesgo {e(f["riesgo_plan"])}</span></td>'
+            f'<td>{e(f["zona"])}</td>'
+            f'<td><span class="pill n{f["nivel_plan"]}">Nivel {f["nivel_plan"]} · {e(NIVELES_PLAN[f["nivel_plan"]]["nombre"].replace("Alerta ", ""))}</span>'
+            + ('' if not f.get("cambio") else f'<br><span class="cambio {f["cambio"]}">{"▲ subió" if f["cambio"] == "sube" else "▼ bajó"} desde Nivel {f["nivel_anterior"]}</span>')
+            + f'</td><td>{e(f["motivo_nivel"])}</td>'
+            f'<td>{e(NIVELES_PLAN[f["nivel_plan"]]["acciones"][0])}</td>'
+            f'<td class="ver">Ver ›</td></tr>' for f in alertas)
+        tabla_alertas = (f'<div class="tabla-wrap"><table class="tabla"><thead><tr><th>Instalación</th><th>Zona</th><th>Nivel</th>'
+                         f'<th>Por qué</th><th>Primera acción del plan</th><th></th></tr></thead><tbody>{filas_tabla}</tbody></table></div>')
+    else:
+        tabla_alertas = '<div class="vacio">✅ Todas las instalaciones están en <b>Nivel 1 · Verde</b> (monitoreo preventivo).</div>'
+
+    cambios = [f for f in filas if f.get("cambio")]
+    cambios_html = ("".join(
+        f'<li><span class="cambio {f["cambio"]}">{"▲" if f["cambio"] == "sube" else "▼"}</span> <b>{e(f["tienda"])}</b>: '
+        f'Nivel {f["nivel_anterior"]} → Nivel {f["nivel_plan"]} · {e(f["motivo_nivel"])}</li>' for f in cambios)
+        or '<li class="muted">Sin cambios de nivel desde la actualización anterior.</li>')
+
+    av_html = "".join(
+        f'<li><b>Aviso N° {e(a["numero"])}</b>{" · " + e(a["evento"]) if a["evento"] else ""}'
+        f'{"<br><span class=muted>Vigencia: " + e(a["vigencia"]) + "</span>" if a["vigencia"] else ""}'
+        f'{"<br><span class=muted>" + e(", ".join(d.title() for d in a["departamentos"])) + "</span>" if a["departamentos"] else ""}'
+        f' · <a href="{e(a["link"])}" target="_blank" rel="noopener">boletín</a></li>'
+        for a in extra.get("avisos_indeci", [])[:4]) or '<li class="muted">Sin avisos recientes.</li>'
+    esc_li = "".join(
+        f'<li><b>{e(x["ambito"].title())}</b><br><span class="muted">{e(x["inicio"][8:10])}/{e(x["inicio"][5:7])} – '
+        f'{e(x["fin"][8:10])}/{e(x["fin"][5:7])}</span> · <a href="{e(x["url"])}" target="_blank" rel="noopener">tabla oficial</a></li>'
+        for x in escenarios) or '<li class="muted">Ninguno vigente.</li>'
+    cercanos = {}
+    for f in filas:
+        for rep in f.get("indeci", []):
+            if rep.get("plan", 1) >= 2:
+                cercanos.setdefault(rep["link"], (rep, []))[1].append(f["tienda"])
+    ind_li = "".join(
+        f'<li><b>{e(rep["tipo"])}</b> · {e(rep["evento"])} en {e(", ".join(d.title() for d in rep["distritos"]))} '
+        f'({e(rep["departamento"].title())}) · {e(rep["fecha"])}<br><span class="muted">Cerca de: {e(", ".join(ts))}</span> · '
+        f'<a href="{e(rep["link"])}" target="_blank" rel="noopener">reporte</a></li>'
+        for rep, ts in cercanos.values()) or \
+        f'<li class="muted">Ninguna cerca de una instalación (últimas {HORAS_INDECI} h; {len(extra.get("indeci", []))} reporte(s) por lluvias en el país).</li>'
+
+    # ---------------- GUIA ----------------
+    disparadores = {
+        1: ["Base de la temporada de lluvias: todas las instalaciones parten aquí."],
+        2: ["Aviso SENAMHI amarillo o naranja de lluvias sobre la tienda.",
+            f"Quebrada en posible activación a {DIST_QUEBRADA_KM} km o menos.",
+            f"Emergencia o peligro inminente INDECI por lluvias a {DIST_INDECI_KM} km o menos (48 h).",
+            "Distrito en riesgo Alto o Muy alto en un escenario CENEPRED vigente.",
+            f"Lluvia sobre el umbral en una estación a {DIST_UMBRAL_ROJA_KM}–{DIST_UMBRAL_AMARILLA_KM} km."],
+        3: ["Aviso SENAMHI rojo sobre la tienda.",
+            f"Lluvia sobre el umbral de riesgo en una estación a {DIST_UMBRAL_ROJA_KM} km o menos.",
+            f"Emergencia o peligro inminente INDECI por lluvias en el mismo distrito ({HORAS_INDECI_ROJA} h)."],
+        4: ["Solo por registro manual del equipo (archivo alertas_manuales.csv) ante inundación o afectación directa."],
+    }
+    guia = "".join(
+        f'<article class="nivel-card n{n}"><header><span class="pill n{n}">Nivel {n}</span><h3>{e(v["nombre"])}'
+        f'{" · " + e(v["sub"]) if v["sub"] else ""}</h3></header><p class="que">{e(v["desc"])}</p>'
+        f'<h4>Se activa en el monitor cuando…</h4><ul>{"".join(f"<li>{e(x)}</li>" for x in disparadores[n])}</ul>'
+        f'<h4>Acciones del Plan FEN</h4><ul>{"".join(f"<li>{e(x)}</li>" for x in v["acciones"])}</ul></article>'
+        for n, v in NIVELES_PLAN.items())
+    glosario = [
+        ("ENFEN", "Comisión multisectorial que declara el estado del Fenómeno El Niño en el Perú (vigilancia, alerta, etc.)."),
+        ("SENAMHI", "Servicio meteorológico nacional: emite los avisos de lluvias y los pronósticos."),
+        ("INDECI / COEN", "Defensa Civil: reporta emergencias y peligros inminentes por distrito y republica los avisos de SENAMHI."),
+        ("CENEPRED", "Estima qué distritos están en riesgo (Muy alto, Alto, Medio) con base en cada aviso de SENAMHI."),
+        ("CORPAC", "Reportes meteorológicos horarios de los aeropuertos: temperatura actual y lluvia observada."),
+        ("Mar Niño 1+2 (NOAA)", "Temperatura del mar frente a la costa norte comparada con lo normal; sobre +1 °C favorece calor y lluvias."),
+        ("Riesgo de la instalación", "Clasificación fija de la Matriz Nacional de Riesgo del plan (Crítico, Alto, Medio Alto, Medio, Bajo)."),
+    ]
+    glos = "".join(f"<dt>{e(a)}</dt><dd>{e(b)}</dd>" for a, b in glosario)
 
     return f"""<!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Monitor FEN Tiendas</title>
+<title>Monitor FEN · Falabella Retail Perú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-:root{{--bg:#f6f7f9;--card:#fff;--tx:#1b1f24;--mut:#5f6b7a;--bd:#e3e7ec;--acc:#2f6f3e;
---rojo:#c00000;--ambar:#e07b00;--amar:#e0a800;--verde:#4f8f2f;--azul:#1f5fa8;--negro:#111;}}
-@media (prefers-color-scheme:dark){{:root:not([data-theme=light]){{--bg:#12151a;--card:#1b2027;--tx:#e8ecf1;--mut:#9aa6b4;--bd:#2c333d;--acc:#7fc48f;
---rojo:#ef6b6b;--ambar:#f5a142;--amar:#e3c84a;--verde:#6cc070;--azul:#6ea8ff;--negro:#e8ecf1;}}}}
-*{{box-sizing:border-box}} body{{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 "Segoe UI",system-ui,sans-serif}}
-.wrap{{max-width:1280px;margin:0 auto;padding:20px 16px 40px}}
-h1{{font-size:22px;margin:0}} h2{{font-size:17px;margin:28px 0 12px}} h3{{font-size:15px;margin:0}}
-.muted{{color:var(--mut)}} a{{color:var(--azul)}}
-.top{{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:16px}}
-.kpis{{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}}
-.kpi{{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px 16px}}
-.kpi small{{color:var(--mut);display:block}} .kpi strong{{font-size:22px;display:block;margin:2px 0}}
-.kpi.fen{{border-left:5px solid var(--mut)}} .kpi.fen.rojo{{border-left-color:var(--rojo)}} .kpi.fen.amarillo{{border-left-color:var(--amar)}}
-.tabs{{display:flex;gap:6px;flex-wrap:wrap;margin:20px 0 4px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:2}}
-.tab{{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:20px;padding:6px 12px;cursor:pointer;font:inherit;position:relative}}
-.tab span{{color:var(--mut);margin-left:4px}} .tab.activo{{background:var(--tx);color:var(--bg)}} .tab.activo span{{color:inherit;opacity:.7}}
+:root{{--fala:#aad500;--fala-osc:#5c7a00;--fala-suave:#f3f9dd;--bg:#f5f6f4;--card:#fff;--tx:#333a36;--mut:#6b736e;--bd:#e3e6e1;
+--rojo:#c00000;--ambar:#e07b00;--amar:#ffc000;--verde:#70ad47;--azul:#1f5fa8;--negro:#111;}}
+*{{box-sizing:border-box}} html{{scroll-behavior:smooth}}
+body{{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 Lato,"Segoe UI",system-ui,sans-serif}}
+a{{color:var(--fala-osc);font-weight:700}}
+.muted{{color:var(--mut)}} .small{{font-size:11.5px}}
+/* ---------- cabecera ---------- */
+.barra{{background:#fff;border-bottom:4px solid var(--fala);position:sticky;top:0;z-index:5;box-shadow:0 1px 6px rgba(0,0,0,.05)}}
+.barra .in{{max-width:1280px;margin:0 auto;padding:12px 16px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}}
+.marca{{display:flex;align-items:center;gap:12px;flex:1;min-width:260px}}
+.logo{{width:46px;height:46px;border-radius:10px;object-fit:contain;animation:entrada .9s cubic-bezier(.34,1.56,.64,1) both, brillo 6s ease-in-out 1.2s infinite;transform-origin:50% 60%}}
+.logo:hover{{animation:giro .8s ease}}
+@keyframes entrada{{0%{{opacity:0;transform:translateY(-18px) scale(.6) rotate(-12deg)}}100%{{opacity:1;transform:none}}}}
+@keyframes brillo{{0%,85%,100%{{filter:none;transform:none}}90%{{filter:drop-shadow(0 0 8px var(--fala));transform:scale(1.08) rotate(-4deg)}}95%{{transform:scale(1) rotate(3deg)}}}}
+@keyframes giro{{from{{transform:rotateY(0)}}to{{transform:rotateY(360deg)}}}}
+@media (prefers-reduced-motion:reduce){{.logo{{animation:none}}}}
+.marca h1{{font-size:20px;font-weight:900;margin:0;line-height:1.2}} .marca h1 span{{color:var(--fala-osc)}}
+.marca p{{margin:2px 0 0;font-size:12px;color:var(--mut)}}
+.act{{display:flex;flex-direction:column;align-items:flex-end;gap:3px}}
+.btn{{display:inline-block;font:700 13px Lato,sans-serif;text-decoration:none;padding:8px 16px;border-radius:22px;background:var(--fala);color:#1d2a00;border:0;cursor:pointer}}
+.btn:hover{{filter:brightness(.95)}} .btn.sec{{background:#fff;color:var(--fala-osc);border:1.5px solid var(--fala)}}
+.vistas{{max-width:1280px;margin:10px auto 0;padding:0 16px;display:flex;gap:4px;width:100%}}
+.vista{{background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px;font:700 14px Lato,sans-serif;color:var(--mut);cursor:pointer}}
+.vista.activo{{color:var(--tx);border-bottom-color:var(--fala-osc)}}
+.wrap{{max-width:1280px;margin:0 auto;padding:18px 16px 40px}}
+section.panel{{display:none}} section.panel.activo{{display:block;animation:aparece .35s ease}}
+@keyframes aparece{{from{{opacity:0;transform:translateY(6px)}}to{{opacity:1;transform:none}}}}
+h2{{font-size:18px;font-weight:900;margin:26px 0 10px}} h2 small{{font-weight:400;color:var(--mut);font-size:12.5px;margin-left:6px}}
+/* ---------- resumen ---------- */
+.estado{{display:grid;grid-template-columns:2fr 1fr 1.4fr 1.4fr;gap:12px}}
+.caja{{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px}}
+.caja small{{color:var(--mut);display:block;font-size:12px}} .caja strong{{display:block;font-size:20px;font-weight:900;margin:2px 0}}
+.caja.fen{{border-left:6px solid var(--mut)}} .caja.fen.rojo{{border-left-color:var(--rojo)}} .caja.fen.amarillo{{border-left-color:var(--amar)}}
+.explica{{font-size:12px;color:var(--mut);margin:6px 0 0}}
+.niveles{{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}}
+.nv{{border-radius:10px;padding:8px 4px;text-align:center;font-size:22px;font-weight:900}} .nv em{{display:block;font-size:10.5px;font-style:normal;font-weight:700}}
+.nv.n1,.pill.n1{{background:var(--verde);color:#fff}} .nv.n2,.pill.n2{{background:var(--amar);color:#111}} .nv.n3,.pill.n3{{background:var(--rojo);color:#fff}} .nv.n4,.pill.n4{{background:var(--negro);color:#fff}}
+.pill{{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}}
+.tabla-wrap{{overflow-x:auto;background:var(--card);border:1px solid var(--bd);border-radius:14px}}
+.tabla{{width:100%;border-collapse:collapse;font-size:13px}}
+.tabla th{{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--mut);background:var(--fala-suave);padding:10px 12px}}
+.tabla td{{padding:10px 12px;border-top:1px solid var(--bd);vertical-align:top}}
+.fila-alerta{{cursor:pointer;transition:background .15s}} .fila-alerta:hover{{background:var(--fala-suave)}}
+.ver{{color:var(--fala-osc);font-weight:700;white-space:nowrap}}
+.vacio{{background:var(--fala-suave);border:1px solid var(--fala);border-radius:14px;padding:16px;font-size:14px}}
+.tres{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}}
+.lista{{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:8px;font-size:12.5px}}
+.lista li{{border-left:3px solid var(--fala);padding:2px 0 2px 10px}}
+.cambio{{font-size:11px;font-weight:700}} .cambio.sube{{color:var(--rojo)}} .cambio.baja{{color:var(--verde)}}
+.aviso-sistema{{background:#fff7e6;border:1px solid var(--ambar);border-radius:10px;padding:9px 12px;margin-top:12px;font-size:12.5px}}
+/* ---------- por zona ---------- */
+.tabs{{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}}
+.tab{{border:1.5px solid var(--bd);background:#fff;color:var(--tx);border-radius:20px;padding:6px 13px;cursor:pointer;font:700 13px Lato,sans-serif}}
+.tab span{{color:var(--mut);margin-left:4px;font-weight:400}} .tab.activo{{background:var(--fala);border-color:var(--fala);color:#1d2a00}}
 .dot{{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ambar);margin-left:6px;vertical-align:middle}}
+.frec{{font-size:12px;font-weight:400;color:var(--mut);margin-left:8px}}
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}}
-.card{{background:var(--card);border:1px solid var(--bd);border-top:4px solid var(--verde);border-radius:10px;padding:14px}}
-.card.sem-rojo{{border-top-color:var(--rojo)}} .card.sem-amarillo{{border-top-color:var(--amar)}} .card.sem-negro{{border-top-color:var(--negro);border-top-width:6px}}
-.card header{{display:flex;justify-content:space-between;gap:8px}} .card header p{{margin:2px 0 0;font-size:12px}}
-.sem-badge{{font-size:11px;font-weight:600;white-space:nowrap;padding:3px 8px;border-radius:12px;height:fit-content;background:var(--bd)}}
-.sem-verde .sem-badge{{background:var(--verde);color:#fff}} .sem-rojo .sem-badge{{background:var(--rojo);color:#fff}} .sem-amarillo .sem-badge{{background:var(--amar);color:#111}} .sem-negro .sem-badge{{background:#111;color:#fff;outline:1px solid var(--mut)}}
+.card{{background:var(--card);border:1px solid var(--bd);border-top:5px solid var(--verde);border-radius:14px;padding:14px;scroll-margin-top:140px}}
+.card.sem-rojo{{border-top-color:var(--rojo)}} .card.sem-amarillo{{border-top-color:var(--amar)}} .card.sem-negro{{border-top-color:var(--negro)}}
+.card.resalta{{animation:resalta 1.6s ease}} @keyframes resalta{{0%,60%{{box-shadow:0 0 0 4px var(--fala)}}100%{{box-shadow:none}}}}
+.card header{{display:flex;justify-content:space-between;gap:8px}} .card h3{{font-size:15px;margin:0;font-weight:900}} .card header p{{margin:2px 0 0;font-size:12px}}
+.sem-badge{{font-size:11px;font-weight:700;white-space:nowrap;padding:3px 9px;border-radius:12px;height:fit-content}}
+.sem-verde .sem-badge{{background:var(--verde);color:#fff}} .sem-rojo .sem-badge{{background:var(--rojo);color:#fff}} .sem-amarillo .sem-badge{{background:var(--amar);color:#111}} .sem-negro .sem-badge{{background:#111;color:#fff}}
+.badges{{display:flex;flex-direction:column;align-items:flex-end;gap:4px}}
 .tags{{margin:4px 0 0!important;display:flex;gap:4px;flex-wrap:wrap}}
-.riesgo,.tipo{{font-size:10.5px;font-weight:600;padding:1px 7px;border-radius:9px;background:var(--bd);color:var(--tx)}}
+.riesgo,.tipo{{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:9px;background:var(--bd)}}
 .r-crítico{{background:#c00000;color:#fff}} .r-alto{{background:#ed7d31;color:#fff}} .r-medio-alto{{background:#ffc000;color:#111}} .r-medio{{background:#ffe699;color:#111}} .r-bajo{{background:#a9d08e;color:#111}}
 .tipo{{background:var(--azul);color:#fff}}
-.niveles{{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}}
-.nv{{border-radius:8px;padding:6px 4px;text-align:center;font-size:20px;font-weight:700}} .nv em{{display:block;font-size:10.5px;font-style:normal;font-weight:600}}
-.nv.n1{{background:#70ad47;color:#fff}} .nv.n2{{background:#ffc000;color:#111}} .nv.n3{{background:#c00000;color:#fff}} .nv.n4{{background:#111;color:#fff}}
-.fase{{font-size:16px!important}} .frec{{font-size:12px;font-weight:400;color:var(--mut);margin-left:8px}}
 .metricas{{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 4px}}
-.metricas small{{color:var(--mut);display:block;font-size:11px}} .metricas strong{{font-size:20px}} .metricas em{{font-size:11px;font-style:normal;color:var(--mut);margin-left:2px}}
+.metricas small{{color:var(--mut);display:block;font-size:11px}} .metricas strong{{font-size:20px;font-weight:900}} .metricas em{{font-size:11px;font-style:normal;color:var(--mut);margin-left:2px}}
 .delta{{display:block;font-size:11px;color:var(--mut)}} .delta.sube{{color:var(--rojo)}} .delta.baja{{color:var(--azul)}}
-.est{{font-size:11px;margin:0 0 8px}}
-.fila{{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--bd);padding:6px 0;font-size:12px}}
-.fila>span:first-child{{color:var(--mut)}}
-.spark{{vertical-align:middle}} .spark polyline{{fill:none;stroke:var(--azul);stroke-width:1.8}} .spark circle{{fill:var(--azul)}}
-.spark-rango{{font-size:11px;color:var(--mut);margin-left:6px}}
-.chips{{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}}
-.chip{{font-size:11px;padding:2px 7px;border-radius:10px;background:var(--bd)}}
-.esc-sup{{background:color-mix(in srgb,var(--rojo) 18%,transparent);color:var(--rojo)}}
-.esc-inf{{background:color-mix(in srgb,var(--azul) 18%,transparent);color:var(--azul)}}
-.avisos{{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:6px}}
-.avisos li{{font-size:12px;border-left:3px solid var(--amar);padding:4px 8px;background:color-mix(in srgb,var(--bd) 40%,transparent);border-radius:0 6px 6px 0}}
-.avisos li.nv3,.avisos li.nv4{{border-left-color:var(--rojo)}} .avisos li.nv2{{border-left-color:var(--ambar)}}
-.avisos li span{{color:var(--mut)}}
-.interp{{margin:10px 0 8px;padding:10px 12px;border-radius:8px;background:color-mix(in srgb,var(--azul) 7%,transparent);font-size:13px}}
-.interp dl{{display:grid;grid-template-columns:max-content 1fr;gap:4px 10px;margin:0}} .interp dt{{font-weight:600;font-size:12px;color:var(--mut)}} .interp dd{{margin:0}} .interp .qh{{margin-top:8px;font-weight:600;font-size:12px}} .interp ul{{margin:4px 0 0;padding-left:18px;font-size:12px}}
-.botones{{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}}
-.btn{{font-size:12px;text-decoration:none;padding:5px 10px;border-radius:6px;background:var(--azul);color:#fff}}
-.btn.sec{{background:transparent;color:var(--azul);border:1px solid var(--azul)}}
+.interp{{margin:10px 0 8px;padding:10px 12px;border-radius:10px;background:var(--fala-suave);font-size:13px}}
+.interp dl{{display:grid;grid-template-columns:max-content 1fr;gap:4px 10px;margin:0}} .interp dt{{font-weight:700;font-size:12px;color:var(--fala-osc)}} .interp dd{{margin:0}}
+.interp .qh{{margin:8px 0 0;font-weight:700;font-size:12px}} .interp ul{{margin:4px 0 0;padding-left:18px;font-size:12px}}
+.botones{{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}} .botones .btn{{font-size:12px;padding:5px 11px}}
 details{{margin-top:6px;border-top:1px solid var(--bd);padding-top:6px}} summary{{cursor:pointer;font-size:12px;color:var(--mut)}}
-.explica{{font-size:12px;color:var(--mut);margin:6px 0 0}}
-.escenarios{{margin-top:12px;font-size:12.5px;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:8px 12px}}
-.avisos li a{{color:var(--azul)}}
-.acciones-top{{display:flex;flex-direction:column;align-items:flex-end;gap:4px}} .small{{font-size:11.5px}}
-button.btn{{border:0;cursor:pointer;font:inherit;font-size:13px;padding:7px 14px}}
-.badges{{display:flex;flex-direction:column;align-items:flex-end;gap:4px}}
-.cambio{{font-size:10.5px;font-weight:700;white-space:nowrap}} .cambio.sube{{color:var(--rojo)}} .cambio.baja{{color:var(--verde)}}
+.est{{font-size:11px;margin:0 0 8px}}
+.fila{{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--bd);padding:6px 0;font-size:12px}} .fila>span:first-child{{color:var(--mut)}}
+.spark{{vertical-align:middle}} .spark polyline{{fill:none;stroke:var(--fala-osc);stroke-width:1.8}} .spark circle{{fill:var(--fala-osc)}}
+.spark-rango{{font-size:11px;color:var(--mut);margin-left:6px}}
+.chips{{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}} .chip{{font-size:11px;padding:2px 7px;border-radius:10px;background:var(--bd)}}
+.esc-sup{{background:#fde8e8;color:var(--rojo)}} .esc-inf{{background:#e6eef9;color:var(--azul)}}
+.avisos{{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:6px}}
+.avisos li{{font-size:12px;border-left:3px solid var(--amar);padding:4px 8px;background:#fafaf8;border-radius:0 6px 6px 0}}
+.avisos li.nv4,.avisos li.nv5{{border-left-color:var(--rojo)}} .avisos li.nv2{{border-left-color:var(--verde)}} .avisos li span{{color:var(--mut)}}
 .sin-aviso{{font-size:12px;color:var(--verde);margin:8px 0 0}}
-.aviso-sistema{{background:color-mix(in srgb,var(--ambar) 15%,transparent);border:1px solid var(--ambar);border-radius:8px;padding:10px 12px;margin-top:12px;font-size:13px}}
+/* ---------- guia ---------- */
+.guia{{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}}
+.nivel-card{{background:var(--card);border:1px solid var(--bd);border-top:6px solid;border-radius:14px;padding:14px 16px}}
+.nivel-card.n1{{border-top-color:var(--verde)}} .nivel-card.n2{{border-top-color:var(--amar)}} .nivel-card.n3{{border-top-color:var(--rojo)}} .nivel-card.n4{{border-top-color:var(--negro)}}
+.nivel-card header{{display:flex;align-items:center;gap:8px}} .nivel-card h3{{margin:0;font-size:15px;font-weight:900}}
+.nivel-card .que{{font-weight:700;margin:10px 0}} .nivel-card h4{{font-size:12px;text-transform:uppercase;color:var(--fala-osc);margin:10px 0 4px;letter-spacing:.03em}}
+.nivel-card ul{{margin:0;padding-left:18px;font-size:12.5px}}
+.glosario{{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px;font-size:13px}}
+.glosario dt{{font-weight:900;color:var(--fala-osc)}} .glosario dd{{margin:0}}
 footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(--bd);padding-top:12px}}
-@media (max-width:520px){{.metricas strong{{font-size:17px}}}}
-</style></head><body><div class="wrap">
-<div class="top"><div><h1>Monitor FEN y clima · Tiendas Saga Falabella</h1>
-<p class="muted">Actualizado {HOY:%d/%m/%Y %H:%M} · Fuentes oficiales: ENFEN, SENAMHI, INDECI, CENEPRED, NOAA · Niveles y acciones según el Plan Integral FEN 2026/2027</p></div>
-<div class="acciones-top">{boton_actualizar}</div></div>
-
-<div class="kpis">
-  <div class="kpi fen {estado_cls}"><small>Estado ENFEN</small><strong>{e(estado)}</strong>
-    <p class="explica">{e(fen_txt)}</p>
-    <span class="muted">{e(enfen.get('comunicado'))} · {e(enfen.get('fecha'))}</span><br>
-    {f'<a href="{e(enfen.get("url_pdf"))}" target="_blank" rel="noopener">Comunicado (PDF)</a>' if enfen.get('url_pdf') else ''}
-    {f' · <a href="{e(enfen.get("url_informe"))}" target="_blank" rel="noopener">Informe técnico</a>' if enfen.get('url_informe') else ''}</div>
-  <div class="kpi"><small>Temperatura del mar frente a la costa norte (NOAA, Niño 1+2)</small><strong>{noaa_txt}</strong><span class="muted">{noaa_sub}</span><div>{noaa_spark}</div>
-    <p class="explica">Diferencia frente a lo normal. Por encima de +1 °C se considera mar cálido, lo que favorece calor y lluvias en la costa norte.</p></div>
-  <div class="kpi"><small>Instalaciones por nivel del Plan FEN</small>
-    <div class="niveles"><span class="nv n1">{cuenta[1]}<em>Verde</em></span><span class="nv n2">{cuenta[2]}<em>Amarilla</em></span><span class="nv n3">{cuenta[3]}<em>Roja</em></span><span class="nv n4">{cuenta[4]}<em>Negra</em></span></div>
-    <p class="explica">de {len(filas)} instalaciones (tiendas, CD y oficinas)</p></div>
-  <div class="kpi"><small>Calendario corporativo FEN</small><strong class="fase">{e(fase)}</strong><p class="explica">{e(fase_obj)}</p></div>
+@media (max-width:900px){{.estado,.tres{{grid-template-columns:1fr 1fr}}}}
+@media (max-width:700px){{.barra{{position:static}} .tabla thead{{display:none}} .tabla,.tabla tbody,.tabla tr,.tabla td{{display:block;width:100%}}
+.tabla tr{{border-top:1px solid var(--bd);padding:6px 0}} .tabla td{{border:0;padding:4px 14px}} .tabla td.ver{{text-align:right}}}}
+@media (max-width:560px){{.estado,.tres{{grid-template-columns:1fr}} .act{{align-items:flex-start}} .marca h1{{font-size:17px}} .metricas strong{{font-size:17px}}}}
+</style></head><body>
+<div class="barra"><div class="in">
+  <div class="marca"><img class="logo" src="logo.png" alt="" onerror="this.remove()">
+    <div><h1>Monitor FEN <span>·</span> Falabella Retail Perú</h1>
+    <p>Actualizado {HOY:%d/%m/%Y %H:%M} · ENFEN, SENAMHI, INDECI, CENEPRED, CORPAC, NOAA · Niveles del Plan Integral FEN 2026/2027</p></div></div>
+  <div class="act">{boton_actualizar}</div>
 </div>
-{err_html}
-<div class="escenarios"><b>Escenarios de riesgo por lluvias CENEPRED vigentes:</b> {esc_html}</div>
+<nav class="vistas"><button class="vista activo" data-panel="resumen">Resumen</button><button class="vista" data-panel="zonas">Por zona</button><button class="vista" data-panel="guia">Guía de alertas</button></nav>
+</div>
 
-<nav class="tabs">{''.join(tabs)}</nav>
-{''.join(bloques)}
+<div class="wrap">
+<section class="panel activo" id="resumen">
+  <div class="estado">
+    <div class="caja fen {estado_cls}"><small>Estado ENFEN</small><strong>{e(estado)}</strong>
+      <p class="explica">{e(fen_txt)}</p>
+      <span class="muted small">{e(enfen.get('comunicado'))} · {e(enfen.get('fecha'))}</span>
+      {f' · <a class="small" href="{e(enfen.get("url_pdf"))}" target="_blank" rel="noopener">comunicado</a>' if enfen.get('url_pdf') else ''}</div>
+    <div class="caja"><small>Mar frente a la costa norte (Niño 1+2)</small><strong>{noaa_txt}</strong><span class="muted small">{noaa_sub}</span><div>{noaa_spark}</div></div>
+    <div class="caja"><small>Instalaciones por nivel</small>
+      <div class="niveles"><span class="nv n1">{cuenta[1]}<em>Verde</em></span><span class="nv n2">{cuenta[2]}<em>Amarilla</em></span><span class="nv n3">{cuenta[3]}<em>Roja</em></span><span class="nv n4">{cuenta[4]}<em>Negra</em></span></div>
+      <p class="explica">de {len(filas)} instalaciones</p></div>
+    <div class="caja"><small>Calendario corporativo FEN</small><strong style="font-size:15px">{e(fase)}</strong><p class="explica">{e(fase_obj)}</p></div>
+  </div>
+  {err_html}
+  <h2>Instalaciones con alerta <small>sobre Nivel 1 · clic para ver el detalle</small></h2>
+  {tabla_alertas}
+  <h2>Cambios desde la última actualización</h2>
+  <ul class="lista caja">{cambios_html}</ul>
+  <h2>Situación oficial vigente</h2>
+  <div class="tres">
+    <div class="caja"><small>Avisos SENAMHI (vía INDECI)</small><ul class="lista">{av_html}</ul></div>
+    <div class="caja"><small>Escenarios de riesgo CENEPRED</small><ul class="lista">{esc_li}</ul></div>
+    <div class="caja"><small>Emergencias INDECI por lluvias cerca de una instalación</small><ul class="lista">{ind_li}</ul></div>
+  </div>
+</section>
 
-<footer>
-<p><b>Cómo leer:</b> T. máx / T. mín / Lluvia = último registro de la estación SENAMHI más cercana a la tienda (capas monitoreo_meteorologico, N=1).
-Series de 15 registros = capas N=15…1 de esa estación (se asume N=1 el más reciente). La estimación propia usa el historial del monitor y solo aparece con 14 días acumulados; es referencial. Pronóstico T. mín = modelo SENAMHI a 10 días. Próximo mes y verano = escenario del pronóstico estacional SENAMHI para el sector de la tienda.
-Niveles del Plan FEN (PLN-PRE, Cap. X): Nivel 1 Verde = monitoreo preventivo (base de temporada) · Nivel 2 Amarilla = aviso SENAMHI amarillo/naranja por lluvias, activación de quebradas en la provincia, reporte INDECI por lluvias en la provincia o distrito en riesgo Alto/Muy alto en un escenario CENEPRED vigente · Nivel 3 Roja = aviso SENAMHI rojo, lluvia sobre el umbral de riesgo en la provincia o emergencia/peligro inminente INDECI por lluvias en el distrito de la tienda · Nivel 4 Negra = solo por registro manual (alertas_manuales.csv). Riesgo de cada instalación según la Matriz Nacional de Riesgo del plan.</p>
-<p>Fuentes: {fuentes}</p>
-</footer>
+<section class="panel" id="zonas">
+  <nav class="tabs">{''.join(tabs)}</nav>
+  {''.join(bloques)}
+</section>
+
+<section class="panel" id="guia">
+  <h2>¿Qué significa cada alerta?</h2>
+  <div class="guia">{guia}</div>
+  <h2>Fuentes y términos</h2>
+  <dl class="glosario">{glos}</dl>
+</section>
+
+<footer><p>Temperatura: estación SENAMHI cercana si responde; si no, aeropuerto CORPAC a {DIST_MAX_AEROPUERTO_KM} km o menos; si no, referencia regional NASA POWER. Un nivel alcanzado se mantiene {PERSISTENCIA_HORAS} h. Riesgo de cada instalación según la Matriz Nacional de Riesgo del plan.</p>
+<p>Fuentes: {fuentes}</p></footer>
 </div>
 <script>
 const b=document.getElementById('btn-act');
@@ -1376,9 +1525,16 @@ if(b){{b.addEventListener('click',async()=>{{
     if(r.ok)setTimeout(()=>location.reload(),240000);}}catch(err){{m.textContent='No se pudo solicitar la actualización.';}}
   finally{{setTimeout(()=>{{b.disabled=false}},60000);}}
 }});}}
+function panel(id){{document.querySelectorAll('.vista').forEach(x=>x.classList.toggle('activo',x.dataset.panel===id));
+  document.querySelectorAll('section.panel').forEach(s=>s.classList.toggle('activo',s.id===id));}}
+document.querySelectorAll('.vista').forEach(v=>v.addEventListener('click',()=>{{panel(v.dataset.panel);window.scrollTo({{top:0}});}}));
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('activo'));b.classList.add('activo');
   const z=b.dataset.zona;document.querySelectorAll('section.zona').forEach(s=>s.style.display=(z==='todas'||s.dataset.zona===z)?'':'none');
+}}));
+document.querySelectorAll('.fila-alerta').forEach(tr=>tr.addEventListener('click',()=>{{
+  panel('zonas');document.querySelector('.tab[data-zona="todas"]').click();
+  const c=document.getElementById(tr.dataset.ir);if(c){{c.scrollIntoView({{behavior:'smooth',block:'start'}});c.classList.remove('resalta');void c.offsetWidth;c.classList.add('resalta');}}
 }}));
 </script>
 </body></html>"""
@@ -1508,7 +1664,8 @@ def main():
         f["interp"] = interpretar(f, enfen)
 
     ARCH_HTML.parent.mkdir(parents=True, exist_ok=True)
-    ARCH_HTML.write_text(generar_html(filas, enfen, noaa, errores, datos["sigrid"]["escenarios"]), encoding="utf-8")
+    ARCH_HTML.write_text(generar_html(filas, enfen, noaa, errores, datos["sigrid"]["escenarios"],
+                                  {"avisos_indeci": datos.get("avisos_indeci", []), "indeci": datos.get("indeci", [])}), encoding="utf-8")
     ARCH_RESUMEN.write_text(generar_resumen(filas, enfen, noaa), encoding="utf-8")
     log(f"HTML: {ARCH_HTML}")
     log(f"Resumen: {ARCH_RESUMEN}")
