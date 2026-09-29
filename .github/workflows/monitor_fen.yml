@@ -2,8 +2,8 @@ name: Monitor FEN
 
 on:
   schedule:
-    # Cada 3 horas, hora Lima (UTC-5): 00, 03, 06, 09, 12, 15, 18 y 21 h
-    - cron: "0 2,5,8,11,14,17,20,23 * * *"
+        # Cada hora a los 17 minutos
+       - cron: "17 * * * *"
   workflow_dispatch:         # permite ejecutarlo a mano ("Run workflow")
 
 permissions:
