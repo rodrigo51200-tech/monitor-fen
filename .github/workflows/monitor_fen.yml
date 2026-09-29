@@ -1,0 +1,59 @@
+name: Monitor FEN
+
+on:
+  schedule:
+    # Cada 3 horas, hora Lima (UTC-5): 00, 03, 06, 09, 12, 15, 18 y 21 h
+    - cron: "0 2,5,8,11,14,17,20,23 * * *"
+  workflow_dispatch:         # permite ejecutarlo a mano ("Run workflow")
+
+permissions:
+  contents: write            # guardar historial y HTML en el repositorio
+  pages: write               # publicar en GitHub Pages
+  id-token: write
+
+concurrency:
+  group: monitor-fen
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    env:
+      TZ: America/Lima
+      MONITOR_HTML: docs/index.html
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar monitor
+        run: python monitor_fen.py
+
+      - name: Guardar historial y HTML en el repositorio
+        run: |
+          git config user.name "monitor-fen-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs historial resumen_teams.txt
+          git commit -m "Monitor FEN $(date +'%Y-%m-%d %H:%M')" || echo "Sin cambios"
+          git pull --rebase --autostash
+          git push
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
