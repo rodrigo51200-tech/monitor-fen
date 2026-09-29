@@ -13,6 +13,8 @@ Instalaciones sobre Nivel 1 (4):
 Resto de instalaciones (37): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Piura Centro: 29.0° (-4.6°)
+• FLB Piura Mall Open: 29.0° (-4.6°)
 • FLB Exp Huaraz: 26.0° (+7.5°)
 • FLB Iquitos: 35.0° (+5.1°)
 • FLB Pucallpa: 34.0° (+3.3°)
