@@ -42,7 +42,7 @@ ARCH_TIENDAS = CARPETA / "zonas_tiendas.csv"
 ARCH_HTML = Path(os.environ.get("MONITOR_HTML") or CARPETA / "monitor_fen.html")   # en GitHub: docs/index.html
 REPO_GITHUB = os.environ.get("GITHUB_REPOSITORY", "")      # lo define GitHub Actions (usuario/repositorio)
 URL_ACTUALIZAR = os.environ.get("MONITOR_URL_ACTUALIZAR", "")  # opcional: servicio que dispara la actualizacion
-HORAS_AUTOMATICAS = "cada 3 horas (00, 03, 06, 09, 12, 15, 18 y 21 h)"   # informativo, igual que el workflow
+HORAS_AUTOMATICAS = "cada hora (a los :17 min)"   # informativo, igual que el workflow
 ARCH_RESUMEN = CARPETA / "resumen_teams.txt"
 CARPETA_HIST = CARPETA / "historial"
 
@@ -80,6 +80,15 @@ DIF_ANOMALA = 3.0              # diferencia (C) frente al promedio 15 dias para 
 
 ARCH_CACHE_ESTACIONAL = CARPETA / "cache" / "senamhi_estacional.json"  # ultimo pronostico estacional SENAMHI leido
 NASA_POWER = "https://power.larc.nasa.gov/api/temporal/daily/point"
+# Reportes meteorologicos horarios (METAR) de aeropuertos peruanos (CORPAC), publicados por NOAA
+METAR_API = "https://aviationweather.gov/api/data/metar"
+AEROPUERTOS_PE = {"SPJC": "Lima – Jorge Chávez", "SPUR": "Piura", "SPHI": "Chiclayo", "SPRU": "Trujillo",
+                  "SPEO": "Chimbote", "SPJR": "Cajamarca", "SPHZ": "Huaraz (Anta)", "SPNC": "Huánuco",
+                  "SPCL": "Pucallpa", "SPST": "Tarapoto", "SPQT": "Iquitos", "SPZO": "Cusco", "SPQU": "Arequipa",
+                  "SPHO": "Ayacucho", "SPTN": "Tacna", "SPSO": "Pisco", "SPJJ": "Jauja", "SPJL": "Juliaca",
+                  "SPTU": "Puerto Maldonado", "SPME": "Tumbes"}
+DIST_MAX_AEROPUERTO_KM = 60    # aeropuerto mas lejano aceptado para la temperatura de una tienda
+LLUVIA_METAR = ("RA", "DZ", "TS", "SH", "GR")   # codigos METAR de lluvia, llovizna, tormenta, chubasco, granizo
 HORAS_BOLETIN_AVISO = 72       # boletines INDECI de aviso meteorologico a considerar
 ARCH_MANUALES = CARPETA / "alertas_manuales.csv"   # Nivel 4 u otros ajustes manuales
 
@@ -446,6 +455,33 @@ def fuente_avisos_indeci() -> list[dict]:
     return out
 
 
+def fuente_corpac() -> dict:
+    """Ultimas 30 h de reportes METAR de aeropuertos peruanos (CORPAC) via NOAA Aviation Weather Center."""
+    r = http_get(METAR_API, params={"ids": ",".join(AEROPUERTOS_PE), "format": "json", "hours": 30},
+                 headers=HEADERS, timeout=TIMEOUT)
+    r.raise_for_status()
+    ahora = datetime.now().astimezone()
+    out = {}
+    for m in r.json():
+        icao, temp = m.get("icaoId"), m.get("temp")
+        if icao not in AEROPUERTOS_PE or temp is None or not m.get("reportTime"):
+            continue
+        ts = datetime.fromisoformat(m["reportTime"].replace("Z", "+00:00")).astimezone()
+        est = out.setdefault(icao, {"nombre": AEROPUERTOS_PE[icao], "lat": m.get("lat"), "lon": m.get("lon"), "obs": []})
+        wx = str(m.get("wxString") or "")
+        est["obs"].append({"ts": ts, "temp": float(temp), "wx": wx,
+                           "lluvia": any(c in wx for c in LLUVIA_METAR), "raw": m.get("rawOb", "")})
+    for est in out.values():
+        est["obs"].sort(key=lambda o: o["ts"])
+        ult = est["obs"][-1]
+        u24 = [o for o in est["obs"] if (ahora - o["ts"]).total_seconds() <= 24 * 3600]
+        est.update({"ultima": ult, "tmax24": max(o["temp"] for o in u24) if u24 else None,
+                    "tmin24": min(o["temp"] for o in u24) if u24 else None,
+                    "lluvia_6h": [o for o in est["obs"] if o["lluvia"] and (ahora - o["ts"]).total_seconds() <= 6 * 3600],
+                    "serie": [o["temp"] for o in u24][-24:]})
+    return out
+
+
 def fuente_nasa_power(tiendas: pd.DataFrame) -> dict:
     """Respaldo de temperatura/lluvia diaria (NASA POWER) por punto de tienda: ultimos 20 dias."""
     fin = datetime.now()
@@ -701,8 +737,19 @@ def interpretar(r, enfen):
         lineas.append(("CENEPRED", "Escenario vigente: distrito con " + " y ".join(partes) + "."))
 
     # 2) Hoy
-    if r["tmax"] is not None:
-        t = (f"Último dato NASA ({r['fuente_temp'][6:-1]}): máxima {r['tmax']:.0f} °C" if r.get("fuente_temp", "").startswith("NASA")
+    if r.get("corpac"):
+        c = r["corpac"]
+        t = (f"{c['ahora']:.0f} °C a las {c['hora']} en el aeropuerto de {c['nombre'].split(' – ')[0]} (CORPAC); "
+             f"últimas 24 h: máxima {r['tmax']:.0f} °C, mínima {r['tmin']:.0f} °C")
+        if c["lluvia"]:
+            t += f". <b>Lluvia observada</b> (último reporte con lluvia: {c['lluvia_hora']})"
+        lineas.append(("Hoy", t + "."))
+        if r["tmax"] >= UMBRAL_CALOR:
+            claves.append("calor")
+        if r["tmin"] is not None and r["tmin"] <= UMBRAL_FRIO:
+            claves.append("frio")
+    elif r["tmax"] is not None:
+        t = (f"Referencia regional NASA ({r['fuente_temp'][6:-1]}): máxima {r['tmax']:.0f} °C" if r.get("fuente_temp", "").startswith("NASA")
              else f"Máxima {r['tmax']:.0f} °C")
         if r["tmin"] is not None:
             t += f", mínima {r['tmin']:.0f} °C"
@@ -867,8 +914,23 @@ def procesar(tiendas, datos):
                 r[f"serie_{var}"] = serie
                 r[f"prom_{var}"], r[f"tend_{var}"] = estadistica_serie(serie)
 
-        # Respaldo NASA POWER si no hay estacion SENAMHI
+        # Si no hay estacion SENAMHI: aeropuerto CORPAC cercano; si tampoco, respaldo NASA POWER
         r["fuente_temp"] = "SENAMHI" if r["tmax"] is not None else ""
+        r["corpac"] = None
+        if r["tmax"] is None and datos.get("corpac"):
+            cand = sorted(((haversine_km(t.lat, t.lon, a["lat"], a["lon"]), c, a) for c, a in datos["corpac"].items()
+                           if a.get("lat") is not None), key=lambda x: x[0])
+            if cand and cand[0][0] <= DIST_MAX_AEROPUERTO_KM and cand[0][2]["tmax24"] is not None:
+                dist, icao, a = cand[0]
+                r["tmax"], r["tmin"], r["prec"] = a["tmax24"], a["tmin24"], None
+                r["serie_tmax"], r["serie_tmin"] = a["serie"], []
+                r["prom_tmax"] = r["tend_tmax"] = r["prom_tmin"] = r["tend_tmin"] = None
+                hora = a["ultima"]["ts"].strftime("%H:%M")
+                r["corpac"] = {"icao": icao, "nombre": a["nombre"], "dist": dist, "ahora": a["ultima"]["temp"],
+                               "hora": hora, "lluvia": bool(a["lluvia_6h"]),
+                               "lluvia_hora": a["lluvia_6h"][-1]["ts"].strftime("%H:%M") if a["lluvia_6h"] else ""}
+                r["estacion"] = f"CORPAC · Aeropuerto {a['nombre']} ({dist:.0f} km), reporte {hora}"
+                r["fuente_temp"] = "CORPAC"
         nasa = datos.get("nasa", {}).get((t.lat_r, t.lon_r))
         if r["tmax"] is None and nasa:
             r["tmax"], r["tmin"], r["prec"] = nasa["tmax"][-1], nasa["tmin"][-1], nasa["prec"]
@@ -876,7 +938,8 @@ def procesar(tiendas, datos):
             for var in ("tmax", "tmin"):
                 r[f"prom_{var}"], r[f"tend_{var}"] = estadistica_serie(r[f"serie_{var}"])
             fch = f"{nasa['fecha'][6:8]}/{nasa['fecha'][4:6]}"
-            r["estacion"], r["fuente_temp"] = f"NASA POWER, dato del {fch} (respaldo)", f"NASA ({fch})"
+            r["estacion"] = f"NASA POWER, referencia regional (celda de ~50 km), dato del {fch}"
+            r["fuente_temp"] = f"NASA ({fch})"
 
         # Pronostico Tmin 10 dias
         p10 = datos["tmin10"].get((t.lat_r, t.lon_r), {})
@@ -1146,6 +1209,15 @@ def generar_html(filas, enfen, noaa, errores, escenarios=()):
             pmx = "—" if f.get("prom_tmax") is None else f"{f['prom_tmax']:.1f}°"
             pmn = "—" if f.get("prom_tmin") is None else f"{f['prom_tmin']:.1f}°"
             est_txt = f["estacion"] or f"sin estación a menos de {DIST_MAX_ESTACION_KM} km"
+            c = f.get("corpac")
+            if c:
+                metrica3 = (f'<div><small>Ahora ({c["hora"]})</small><strong>{c["ahora"]:.0f}°</strong>'
+                            + ('<span class="delta sube">lluvia observada</span>' if c["lluvia"] else "") + "</div>")
+                etq_max, etq_min, etq_serie = "Máx 24 h", "Mín 24 h", "Temperatura horaria últimas 24 h"
+            else:
+                prec_txt = "—" if f["prec"] is None else f"{f['prec']:.1f}<em>mm</em>"
+                metrica3 = f"<div><small>Lluvia</small><strong>{prec_txt}</strong></div>"
+                etq_max, etq_min, etq_serie = "T. máx", "T. mín", "T. máx últimos 15 registros"
             tarjetas.append(f"""
       <article class="card sem-{f['semaforo']}" data-zona="{e(z)}">
         <header><div><h3>{e(f['tienda'])}</h3><p class="muted">{e(f['ciudad'])} · {e(f['distrito'].title())} · {e(f['cod_p'])}</p>
@@ -1153,9 +1225,9 @@ def generar_html(filas, enfen, noaa, errores, escenarios=()):
           <div class="badges"><span class="sem-badge">Nivel {f['nivel_plan']} · {e(NIVELES_PLAN[f['nivel_plan']]['nombre'].replace('Alerta ', ''))}</span>
           {'' if not f.get('cambio') else f'<span class="cambio {f["cambio"]}">{"▲ Subió" if f["cambio"] == "sube" else "▼ Bajó"} desde Nivel {f["nivel_anterior"]}</span>'}</div></header>
         <div class="metricas">
-          <div><small>T. máx</small><strong>{'—' if f['tmax'] is None else f"{f['tmax']:.1f}°"}</strong>{delta_html}</div>
-          <div><small>T. mín</small><strong>{'—' if f['tmin'] is None else f"{f['tmin']:.1f}°"}</strong></div>
-          <div><small>Lluvia</small><strong>{'—' if f['prec'] is None else f"{f['prec']:.1f}<em>mm</em>"}</strong></div>
+          <div><small>{etq_max}</small><strong>{'—' if f['tmax'] is None else f"{f['tmax']:.1f}°"}</strong>{delta_html}</div>
+          <div><small>{etq_min}</small><strong>{'—' if f['tmin'] is None else f"{f['tmin']:.1f}°"}</strong></div>
+          {metrica3}
         </div>
         <div class="interp"><dl>{"".join(f"<dt>{e(k)}</dt><dd>{v}</dd>" for k, v in it['lineas'])}</dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel {f['nivel_plan']}</p><ul>{acciones}</ul></div>
@@ -1166,7 +1238,7 @@ def generar_html(filas, enfen, noaa, errores, escenarios=()):
         </div>
         <details><summary>Ver detalle técnico</summary>
           <p class="muted est">Estación SENAMHI: {e(est_txt)}</p>
-          <div class="fila"><span>T. máx últimos 15 registros</span>{sparkline(f['serie_tmax'])}</div>
+          <div class="fila"><span>{etq_serie}</span>{sparkline(f['serie_tmax'])}</div>
           <div class="fila"><span>T. mín últimos 15 registros</span>{sparkline(f['serie_tmin'])}</div>
           <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>{pmx} / {pmn}</span></div>
           <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span>{sparkline(f['tmin10'])}</div>
@@ -1408,10 +1480,19 @@ def main():
         datos["tmin10"], err = seguro("SENAMHI pronóstico Tmin 10 días", lambda: fuente_tmin_10d(tiendas), {})
         if err: errores["SENAMHI Tmin 10d"] = err
     sin_temp = all(d is None or d.empty for d in [datos["estaciones"].get(("tmax", 1))])
-    datos["nasa"] = {}
+    datos["nasa"], datos["corpac"] = {}, {}
     if sin_temp:
-        datos["nasa"], err = seguro("NASA POWER (respaldo de temperatura)", lambda: fuente_nasa_power(tiendas), {})
-        if err: errores["NASA POWER"] = err
+        datos["corpac"], err = seguro("CORPAC aeropuertos (temperatura horaria)", fuente_corpac, {})
+        if err: errores["CORPAC"] = err
+        log(f"     CORPAC: {len(datos['corpac'])} aeropuertos con reporte")
+        # NASA solo para las tiendas lejos de un aeropuerto con dato
+        con_aerop = {c for c, a in datos["corpac"].items() if a.get("lat") is not None}
+        lejos = tiendas[[min((haversine_km(t.lat, t.lon, datos["corpac"][c]["lat"], datos["corpac"][c]["lon"])
+                              for c in con_aerop), default=9e9) > DIST_MAX_AEROPUERTO_KM for t in tiendas.itertuples()]]
+        if not lejos.empty:
+            datos["nasa"], err = seguro(f"NASA POWER (respaldo para {len(lejos)} instalaciones lejos de aeropuertos)",
+                                        lambda: fuente_nasa_power(lejos), {})
+            if err: errores["NASA POWER"] = err
     datos["cache_estacional"] = leer_cache_estacional()
 
     datos["manuales"], err = seguro("Alertas manuales", leer_manuales, {})
