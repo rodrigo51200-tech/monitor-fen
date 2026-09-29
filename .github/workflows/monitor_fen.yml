@@ -18,7 +18,7 @@ concurrency:
 jobs:
   actualizar:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
@@ -26,6 +26,7 @@ jobs:
       TZ: America/Lima
       MONITOR_HTML: docs/index.html
       PYTHONIOENCODING: utf-8
+      PYTHONUNBUFFERED: "1"
     steps:
       - uses: actions/checkout@v4
 
@@ -38,7 +39,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Ejecutar monitor
-        run: python monitor_fen.py
+        run: python -u monitor_fen.py
+        timeout-minutes: 15
 
       - name: Guardar historial y HTML en el repositorio
         run: |

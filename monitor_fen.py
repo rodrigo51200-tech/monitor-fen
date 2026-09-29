@@ -70,7 +70,7 @@ RIESGO_SIGRID_ORDEN = {"MB": 0, "B": 1, "M": 2, "A": 3, "MA": 4}
 
 HEADERS = {"User-Agent": "MonitorFEN-SagaFalabella/1.0 (uso interno, consulta diaria)"}
 HEADERS_WEB = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) MonitorFEN-SagaFalabella/1.0"}
-TIMEOUT = 120
+TIMEOUT = (10, 45)             # (conexion, lectura) en segundos por consulta
 DIST_MAX_ESTACION_KM = 60      # estacion SENAMHI mas lejana aceptada por tienda
 DIAS_SERIE = 15                # registros recientes SENAMHI (N=1..15) para tendencia y promedio
 MIN_DIAS_PROYECCION = 14       # dias de historial propio necesarios para la estimacion a 3 dias
@@ -175,9 +175,27 @@ HOY = datetime.now()
 LOG: list[str] = []
 
 
+_HOSTS_CAIDOS: set[str] = set()
+
+
+def http_get(url, **kw):
+    """GET con 'corte rapido': si un servidor no responde (timeout / conexion rechazada),
+    las siguientes consultas a ese mismo servidor en esta corrida se omiten de inmediato."""
+    from urllib.parse import urlparse
+    host = urlparse(url).netloc
+    if host in _HOSTS_CAIDOS:
+        raise ConnectionError(f"{host} no respondió antes en esta corrida; se omite")
+    try:
+        return requests.get(url, **kw)
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as err:
+        _HOSTS_CAIDOS.add(host)
+        log(f"     ! {host} no responde ({type(err).__name__}); se omiten sus demás consultas")
+        raise
+
+
 def log(msg: str):
     linea = f"{datetime.now():%Y-%m-%d %H:%M:%S} | {msg}"
-    print(linea)
+    print(linea, flush=True)
     LOG.append(linea)
 
 
@@ -260,7 +278,7 @@ def wfs(capa: str, cql: str | None = None, maximo: int | None = None) -> list[di
         params["CQL_FILTER"] = cql
     if maximo:
         params["maxFeatures"] = maximo
-    r = requests.get(WFS, params=params, headers=HEADERS, timeout=TIMEOUT)
+    r = http_get(WFS, params=params, headers=HEADERS, timeout=TIMEOUT)
     r.raise_for_status()
     return r.json().get("features", [])
 
@@ -281,7 +299,7 @@ def seguro(nombre: str, funcion, por_defecto):
 # Fuentes
 # ----------------------------------------------------------------------------
 def fuente_enfen() -> dict:
-    r = requests.get(ENFEN_HOME, headers=HEADERS, timeout=TIMEOUT)
+    r = http_get(ENFEN_HOME, headers=HEADERS, timeout=TIMEOUT)
     r.raise_for_status()
     txt = r.text
     info = {"comunicado": "", "fecha": "", "url_pdf": "", "estado": "", "url_noticia": "",
@@ -303,7 +321,7 @@ def fuente_enfen() -> dict:
     if info["url_pdf"]:
         try:
             from pypdf import PdfReader
-            pdf = requests.get(info["url_pdf"], headers=HEADERS, timeout=TIMEOUT)
+            pdf = http_get(info["url_pdf"], headers=HEADERS, timeout=TIMEOUT)
             if pdf.content[:4] == b"%PDF":
                 texto = " ".join((p.extract_text() or "") for p in PdfReader(io.BytesIO(pdf.content)).pages[:2])
                 texto = re.sub(r"\s+", " ", texto)
@@ -324,7 +342,7 @@ def fuente_enfen() -> dict:
 
 
 def fuente_noaa() -> pd.DataFrame:
-    r = requests.get(NOAA_SST, headers=HEADERS, timeout=TIMEOUT)
+    r = http_get(NOAA_SST, headers=HEADERS, timeout=TIMEOUT)
     r.raise_for_status()
     filas = []
     for linea in r.text.splitlines():
@@ -374,7 +392,7 @@ def fuente_indeci() -> list[dict]:
     limite = datetime.now().astimezone().timestamp() - HORAS_INDECI * 3600
     out, vistos = [], set()
     for pagina in range(1, MAX_PAGINAS_INDECI + 1):
-        r = requests.get(INDECI_FEED.format(pagina=pagina), headers=HEADERS_WEB, timeout=TIMEOUT)
+        r = http_get(INDECI_FEED.format(pagina=pagina), headers=HEADERS_WEB, timeout=TIMEOUT)
         if r.status_code != 200:
             break
         items = re.findall(r"<item>(.*?)</item>", r.text, re.S)
@@ -414,7 +432,7 @@ def fuente_indeci() -> list[dict]:
 def fuente_sigrid() -> dict:
     """Escenarios de riesgo por lluvias CENEPRED/SIGRID vigentes (con base en avisos SENAMHI).
     Devuelve riesgo por movimientos en masa y exposicion a inundaciones por (dep, prov, distrito)."""
-    r = requests.get(f"{SIGRID}/escenario-aviso/data-lluvia", headers=HEADERS_WEB, timeout=TIMEOUT)
+    r = http_get(f"{SIGRID}/escenario-aviso/data-lluvia", headers=HEADERS_WEB, timeout=TIMEOUT)
     r.raise_for_status()
     filas = r.json()
     filas = filas.get("data", []) if isinstance(filas, dict) else filas
@@ -433,7 +451,7 @@ def fuente_sigrid() -> dict:
         res["escenarios"].append({"id": esc_id, "ambito": f.get("ambito", ""),
                                   "inicio": str(f.get("inicio_vigencia", ""))[:10], "fin": str(f.get("fin_vigencia", ""))[:10],
                                   "url": f"{SIGRID}/storage/escenario_aviso/{esc_id}_tabla.xlsx"})
-        x = requests.get(f"{SIGRID}/storage/escenario_aviso/{esc_id}_tabla.xlsx", headers=HEADERS_WEB, timeout=TIMEOUT)
+        x = http_get(f"{SIGRID}/storage/escenario_aviso/{esc_id}_tabla.xlsx", headers=HEADERS_WEB, timeout=TIMEOUT)
         if x.status_code != 200 or x.content[:2] != b"PK":
             continue
         libro = pd.read_excel(io.BytesIO(x.content), sheet_name=None, header=None)
