@@ -1,95 +1,149 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Monitor FEN Tiendas</title>
+<title>Monitor FEN · Falabella Retail Perú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--tx:#1b1f24;--mut:#5f6b7a;--bd:#e3e7ec;--acc:#2f6f3e;
---rojo:#c00000;--ambar:#e07b00;--amar:#e0a800;--verde:#4f8f2f;--azul:#1f5fa8;--negro:#111;}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#12151a;--card:#1b2027;--tx:#e8ecf1;--mut:#9aa6b4;--bd:#2c333d;--acc:#7fc48f;
---rojo:#ef6b6b;--ambar:#f5a142;--amar:#e3c84a;--verde:#6cc070;--azul:#6ea8ff;--negro:#e8ecf1;}}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 "Segoe UI",system-ui,sans-serif}
-.wrap{max-width:1280px;margin:0 auto;padding:20px 16px 40px}
-h1{font-size:22px;margin:0} h2{font-size:17px;margin:28px 0 12px} h3{font-size:15px;margin:0}
-.muted{color:var(--mut)} a{color:var(--azul)}
-.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.kpi{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px 16px}
-.kpi small{color:var(--mut);display:block} .kpi strong{font-size:22px;display:block;margin:2px 0}
-.kpi.fen{border-left:5px solid var(--mut)} .kpi.fen.rojo{border-left-color:var(--rojo)} .kpi.fen.amarillo{border-left-color:var(--amar)}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:20px 0 4px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:2}
-.tab{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:20px;padding:6px 12px;cursor:pointer;font:inherit;position:relative}
-.tab span{color:var(--mut);margin-left:4px} .tab.activo{background:var(--tx);color:var(--bg)} .tab.activo span{color:inherit;opacity:.7}
+:root{--fala:#aad500;--fala-osc:#5c7a00;--fala-suave:#f3f9dd;--bg:#f5f6f4;--card:#fff;--tx:#333a36;--mut:#6b736e;--bd:#e3e6e1;
+--rojo:#c00000;--ambar:#e07b00;--amar:#ffc000;--verde:#70ad47;--azul:#1f5fa8;--negro:#111;}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 Lato,"Segoe UI",system-ui,sans-serif}
+a{color:var(--fala-osc);font-weight:700}
+.muted{color:var(--mut)} .small{font-size:11.5px}
+/* ---------- cabecera ---------- */
+.barra{background:#fff;border-bottom:4px solid var(--fala);position:sticky;top:0;z-index:5;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.barra .in{max-width:1280px;margin:0 auto;padding:12px 16px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.marca{display:flex;align-items:center;gap:12px;flex:1;min-width:260px}
+.logo{width:46px;height:46px;border-radius:10px;object-fit:contain;animation:entrada .9s cubic-bezier(.34,1.56,.64,1) both, brillo 6s ease-in-out 1.2s infinite;transform-origin:50% 60%}
+.logo:hover{animation:giro .8s ease}
+@keyframes entrada{0%{opacity:0;transform:translateY(-18px) scale(.6) rotate(-12deg)}100%{opacity:1;transform:none}}
+@keyframes brillo{0%,85%,100%{filter:none;transform:none}90%{filter:drop-shadow(0 0 8px var(--fala));transform:scale(1.08) rotate(-4deg)}95%{transform:scale(1) rotate(3deg)}}
+@keyframes giro{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+@media (prefers-reduced-motion:reduce){.logo{animation:none}}
+.marca h1{font-size:20px;font-weight:900;margin:0;line-height:1.2} .marca h1 span{color:var(--fala-osc)}
+.marca p{margin:2px 0 0;font-size:12px;color:var(--mut)}
+.act{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.btn{display:inline-block;font:700 13px Lato,sans-serif;text-decoration:none;padding:8px 16px;border-radius:22px;background:var(--fala);color:#1d2a00;border:0;cursor:pointer}
+.btn:hover{filter:brightness(.95)} .btn.sec{background:#fff;color:var(--fala-osc);border:1.5px solid var(--fala)}
+.vistas{max-width:1280px;margin:10px auto 0;padding:0 16px;display:flex;gap:4px;width:100%}
+.vista{background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px;font:700 14px Lato,sans-serif;color:var(--mut);cursor:pointer}
+.vista.activo{color:var(--tx);border-bottom-color:var(--fala-osc)}
+.wrap{max-width:1280px;margin:0 auto;padding:18px 16px 40px}
+section.panel{display:none} section.panel.activo{display:block;animation:aparece .35s ease}
+@keyframes aparece{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2{font-size:18px;font-weight:900;margin:26px 0 10px} h2 small{font-weight:400;color:var(--mut);font-size:12.5px;margin-left:6px}
+/* ---------- resumen ---------- */
+.estado{display:grid;grid-template-columns:2fr 1fr 1.4fr 1.4fr;gap:12px}
+.caja{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px}
+.caja small{color:var(--mut);display:block;font-size:12px} .caja strong{display:block;font-size:20px;font-weight:900;margin:2px 0}
+.caja.fen{border-left:6px solid var(--mut)} .caja.fen.rojo{border-left-color:var(--rojo)} .caja.fen.amarillo{border-left-color:var(--amar)}
+.explica{font-size:12px;color:var(--mut);margin:6px 0 0}
+.niveles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
+.nv{border-radius:10px;padding:8px 4px;text-align:center;font-size:22px;font-weight:900} .nv em{display:block;font-size:10.5px;font-style:normal;font-weight:700}
+.nv.n1,.pill.n1{background:var(--verde);color:#fff} .nv.n2,.pill.n2{background:var(--amar);color:#111} .nv.n3,.pill.n3{background:var(--rojo);color:#fff} .nv.n4,.pill.n4{background:var(--negro);color:#fff}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tabla-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--bd);border-radius:14px}
+.tabla{width:100%;border-collapse:collapse;font-size:13px}
+.tabla th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--mut);background:var(--fala-suave);padding:10px 12px}
+.tabla td{padding:10px 12px;border-top:1px solid var(--bd);vertical-align:top}
+.fila-alerta{cursor:pointer;transition:background .15s} .fila-alerta:hover{background:var(--fala-suave)}
+.ver{color:var(--fala-osc);font-weight:700;white-space:nowrap}
+.vacio{background:var(--fala-suave);border:1px solid var(--fala);border-radius:14px;padding:16px;font-size:14px}
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.lista{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:8px;font-size:12.5px}
+.lista li{border-left:3px solid var(--fala);padding:2px 0 2px 10px}
+.cambio{font-size:11px;font-weight:700} .cambio.sube{color:var(--rojo)} .cambio.baja{color:var(--verde)}
+.aviso-sistema{background:#fff7e6;border:1px solid var(--ambar);border-radius:10px;padding:9px 12px;margin-top:12px;font-size:12.5px}
+/* ---------- por zona ---------- */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}
+.tab{border:1.5px solid var(--bd);background:#fff;color:var(--tx);border-radius:20px;padding:6px 13px;cursor:pointer;font:700 13px Lato,sans-serif}
+.tab span{color:var(--mut);margin-left:4px;font-weight:400} .tab.activo{background:var(--fala);border-color:var(--fala);color:#1d2a00}
 .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ambar);margin-left:6px;vertical-align:middle}
+.frec{font-size:12px;font-weight:400;color:var(--mut);margin-left:8px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
-.card{background:var(--card);border:1px solid var(--bd);border-top:4px solid var(--verde);border-radius:10px;padding:14px}
-.card.sem-rojo{border-top-color:var(--rojo)} .card.sem-amarillo{border-top-color:var(--amar)} .card.sem-negro{border-top-color:var(--negro);border-top-width:6px}
-.card header{display:flex;justify-content:space-between;gap:8px} .card header p{margin:2px 0 0;font-size:12px}
-.sem-badge{font-size:11px;font-weight:600;white-space:nowrap;padding:3px 8px;border-radius:12px;height:fit-content;background:var(--bd)}
-.sem-verde .sem-badge{background:var(--verde);color:#fff} .sem-rojo .sem-badge{background:var(--rojo);color:#fff} .sem-amarillo .sem-badge{background:var(--amar);color:#111} .sem-negro .sem-badge{background:#111;color:#fff;outline:1px solid var(--mut)}
+.card{background:var(--card);border:1px solid var(--bd);border-top:5px solid var(--verde);border-radius:14px;padding:14px;scroll-margin-top:140px}
+.card.sem-rojo{border-top-color:var(--rojo)} .card.sem-amarillo{border-top-color:var(--amar)} .card.sem-negro{border-top-color:var(--negro)}
+.card.resalta{animation:resalta 1.6s ease} @keyframes resalta{0%,60%{box-shadow:0 0 0 4px var(--fala)}100%{box-shadow:none}}
+.card header{display:flex;justify-content:space-between;gap:8px} .card h3{font-size:15px;margin:0;font-weight:900} .card header p{margin:2px 0 0;font-size:12px}
+.sem-badge{font-size:11px;font-weight:700;white-space:nowrap;padding:3px 9px;border-radius:12px;height:fit-content}
+.sem-verde .sem-badge{background:var(--verde);color:#fff} .sem-rojo .sem-badge{background:var(--rojo);color:#fff} .sem-amarillo .sem-badge{background:var(--amar);color:#111} .sem-negro .sem-badge{background:#111;color:#fff}
+.badges{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
 .tags{margin:4px 0 0!important;display:flex;gap:4px;flex-wrap:wrap}
-.riesgo,.tipo{font-size:10.5px;font-weight:600;padding:1px 7px;border-radius:9px;background:var(--bd);color:var(--tx)}
+.riesgo,.tipo{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:9px;background:var(--bd)}
 .r-crítico{background:#c00000;color:#fff} .r-alto{background:#ed7d31;color:#fff} .r-medio-alto{background:#ffc000;color:#111} .r-medio{background:#ffe699;color:#111} .r-bajo{background:#a9d08e;color:#111}
 .tipo{background:var(--azul);color:#fff}
-.niveles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
-.nv{border-radius:8px;padding:6px 4px;text-align:center;font-size:20px;font-weight:700} .nv em{display:block;font-size:10.5px;font-style:normal;font-weight:600}
-.nv.n1{background:#70ad47;color:#fff} .nv.n2{background:#ffc000;color:#111} .nv.n3{background:#c00000;color:#fff} .nv.n4{background:#111;color:#fff}
-.fase{font-size:16px!important} .frec{font-size:12px;font-weight:400;color:var(--mut);margin-left:8px}
 .metricas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 4px}
-.metricas small{color:var(--mut);display:block;font-size:11px} .metricas strong{font-size:20px} .metricas em{font-size:11px;font-style:normal;color:var(--mut);margin-left:2px}
+.metricas small{color:var(--mut);display:block;font-size:11px} .metricas strong{font-size:20px;font-weight:900} .metricas em{font-size:11px;font-style:normal;color:var(--mut);margin-left:2px}
 .delta{display:block;font-size:11px;color:var(--mut)} .delta.sube{color:var(--rojo)} .delta.baja{color:var(--azul)}
-.est{font-size:11px;margin:0 0 8px}
-.fila{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--bd);padding:6px 0;font-size:12px}
-.fila>span:first-child{color:var(--mut)}
-.spark{vertical-align:middle} .spark polyline{fill:none;stroke:var(--azul);stroke-width:1.8} .spark circle{fill:var(--azul)}
-.spark-rango{font-size:11px;color:var(--mut);margin-left:6px}
-.chips{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
-.chip{font-size:11px;padding:2px 7px;border-radius:10px;background:var(--bd)}
-.esc-sup{background:color-mix(in srgb,var(--rojo) 18%,transparent);color:var(--rojo)}
-.esc-inf{background:color-mix(in srgb,var(--azul) 18%,transparent);color:var(--azul)}
-.avisos{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:6px}
-.avisos li{font-size:12px;border-left:3px solid var(--amar);padding:4px 8px;background:color-mix(in srgb,var(--bd) 40%,transparent);border-radius:0 6px 6px 0}
-.avisos li.nv3,.avisos li.nv4{border-left-color:var(--rojo)} .avisos li.nv2{border-left-color:var(--ambar)}
-.avisos li span{color:var(--mut)}
-.interp{margin:10px 0 8px;padding:10px 12px;border-radius:8px;background:color-mix(in srgb,var(--azul) 7%,transparent);font-size:13px}
-.interp dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 10px;margin:0} .interp dt{font-weight:600;font-size:12px;color:var(--mut)} .interp dd{margin:0} .interp .qh{margin-top:8px;font-weight:600;font-size:12px} .interp ul{margin:4px 0 0;padding-left:18px;font-size:12px}
-.botones{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
-.btn{font-size:12px;text-decoration:none;padding:5px 10px;border-radius:6px;background:var(--azul);color:#fff}
-.btn.sec{background:transparent;color:var(--azul);border:1px solid var(--azul)}
+.interp{margin:10px 0 8px;padding:10px 12px;border-radius:10px;background:var(--fala-suave);font-size:13px}
+.interp dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 10px;margin:0} .interp dt{font-weight:700;font-size:12px;color:var(--fala-osc)} .interp dd{margin:0}
+.interp .qh{margin:8px 0 0;font-weight:700;font-size:12px} .interp ul{margin:4px 0 0;padding-left:18px;font-size:12px}
+.botones{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px} .botones .btn{font-size:12px;padding:5px 11px}
 details{margin-top:6px;border-top:1px solid var(--bd);padding-top:6px} summary{cursor:pointer;font-size:12px;color:var(--mut)}
-.explica{font-size:12px;color:var(--mut);margin:6px 0 0}
-.escenarios{margin-top:12px;font-size:12.5px;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:8px 12px}
-.avisos li a{color:var(--azul)}
-.acciones-top{display:flex;flex-direction:column;align-items:flex-end;gap:4px} .small{font-size:11.5px}
-button.btn{border:0;cursor:pointer;font:inherit;font-size:13px;padding:7px 14px}
-.badges{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
-.cambio{font-size:10.5px;font-weight:700;white-space:nowrap} .cambio.sube{color:var(--rojo)} .cambio.baja{color:var(--verde)}
+.est{font-size:11px;margin:0 0 8px}
+.fila{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--bd);padding:6px 0;font-size:12px} .fila>span:first-child{color:var(--mut)}
+.spark{vertical-align:middle} .spark polyline{fill:none;stroke:var(--fala-osc);stroke-width:1.8} .spark circle{fill:var(--fala-osc)}
+.spark-rango{font-size:11px;color:var(--mut);margin-left:6px}
+.chips{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end} .chip{font-size:11px;padding:2px 7px;border-radius:10px;background:var(--bd)}
+.esc-sup{background:#fde8e8;color:var(--rojo)} .esc-inf{background:#e6eef9;color:var(--azul)}
+.avisos{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:6px}
+.avisos li{font-size:12px;border-left:3px solid var(--amar);padding:4px 8px;background:#fafaf8;border-radius:0 6px 6px 0}
+.avisos li.nv4,.avisos li.nv5{border-left-color:var(--rojo)} .avisos li.nv2{border-left-color:var(--verde)} .avisos li span{color:var(--mut)}
 .sin-aviso{font-size:12px;color:var(--verde);margin:8px 0 0}
-.aviso-sistema{background:color-mix(in srgb,var(--ambar) 15%,transparent);border:1px solid var(--ambar);border-radius:8px;padding:10px 12px;margin-top:12px;font-size:13px}
+/* ---------- guia ---------- */
+.guia{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}
+.nivel-card{background:var(--card);border:1px solid var(--bd);border-top:6px solid;border-radius:14px;padding:14px 16px}
+.nivel-card.n1{border-top-color:var(--verde)} .nivel-card.n2{border-top-color:var(--amar)} .nivel-card.n3{border-top-color:var(--rojo)} .nivel-card.n4{border-top-color:var(--negro)}
+.nivel-card header{display:flex;align-items:center;gap:8px} .nivel-card h3{margin:0;font-size:15px;font-weight:900}
+.nivel-card .que{font-weight:700;margin:10px 0} .nivel-card h4{font-size:12px;text-transform:uppercase;color:var(--fala-osc);margin:10px 0 4px;letter-spacing:.03em}
+.nivel-card ul{margin:0;padding-left:18px;font-size:12.5px}
+.glosario{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px;font-size:13px}
+.glosario dt{font-weight:900;color:var(--fala-osc)} .glosario dd{margin:0}
 footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(--bd);padding-top:12px}
-@media (max-width:520px){.metricas strong{font-size:17px}}
-</style></head><body><div class="wrap">
-<div class="top"><div><h1>Monitor FEN y clima · Tiendas Saga Falabella</h1>
-<p class="muted">Actualizado 29/09/2026 17:23 · Fuentes oficiales: ENFEN, SENAMHI, INDECI, CENEPRED, NOAA · Niveles y acciones según el Plan Integral FEN 2026/2027</p></div>
-<div class="acciones-top"><button class="btn" onclick="location.reload()">Ver última versión</button><span class="muted small">Se actualiza solo a las cada hora (a los :17 min) · <a href="https://github.com/rodrigo51200-tech/monitor-fen/actions/workflows/monitor_fen.yml" target="_blank" rel="noopener">forzar actualización</a></span></div></div>
-
-<div class="kpis">
-  <div class="kpi fen rojo"><small>Estado ENFEN</small><strong>Alerta de El Niño Costero</strong>
-    <p class="explica">ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.</p>
-    <span class="muted">Comunicado Oficial Enfen N° 17-2026 · 28 Septiembre, 2026</span><br>
-    <a href="https://enfen.imarpe.gob.pe/download/comunicado-oficial-enfen-n-17-2026/?wpdmdl=2161&amp;refresh=6abbdd8dbb59c1790696845" target="_blank" rel="noopener">Comunicado (PDF)</a>
-     · <a href="https://enfen.imarpe.gob.pe/download/informe-tecnico-enfen-ano-12-n16-al-11-de-setiembre-de-2026/?wpdmdl=2159&amp;refresh=6abbdd8dc56661790696845" target="_blank" rel="noopener">Informe técnico</a></div>
-  <div class="kpi"><small>Temperatura del mar frente a la costa norte (NOAA, Niño 1+2)</small><strong>+4.7 °C</strong><span class="muted">Semana 23/09/2026 · TSM 25.4 °C</span><div><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 3.3 max 4.7"><polyline points="0.0,25.0 10.0,18.7 20.0,20.3 30.0,17.1 40.0,14.0 50.0,12.4 60.0,14.0 70.0,10.9 80.0,7.7 90.0,6.1 100.0,4.6 110.0,3.0" /><circle cx="110.0" cy="3.0" r="2.5"/></svg><span class="spark-rango">3–5°</span></div>
-    <p class="explica">Diferencia frente a lo normal. Por encima de +1 °C se considera mar cálido, lo que favorece calor y lluvias en la costa norte.</p></div>
-  <div class="kpi"><small>Instalaciones por nivel del Plan FEN</small>
-    <div class="niveles"><span class="nv n1">37<em>Verde</em></span><span class="nv n2">4<em>Amarilla</em></span><span class="nv n3">0<em>Roja</em></span><span class="nv n4">0<em>Negra</em></span></div>
-    <p class="explica">de 41 instalaciones (tiendas, CD y oficinas)</p></div>
-  <div class="kpi"><small>Calendario corporativo FEN</small><strong class="fase">Fase 2 · Mitigación (julio – setiembre)</strong><p class="explica">Implementar capex, barreras de contención, probar bombas, verificar grupos electrógenos y UPS, comunicaciones cruzadas y simulacro de brigadas con el mall.</p></div>
+@media (max-width:900px){.estado,.tres{grid-template-columns:1fr 1fr}}
+@media (max-width:700px){.barra{position:static} .tabla thead{display:none} .tabla,.tabla tbody,.tabla tr,.tabla td{display:block;width:100%}
+.tabla tr{border-top:1px solid var(--bd);padding:6px 0} .tabla td{border:0;padding:4px 14px} .tabla td.ver{text-align:right}}
+@media (max-width:560px){.estado,.tres{grid-template-columns:1fr} .act{align-items:flex-start} .marca h1{font-size:17px} .metricas strong{font-size:17px}}
+</style></head><body>
+<div class="barra"><div class="in">
+  <div class="marca"><img class="logo" src="logo.png" alt="" onerror="this.remove()">
+    <div><h1>Monitor FEN <span>·</span> Falabella Retail Perú</h1>
+    <p>Actualizado 29/09/2026 17:39 · ENFEN, SENAMHI, INDECI, CENEPRED, CORPAC, NOAA · Niveles del Plan Integral FEN 2026/2027</p></div></div>
+  <div class="act"><button class="btn" onclick="location.reload()">Ver última versión</button><span class="muted small">Se actualiza solo cada hora (a los :17 min) · <a href="https://github.com/rodrigo51200-tech/monitor-fen/actions/workflows/monitor_fen.yml" target="_blank" rel="noopener">forzar actualización</a></span></div>
 </div>
-<div class="aviso-sistema"><b>Fuentes no disponibles en esta corrida:</b> SENAMHI (IDESEP) — se muestran los datos que sí respondieron.</div>
-<div class="escenarios"><b>Escenarios de riesgo por lluvias CENEPRED vigentes:</b> <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1109_tabla.xlsx" target="_blank" rel="noopener">Costa Centro Y Sur (28/09 – 30/09)</a> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1110_tabla.xlsx" target="_blank" rel="noopener">Costa Norte Y Sierra (28/09 – 29/09)</a> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1111_tabla.xlsx" target="_blank" rel="noopener">Selva (30/09 – 02/10)</a> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1112_tabla.xlsx" target="_blank" rel="noopener">Sierra Y Costa Norte (30/09 – 01/10)</a></div>
+<nav class="vistas"><button class="vista activo" data-panel="resumen">Resumen</button><button class="vista" data-panel="zonas">Por zona</button><button class="vista" data-panel="guia">Guía de alertas</button></nav>
+</div>
 
-<nav class="tabs"><button class="tab activo" data-zona="todas">Todas <span>41</span></button><button class="tab" data-zona="Norte">Norte <span>6</span><i class="dot"></i></button><button class="tab" data-zona="Centro/Sur">Centro/Sur <span>9</span></button><button class="tab" data-zona="Oriente">Oriente <span>4</span><i class="dot"></i></button><button class="tab" data-zona="Lima Metropolitana">Lima Metropolitana <span>21</span></button><button class="tab" data-zona="Sur">Sur <span>1</span></button></nav>
-<section class="zona" data-zona="Norte"><h2>Zona Norte <span class="frec">Reporte semanal</span></h2><div class="grid">
-      <article class="card sem-amarillo" data-zona="Norte">
+<div class="wrap">
+<section class="panel activo" id="resumen">
+  <div class="estado">
+    <div class="caja fen rojo"><small>Estado ENFEN</small><strong>Alerta de El Niño Costero</strong>
+      <p class="explica">ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.</p>
+      <span class="muted small">Comunicado Oficial Enfen N° 17-2026 · 28 Septiembre, 2026</span>
+       · <a class="small" href="https://enfen.imarpe.gob.pe/download/comunicado-oficial-enfen-n-17-2026/?wpdmdl=2161&amp;refresh=6abbdd8dbb59c1790696845" target="_blank" rel="noopener">comunicado</a></div>
+    <div class="caja"><small>Mar frente a la costa norte (Niño 1+2)</small><strong>+4.7 °C</strong><span class="muted small">Semana 23/09/2026 · TSM 25.4 °C</span><div><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 3.3 max 4.7"><polyline points="0.0,25.0 10.0,18.7 20.0,20.3 30.0,17.1 40.0,14.0 50.0,12.4 60.0,14.0 70.0,10.9 80.0,7.7 90.0,6.1 100.0,4.6 110.0,3.0" /><circle cx="110.0" cy="3.0" r="2.5"/></svg><span class="spark-rango">3–5°</span></div></div>
+    <div class="caja"><small>Instalaciones por nivel</small>
+      <div class="niveles"><span class="nv n1">37<em>Verde</em></span><span class="nv n2">4<em>Amarilla</em></span><span class="nv n3">0<em>Roja</em></span><span class="nv n4">0<em>Negra</em></span></div>
+      <p class="explica">de 41 instalaciones</p></div>
+    <div class="caja"><small>Calendario corporativo FEN</small><strong style="font-size:15px">Fase 2 · Mitigación (julio – setiembre)</strong><p class="explica">Implementar capex, barreras de contención, probar bombas, verificar grupos electrógenos y UPS, comunicaciones cruzadas y simulacro de brigadas con el mall.</p></div>
+  </div>
+  <div class="aviso-sistema">SENAMHI no es accesible desde el servidor: los avisos se toman de INDECI, el riesgo por distrito de CENEPRED y la temperatura de los aeropuertos CORPAC.</div>
+  <h2>Instalaciones con alerta <small>sobre Nivel 1 · clic para ver el detalle</small></h2>
+  <div class="tabla-wrap"><table class="tabla"><thead><tr><th>Instalación</th><th>Zona</th><th>Nivel</th><th>Por qué</th><th>Primera acción del plan</th><th></th></tr></thead><tbody><tr class="fila-alerta" data-ir="t-P002100901"><td><b>FLB Cajamarca</b><br><span class="muted small">Cajamarca · Riesgo Alto</span></td><td>Norte</td><td><span class="pill n2">Nivel 2 · Amarilla</span></td><td>Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.</td><td>Limpieza inmediata de drenajes y canaletas.</td><td class="ver">Ver ›</td></tr><tr class="fila-alerta" data-ir="t-P004101702"><td><b>FLB Iquitos</b><br><span class="muted small">Iquitos · Riesgo Alto</span></td><td>Oriente</td><td><span class="pill n2">Nivel 2 · Amarilla</span></td><td>Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.</td><td>Limpieza inmediata de drenajes y canaletas.</td><td class="ver">Ver ›</td></tr><tr class="fila-alerta" data-ir="t-P004101301"><td><b>FLB Pucallpa</b><br><span class="muted small">Pucallpa · Riesgo Alto</span></td><td>Oriente</td><td><span class="pill n2">Nivel 2 · Amarilla</span></td><td>Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.</td><td>Limpieza inmediata de drenajes y canaletas.</td><td class="ver">Ver ›</td></tr><tr class="fila-alerta" data-ir="t-P004103901"><td><b>FLB Tarapoto</b><br><span class="muted small">Tarapoto · Riesgo Alto</span></td><td>Oriente</td><td><span class="pill n2">Nivel 2 · Amarilla</span></td><td>Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.</td><td>Limpieza inmediata de drenajes y canaletas.</td><td class="ver">Ver ›</td></tr></tbody></table></div>
+  <h2>Cambios desde la última actualización</h2>
+  <ul class="lista caja"><li class="muted">Sin cambios de nivel desde la actualización anterior.</li></ul>
+  <h2>Situación oficial vigente</h2>
+  <div class="tres">
+    <div class="caja"><small>Avisos SENAMHI (vía INDECI)</small><ul class="lista"><li><b>Aviso N° 390</b> · Precipitaciones en la sierra y costa norte<br><span class=muted>Vigencia: Miércoles 30 de setiembre al jueves 01 de octubre</span><br><span class=muted>Cajamarca, Lambayeque, Piura, Tumbes</span> · <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n390-2026-del-28-09-2026/" target="_blank" rel="noopener">boletín</a></li><li><b>Aviso N° 389</b> · Descenso de temperatura diurna en la selva – undécimo friaje<br><span class=muted>Vigencia: Desde el miércoles 30 de setiembre al viernes 02 de octubre</span><br><span class=muted>Cusco, Huanuco, Junin, Loreto, Madre De Dios, Pasco, Puno, San Martin, Ucayali</span> · <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n389-2026-del-28-09-2026/" target="_blank" rel="noopener">boletín</a></li><li><b>Aviso N° 388</b> · Descenso de temperatura nocturna en la sierra centro y sur<br><span class=muted>Vigencia: Desde el miércoles 30 de setiembre al viernes 02 de octubre</span><br><span class=muted>Apurimac, Arequipa, Ayacucho, Cusco, Huancavelica, Ica, Junin, Lima, Moquegua, Pasco, Puno, Tacna</span> · <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">boletín</a></li><li><b>Aviso N° 387</b><br><span class=muted>Amazonas, Cusco, Huanuco, Junin, Loreto, Madre De Dios, Pasco, Puno, San Martin, Ucayali</span> · <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n387-2026-del-27-09-2026/" target="_blank" rel="noopener">boletín</a></li></ul></div>
+    <div class="caja"><small>Escenarios de riesgo CENEPRED</small><ul class="lista"><li><b>Costa Centro Y Sur</b><br><span class="muted">28/09 – 30/09</span> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1109_tabla.xlsx" target="_blank" rel="noopener">tabla oficial</a></li><li><b>Costa Norte Y Sierra</b><br><span class="muted">28/09 – 29/09</span> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1110_tabla.xlsx" target="_blank" rel="noopener">tabla oficial</a></li><li><b>Selva</b><br><span class="muted">30/09 – 02/10</span> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1111_tabla.xlsx" target="_blank" rel="noopener">tabla oficial</a></li><li><b>Sierra Y Costa Norte</b><br><span class="muted">30/09 – 01/10</span> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1112_tabla.xlsx" target="_blank" rel="noopener">tabla oficial</a></li></ul></div>
+    <div class="caja"><small>Emergencias INDECI por lluvias cerca de una instalación</small><ul class="lista"><li class="muted">Ninguna cerca de una instalación (últimas 48 h; 13 reporte(s) por lluvias en el país).</li></ul></div>
+  </div>
+</section>
+
+<section class="panel" id="zonas">
+  <nav class="tabs"><button class="tab activo" data-zona="todas">Todas <span>41</span></button><button class="tab" data-zona="Norte">Norte <span>6</span><i class="dot"></i></button><button class="tab" data-zona="Centro/Sur">Centro/Sur <span>9</span></button><button class="tab" data-zona="Oriente">Oriente <span>4</span><i class="dot"></i></button><button class="tab" data-zona="Lima Metropolitana">Lima Metropolitana <span>21</span></button><button class="tab" data-zona="Sur">Sur <span>1</span></button></nav>
+  <section class="zona" data-zona="Norte"><h2>Zona Norte <span class="frec">Reporte semanal</span></h2><div class="grid">
+      <article class="card sem-amarillo" id="t-P002100901" data-zona="Norte">
         <header><div><h3>FLB Cajamarca</h3><p class="muted">Cajamarca · Cajamarca · P002100901</p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 2 · Amarilla</span>
@@ -97,9 +151,9 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
         <div class="metricas">
           <div><small>Máx 24 h</small><strong>23.0°</strong><span class="delta baja">-0.2° vs ayer</span></div>
           <div><small>Mín 24 h</small><strong>12.0°</strong></div>
-          <div><small>Ahora (17:00)</small><strong>19°</strong><span class="delta sube">lluvia observada</span></div>
+          <div><small>Ahora (17:30)</small><strong>18°</strong><span class="delta sube">lluvia observada</span></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 2 · Alerta Amarilla</b>. Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.</dd><dt>SENAMHI</dt><dd>Aviso N° 390 (precipitaciones en la sierra y costa norte) para el departamento, vigencia: miércoles 30 de setiembre al jueves 01 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n390-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo alto por movimientos en masa y exposición muy alta a inundaciones.</dd><dt>Hoy</dt><dd>19 °C a las 17:00 en el aeropuerto de Cajamarca (CORPAC); últimas 24 h: máxima 23 °C, mínima 12 °C. <b>Lluvia observada</b> (último reporte con lluvia: 14:00).</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 2 · Alerta Amarilla</b>. Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.</dd><dt>SENAMHI</dt><dd>Aviso N° 390 (precipitaciones en la sierra y costa norte) para el departamento, vigencia: miércoles 30 de setiembre al jueves 01 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n390-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo alto por movimientos en masa y exposición muy alta a inundaciones.</dd><dt>Hoy</dt><dd>18 °C a las 17:30 en el aeropuerto de Cajamarca (CORPAC); últimas 24 h: máxima 23 °C, mínima 12 °C. <b>Lluvia observada</b> (último reporte con lluvia: 14:00).</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 2</p><ul><li>Limpieza inmediata de drenajes y canaletas.</li><li>Inspección extraordinaria de cubiertas.</li><li>Verificación de funcionamiento de bombas de achique.</li><li>Coordinación preventiva con centros comerciales.</li><li>Verificación de grupos electrógenos y UPS.</li><li>Activación parcial de brigadas.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Cajamarca%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Cajamarca</a>
@@ -107,8 +161,8 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
         </div>
         <details><summary>Ver detalle técnico</summary>
-          <p class="muted est">Estación SENAMHI: CORPAC · Aeropuerto Cajamarca (3 km), reporte 17:00</p>
-          <div class="fila"><span>Temperatura horaria últimas 24 h</span><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 12.0 max 23.0"><polyline points="0.0,25.0 4.8,25.0 9.6,25.0 14.3,23.0 19.1,21.0 23.9,15.0 28.7,13.0 33.5,11.0 38.3,9.0 43.0,7.0 47.8,5.0 52.6,5.0 57.4,5.0 62.2,3.0 67.0,5.0 71.7,9.0 76.5,11.0 81.3,13.0 86.1,13.0 90.9,11.0 95.7,11.0 100.4,11.0 105.2,7.0 110.0,11.0" /><circle cx="110.0" cy="11.0" r="2.5"/></svg><span class="spark-rango">12–23°</span></div>
+          <p class="muted est">Estación SENAMHI: CORPAC · Aeropuerto Cajamarca (3 km), reporte 17:30</p>
+          <div class="fila"><span>Temperatura horaria últimas 24 h</span><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 12.0 max 23.0"><polyline points="0.0,25.0 4.8,25.0 9.6,23.0 14.3,21.0 19.1,15.0 23.9,13.0 28.7,11.0 33.5,9.0 38.3,7.0 43.0,5.0 47.8,5.0 52.6,5.0 57.4,3.0 62.2,5.0 67.0,9.0 71.7,11.0 76.5,13.0 81.3,13.0 86.1,11.0 90.9,11.0 95.7,11.0 100.4,7.0 105.2,11.0 110.0,13.0" /><circle cx="110.0" cy="13.0" r="2.5"/></svg><span class="spark-rango">12–23°</span></div>
           <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
           <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
           <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
@@ -118,7 +172,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv3"><b>CENEPRED/SIGRID · movimientos en masa</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Alto</a></li><li class="nv3"><b>CENEPRED/SIGRID · exposición a inundaciones</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Muy alto</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Norte">
+      <article class="card sem-verde" id="t-P002100601" data-zona="Norte">
         <header><div><h3>FLB Chiclayo Mall</h3><p class="muted">Chiclayo · Chiclayo · P002100601</p>
           <p class="tags"><span class="riesgo r-crítico">Riesgo Crítico</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -147,7 +201,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Norte">
+      <article class="card sem-verde" id="t-P002102201" data-zona="Norte">
         <header><div><h3>FLB Piura Centro</h3><p class="muted">Piura · Piura · P002102201</p>
           <p class="tags"><span class="riesgo r-crítico">Riesgo Crítico</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -176,7 +230,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Norte">
+      <article class="card sem-verde" id="t-P002102301" data-zona="Norte">
         <header><div><h3>FLB Piura Mall Open</h3><p class="muted">Piura · Piura · P002102301</p>
           <p class="tags"><span class="riesgo r-crítico">Riesgo Crítico</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -205,7 +259,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Norte">
+      <article class="card sem-verde" id="t-P002100701" data-zona="Norte">
         <header><div><h3>FLB Trujillo CC</h3><p class="muted">Trujillo · Trujillo · P002100701</p>
           <p class="tags"><span class="riesgo r-crítico">Riesgo Crítico</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -224,7 +278,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
         </div>
         <details><summary>Ver detalle técnico</summary>
           <p class="muted est">Estación SENAMHI: CORPAC · Aeropuerto Trujillo (9 km), reporte 17:00</p>
-          <div class="fila"><span>Temperatura horaria últimas 24 h</span><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 23.0 max 25.0"><polyline points="0.0,14.0 4.8,14.0 9.6,14.0 14.3,14.0 19.1,14.0 23.9,14.0 28.7,25.0 33.5,25.0 38.3,25.0 43.0,25.0 47.8,25.0 52.6,25.0 57.4,25.0 62.2,25.0 67.0,25.0 71.7,14.0 76.5,14.0 81.3,14.0 86.1,3.0 90.9,3.0 95.7,3.0 100.4,14.0 105.2,14.0 110.0,14.0" /><circle cx="110.0" cy="14.0" r="2.5"/></svg><span class="spark-rango">23–25°</span></div>
+          <div class="fila"><span>Temperatura horaria últimas 24 h</span><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 23.0 max 25.0"><polyline points="0.0,14.0 5.0,14.0 10.0,14.0 15.0,14.0 20.0,14.0 25.0,25.0 30.0,25.0 35.0,25.0 40.0,25.0 45.0,25.0 50.0,25.0 55.0,25.0 60.0,25.0 65.0,25.0 70.0,14.0 75.0,14.0 80.0,14.0 85.0,3.0 90.0,3.0 95.0,3.0 100.0,14.0 105.0,14.0 110.0,14.0" /><circle cx="110.0" cy="14.0" r="2.5"/></svg><span class="spark-rango">23–25°</span></div>
           <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
           <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
           <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
@@ -234,7 +288,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Norte">
+      <article class="card sem-verde" id="t-P002100801" data-zona="Norte">
         <header><div><h3>FLB Chimbote</h3><p class="muted">Chimbote · Chimbote · P002100801</p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -244,7 +298,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>24.0°</strong></div>
           <div><small>Ahora (16:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para el departamento.</dd><dt>INDECI</dt><dd>2 reporte(s) por lluvias en el departamento, lejos de la tienda (Aija, Huayllan), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 16:00 en el aeropuerto de Chimbote (CORPAC); últimas 24 h: máxima 25 °C, mínima 24 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para el departamento.</dd><dt>INDECI</dt><dd>3 reporte(s) por lluvias en el departamento, lejos de la tienda (Aija, Huayllan), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 16:00 en el aeropuerto de Chimbote (CORPAC); últimas 24 h: máxima 25 °C, mínima 24 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Chimbote%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Chimbote</a>
@@ -260,10 +314,10 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
           <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
           <div class="fila"><span>Estimación propia (historial)</span><span class="muted">2/14 días acumulados</span></div>
-          <ul class="avisos"><li class="nv2"><b>INDECI · Informe de emergencia</b> · 28/09 19:06<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5303-11-4-2026-coen-indeci-0357-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2389 – 28/9/2026 / COEN – INDECI / 18:20 HORAS (Informe N.º 2) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLAN – ÁNCASH</a></li><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 16:26<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-12740-23-9-2026-coen-indeci-0135-horas-reporte-n-o-1-derrumbe-de-cerro-en-el-distrito-de-aija-ancash/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13083 – 28/9/2026 / COEN – INDECI / 15:40 HORAS (Reporte N.º 2) DERRUMBE DE CERRO EN EL DISTRITO DE AIJA – ÁNCASH</a></li></ul>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Informe de emergencia</b> · 29/09 17:29<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5397-13-4-2026-coen-indeci-1500-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2391 – 29/9/2026 / COEN-INDECI / 17:10 HORAS (Informe N.° 3) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLÁN – ÁNCASH</a></li><li class="nv2"><b>INDECI · Informe de emergencia</b> · 28/09 19:06<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5303-11-4-2026-coen-indeci-0357-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2389 – 28/9/2026 / COEN – INDECI / 18:20 HORAS (Informe N.º 2) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLAN – ÁNCASH</a></li><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 16:26<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-12740-23-9-2026-coen-indeci-0135-horas-reporte-n-o-1-derrumbe-de-cerro-en-el-distrito-de-aija-ancash/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13083 – 28/9/2026 / COEN – INDECI / 15:40 HORAS (Reporte N.º 2) DERRUMBE DE CERRO EN EL DISTRITO DE AIJA – ÁNCASH</a></li></ul>
         </details>
       </article></div></section><section class="zona" data-zona="Centro/Sur"><h2>Zona Centro/Sur <span class="frec">Reporte quincenal</span></h2><div class="grid">
-      <article class="card sem-verde" data-zona="Centro/Sur">
+      <article class="card sem-verde" id="t-P002101401" data-zona="Centro/Sur">
         <header><div><h3>FLB Canete MP</h3><p class="muted">Cañete · San Vicente De Cañete · P002101401</p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -273,7 +327,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>T. mín</small><strong>16.0°</strong></div>
           <div><small>Lluvia</small><strong>0.0<em>mm</em></strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Referencia regional NASA (26/09): máxima 25 °C, mínima 16 °C, lluvia 0.0 mm (normal para estas semanas).</dd><dt>Tendencia</dt><dd>Estable.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Referencia regional NASA (26/09): máxima 25 °C, mínima 16 °C, lluvia 0.0 mm (normal para estas semanas).</dd><dt>Tendencia</dt><dd>Estable.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Ca%C3%B1ete%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Cañete</a>
@@ -292,7 +346,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Centro/Sur">
+      <article class="card sem-verde" id="t-P002101201" data-zona="Centro/Sur">
         <header><div><h3>FLB Ica Mall</h3><p class="muted">Ica · Ica · P002101201</p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -302,7 +356,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>T. mín</small><strong>15.8°</strong></div>
           <div><small>Lluvia</small><strong>0.0<em>mm</em></strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>Referencia regional NASA (26/09): máxima 28 °C, mínima 16 °C (normal para estas semanas).</dd><dt>Tendencia</dt><dd>Estable.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (2 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>Referencia regional NASA (26/09): máxima 28 °C, mínima 16 °C (normal para estas semanas).</dd><dt>Tendencia</dt><dd>Estable.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Ica%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Ica</a>
@@ -321,7 +375,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Centro/Sur">
+      <article class="card sem-verde" id="t-P002102701" data-zona="Centro/Sur">
         <header><div><h3>FLB Arequipa (Cayma)</h3><p class="muted">Arequipa · Cayma · P002102701</p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -331,7 +385,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>14.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>18°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Ocoña), últimas 48 h.</dd><dt>Hoy</dt><dd>18 °C a las 17:00 en el aeropuerto de Arequipa (CORPAC); últimas 24 h: máxima 22 °C, mínima 14 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (2 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Ocoña), últimas 48 h.</dd><dt>Hoy</dt><dd>18 °C a las 17:00 en el aeropuerto de Arequipa (CORPAC); últimas 24 h: máxima 22 °C, mínima 14 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Arequipa%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Arequipa</a>
@@ -350,7 +404,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 27/09 22:01<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-10642-17-8-2026-coen-indeci-2235-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-ocona-arequipa/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.° 13025 – 27/9/2026 / COEN-INDECI / 21:23 HORAS (Reporte N.° 8) LLUVIAS INTENSAS EN EL DISTRITO DE OCOÑA – AREQUIPA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Centro/Sur">
+      <article class="card sem-verde" id="t-P002103201" data-zona="Centro/Sur">
         <header><div><h3>FLB Cusco</h3><p class="muted">Cusco · Cusco · P002103201</p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -358,9 +412,9 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
         <div class="metricas">
           <div><small>Máx 24 h</small><strong>19.0°</strong><span class="delta baja">-0.2° vs ayer</span></div>
           <div><small>Mín 24 h</small><strong>7.0°</strong></div>
-          <div><small>Ahora (17:00)</small><strong>16°</strong></div>
+          <div><small>Ahora (17:30)</small><strong>15°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 389 (descenso de temperatura diurna en la selva – undécimo friaje) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n389-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>16 °C a las 17:00 en el aeropuerto de Cusco (CORPAC); últimas 24 h: máxima 19 °C, mínima 7 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (4 aviso(s) de otro tipo, p. ej. N° 389 descenso de temperatura diurna en la selva – undécimo friaje).</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>15 °C a las 17:30 en el aeropuerto de Cusco (CORPAC); últimas 24 h: máxima 19 °C, mínima 7 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Cusco%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Cusco</a>
@@ -368,8 +422,8 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
         </div>
         <details><summary>Ver detalle técnico</summary>
-          <p class="muted est">Estación SENAMHI: CORPAC · Aeropuerto Cusco (3 km), reporte 17:00</p>
-          <div class="fila"><span>Temperatura horaria últimas 24 h</span><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 8.0 max 19.0"><polyline points="0.0,25.0 4.8,23.0 9.6,21.0 14.3,19.0 19.1,17.0 23.9,17.0 28.7,15.0 33.5,13.0 38.3,11.0 43.0,11.0 47.8,11.0 52.6,9.0 57.4,9.0 62.2,3.0 67.0,7.0 71.7,5.0 76.5,5.0 81.3,3.0 86.1,9.0 90.9,7.0 95.7,7.0 100.4,7.0 105.2,9.0 110.0,9.0" /><circle cx="110.0" cy="9.0" r="2.5"/></svg><span class="spark-rango">8–19°</span></div>
+          <p class="muted est">Estación SENAMHI: CORPAC · Aeropuerto Cusco (3 km), reporte 17:30</p>
+          <div class="fila"><span>Temperatura horaria últimas 24 h</span><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 9.0 max 19.0"><polyline points="0.0,25.0 4.8,22.8 9.6,20.6 14.3,18.4 19.1,18.4 23.9,16.2 28.7,14.0 33.5,11.8 38.3,11.8 43.0,11.8 47.8,9.6 52.6,9.6 57.4,3.0 62.2,7.4 67.0,5.2 71.7,5.2 76.5,3.0 81.3,9.6 86.1,7.4 90.9,7.4 95.7,7.4 100.4,9.6 105.2,9.6 110.0,11.8" /><circle cx="110.0" cy="11.8" r="2.5"/></svg><span class="spark-rango">9–19°</span></div>
           <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
           <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
           <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
@@ -379,7 +433,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Centro/Sur">
+      <article class="card sem-verde" id="t-P002103301" data-zona="Centro/Sur">
         <header><div><h3>FLB Exp Huaraz</h3><p class="muted">Huaraz · Huaraz · P002103301</p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -389,7 +443,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>11.0°</strong></div>
           <div><small>Ahora (16:00)</small><strong>23°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para el departamento.</dd><dt>INDECI</dt><dd>2 reporte(s) por lluvias en el departamento, lejos de la tienda (Aija, Huayllan), últimas 48 h.</dd><dt>Hoy</dt><dd>23 °C a las 16:00 en el aeropuerto de Huaraz (Anta) (CORPAC); últimas 24 h: máxima 26 °C, mínima 11 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para el departamento.</dd><dt>INDECI</dt><dd>3 reporte(s) por lluvias en el departamento, lejos de la tienda (Aija, Huayllan), últimas 48 h.</dd><dt>Hoy</dt><dd>23 °C a las 16:00 en el aeropuerto de Huaraz (Anta) (CORPAC); últimas 24 h: máxima 26 °C, mínima 11 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Huaraz%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Huaraz</a>
@@ -405,10 +459,10 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
           <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
           <div class="fila"><span>Estimación propia (historial)</span><span class="muted">2/14 días acumulados</span></div>
-          <ul class="avisos"><li class="nv2"><b>INDECI · Informe de emergencia</b> · 28/09 19:06<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5303-11-4-2026-coen-indeci-0357-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2389 – 28/9/2026 / COEN – INDECI / 18:20 HORAS (Informe N.º 2) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLAN – ÁNCASH</a></li><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 16:26<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-12740-23-9-2026-coen-indeci-0135-horas-reporte-n-o-1-derrumbe-de-cerro-en-el-distrito-de-aija-ancash/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13083 – 28/9/2026 / COEN – INDECI / 15:40 HORAS (Reporte N.º 2) DERRUMBE DE CERRO EN EL DISTRITO DE AIJA – ÁNCASH</a></li></ul>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Informe de emergencia</b> · 29/09 17:29<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5397-13-4-2026-coen-indeci-1500-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2391 – 29/9/2026 / COEN-INDECI / 17:10 HORAS (Informe N.° 3) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLÁN – ÁNCASH</a></li><li class="nv2"><b>INDECI · Informe de emergencia</b> · 28/09 19:06<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5303-11-4-2026-coen-indeci-0357-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2389 – 28/9/2026 / COEN – INDECI / 18:20 HORAS (Informe N.º 2) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLAN – ÁNCASH</a></li><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 16:26<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-12740-23-9-2026-coen-indeci-0135-horas-reporte-n-o-1-derrumbe-de-cerro-en-el-distrito-de-aija-ancash/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13083 – 28/9/2026 / COEN – INDECI / 15:40 HORAS (Reporte N.º 2) DERRUMBE DE CERRO EN EL DISTRITO DE AIJA – ÁNCASH</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Centro/Sur">
+      <article class="card sem-verde" id="t-P002103501" data-zona="Centro/Sur">
         <header><div><h3>FLB Exp.Ayacucho</h3><p class="muted">Ayacucho · Ayacucho · P002103501</p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -418,7 +472,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>11.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>18°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>18 °C a las 17:00 en el aeropuerto de Ayacucho (CORPAC); últimas 24 h: máxima 21 °C, mínima 11 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (2 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>18 °C a las 17:00 en el aeropuerto de Ayacucho (CORPAC); últimas 24 h: máxima 21 °C, mínima 11 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Ayacucho%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Ayacucho</a>
@@ -437,7 +491,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Centro/Sur">
+      <article class="card sem-verde" id="t-P002102101" data-zona="Centro/Sur">
         <header><div><h3>FLB Huancayo</h3><p class="muted">Huancayo · Huancayo · P002102101</p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -447,7 +501,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>8.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>15°</strong><span class="delta sube">lluvia observada</span></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 389 (descenso de temperatura diurna en la selva – undécimo friaje) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n389-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Vizcatan Del Ene), últimas 48 h.</dd><dt>Hoy</dt><dd>15 °C a las 17:00 en el aeropuerto de Jauja (CORPAC); últimas 24 h: máxima 20 °C, mínima 8 °C. <b>Lluvia observada</b> (último reporte con lluvia: 15:00).</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (4 aviso(s) de otro tipo, p. ej. N° 389 descenso de temperatura diurna en la selva – undécimo friaje).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Vizcatan Del Ene), últimas 48 h.</dd><dt>Hoy</dt><dd>15 °C a las 17:00 en el aeropuerto de Jauja (CORPAC); últimas 24 h: máxima 20 °C, mínima 8 °C. <b>Lluvia observada</b> (último reporte con lluvia: 15:00).</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Huancayo%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Huancayo</a>
@@ -466,7 +520,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 17:07<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-12321-15-9-2026-coen-indeci-1600-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-vizcatan-del-ene-junin/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13089 – 28/9/2026 / COEN – INDECI / 16:25 HORAS (Reporte N.° 1) LLUVIAS INTENSAS EN EL DISTRITO DE VIZCATÁN DEL ENE – JUNÍN</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Centro/Sur">
+      <article class="card sem-verde" id="t-P002101001" data-zona="Centro/Sur">
         <header><div><h3>FLB Porongoche</h3><p class="muted">Arequipa · Paucarpata · P002101001</p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -476,7 +530,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>14.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>18°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Ocoña), últimas 48 h.</dd><dt>Hoy</dt><dd>18 °C a las 17:00 en el aeropuerto de Arequipa (CORPAC); últimas 24 h: máxima 22 °C, mínima 14 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (2 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Ocoña), últimas 48 h.</dd><dt>Hoy</dt><dd>18 °C a las 17:00 en el aeropuerto de Arequipa (CORPAC); últimas 24 h: máxima 22 °C, mínima 14 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Arequipa%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Arequipa</a>
@@ -495,7 +549,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 27/09 22:01<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-10642-17-8-2026-coen-indeci-2235-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-ocona-arequipa/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.° 13025 – 27/9/2026 / COEN-INDECI / 21:23 HORAS (Reporte N.° 8) LLUVIAS INTENSAS EN EL DISTRITO DE OCOÑA – AREQUIPA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Centro/Sur">
+      <article class="card sem-verde" id="t-P002102901" data-zona="Centro/Sur">
         <header><div><h3>FLB Merced</h3><p class="muted">La Merced · Chanchamayo · P002102901</p>
           <p class="tags"><span class="riesgo r-sin-clasificar">Riesgo Sin clasificar</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -505,7 +559,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>T. mín</small><strong>5.0°</strong></div>
           <div><small>Lluvia</small><strong>2.2<em>mm</em></strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 389 (descenso de temperatura diurna en la selva – undécimo friaje) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n389-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Vizcatan Del Ene), últimas 48 h.</dd><dt>Hoy</dt><dd>Referencia regional NASA (26/09): máxima 17 °C, mínima 5 °C, lluvia 2.2 mm (normal para estas semanas).</dd><dt>Tendencia</dt><dd>Subiendo ≈2 °C por semana.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (4 aviso(s) de otro tipo, p. ej. N° 389 descenso de temperatura diurna en la selva – undécimo friaje).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Vizcatan Del Ene), últimas 48 h.</dd><dt>Hoy</dt><dd>Referencia regional NASA (26/09): máxima 17 °C, mínima 5 °C, lluvia 2.2 mm (normal para estas semanas).</dd><dt>Tendencia</dt><dd>Subiendo ≈2 °C por semana.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22La%20Merced%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de La Merced</a>
@@ -524,7 +578,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 17:07<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-12321-15-9-2026-coen-indeci-1600-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-vizcatan-del-ene-junin/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13089 – 28/9/2026 / COEN – INDECI / 16:25 HORAS (Reporte N.° 1) LLUVIAS INTENSAS EN EL DISTRITO DE VIZCATÁN DEL ENE – JUNÍN</a></li></ul>
         </details>
       </article></div></section><section class="zona" data-zona="Oriente"><h2>Zona Oriente <span class="frec">Reporte quincenal</span></h2><div class="grid">
-      <article class="card sem-amarillo" data-zona="Oriente">
+      <article class="card sem-amarillo" id="t-P004101702" data-zona="Oriente">
         <header><div><h3>FLB Iquitos</h3><p class="muted">Iquitos · Iquitos · P004101702</p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 2 · Amarilla</span>
@@ -534,7 +588,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>24.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>34°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 2 · Alerta Amarilla</b>. Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.</dd><dt>SENAMHI</dt><dd>Aviso N° 389 (descenso de temperatura diurna en la selva – undécimo friaje) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n389-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Ramon Castilla), últimas 48 h.</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo bajo por movimientos en masa y exposición muy alta a inundaciones.</dd><dt>Hoy</dt><dd>34 °C a las 17:00 en el aeropuerto de Iquitos (CORPAC); últimas 24 h: máxima 35 °C, mínima 24 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 2 · Alerta Amarilla</b>. Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (2 aviso(s) de otro tipo, p. ej. N° 389 descenso de temperatura diurna en la selva – undécimo friaje).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Ramon Castilla), últimas 48 h.</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo bajo por movimientos en masa y exposición muy alta a inundaciones.</dd><dt>Hoy</dt><dd>34 °C a las 17:00 en el aeropuerto de Iquitos (CORPAC); últimas 24 h: máxima 35 °C, mínima 24 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 2</p><ul><li>Limpieza inmediata de drenajes y canaletas.</li><li>Inspección extraordinaria de cubiertas.</li><li>Verificación de funcionamiento de bombas de achique.</li><li>Coordinación preventiva con centros comerciales.</li><li>Verificación de grupos electrógenos y UPS.</li><li>Activación parcial de brigadas.</li><li>Calor: revisar aire acondicionado / chillers y temperatura de cuartos eléctricos y de TI.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Iquitos%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Iquitos</a>
@@ -543,7 +597,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
         </div>
         <details><summary>Ver detalle técnico</summary>
           <p class="muted est">Estación SENAMHI: CORPAC · Aeropuerto Iquitos (7 km), reporte 17:00</p>
-          <div class="fila"><span>Temperatura horaria últimas 24 h</span><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 24.0 max 35.0"><polyline points="0.0,17.0 5.0,21.0 10.0,23.0 15.0,23.0 20.0,23.0 25.0,23.0 30.0,25.0 35.0,21.0 40.0,23.0 45.0,23.0 50.0,23.0 55.0,23.0 60.0,21.0 65.0,17.0 70.0,13.0 75.0,9.0 80.0,7.0 85.0,5.0 90.0,5.0 95.0,3.0 100.0,3.0 105.0,5.0 110.0,5.0" /><circle cx="110.0" cy="5.0" r="2.5"/></svg><span class="spark-rango">24–35°</span></div>
+          <div class="fila"><span>Temperatura horaria últimas 24 h</span><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 24.0 max 35.0"><polyline points="0.0,13.0 4.8,17.0 9.6,21.0 14.3,23.0 19.1,23.0 23.9,23.0 28.7,23.0 33.5,25.0 38.3,21.0 43.0,23.0 47.8,23.0 52.6,23.0 57.4,23.0 62.2,21.0 67.0,17.0 71.7,13.0 76.5,9.0 81.3,7.0 86.1,5.0 90.9,5.0 95.7,3.0 100.4,3.0 105.2,5.0 110.0,5.0" /><circle cx="110.0" cy="5.0" r="2.5"/></svg><span class="spark-rango">24–35°</span></div>
           <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
           <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
           <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
@@ -553,7 +607,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv3"><b>CENEPRED/SIGRID · exposición a inundaciones</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Muy alto</a></li><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 16:14<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0932-28-9-2026-coen-indeci-1510-horas-erosion-en-el-distrito-de-ramon-castilla-loreto/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0932 – 28/9/2026 / COEN-INDECI / 15:10 HORAS EROSIÓN EN EL DISTRITO DE RAMÓN CASTILLA – LORETO</a></li></ul>
         </details>
       </article>
-      <article class="card sem-amarillo" data-zona="Oriente">
+      <article class="card sem-amarillo" id="t-P004101301" data-zona="Oriente">
         <header><div><h3>FLB Pucallpa</h3><p class="muted">Pucallpa · Calleria · P004101301</p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 2 · Amarilla</span>
@@ -563,7 +617,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>24.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>32°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 2 · Alerta Amarilla</b>. Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.</dd><dt>SENAMHI</dt><dd>Aviso N° 389 (descenso de temperatura diurna en la selva – undécimo friaje) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n389-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo medio por movimientos en masa y exposición muy alta a inundaciones.</dd><dt>Hoy</dt><dd>32 °C a las 17:00 en el aeropuerto de Pucallpa (CORPAC); últimas 24 h: máxima 34 °C, mínima 24 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 2 · Alerta Amarilla</b>. Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (2 aviso(s) de otro tipo, p. ej. N° 389 descenso de temperatura diurna en la selva – undécimo friaje).</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo medio por movimientos en masa y exposición muy alta a inundaciones.</dd><dt>Hoy</dt><dd>32 °C a las 17:00 en el aeropuerto de Pucallpa (CORPAC); últimas 24 h: máxima 34 °C, mínima 24 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 2</p><ul><li>Limpieza inmediata de drenajes y canaletas.</li><li>Inspección extraordinaria de cubiertas.</li><li>Verificación de funcionamiento de bombas de achique.</li><li>Coordinación preventiva con centros comerciales.</li><li>Verificación de grupos electrógenos y UPS.</li><li>Activación parcial de brigadas.</li><li>Calor: revisar aire acondicionado / chillers y temperatura de cuartos eléctricos y de TI.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Pucallpa%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Pucallpa</a>
@@ -582,7 +636,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv3"><b>CENEPRED/SIGRID · exposición a inundaciones</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Muy alto</a></li></ul>
         </details>
       </article>
-      <article class="card sem-amarillo" data-zona="Oriente">
+      <article class="card sem-amarillo" id="t-P004103901" data-zona="Oriente">
         <header><div><h3>FLB Tarapoto</h3><p class="muted">Tarapoto · Tarapoto · P004103901</p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 2 · Amarilla</span>
@@ -592,7 +646,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>21.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>34°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 2 · Alerta Amarilla</b>. Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.</dd><dt>SENAMHI</dt><dd>Aviso N° 389 (descenso de temperatura diurna en la selva – undécimo friaje) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n389-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Tocache), últimas 48 h.</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo medio por movimientos en masa y exposición alta a inundaciones.</dd><dt>Hoy</dt><dd>34 °C a las 17:00 en el aeropuerto de Tarapoto (CORPAC); últimas 24 h: máxima 36 °C, mínima 21 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 2 · Alerta Amarilla</b>. Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (2 aviso(s) de otro tipo, p. ej. N° 389 descenso de temperatura diurna en la selva – undécimo friaje).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Tocache), últimas 48 h.</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo medio por movimientos en masa y exposición alta a inundaciones.</dd><dt>Hoy</dt><dd>34 °C a las 17:00 en el aeropuerto de Tarapoto (CORPAC); últimas 24 h: máxima 36 °C, mínima 21 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 2</p><ul><li>Limpieza inmediata de drenajes y canaletas.</li><li>Inspección extraordinaria de cubiertas.</li><li>Verificación de funcionamiento de bombas de achique.</li><li>Coordinación preventiva con centros comerciales.</li><li>Verificación de grupos electrógenos y UPS.</li><li>Activación parcial de brigadas.</li><li>Calor: revisar aire acondicionado / chillers y temperatura de cuartos eléctricos y de TI.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Tarapoto%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Tarapoto</a>
@@ -611,7 +665,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv3"><b>CENEPRED/SIGRID · exposición a inundaciones</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Alto</a></li><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 27/09 22:10<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-11089-24-8-2026-coen-indeci-2222-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-tocache-san-martin/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.° 13030 – 27/9/2026 / COEN – INDECI / 21:38 HORAS (Reporte N.º 3) LLUVIAS INTENSAS EN EL DISTRITO DE TOCACHE – SAN MARTÍN</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Oriente">
+      <article class="card sem-verde" id="t-P004101601" data-zona="Oriente">
         <header><div><h3>FLB Huanuco Op</h3><p class="muted">Huánuco · Huanuco · P004101601</p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -621,7 +675,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>19.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>25°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 389 (descenso de temperatura diurna en la selva – undécimo friaje) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n389-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>25 °C a las 17:00 en el aeropuerto de Huánuco (CORPAC); últimas 24 h: máxima 27 °C, mínima 19 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (2 aviso(s) de otro tipo, p. ej. N° 389 descenso de temperatura diurna en la selva – undécimo friaje).</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>25 °C a las 17:00 en el aeropuerto de Huánuco (CORPAC); últimas 24 h: máxima 27 °C, mínima 19 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Hu%C3%A1nuco%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Huánuco</a>
@@ -630,7 +684,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
         </div>
         <details><summary>Ver detalle técnico</summary>
           <p class="muted est">Estación SENAMHI: CORPAC · Aeropuerto Huánuco (7 km), reporte 17:00</p>
-          <div class="fila"><span>Temperatura horaria últimas 24 h</span><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 19.0 max 27.0"><polyline points="0.0,8.5 11.0,25.0 22.0,19.5 33.0,5.8 44.0,8.5 55.0,5.8 66.0,3.0 77.0,3.0 88.0,5.8 99.0,5.8 110.0,8.5" /><circle cx="110.0" cy="8.5" r="2.5"/></svg><span class="spark-rango">19–27°</span></div>
+          <div class="fila"><span>Temperatura horaria últimas 24 h</span><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 19.0 max 27.0"><polyline points="0.0,25.0 12.2,19.5 24.4,5.8 36.7,8.5 48.9,5.8 61.1,3.0 73.3,3.0 85.6,5.8 97.8,5.8 110.0,8.5" /><circle cx="110.0" cy="8.5" r="2.5"/></svg><span class="spark-rango">19–27°</span></div>
           <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
           <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
           <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
@@ -640,7 +694,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article></div></section><section class="zona" data-zona="Lima Metropolitana"><h2>Zona Lima Metropolitana <span class="frec">Reporte mensual</span></h2><div class="grid">
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-CD-LURIN" data-zona="Lima Metropolitana">
         <header><div><h3>CD Lurín</h3><p class="muted">Lima · Lurin · CD-LURIN</p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span><span class="tipo">Centro de distribución</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -650,7 +704,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -669,7 +723,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-CD-VES" data-zona="Lima Metropolitana">
         <header><div><h3>CD Villa El Salvador</h3><p class="muted">Lima · Villa El Salvador · CD-VES</p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span><span class="tipo">Centro de distribución</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -679,7 +733,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -698,7 +752,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002101101" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Lima Norte (Plaza Norte)</h3><p class="muted">Lima · Independencia · P002101101</p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -708,7 +762,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -727,7 +781,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002100401" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Mega Plaza</h3><p class="muted">Lima · Independencia · P002100401</p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -737,7 +791,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -756,7 +810,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002103001" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Puruchuco</h3><p class="muted">Lima · Ate · P002103001</p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -766,7 +820,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -785,7 +839,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002100501" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Santa Anita</h3><p class="muted">Lima · Santa Anita · P002100501</p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -795,7 +849,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -814,7 +868,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-CORP-SAN-ISIDRO" data-zona="Lima Metropolitana">
         <header><div><h3>Corporación San Isidro (oficinas)</h3><p class="muted">Lima · San Isidro · CORP-SAN-ISIDRO</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span><span class="tipo">Oficina corporativa</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -824,7 +878,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -843,7 +897,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002102601" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Angamos</h3><p class="muted">Lima · Surquillo · P002102601</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -853,7 +907,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -872,7 +926,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002102501" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Atocongo</h3><p class="muted">Lima · San Juan De Miraflores · P002102501</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -882,7 +936,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -901,7 +955,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002102401" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Bellavista</h3><p class="muted">Callao · Bellavista · P002102401</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -930,7 +984,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002101801" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Centro Civico</h3><p class="muted">Lima · Lima · P002101801</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -940,7 +994,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -959,7 +1013,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002103101" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Comas</h3><p class="muted">Lima · Comas · P002103101</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -969,7 +1023,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -988,7 +1042,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-EXPO-LIMA-CENTRO" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Expo Lima Centro</h3><p class="muted">Lima · Lima · EXPO-LIMA-CENTRO</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -998,7 +1052,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -1017,7 +1071,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002100201" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Jockey Plaza</h3><p class="muted">Lima · Santiago De Surco · P002100201</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -1027,7 +1081,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -1046,7 +1100,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002102001" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Lima Centro</h3><p class="muted">Lima · Lima · P002102001</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -1056,7 +1110,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -1075,7 +1129,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002101901" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Mall del Sur</h3><p class="muted">Lima · San Juan De Miraflores · P002101901</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -1085,7 +1139,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -1104,7 +1158,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002100301" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Miraflores</h3><p class="muted">Lima · Miraflores · P002100301</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -1114,7 +1168,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -1133,7 +1187,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002101501" data-zona="Lima Metropolitana">
         <header><div><h3>FLB Salaverry</h3><p class="muted">Lima · Jesus Maria · P002101501</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -1143,7 +1197,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -1162,7 +1216,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002100101" data-zona="Lima Metropolitana">
         <header><div><h3>FLB San Isidro</h3><p class="muted">Lima · San Isidro · P002100101</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -1172,7 +1226,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -1191,7 +1245,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002102801" data-zona="Lima Metropolitana">
         <header><div><h3>FLB San Miguel</h3><p class="muted">Lima · San Miguel · P002102801</p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -1201,7 +1255,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -1220,7 +1274,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" data-zona="Lima Metropolitana">
+      <article class="card sem-verde" id="t-P002103801" data-zona="Lima Metropolitana">
         <header><div><h3>FLB MOLINA</h3><p class="muted">Lima · La Molina · P002103801</p>
           <p class="tags"><span class="riesgo r-bajo">Riesgo Bajo</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -1230,7 +1284,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>22.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>24°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (1 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>24 °C a las 17:00 en el aeropuerto de Lima (CORPAC); últimas 24 h: máxima 24 °C, mínima 22 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
@@ -1249,7 +1303,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
         </details>
       </article></div></section><section class="zona" data-zona="Sur"><h2>Zona Sur <span class="frec">Reporte mensual</span></h2><div class="grid">
-      <article class="card sem-verde" data-zona="Sur">
+      <article class="card sem-verde" id="t-P002304029" data-zona="Sur">
         <header><div><h3>FLB Exp Tacna</h3><p class="muted">Tacna · Tacna · P002304029</p>
           <p class="tags"><span class="riesgo r-bajo">Riesgo Bajo</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
@@ -1259,7 +1313,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <div><small>Mín 24 h</small><strong>17.0°</strong></div>
           <div><small>Ahora (17:00)</small><strong>23°</strong></div>
         </div>
-        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Aviso N° 388 (descenso de temperatura nocturna en la sierra centro y sur) para el departamento, vigencia: desde el miércoles 30 de setiembre al viernes 02 de octubre. <a href="https://portal.indeci.gob.pe/emergencias/boletin-informativo-de-aviso-meteorologico-n388-2026-del-28-09-2026/" target="_blank" rel="noopener">Ver boletín</a></dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Inclan), últimas 48 h.</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo bajo por movimientos en masa y exposición media a inundaciones.</dd><dt>Hoy</dt><dd>23 °C a las 17:00 en el aeropuerto de Tacna (CORPAC); últimas 24 h: máxima 23 °C, mínima 17 °C.</dd></dl>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos de lluvia para el departamento (2 aviso(s) de otro tipo, p. ej. N° 388 descenso de temperatura nocturna en la sierra centro y sur).</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Inclan), últimas 48 h.</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo bajo por movimientos en masa y exposición media a inundaciones.</dd><dt>Hoy</dt><dd>23 °C a las 17:00 en el aeropuerto de Tacna (CORPAC); últimas 24 h: máxima 23 °C, mínima 17 °C.</dd></dl>
           <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
         <div class="botones">
           <a class="btn" href="https://news.google.com/search?q=%22Tacna%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Tacna</a>
@@ -1278,13 +1332,17 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 17:18<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-13091-28-9-2026-coen-indeci-171655-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-inclan-tacna/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.° 13091 – 28/9/2026 / COEN-INDECI / 17:1655 HORAS (Reporte N.º 1) LLUVIAS INTENSAS EN EL DISTRITO DE INCLÁN – TACNA</a></li></ul>
         </details>
       </article></div></section>
+</section>
 
-<footer>
-<p><b>Cómo leer:</b> T. máx / T. mín / Lluvia = último registro de la estación SENAMHI más cercana a la tienda (capas monitoreo_meteorologico, N=1).
-Series de 15 registros = capas N=15…1 de esa estación (se asume N=1 el más reciente). La estimación propia usa el historial del monitor y solo aparece con 14 días acumulados; es referencial. Pronóstico T. mín = modelo SENAMHI a 10 días. Próximo mes y verano = escenario del pronóstico estacional SENAMHI para el sector de la tienda.
-Niveles del Plan FEN (PLN-PRE, Cap. X): Nivel 1 Verde = monitoreo preventivo (base de temporada) · Nivel 2 Amarilla = aviso SENAMHI amarillo/naranja por lluvias, activación de quebradas en la provincia, reporte INDECI por lluvias en la provincia o distrito en riesgo Alto/Muy alto en un escenario CENEPRED vigente · Nivel 3 Roja = aviso SENAMHI rojo, lluvia sobre el umbral de riesgo en la provincia o emergencia/peligro inminente INDECI por lluvias en el distrito de la tienda · Nivel 4 Negra = solo por registro manual (alertas_manuales.csv). Riesgo de cada instalación según la Matriz Nacional de Riesgo del plan.</p>
-<p>Fuentes: <a href="https://enfen.imarpe.gob.pe/comunicados/" target="_blank" rel="noopener">ENFEN comunicados</a> · <a href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">SENAMHI avisos</a> · <a href="https://www.senamhi.gob.pe/?p=pronostico-meteorologico" target="_blank" rel="noopener">SENAMHI pronostico</a> · <a href="https://idesep.senamhi.gob.pe/" target="_blank" rel="noopener">IDESEP geoservicios</a> · <a href="https://www.gob.pe/senamhi" target="_blank" rel="noopener">SENAMHI noticias (gob.pe)</a> · <a href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">INDECI emergencias</a> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">CENEPRED SIGRID escenarios</a> · <a href="https://www.cpc.ncep.noaa.gov/data/indices/" target="_blank" rel="noopener">NOAA indices ENSO</a></p>
-</footer>
+<section class="panel" id="guia">
+  <h2>¿Qué significa cada alerta?</h2>
+  <div class="guia"><article class="nivel-card n1"><header><span class="pill n1">Nivel 1</span><h3>Alerta Verde · Preventivo</h3></header><p class="que">Posibilidad de lluvias moderadas o incremento estacional de precipitaciones.</p><h4>Se activa en el monitor cuando…</h4><ul><li>Base de la temporada de lluvias: todas las instalaciones parten aquí.</li></ul><h4>Acciones del Plan FEN</h4><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></article><article class="nivel-card n2"><header><span class="pill n2">Nivel 2</span><h3>Alerta Amarilla</h3></header><p class="que">Pronóstico de lluvias intensas o activación de alertas regionales.</p><h4>Se activa en el monitor cuando…</h4><ul><li>Aviso SENAMHI amarillo o naranja de lluvias sobre la tienda.</li><li>Quebrada en posible activación a 5 km o menos.</li><li>Emergencia o peligro inminente INDECI por lluvias a 10 km o menos (48 h).</li><li>Distrito en riesgo Alto o Muy alto en un escenario CENEPRED vigente.</li><li>Lluvia sobre el umbral en una estación a 15–30 km.</li></ul><h4>Acciones del Plan FEN</h4><ul><li>Limpieza inmediata de drenajes y canaletas.</li><li>Inspección extraordinaria de cubiertas.</li><li>Verificación de funcionamiento de bombas de achique.</li><li>Coordinación preventiva con centros comerciales.</li><li>Verificación de grupos electrógenos y UPS.</li><li>Activación parcial de brigadas.</li></ul></article><article class="nivel-card n3"><header><span class="pill n3">Nivel 3</span><h3>Alerta Roja · Emergencia</h3></header><p class="que">Lluvias intensas activas con riesgo inminente de inundación.</p><h4>Se activa en el monitor cuando…</h4><ul><li>Aviso SENAMHI rojo sobre la tienda.</li><li>Lluvia sobre el umbral de riesgo en una estación a 15 km o menos.</li><li>Emergencia o peligro inminente INDECI por lluvias en el mismo distrito (24 h).</li></ul><h4>Acciones del Plan FEN</h4><ul><li>Activación del Comité de Crisis Local.</li><li>Monitoreo permanente de zonas críticas.</li><li>Protección de activos y mercadería vulnerable.</li><li>Restricción de accesos afectados.</li><li>Reporte continuo a Operaciones Central.</li></ul></article><article class="nivel-card n4"><header><span class="pill n4">Nivel 4</span><h3>Alerta Negra · Crisis</h3></header><p class="que">Inundación o afectación directa a la operación de tienda.</p><h4>Se activa en el monitor cuando…</h4><ul><li>Solo por registro manual del equipo (archivo alertas_manuales.csv) ante inundación o afectación directa.</li></ul><h4>Acciones del Plan FEN</h4><ul><li>Evacuación preventiva según evaluación del riesgo.</li><li>Suspensión parcial o total de actividades.</li><li>Protección de activos críticos y mercadería.</li><li>Coordinación con autoridades y administración del centro comercial.</li><li>Activación del Comité Ejecutivo de Crisis y del plan de recuperación.</li><li>Comunicación corporativa formal.</li></ul></article></div>
+  <h2>Fuentes y términos</h2>
+  <dl class="glosario"><dt>ENFEN</dt><dd>Comisión multisectorial que declara el estado del Fenómeno El Niño en el Perú (vigilancia, alerta, etc.).</dd><dt>SENAMHI</dt><dd>Servicio meteorológico nacional: emite los avisos de lluvias y los pronósticos.</dd><dt>INDECI / COEN</dt><dd>Defensa Civil: reporta emergencias y peligros inminentes por distrito y republica los avisos de SENAMHI.</dd><dt>CENEPRED</dt><dd>Estima qué distritos están en riesgo (Muy alto, Alto, Medio) con base en cada aviso de SENAMHI.</dd><dt>CORPAC</dt><dd>Reportes meteorológicos horarios de los aeropuertos: temperatura actual y lluvia observada.</dd><dt>Mar Niño 1+2 (NOAA)</dt><dd>Temperatura del mar frente a la costa norte comparada con lo normal; sobre +1 °C favorece calor y lluvias.</dd><dt>Riesgo de la instalación</dt><dd>Clasificación fija de la Matriz Nacional de Riesgo del plan (Crítico, Alto, Medio Alto, Medio, Bajo).</dd></dl>
+</section>
+
+<footer><p>Temperatura: estación SENAMHI cercana si responde; si no, aeropuerto CORPAC a 60 km o menos; si no, referencia regional NASA POWER. Un nivel alcanzado se mantiene 24 h. Riesgo de cada instalación según la Matriz Nacional de Riesgo del plan.</p>
+<p>Fuentes: <a href="https://enfen.imarpe.gob.pe/comunicados/" target="_blank" rel="noopener">ENFEN comunicados</a> · <a href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">SENAMHI avisos</a> · <a href="https://www.senamhi.gob.pe/?p=pronostico-meteorologico" target="_blank" rel="noopener">SENAMHI pronostico</a> · <a href="https://idesep.senamhi.gob.pe/" target="_blank" rel="noopener">IDESEP geoservicios</a> · <a href="https://www.gob.pe/senamhi" target="_blank" rel="noopener">SENAMHI noticias (gob.pe)</a> · <a href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">INDECI emergencias</a> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">CENEPRED SIGRID escenarios</a> · <a href="https://www.cpc.ncep.noaa.gov/data/indices/" target="_blank" rel="noopener">NOAA indices ENSO</a></p></footer>
 </div>
 <script>
 const b=document.getElementById('btn-act');
@@ -1295,9 +1353,16 @@ if(b){b.addEventListener('click',async()=>{
     if(r.ok)setTimeout(()=>location.reload(),240000);}catch(err){m.textContent='No se pudo solicitar la actualización.';}
   finally{setTimeout(()=>{b.disabled=false},60000);}
 });}
+function panel(id){document.querySelectorAll('.vista').forEach(x=>x.classList.toggle('activo',x.dataset.panel===id));
+  document.querySelectorAll('section.panel').forEach(s=>s.classList.toggle('activo',s.id===id));}
+document.querySelectorAll('.vista').forEach(v=>v.addEventListener('click',()=>{panel(v.dataset.panel);window.scrollTo({top:0});}));
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('activo'));b.classList.add('activo');
   const z=b.dataset.zona;document.querySelectorAll('section.zona').forEach(s=>s.style.display=(z==='todas'||s.dataset.zona===z)?'':'none');
+}));
+document.querySelectorAll('.fila-alerta').forEach(tr=>tr.addEventListener('click',()=>{
+  panel('zonas');document.querySelector('.tab[data-zona="todas"]').click();
+  const c=document.getElementById(tr.dataset.ir);if(c){c.scrollIntoView({behavior:'smooth',block:'start'});c.classList.remove('resalta');void c.offsetWidth;c.classList.add('resalta');}
 }));
 </script>
 </body></html>

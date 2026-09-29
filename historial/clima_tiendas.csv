@@ -44,16 +44,16 @@
 2026-09-29,P002102301,FLB Piura Mall Open,Norte,31.0,23.0,,"CORPAC · Aeropuerto Piura (3 km), reporte 17:00",verde,1,Crítico,0,0
 2026-09-29,P002100601,FLB Chiclayo Mall,Norte,27.0,24.0,,"CORPAC · Aeropuerto Chiclayo (2 km), reporte 17:00",verde,1,Crítico,0,0
 2026-09-29,P002100701,FLB Trujillo CC,Norte,25.0,23.0,,"CORPAC · Aeropuerto Trujillo (9 km), reporte 17:00",verde,1,Crítico,0,0
-2026-09-29,P002100801,FLB Chimbote,Norte,25.0,24.0,,"CORPAC · Aeropuerto Chimbote (11 km), reporte 16:00",verde,1,Alto,2,0
-2026-09-29,P002100901,FLB Cajamarca,Norte,23.0,12.0,,"CORPAC · Aeropuerto Cajamarca (3 km), reporte 17:00",amarillo,2,Alto,2,0
+2026-09-29,P002100801,FLB Chimbote,Norte,25.0,24.0,,"CORPAC · Aeropuerto Chimbote (11 km), reporte 16:00",verde,1,Alto,3,0
+2026-09-29,P002100901,FLB Cajamarca,Norte,23.0,12.0,,"CORPAC · Aeropuerto Cajamarca (3 km), reporte 17:30",amarillo,2,Alto,2,0
 2026-09-29,P002101401,FLB Canete MP,Centro/Sur,24.85,15.96,0.01,"NASA POWER, referencia regional (celda de ~50 km), dato del 26/09",verde,1,Alto,1,0
 2026-09-29,P002101201,FLB Ica Mall,Centro/Sur,27.63,15.82,0.0,"NASA POWER, referencia regional (celda de ~50 km), dato del 26/09",verde,1,Alto,0,0
 2026-09-29,P002102101,FLB Huancayo,Centro/Sur,20.0,8.0,,"CORPAC · Aeropuerto Jauja (43 km), reporte 17:00",verde,1,Medio Alto,1,0
-2026-09-29,P002103301,FLB Exp Huaraz,Centro/Sur,26.0,11.0,,"CORPAC · Aeropuerto Huaraz (Anta) (21 km), reporte 16:00",verde,1,Medio Alto,2,0
+2026-09-29,P002103301,FLB Exp Huaraz,Centro/Sur,26.0,11.0,,"CORPAC · Aeropuerto Huaraz (Anta) (21 km), reporte 16:00",verde,1,Medio Alto,3,0
 2026-09-29,P002103501,FLB Exp.Ayacucho,Centro/Sur,21.0,11.0,,"CORPAC · Aeropuerto Ayacucho (2 km), reporte 17:00",verde,1,Medio Alto,0,0
 2026-09-29,P002102701,FLB Arequipa (Cayma),Centro/Sur,22.0,14.0,,"CORPAC · Aeropuerto Arequipa (7 km), reporte 17:00",verde,1,Medio Alto,1,0
 2026-09-29,P002101001,FLB Porongoche,Centro/Sur,22.0,14.0,,"CORPAC · Aeropuerto Arequipa (12 km), reporte 17:00",verde,1,Medio Alto,1,0
-2026-09-29,P002103201,FLB Cusco,Centro/Sur,19.0,7.0,,"CORPAC · Aeropuerto Cusco (3 km), reporte 17:00",verde,1,Medio Alto,0,0
+2026-09-29,P002103201,FLB Cusco,Centro/Sur,19.0,7.0,,"CORPAC · Aeropuerto Cusco (3 km), reporte 17:30",verde,1,Medio Alto,0,0
 2026-09-29,P002102901,FLB Merced,Centro/Sur,17.18,5.04,2.21,"NASA POWER, referencia regional (celda de ~50 km), dato del 26/09",verde,1,Sin clasificar,1,0
 2026-09-29,P004101702,FLB Iquitos,Oriente,35.0,24.0,,"CORPAC · Aeropuerto Iquitos (7 km), reporte 17:00",amarillo,2,Alto,2,0
 2026-09-29,P004101301,FLB Pucallpa,Oriente,34.0,24.0,,"CORPAC · Aeropuerto Pucallpa (2 km), reporte 17:00",amarillo,2,Alto,1,0
