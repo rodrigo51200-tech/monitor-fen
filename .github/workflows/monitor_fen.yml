@@ -46,7 +46,7 @@ jobs:
         run: |
           git config user.name "monitor-fen-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs historial resumen_teams.txt
+          git add docs historial resumen_teams.txt cache 2>/dev/null || git add docs historial resumen_teams.txt
           git commit -m "Monitor FEN $(date +'%Y-%m-%d %H:%M')" || echo "Sin cambios"
           git pull --rebase --autostash
           git push

@@ -78,6 +78,9 @@ UMBRAL_CALOR = 30.0            # T. max (C) desde la que se considera dia caluro
 UMBRAL_FRIO = 5.0              # T. min (C) desde la que se considera noche fria
 DIF_ANOMALA = 3.0              # diferencia (C) frente al promedio 15 dias para destacarla
 
+ARCH_CACHE_ESTACIONAL = CARPETA / "cache" / "senamhi_estacional.json"  # ultimo pronostico estacional SENAMHI leido
+NASA_POWER = "https://power.larc.nasa.gov/api/temporal/daily/point"
+HORAS_BOLETIN_AVISO = 72       # boletines INDECI de aviso meteorologico a considerar
 ARCH_MANUALES = CARPETA / "alertas_manuales.csv"   # Nivel 4 u otros ajustes manuales
 
 # Niveles de alerta y acciones: PLN-PRE Plan Integral FEN 2026/2027, Cap. X (pag. 8)
@@ -185,12 +188,21 @@ def http_get(url, **kw):
     host = urlparse(url).netloc
     if host in _HOSTS_CAIDOS:
         raise ConnectionError(f"{host} no respondió antes en esta corrida; se omite")
-    try:
-        return requests.get(url, **kw)
-    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as err:
-        _HOSTS_CAIDOS.add(host)
-        log(f"     ! {host} no responde ({type(err).__name__}); se omiten sus demás consultas")
-        raise
+    import time
+    ultimo = None
+    for intento in range(3):
+        try:
+            return requests.get(url, **kw)
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as err:
+            ultimo = err
+            dns = "resolution" in str(err).lower() or "name or service" in str(err).lower()
+            if dns and intento < 2:          # fallo temporal de DNS: reintentar
+                time.sleep(5)
+                continue
+            break
+    _HOSTS_CAIDOS.add(host)
+    log(f"     ! {host} no responde ({type(ultimo).__name__}); se omiten sus demás consultas")
+    raise ultimo
 
 
 def log(msg: str):
@@ -385,6 +397,77 @@ def fuente_tmin_10d(tiendas: pd.DataFrame) -> dict:
     return res
 
 
+BOLETINES_RAW: list[dict] = []
+DEPARTAMENTOS_PE = ["AMAZONAS", "ANCASH", "APURIMAC", "AREQUIPA", "AYACUCHO", "CAJAMARCA", "CALLAO", "CUSCO",
+                    "HUANCAVELICA", "HUANUCO", "ICA", "JUNIN", "LA LIBERTAD", "LAMBAYEQUE", "LIMA", "LORETO",
+                    "MADRE DE DIOS", "MOQUEGUA", "PASCO", "PIURA", "PUNO", "SAN MARTIN", "TACNA", "TUMBES", "UCAYALI"]
+
+
+def fuente_avisos_indeci() -> list[dict]:
+    """Avisos meteorologicos SENAMHI republicados por INDECI (boletin informativo).
+    Devuelve numero de aviso, resumen, vigencia, departamentos expuestos y enlaces."""
+    from pypdf import PdfReader
+    out, vistos = [], set()
+    for b in sorted(BOLETINES_RAW, key=lambda x: x["fecha"], reverse=True):
+        txt = html.unescape(re.sub(r"<!\[CDATA\[|\]\]>|<[^>]+>", " ", b["html"]))
+        txt = re.sub(r"\s+", " ", txt).strip()
+        # el aviso y su vigencia vienen en MAYUSCULAS, seguidos del texto en minusculas
+        m = re.search(r"AVISO N[°º]\s*(\d+)\s*:\s*([^a-z]+?)\s+VIGENCIA\s*:\s*([^a-z]+?)(?=\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]|$)", txt)
+        numero = m.group(1) if m else (re.search(r"N[°º]\s*(\d+)", b["titulo"]) or [None, "?"])[1]
+        if numero in vistos:
+            continue
+        vistos.add(numero)
+        pdf_url = (re.search(r'href="([^"]+\.pdf)"', b["html"]) or [None, ""])[1]
+        if not pdf_url:                     # el PDF esta en la pagina del boletin, no en el RSS
+            try:
+                pag = http_get(b["link"], headers=HEADERS_WEB, timeout=TIMEOUT).text
+                pdfs = [u for u in re.findall(r'href="([^"]+\.pdf)"', pag) if "AVISO" in norm(u)]
+                pdf_url = pdfs[0] if pdfs else ""
+            except Exception as err:  # noqa: BLE001
+                log(f"     boletin {numero}: página no leída ({err})")
+        deps = []
+        if pdf_url:
+            try:
+                r = http_get(pdf_url, headers=HEADERS_WEB, timeout=TIMEOUT)
+                if r.content[:4] == b"%PDF":
+                    t = " ".join((p.extract_text() or "") for p in PdfReader(io.BytesIO(r.content)).pages[:2])
+                    d = re.search(r"DEPARTAMENTOS?\s*EXPUESTOS?\s*:\s*(.+?)\s*\.", norm(t), re.S)
+                    if d:   # el PDF pega palabras ("PUNO YTACNA"): se buscan los nombres de departamento conocidos
+                        pegado = re.sub(r"[^A-Z]", "", d.group(1))
+                        deps = [dep for dep in DEPARTAMENTOS_PE if dep.replace(" ", "") in pegado]
+            except Exception as err:  # noqa: BLE001
+                log(f"     boletin {numero}: PDF no leido ({err})")
+        out.append({"numero": numero, "evento": (m.group(2).strip().capitalize() if m else ""),
+                    "vigencia": (m.group(3).strip().capitalize() if m else ""),
+                    "resumen": txt[:400], "departamentos": deps, "link": b["link"], "pdf": pdf_url,
+                    "fecha": b["fecha"].astimezone().strftime("%d/%m %H:%M")})
+    lluvia = ("PRECIPIT", "LLUVIA", "TORMENTA", "GRANIZO")
+    out.sort(key=lambda a: (not any(k in norm(a["evento"]) for k in lluvia), -int(a["numero"]) if a["numero"].isdigit() else 0))
+    return out
+
+
+def fuente_nasa_power(tiendas: pd.DataFrame) -> dict:
+    """Respaldo de temperatura/lluvia diaria (NASA POWER) por punto de tienda: ultimos 20 dias."""
+    fin = datetime.now()
+    ini = fin - pd.Timedelta(days=20)
+    res = {}
+    for (lat, lon) in tiendas[["lat_r", "lon_r"]].drop_duplicates().itertuples(index=False):
+        r = http_get(NASA_POWER, params={"parameters": "T2M_MAX,T2M_MIN,PRECTOTCORR", "community": "AG",
+                                         "latitude": lat, "longitude": lon, "start": ini.strftime("%Y%m%d"),
+                                         "end": fin.strftime("%Y%m%d"), "format": "JSON"},
+                     headers=HEADERS, timeout=TIMEOUT)
+        r.raise_for_status()
+        p = r.json()["properties"]["parameter"]
+        dias = sorted(k for k, v in p["T2M_MAX"].items() if v is not None and v > -900)
+        if not dias:
+            continue
+        res[(lat, lon)] = {"fecha": dias[-1],
+                           "tmax": [p["T2M_MAX"][d] for d in dias][-DIAS_SERIE:],
+                           "tmin": [p["T2M_MIN"][d] for d in dias][-DIAS_SERIE:],
+                           "prec": p["PRECTOTCORR"].get(dias[-1])}
+    return res
+
+
 def fuente_indeci() -> list[dict]:
     """Reportes COEN-INDECI de las ultimas HORAS_INDECI horas, solo eventos por lluvias."""
     from email.utils import parsedate_to_datetime
@@ -409,6 +492,12 @@ def fuente_indeci() -> list[dict]:
                 continue
             vistos.add(link)
             t = norm(titulo)
+            if "BOLETIN INFORMATIVO DE AVISO METEOROLOGICO" in t:
+                if (datetime.now().astimezone().timestamp() - fecha.timestamp()) / 3600 <= HORAS_BOLETIN_AVISO:
+                    cont = re.search(r"<content:encoded>(.*?)</content:encoded>", it, re.S)
+                    BOLETINES_RAW.append({"titulo": titulo, "link": link, "fecha": fecha,
+                                          "html": cont.group(1) if cont else ""})
+                continue
             if not any(k in t for k in EVENTOS_LLUVIA) or "BOLETIN" in t:
                 continue
             m = re.search(r"EN (?:EL|LOS) DISTRITOS? DE (.+?)\s+[–—-]\s+([A-ZÑ ]+?)\s*$", t)
@@ -582,8 +671,14 @@ def interpretar(r, enfen):
         a = max(sen, key=lambda a: a["nivel"])
         nombre, accion = NIVEL_TXT.get(a["nivel"], ("Aviso", "esté atento"))
         lineas.append(("SENAMHI", f"{nombre} por {TIPO_AVISO_TXT[tipo_aviso(a['origen'])]}. {accion.capitalize()}."))
+    elif r.get("avisos_indeci"):
+        a = r["avisos_indeci"][0]
+        lineas.append(("SENAMHI", f"Aviso N° {a['numero']}"
+                                  + (f" ({e(a['evento'].lower())})" if a['evento'] else "") + " para el departamento"
+                                  + (f", vigencia: {e(a['vigencia'].lower())}" if a['vigencia'] else "") + ". "
+                                  f"<a href=\"{e(a['link'])}\" target=\"_blank\" rel=\"noopener\">Ver boletín</a>"))
     else:
-        lineas.append(("SENAMHI", "Sin avisos para la zona."))
+        lineas.append(("SENAMHI", "Sin avisos para el departamento."))
     if r.get("indeci"):
         cerca = [x for x in r["indeci"] if x["mismo_distrito"]]
         if cerca:
@@ -607,7 +702,8 @@ def interpretar(r, enfen):
 
     # 2) Hoy
     if r["tmax"] is not None:
-        t = f"Máxima {r['tmax']:.0f} °C"
+        t = (f"Último dato NASA ({r['fuente_temp'][6:-1]}): máxima {r['tmax']:.0f} °C" if r.get("fuente_temp", "").startswith("NASA")
+             else f"Máxima {r['tmax']:.0f} °C")
         if r["tmin"] is not None:
             t += f", mínima {r['tmin']:.0f} °C"
         if r["prec"]:
@@ -635,6 +731,8 @@ def interpretar(r, enfen):
     pm = [x for x in (txt_escenario(r["pm_pp_esc"], "pp"), txt_escenario(r["pm_tmax_esc"], "tmax")) if x]
     if pm:
         lineas.append(("Próximo mes", (" y ".join(pm)).capitalize() + " (SENAMHI)."))
+    if r.get("estacional_cache") and (pm or r["verano_esc"]):
+        lineas.append(("Nota", f"Pronóstico estacional SENAMHI guardado el {e(r['estacional_cache'])}."))
     if r["verano_esc"]:
         lineas.append(("Verano", f"{txt_escenario(r['verano_esc'], 'pp').capitalize()} entre "
                                  f"{str(r['verano_meta']).replace('_', ' y ').lower()} (SENAMHI)."))
@@ -716,6 +814,27 @@ def leer_ubigeo() -> dict:
     return out
 
 
+def senamhi_caido() -> bool:
+    return "idesep.senamhi.gob.pe" in _HOSTS_CAIDOS
+
+
+CLAVES_ESTACIONAL = [f"{c}_{k}" for c in ("pm_tmax", "pm_tmin", "pm_pp", "verano") for k in ("esc", "sector", "meta")]
+
+
+def guardar_cache_estacional(filas):
+    ARCH_CACHE_ESTACIONAL.parent.mkdir(exist_ok=True)
+    data = {str(f["cod_p"]): {**{k: f.get(k, "") for k in CLAVES_ESTACIONAL}, "_emitido": HOY.strftime("%d/%m/%Y")}
+            for f in filas if f.get("verano_esc") or f.get("pm_tmax_esc")}
+    ARCH_CACHE_ESTACIONAL.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def leer_cache_estacional() -> dict:
+    try:
+        return json.loads(ARCH_CACHE_ESTACIONAL.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return {}
+
+
 def fase_actual():
     for meses, nombre, objetivo in FASES:
         if HOY.month in meses:
@@ -748,6 +867,17 @@ def procesar(tiendas, datos):
                 r[f"serie_{var}"] = serie
                 r[f"prom_{var}"], r[f"tend_{var}"] = estadistica_serie(serie)
 
+        # Respaldo NASA POWER si no hay estacion SENAMHI
+        r["fuente_temp"] = "SENAMHI" if r["tmax"] is not None else ""
+        nasa = datos.get("nasa", {}).get((t.lat_r, t.lon_r))
+        if r["tmax"] is None and nasa:
+            r["tmax"], r["tmin"], r["prec"] = nasa["tmax"][-1], nasa["tmin"][-1], nasa["prec"]
+            r["serie_tmax"], r["serie_tmin"] = nasa["tmax"], nasa["tmin"]
+            for var in ("tmax", "tmin"):
+                r[f"prom_{var}"], r[f"tend_{var}"] = estadistica_serie(r[f"serie_{var}"])
+            fch = f"{nasa['fecha'][6:8]}/{nasa['fecha'][4:6]}"
+            r["estacion"], r["fuente_temp"] = f"NASA POWER, dato del {fch} (respaldo)", f"NASA ({fch})"
+
         # Pronostico Tmin 10 dias
         p10 = datos["tmin10"].get((t.lat_r, t.lon_r), {})
         r["tmin10"], r["tmin10_fecha"] = p10.get("valores", []), p10.get("fecha", "")
@@ -758,7 +888,17 @@ def procesar(tiendas, datos):
             r[f"{clave}_esc"] = s.get("escenario", "")
             r[f"{clave}_sector"] = s.get("sectores", "")
             r[f"{clave}_meta"] = s.get("mes") or s.get("trimestre") or ""
+        cache = datos.get("cache_estacional", {}).get(str(t.cod_p), {})
+        if not r["verano_esc"] and not r["pm_tmax_esc"] and cache:      # SENAMHI no disponible: ultimo valor guardado
+            for k, v in cache.items():
+                if k != "_emitido":
+                    r[k] = v
+            r["estacional_cache"] = cache.get("_emitido", "")
         r["sector"] = r["verano_sector"] or r["pm_tmax_sector"]
+
+        # Avisos SENAMHI republicados por INDECI (solo informativo, a nivel departamento)
+        r["avisos_indeci"] = [a for a in datos.get("avisos_indeci", [])
+                              if norm(t.departamento) in [norm(d) for d in a["departamentos"]]]
 
         # Avisos
         av = []
@@ -1227,9 +1367,12 @@ def main():
     for var in ("tmax", "tmin", "prec"):
         ns = range(1, DIAS_SERIE + 1) if var in ("tmax", "tmin") else [1]
         for n in ns:
+            if senamhi_caido():
+                datos["estaciones"][(var, n)] = pd.DataFrame()
+                continue
             df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
             datos["estaciones"][(var, n)] = df
-            if err and n == 1: errores[f"SENAMHI {var}"] = err
+            if err and n == 1 and not senamhi_caido(): errores[f"SENAMHI {var}"] = err
 
     capas = {"aviso_met": "g_aviso:view_aviso",
              "aviso_24h": "g_prono_pp_24h:view_aviso24h",
@@ -1239,8 +1382,11 @@ def main():
              "pm_pp": "spc:prono_mensual_poligono_pp1",
              "verano": "spc:prono_verano_poligono"}
     for clave, capa in capas.items():
+        if senamhi_caido():
+            datos[clave] = []
+            continue
         datos[clave], err = seguro(f"SENAMHI {capa}", lambda c=capa: fuente_poligonos(c), [])
-        if err: errores[f"SENAMHI {clave}"] = err
+        if err and not senamhi_caido(): errores[f"SENAMHI {clave}"] = err
 
     datos["ubigeo"], err = seguro("Ubigeos INEI", leer_ubigeo, {})
     datos["indeci"], err = seguro("INDECI emergencias por lluvias", fuente_indeci, [])
@@ -1249,14 +1395,30 @@ def main():
     datos["sigrid"], err = seguro("CENEPRED/SIGRID escenarios", fuente_sigrid, {"escenarios": [], "mm": {}, "inund": {}})
     if err: errores["CENEPRED/SIGRID"] = err
     log(f"     SIGRID: {len(datos['sigrid']['escenarios'])} escenario(s) vigente(s)")
-    datos["umbrales"], err = seguro("SENAMHI umbrales de lluvia", fuente_umbrales, pd.DataFrame())
-    if err: errores["SENAMHI umbrales"] = err
-    datos["tmin10"], err = seguro("SENAMHI pronóstico Tmin 10 días", lambda: fuente_tmin_10d(tiendas), {})
-    if err: errores["SENAMHI Tmin 10d"] = err
+    datos["avisos_indeci"], err = seguro("Avisos SENAMHI vía INDECI (boletines)", fuente_avisos_indeci, [])
+    log(f"     Avisos vía INDECI: {', '.join('N° ' + a['numero'] + ' ' + '/'.join(a['departamentos']) for a in datos['avisos_indeci']) or 'ninguno'}")
+    if senamhi_caido():
+        datos["umbrales"], datos["tmin10"] = pd.DataFrame(), {}
+        errores["SENAMHI (IDESEP)"] = ("no accesible desde este servidor; se usan avisos vía INDECI, riesgo CENEPRED "
+                                       "y temperatura NASA POWER")
+        log("     SENAMHI no accesible: se omiten sus capas y se usan fuentes alternativas")
+    else:
+        datos["umbrales"], err = seguro("SENAMHI umbrales de lluvia", fuente_umbrales, pd.DataFrame())
+        if err: errores["SENAMHI umbrales"] = err
+        datos["tmin10"], err = seguro("SENAMHI pronóstico Tmin 10 días", lambda: fuente_tmin_10d(tiendas), {})
+        if err: errores["SENAMHI Tmin 10d"] = err
+    sin_temp = all(d is None or d.empty for d in [datos["estaciones"].get(("tmax", 1))])
+    datos["nasa"] = {}
+    if sin_temp:
+        datos["nasa"], err = seguro("NASA POWER (respaldo de temperatura)", lambda: fuente_nasa_power(tiendas), {})
+        if err: errores["NASA POWER"] = err
+    datos["cache_estacional"] = leer_cache_estacional()
 
     datos["manuales"], err = seguro("Alertas manuales", leer_manuales, {})
     if err: errores["alertas_manuales.csv"] = err
     filas = procesar(tiendas, datos)
+    if datos.get("verano"):                      # SENAMHI respondio: guardar pronostico estacional para otras corridas
+        guardar_cache_estacional(filas)
     persistencia_y_cambios(filas)
     delta_vs_ayer(filas)
     guardar_historial(filas, enfen, noaa)
