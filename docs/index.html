@@ -68,15 +68,15 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
 @media (max-width:520px){.metricas strong{font-size:17px}}
 </style></head><body><div class="wrap">
 <div class="top"><div><h1>Monitor FEN y clima · Tiendas Saga Falabella</h1>
-<p class="muted">Actualizado 28/09/2026 22:26 · Fuentes oficiales: ENFEN, SENAMHI, INDECI, CENEPRED, NOAA · Niveles y acciones según el Plan Integral FEN 2026/2027</p></div>
+<p class="muted">Actualizado 28/09/2026 22:31 · Fuentes oficiales: ENFEN, SENAMHI, INDECI, CENEPRED, NOAA · Niveles y acciones según el Plan Integral FEN 2026/2027</p></div>
 <div class="acciones-top"><button class="btn" onclick="location.reload()">Ver última versión</button><span class="muted small">Se actualiza solo a las cada 3 horas (00, 03, 06, 09, 12, 15, 18 y 21 h) · <a href="https://github.com/rodrigo51200-tech/monitor-fen/actions/workflows/monitor_fen.yml" target="_blank" rel="noopener">forzar actualización</a></span></div></div>
 
 <div class="kpis">
-  <div class="kpi fen neutro"><small>Estado ENFEN</small><strong>Ver comunicado</strong>
-    <p class="explica"></p>
-    <span class="muted"> · </span><br>
-    
-    </div>
+  <div class="kpi fen rojo"><small>Estado ENFEN</small><strong>Alerta de El Niño Costero</strong>
+    <p class="explica">ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.</p>
+    <span class="muted">Comunicado Oficial Enfen N° 17-2026 · 28 Septiembre, 2026</span><br>
+    <a href="https://enfen.imarpe.gob.pe/download/comunicado-oficial-enfen-n-17-2026/?wpdmdl=2161&amp;refresh=6abae09ebf7461790632094" target="_blank" rel="noopener">Comunicado (PDF)</a>
+     · <a href="https://enfen.imarpe.gob.pe/download/informe-tecnico-enfen-ano-12-n16-al-11-de-setiembre-de-2026/?wpdmdl=2159&amp;refresh=6abae09eca5fa1790632094" target="_blank" rel="noopener">Informe técnico</a></div>
   <div class="kpi"><small>Temperatura del mar frente a la costa norte (NOAA, Niño 1+2)</small><strong>+4.7 °C</strong><span class="muted">Semana 23/09/2026 · TSM 25.4 °C</span><div><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 3.3 max 4.7"><polyline points="0.0,25.0 10.0,18.7 20.0,20.3 30.0,17.1 40.0,14.0 50.0,12.4 60.0,14.0 70.0,10.9 80.0,7.7 90.0,6.1 100.0,4.6 110.0,3.0" /><circle cx="110.0" cy="3.0" r="2.5"/></svg><span class="spark-rango">3–5°</span></div>
     <p class="explica">Diferencia frente a lo normal. Por encima de +1 °C se considera mar cálido, lo que favorece calor y lluvias en la costa norte.</p></div>
   <div class="kpi"><small>Instalaciones por nivel del Plan FEN</small>
@@ -84,7 +84,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
     <p class="explica">de 41 instalaciones (tiendas, CD y oficinas)</p></div>
   <div class="kpi"><small>Calendario corporativo FEN</small><strong class="fase">Fase 2 · Mitigación (julio – setiembre)</strong><p class="explica">Implementar capex, barreras de contención, probar bombas, verificar grupos electrógenos y UPS, comunicaciones cruzadas y simulacro de brigadas con el mall.</p></div>
 </div>
-<div class="aviso-sistema"><b>Fuentes no disponibles en esta corrida:</b> ENFEN; SENAMHI (IDESEP) — se muestran los datos que sí respondieron.</div>
+<div class="aviso-sistema"><b>Fuentes no disponibles en esta corrida:</b> SENAMHI (IDESEP) — se muestran los datos que sí respondieron.</div>
 <div class="escenarios"><b>Escenarios de riesgo por lluvias CENEPRED vigentes:</b> <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1109_tabla.xlsx" target="_blank" rel="noopener">Costa Centro Y Sur (28/09 – 30/09)</a> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1110_tabla.xlsx" target="_blank" rel="noopener">Costa Norte Y Sierra (28/09 – 29/09)</a> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1111_tabla.xlsx" target="_blank" rel="noopener">Selva (30/09 – 02/10)</a></div>
 
 <nav class="tabs"><button class="tab activo" data-zona="todas">Todas <span>41</span></button><button class="tab" data-zona="Norte">Norte <span>6</span><i class="dot"></i></button><button class="tab" data-zona="Centro/Sur">Centro/Sur <span>9</span></button><button class="tab" data-zona="Oriente">Oriente <span>4</span><i class="dot"></i></button><button class="tab" data-zona="Lima Metropolitana">Lima Metropolitana <span>21</span></button><button class="tab" data-zona="Sur">Sur <span>1</span></button></nav>
