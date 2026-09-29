@@ -1,0 +1,486 @@
+2026-09-28 22:06:05 | === Inicio monitor FEN ===
+2026-09-28 22:06:15 |      ! enfen.imarpe.gob.pe no responde (ConnectionError); se omiten sus demás consultas
+2026-09-28 22:06:15 | [X]  ENFEN: HTTPSConnectionPool(host='enfen.imarpe.gob.pe', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='enfen.imarpe.gob.pe', port=443): Failed to resolve 'enfen.imarpe.gob.pe' ([Errno -3] Temporary failure in name resolution)"))
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/urllib3/connection.py", line 239, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 494, in _make_request
+    raise new_e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='enfen.imarpe.gob.pe', port=443): Failed to resolve 'enfen.imarpe.gob.pe' ([Errno -3] Temporary failure in name resolution)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='enfen.imarpe.gob.pe', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='enfen.imarpe.gob.pe', port=443): Failed to resolve 'enfen.imarpe.gob.pe' ([Errno -3] Temporary failure in name resolution)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 302, in fuente_enfen
+    r = http_get(ENFEN_HOME, headers=HEADERS, timeout=TIMEOUT)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='enfen.imarpe.gob.pe', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='enfen.imarpe.gob.pe', port=443): Failed to resolve 'enfen.imarpe.gob.pe' ([Errno -3] Temporary failure in name resolution)"))
+
+2026-09-28 22:06:15 | [OK] NOAA Niño 1+2
+2026-09-28 22:06:26 |      ! idesep.senamhi.gob.pe no responde (ConnectTimeout); se omiten sus demás consultas
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_1: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7f2f2b89bec0>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/urllib3/connection.py", line 239, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 494, in _make_request
+    raise new_e
+urllib3.exceptions.ConnectTimeoutError: (<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7f2f2b89bec0>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7f2f2b89bec0>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7f2f2b89bec0>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_2: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_3: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_4: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_5: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_6: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_7: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_8: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_9: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_10: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_11: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_12: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_13: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_14: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmax_15: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_1: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_2: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_3: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_4: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_5: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_6: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_7: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_8: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_9: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_10: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_11: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_12: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_13: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_14: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones tmin_15: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI estaciones prec_1: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1230, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI g_aviso:view_aviso: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1242, in <lambda>
+    datos[clave], err = seguro(f"SENAMHI {capa}", lambda c=capa: fuente_poligonos(c), [])
+                                                                 ^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI g_prono_pp_24h:view_aviso24h: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1242, in <lambda>
+    datos[clave], err = seguro(f"SENAMHI {capa}", lambda c=capa: fuente_poligonos(c), [])
+                                                                 ^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI g_acti_quebrada:view_av_activ_qdra: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1242, in <lambda>
+    datos[clave], err = seguro(f"SENAMHI {capa}", lambda c=capa: fuente_poligonos(c), [])
+                                                                 ^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI spc:prono_mensual_poligono_tmax1: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1242, in <lambda>
+    datos[clave], err = seguro(f"SENAMHI {capa}", lambda c=capa: fuente_poligonos(c), [])
+                                                                 ^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI spc:prono_mensual_poligono_tmin1: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1242, in <lambda>
+    datos[clave], err = seguro(f"SENAMHI {capa}", lambda c=capa: fuente_poligonos(c), [])
+                                                                 ^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI spc:prono_mensual_poligono_pp1: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1242, in <lambda>
+    datos[clave], err = seguro(f"SENAMHI {capa}", lambda c=capa: fuente_poligonos(c), [])
+                                                                 ^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [X]  SENAMHI spc:prono_verano_poligono: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1242, in <lambda>
+    datos[clave], err = seguro(f"SENAMHI {capa}", lambda c=capa: fuente_poligonos(c), [])
+                                                                 ^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:06:26 | [OK] Ubigeos INEI
+2026-09-28 22:06:45 | [OK] INDECI emergencias por lluvias
+2026-09-28 22:06:45 |      INDECI: 10 reportes por lluvias en las últimas 48 h
+2026-09-28 22:07:06 | [OK] CENEPRED/SIGRID escenarios
+2026-09-28 22:07:06 |      SIGRID: 3 escenario(s) vigente(s)
+2026-09-28 22:07:06 | [X]  SENAMHI umbrales de lluvia: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 480, in fuente_umbrales
+    for f in wfs("g_umbrales:umbrales_precipitacion"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:07:06 | [X]  SENAMHI pronóstico Tmin 10 días: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 289, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 1254, in <lambda>
+    datos["tmin10"], err = seguro("SENAMHI pronóstico Tmin 10 días", lambda: fuente_tmin_10d(tiendas), {})
+                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionError: idesep.senamhi.gob.pe no respondió antes en esta corrida; se omite
+
+2026-09-28 22:07:06 | [OK] Alertas manuales
+2026-09-28 22:07:06 | HTML: docs/index.html
+2026-09-28 22:07:06 | Resumen: /home/runner/work/monitor-fen/monitor-fen/resumen_teams.txt
+2026-09-28 22:07:06 | Instalaciones: 41 | Nivel 1: 37 | Nivel 2: 4 | Nivel 3: 0 | Nivel 4: 0 | fuentes con error: 13

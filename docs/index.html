@@ -1,0 +1,1303 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monitor FEN Tiendas</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1b1f24;--mut:#5f6b7a;--bd:#e3e7ec;--acc:#2f6f3e;
+--rojo:#c00000;--ambar:#e07b00;--amar:#e0a800;--verde:#4f8f2f;--azul:#1f5fa8;--negro:#111;}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#12151a;--card:#1b2027;--tx:#e8ecf1;--mut:#9aa6b4;--bd:#2c333d;--acc:#7fc48f;
+--rojo:#ef6b6b;--ambar:#f5a142;--amar:#e3c84a;--verde:#6cc070;--azul:#6ea8ff;--negro:#e8ecf1;}}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 "Segoe UI",system-ui,sans-serif}
+.wrap{max-width:1280px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:22px;margin:0} h2{font-size:17px;margin:28px 0 12px} h3{font-size:15px;margin:0}
+.muted{color:var(--mut)} a{color:var(--azul)}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.kpi{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px 16px}
+.kpi small{color:var(--mut);display:block} .kpi strong{font-size:22px;display:block;margin:2px 0}
+.kpi.fen{border-left:5px solid var(--mut)} .kpi.fen.rojo{border-left-color:var(--rojo)} .kpi.fen.amarillo{border-left-color:var(--amar)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:20px 0 4px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:2}
+.tab{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:20px;padding:6px 12px;cursor:pointer;font:inherit;position:relative}
+.tab span{color:var(--mut);margin-left:4px} .tab.activo{background:var(--tx);color:var(--bg)} .tab.activo span{color:inherit;opacity:.7}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ambar);margin-left:6px;vertical-align:middle}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-top:4px solid var(--verde);border-radius:10px;padding:14px}
+.card.sem-rojo{border-top-color:var(--rojo)} .card.sem-amarillo{border-top-color:var(--amar)} .card.sem-negro{border-top-color:var(--negro);border-top-width:6px}
+.card header{display:flex;justify-content:space-between;gap:8px} .card header p{margin:2px 0 0;font-size:12px}
+.sem-badge{font-size:11px;font-weight:600;white-space:nowrap;padding:3px 8px;border-radius:12px;height:fit-content;background:var(--bd)}
+.sem-verde .sem-badge{background:var(--verde);color:#fff} .sem-rojo .sem-badge{background:var(--rojo);color:#fff} .sem-amarillo .sem-badge{background:var(--amar);color:#111} .sem-negro .sem-badge{background:#111;color:#fff;outline:1px solid var(--mut)}
+.tags{margin:4px 0 0!important;display:flex;gap:4px;flex-wrap:wrap}
+.riesgo,.tipo{font-size:10.5px;font-weight:600;padding:1px 7px;border-radius:9px;background:var(--bd);color:var(--tx)}
+.r-crítico{background:#c00000;color:#fff} .r-alto{background:#ed7d31;color:#fff} .r-medio-alto{background:#ffc000;color:#111} .r-medio{background:#ffe699;color:#111} .r-bajo{background:#a9d08e;color:#111}
+.tipo{background:var(--azul);color:#fff}
+.niveles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
+.nv{border-radius:8px;padding:6px 4px;text-align:center;font-size:20px;font-weight:700} .nv em{display:block;font-size:10.5px;font-style:normal;font-weight:600}
+.nv.n1{background:#70ad47;color:#fff} .nv.n2{background:#ffc000;color:#111} .nv.n3{background:#c00000;color:#fff} .nv.n4{background:#111;color:#fff}
+.fase{font-size:16px!important} .frec{font-size:12px;font-weight:400;color:var(--mut);margin-left:8px}
+.metricas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 4px}
+.metricas small{color:var(--mut);display:block;font-size:11px} .metricas strong{font-size:20px} .metricas em{font-size:11px;font-style:normal;color:var(--mut);margin-left:2px}
+.delta{display:block;font-size:11px;color:var(--mut)} .delta.sube{color:var(--rojo)} .delta.baja{color:var(--azul)}
+.est{font-size:11px;margin:0 0 8px}
+.fila{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--bd);padding:6px 0;font-size:12px}
+.fila>span:first-child{color:var(--mut)}
+.spark{vertical-align:middle} .spark polyline{fill:none;stroke:var(--azul);stroke-width:1.8} .spark circle{fill:var(--azul)}
+.spark-rango{font-size:11px;color:var(--mut);margin-left:6px}
+.chips{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.chip{font-size:11px;padding:2px 7px;border-radius:10px;background:var(--bd)}
+.esc-sup{background:color-mix(in srgb,var(--rojo) 18%,transparent);color:var(--rojo)}
+.esc-inf{background:color-mix(in srgb,var(--azul) 18%,transparent);color:var(--azul)}
+.avisos{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:6px}
+.avisos li{font-size:12px;border-left:3px solid var(--amar);padding:4px 8px;background:color-mix(in srgb,var(--bd) 40%,transparent);border-radius:0 6px 6px 0}
+.avisos li.nv3,.avisos li.nv4{border-left-color:var(--rojo)} .avisos li.nv2{border-left-color:var(--ambar)}
+.avisos li span{color:var(--mut)}
+.interp{margin:10px 0 8px;padding:10px 12px;border-radius:8px;background:color-mix(in srgb,var(--azul) 7%,transparent);font-size:13px}
+.interp dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 10px;margin:0} .interp dt{font-weight:600;font-size:12px;color:var(--mut)} .interp dd{margin:0} .interp .qh{margin-top:8px;font-weight:600;font-size:12px} .interp ul{margin:4px 0 0;padding-left:18px;font-size:12px}
+.botones{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.btn{font-size:12px;text-decoration:none;padding:5px 10px;border-radius:6px;background:var(--azul);color:#fff}
+.btn.sec{background:transparent;color:var(--azul);border:1px solid var(--azul)}
+details{margin-top:6px;border-top:1px solid var(--bd);padding-top:6px} summary{cursor:pointer;font-size:12px;color:var(--mut)}
+.explica{font-size:12px;color:var(--mut);margin:6px 0 0}
+.escenarios{margin-top:12px;font-size:12.5px;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:8px 12px}
+.avisos li a{color:var(--azul)}
+.acciones-top{display:flex;flex-direction:column;align-items:flex-end;gap:4px} .small{font-size:11.5px}
+button.btn{border:0;cursor:pointer;font:inherit;font-size:13px;padding:7px 14px}
+.badges{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.cambio{font-size:10.5px;font-weight:700;white-space:nowrap} .cambio.sube{color:var(--rojo)} .cambio.baja{color:var(--verde)}
+.sin-aviso{font-size:12px;color:var(--verde);margin:8px 0 0}
+.aviso-sistema{background:color-mix(in srgb,var(--ambar) 15%,transparent);border:1px solid var(--ambar);border-radius:8px;padding:10px 12px;margin-top:12px;font-size:13px}
+footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(--bd);padding-top:12px}
+@media (max-width:520px){.metricas strong{font-size:17px}}
+</style></head><body><div class="wrap">
+<div class="top"><div><h1>Monitor FEN y clima · Tiendas Saga Falabella</h1>
+<p class="muted">Actualizado 28/09/2026 22:06 · Fuentes oficiales: ENFEN, SENAMHI, INDECI, CENEPRED, NOAA · Niveles y acciones según el Plan Integral FEN 2026/2027</p></div>
+<div class="acciones-top"><button class="btn" onclick="location.reload()">Ver última versión</button><span class="muted small">Se actualiza solo a las cada 3 horas (00, 03, 06, 09, 12, 15, 18 y 21 h) · <a href="https://github.com/rodrigo51200-tech/monitor-fen/actions/workflows/monitor_fen.yml" target="_blank" rel="noopener">forzar actualización</a></span></div></div>
+
+<div class="kpis">
+  <div class="kpi fen neutro"><small>Estado ENFEN</small><strong>Ver comunicado</strong>
+    <p class="explica"></p>
+    <span class="muted"> · </span><br>
+    
+    </div>
+  <div class="kpi"><small>Temperatura del mar frente a la costa norte (NOAA, Niño 1+2)</small><strong>+4.7 °C</strong><span class="muted">Semana 23/09/2026 · TSM 25.4 °C</span><div><svg class="spark" viewBox="0 0 110 28" width="110" height="28" role="img" aria-label="min 3.3 max 4.7"><polyline points="0.0,25.0 10.0,18.7 20.0,20.3 30.0,17.1 40.0,14.0 50.0,12.4 60.0,14.0 70.0,10.9 80.0,7.7 90.0,6.1 100.0,4.6 110.0,3.0" /><circle cx="110.0" cy="3.0" r="2.5"/></svg><span class="spark-rango">3–5°</span></div>
+    <p class="explica">Diferencia frente a lo normal. Por encima de +1 °C se considera mar cálido, lo que favorece calor y lluvias en la costa norte.</p></div>
+  <div class="kpi"><small>Instalaciones por nivel del Plan FEN</small>
+    <div class="niveles"><span class="nv n1">37<em>Verde</em></span><span class="nv n2">4<em>Amarilla</em></span><span class="nv n3">0<em>Roja</em></span><span class="nv n4">0<em>Negra</em></span></div>
+    <p class="explica">de 41 instalaciones (tiendas, CD y oficinas)</p></div>
+  <div class="kpi"><small>Calendario corporativo FEN</small><strong class="fase">Fase 2 · Mitigación (julio – setiembre)</strong><p class="explica">Implementar capex, barreras de contención, probar bombas, verificar grupos electrógenos y UPS, comunicaciones cruzadas y simulacro de brigadas con el mall.</p></div>
+</div>
+<div class="aviso-sistema"><b>Fuentes no disponibles en esta corrida:</b> ENFEN; SENAMHI tmax; SENAMHI tmin; SENAMHI prec; SENAMHI aviso_met; SENAMHI aviso_24h; SENAMHI quebradas; SENAMHI pm_tmax; SENAMHI pm_tmin; SENAMHI pm_pp; SENAMHI verano; SENAMHI umbrales; SENAMHI Tmin 10d — se muestran los datos que sí respondieron.</div>
+<div class="escenarios"><b>Escenarios de riesgo por lluvias CENEPRED vigentes:</b> <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1109_tabla.xlsx" target="_blank" rel="noopener">Costa Centro Y Sur (28/09 – 30/09)</a> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1110_tabla.xlsx" target="_blank" rel="noopener">Costa Norte Y Sierra (28/09 – 29/09)</a> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_aviso/1111_tabla.xlsx" target="_blank" rel="noopener">Selva (30/09 – 02/10)</a></div>
+
+<nav class="tabs"><button class="tab activo" data-zona="todas">Todas <span>41</span></button><button class="tab" data-zona="Norte">Norte <span>6</span><i class="dot"></i></button><button class="tab" data-zona="Centro/Sur">Centro/Sur <span>9</span></button><button class="tab" data-zona="Oriente">Oriente <span>4</span><i class="dot"></i></button><button class="tab" data-zona="Lima Metropolitana">Lima Metropolitana <span>21</span></button><button class="tab" data-zona="Sur">Sur <span>1</span></button></nav>
+<section class="zona" data-zona="Norte"><h2>Zona Norte <span class="frec">Reporte semanal</span></h2><div class="grid">
+      <article class="card sem-amarillo" data-zona="Norte">
+        <header><div><h3>FLB Cajamarca</h3><p class="muted">Cajamarca · Cajamarca · P002100901</p>
+          <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 2 · Amarilla</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 2 · Alerta Amarilla</b>. Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo alto por movimientos en masa y exposición muy alta a inundaciones.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 2</p><ul><li>Limpieza inmediata de drenajes y canaletas.</li><li>Inspección extraordinaria de cubiertas.</li><li>Verificación de funcionamiento de bombas de achique.</li><li>Coordinación preventiva con centros comerciales.</li><li>Verificación de grupos electrógenos y UPS.</li><li>Activación parcial de brigadas.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Cajamarca%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Cajamarca</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv3"><b>CENEPRED/SIGRID · movimientos en masa</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Alto</a></li><li class="nv3"><b>CENEPRED/SIGRID · exposición a inundaciones</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Muy alto</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Norte">
+        <header><div><h3>FLB Chiclayo Mall</h3><p class="muted">Chiclayo · Chiclayo · P002100601</p>
+          <p class="tags"><span class="riesgo r-crítico">Riesgo Crítico</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Chiclayo%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Chiclayo</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <p class="sin-aviso">Sin avisos vigentes</p>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Norte">
+        <header><div><h3>FLB Piura Centro</h3><p class="muted">Piura · Piura · P002102201</p>
+          <p class="tags"><span class="riesgo r-crítico">Riesgo Crítico</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Piura%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Piura</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <p class="sin-aviso">Sin avisos vigentes</p>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Norte">
+        <header><div><h3>FLB Piura Mall Open</h3><p class="muted">Piura · Piura · P002102301</p>
+          <p class="tags"><span class="riesgo r-crítico">Riesgo Crítico</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Piura%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Piura</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <p class="sin-aviso">Sin avisos vigentes</p>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Norte">
+        <header><div><h3>FLB Trujillo CC</h3><p class="muted">Trujillo · Trujillo · P002100701</p>
+          <p class="tags"><span class="riesgo r-crítico">Riesgo Crítico</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Trujillo%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Trujillo</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <p class="sin-aviso">Sin avisos vigentes</p>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Norte">
+        <header><div><h3>FLB Chimbote</h3><p class="muted">Chimbote · Chimbote · P002100801</p>
+          <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>2 reporte(s) por lluvias en el departamento, lejos de la tienda (Aija, Huayllan), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Chimbote%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Chimbote</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Informe de emergencia</b> · 28/09 19:06<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5303-11-4-2026-coen-indeci-0357-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2389 – 28/9/2026 / COEN – INDECI / 18:20 HORAS (Informe N.º 2) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLAN – ÁNCASH</a></li><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 16:26<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-12740-23-9-2026-coen-indeci-0135-horas-reporte-n-o-1-derrumbe-de-cerro-en-el-distrito-de-aija-ancash/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13083 – 28/9/2026 / COEN – INDECI / 15:40 HORAS (Reporte N.º 2) DERRUMBE DE CERRO EN EL DISTRITO DE AIJA – ÁNCASH</a></li></ul>
+        </details>
+      </article></div></section><section class="zona" data-zona="Centro/Sur"><h2>Zona Centro/Sur <span class="frec">Reporte quincenal</span></h2><div class="grid">
+      <article class="card sem-verde" data-zona="Centro/Sur">
+        <header><div><h3>FLB Canete MP</h3><p class="muted">Cañete · San Vicente De Cañete · P002101401</p>
+          <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Ca%C3%B1ete%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Cañete</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Centro/Sur">
+        <header><div><h3>FLB Ica Mall</h3><p class="muted">Ica · Ica · P002101201</p>
+          <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Ica%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Ica</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <p class="sin-aviso">Sin avisos vigentes</p>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Centro/Sur">
+        <header><div><h3>FLB Arequipa (Cayma)</h3><p class="muted">Arequipa · Cayma · P002102701</p>
+          <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>2 reporte(s) por lluvias en el departamento, lejos de la tienda (Huanuhuanu, Ocoña), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Arequipa%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Arequipa</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 27/09 22:01<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-10642-17-8-2026-coen-indeci-2235-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-ocona-arequipa/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.° 13025 – 27/9/2026 / COEN-INDECI / 21:23 HORAS (Reporte N.° 8) LLUVIAS INTENSAS EN EL DISTRITO DE OCOÑA – AREQUIPA</a></li><li class="nv2"><b>INDECI · Peligro inminente</b> · 27/09 14:48<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-de-peligro-inminente-n-o-0076-23-9-2026-coen-indeci-2104-horas-reporte-n-o-1-por-lluvias-intensas-en-el-distrito-de-huanuhuanu-huancavelica/" target="_blank" rel="noopener">REPORTE DE PELIGRO INMINENTE N.º 0078 – 27/9/2026/ COEN – INDECI / 14:33 HORAS (Reporte N.º 2) POR LLUVIAS INTENSAS EN EL DISTRITO DE HUANUHUANU – AREQUIPA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Centro/Sur">
+        <header><div><h3>FLB Cusco</h3><p class="muted">Cusco · Cusco · P002103201</p>
+          <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Cusco%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Cusco</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <p class="sin-aviso">Sin avisos vigentes</p>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Centro/Sur">
+        <header><div><h3>FLB Exp Huaraz</h3><p class="muted">Huaraz · Huaraz · P002103301</p>
+          <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>2 reporte(s) por lluvias en el departamento, lejos de la tienda (Aija, Huayllan), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Huaraz%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Huaraz</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Informe de emergencia</b> · 28/09 19:06<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5303-11-4-2026-coen-indeci-0357-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2389 – 28/9/2026 / COEN – INDECI / 18:20 HORAS (Informe N.º 2) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLAN – ÁNCASH</a></li><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 16:26<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-12740-23-9-2026-coen-indeci-0135-horas-reporte-n-o-1-derrumbe-de-cerro-en-el-distrito-de-aija-ancash/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13083 – 28/9/2026 / COEN – INDECI / 15:40 HORAS (Reporte N.º 2) DERRUMBE DE CERRO EN EL DISTRITO DE AIJA – ÁNCASH</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Centro/Sur">
+        <header><div><h3>FLB Exp.Ayacucho</h3><p class="muted">Ayacucho · Ayacucho · P002103501</p>
+          <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Ayacucho%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Ayacucho</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <p class="sin-aviso">Sin avisos vigentes</p>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Centro/Sur">
+        <header><div><h3>FLB Huancayo</h3><p class="muted">Huancayo · Huancayo · P002102101</p>
+          <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Vizcatan Del Ene), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Huancayo%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Huancayo</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 17:07<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-12321-15-9-2026-coen-indeci-1600-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-vizcatan-del-ene-junin/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13089 – 28/9/2026 / COEN – INDECI / 16:25 HORAS (Reporte N.° 1) LLUVIAS INTENSAS EN EL DISTRITO DE VIZCATÁN DEL ENE – JUNÍN</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Centro/Sur">
+        <header><div><h3>FLB Porongoche</h3><p class="muted">Arequipa · Paucarpata · P002101001</p>
+          <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>2 reporte(s) por lluvias en el departamento, lejos de la tienda (Huanuhuanu, Ocoña), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Arequipa%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Arequipa</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 27/09 22:01<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-10642-17-8-2026-coen-indeci-2235-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-ocona-arequipa/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.° 13025 – 27/9/2026 / COEN-INDECI / 21:23 HORAS (Reporte N.° 8) LLUVIAS INTENSAS EN EL DISTRITO DE OCOÑA – AREQUIPA</a></li><li class="nv2"><b>INDECI · Peligro inminente</b> · 27/09 14:48<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-de-peligro-inminente-n-o-0076-23-9-2026-coen-indeci-2104-horas-reporte-n-o-1-por-lluvias-intensas-en-el-distrito-de-huanuhuanu-huancavelica/" target="_blank" rel="noopener">REPORTE DE PELIGRO INMINENTE N.º 0078 – 27/9/2026/ COEN – INDECI / 14:33 HORAS (Reporte N.º 2) POR LLUVIAS INTENSAS EN EL DISTRITO DE HUANUHUANU – AREQUIPA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Centro/Sur">
+        <header><div><h3>FLB Merced</h3><p class="muted">La Merced · Chanchamayo · P002102901</p>
+          <p class="tags"><span class="riesgo r-sin-clasificar">Riesgo Sin clasificar</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Vizcatan Del Ene), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22La%20Merced%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de La Merced</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 17:07<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-12321-15-9-2026-coen-indeci-1600-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-vizcatan-del-ene-junin/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13089 – 28/9/2026 / COEN – INDECI / 16:25 HORAS (Reporte N.° 1) LLUVIAS INTENSAS EN EL DISTRITO DE VIZCATÁN DEL ENE – JUNÍN</a></li></ul>
+        </details>
+      </article></div></section><section class="zona" data-zona="Oriente"><h2>Zona Oriente <span class="frec">Reporte quincenal</span></h2><div class="grid">
+      <article class="card sem-amarillo" data-zona="Oriente">
+        <header><div><h3>FLB Iquitos</h3><p class="muted">Iquitos · Iquitos · P004101702</p>
+          <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 2 · Amarilla</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 2 · Alerta Amarilla</b>. Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Ramon Castilla), últimas 48 h.</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo bajo por movimientos en masa y exposición muy alta a inundaciones.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 2</p><ul><li>Limpieza inmediata de drenajes y canaletas.</li><li>Inspección extraordinaria de cubiertas.</li><li>Verificación de funcionamiento de bombas de achique.</li><li>Coordinación preventiva con centros comerciales.</li><li>Verificación de grupos electrógenos y UPS.</li><li>Activación parcial de brigadas.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Iquitos%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Iquitos</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv3"><b>CENEPRED/SIGRID · exposición a inundaciones</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Muy alto</a></li><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 16:14<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0932-28-9-2026-coen-indeci-1510-horas-erosion-en-el-distrito-de-ramon-castilla-loreto/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0932 – 28/9/2026 / COEN-INDECI / 15:10 HORAS EROSIÓN EN EL DISTRITO DE RAMÓN CASTILLA – LORETO</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-amarillo" data-zona="Oriente">
+        <header><div><h3>FLB Pucallpa</h3><p class="muted">Pucallpa · Calleria · P004101301</p>
+          <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 2 · Amarilla</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 2 · Alerta Amarilla</b>. Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo medio por movimientos en masa y exposición muy alta a inundaciones.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 2</p><ul><li>Limpieza inmediata de drenajes y canaletas.</li><li>Inspección extraordinaria de cubiertas.</li><li>Verificación de funcionamiento de bombas de achique.</li><li>Coordinación preventiva con centros comerciales.</li><li>Verificación de grupos electrógenos y UPS.</li><li>Activación parcial de brigadas.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Pucallpa%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Pucallpa</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv3"><b>CENEPRED/SIGRID · exposición a inundaciones</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Muy alto</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-amarillo" data-zona="Oriente">
+        <header><div><h3>FLB Tarapoto</h3><p class="muted">Tarapoto · Tarapoto · P004103901</p>
+          <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 2 · Amarilla</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 2 · Alerta Amarilla</b>. Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (Tocache), últimas 48 h.</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo medio por movimientos en masa y exposición alta a inundaciones.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 2</p><ul><li>Limpieza inmediata de drenajes y canaletas.</li><li>Inspección extraordinaria de cubiertas.</li><li>Verificación de funcionamiento de bombas de achique.</li><li>Coordinación preventiva con centros comerciales.</li><li>Verificación de grupos electrógenos y UPS.</li><li>Activación parcial de brigadas.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Tarapoto%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Tarapoto</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv3"><b>CENEPRED/SIGRID · exposición a inundaciones</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Alto</a></li><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 27/09 22:10<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-11089-24-8-2026-coen-indeci-2222-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-tocache-san-martin/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.° 13030 – 27/9/2026 / COEN – INDECI / 21:38 HORAS (Reporte N.º 3) LLUVIAS INTENSAS EN EL DISTRITO DE TOCACHE – SAN MARTÍN</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Oriente">
+        <header><div><h3>FLB Huanuco Op</h3><p class="muted">Huánuco · Huanuco · P004101601</p>
+          <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Hu%C3%A1nuco%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Huánuco</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <p class="sin-aviso">Sin avisos vigentes</p>
+        </details>
+      </article></div></section><section class="zona" data-zona="Lima Metropolitana"><h2>Zona Lima Metropolitana <span class="frec">Reporte mensual</span></h2><div class="grid">
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>CD Lurín</h3><p class="muted">Lima · Lurin · CD-LURIN</p>
+          <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span><span class="tipo">Centro de distribución</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>CD Villa El Salvador</h3><p class="muted">Lima · Villa El Salvador · CD-VES</p>
+          <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span><span class="tipo">Centro de distribución</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Lima Norte (Plaza Norte)</h3><p class="muted">Lima · Independencia · P002101101</p>
+          <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Mega Plaza</h3><p class="muted">Lima · Independencia · P002100401</p>
+          <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Puruchuco</h3><p class="muted">Lima · Ate · P002103001</p>
+          <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Santa Anita</h3><p class="muted">Lima · Santa Anita · P002100501</p>
+          <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>Corporación San Isidro (oficinas)</h3><p class="muted">Lima · San Isidro · CORP-SAN-ISIDRO</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span><span class="tipo">Oficina corporativa</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Angamos</h3><p class="muted">Lima · Surquillo · P002102601</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Atocongo</h3><p class="muted">Lima · San Juan De Miraflores · P002102501</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Bellavista</h3><p class="muted">Callao · Bellavista · P002102401</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>Sin emergencias por lluvias en el departamento (últimas 48 h).</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Callao%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Callao</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <p class="sin-aviso">Sin avisos vigentes</p>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Centro Civico</h3><p class="muted">Lima · Lima · P002101801</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Comas</h3><p class="muted">Lima · Comas · P002103101</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Expo Lima Centro</h3><p class="muted">Lima · Lima · EXPO-LIMA-CENTRO</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Jockey Plaza</h3><p class="muted">Lima · Santiago De Surco · P002100201</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Lima Centro</h3><p class="muted">Lima · Lima · P002102001</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Mall del Sur</h3><p class="muted">Lima · San Juan De Miraflores · P002101901</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Miraflores</h3><p class="muted">Lima · Miraflores · P002100301</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB Salaverry</h3><p class="muted">Lima · Jesus Maria · P002101501</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB San Isidro</h3><p class="muted">Lima · San Isidro · P002100101</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB San Miguel</h3><p class="muted">Lima · San Miguel · P002102801</p>
+          <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article>
+      <article class="card sem-verde" data-zona="Lima Metropolitana">
+        <header><div><h3>FLB MOLINA</h3><p class="muted">Lima · La Molina · P002103801</p>
+          <p class="tags"><span class="riesgo r-bajo">Riesgo Bajo</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>1 reporte(s) por lluvias en el departamento, lejos de la tienda (San Damian), últimas 48 h.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Lima%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Lima</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 18:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-0646-17-1-2026-coen-indeci-1600-horas-reporte-n-o-1-inundacion-por-desborde-de-rio-en-el-distrito-de-san-damian-lima/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.º 13100 – 28/9/2026 / COEN – INDECI / 18:40 HORAS (Reporte N.º 4) INUNDACIÓN POR DESBORDE DE RÍO EN EL DISTRITO DE SAN DAMIÁN – LIMA</a></li></ul>
+        </details>
+      </article></div></section><section class="zona" data-zona="Sur"><h2>Zona Sur <span class="frec">Reporte mensual</span></h2><div class="grid">
+      <article class="card sem-verde" data-zona="Sur">
+        <header><div><h3>FLB Exp Tacna</h3><p class="muted">Tacna · Tacna · P002304029</p>
+          <p class="tags"><span class="riesgo r-bajo">Riesgo Bajo</span></p></div>
+          <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
+          </div></header>
+        <div class="metricas">
+          <div><small>T. máx</small><strong>—</strong></div>
+          <div><small>T. mín</small><strong>—</strong></div>
+          <div><small>Lluvia</small><strong>—</strong></div>
+        </div>
+        <div class="interp"><dl><dt>Nivel</dt><dd><b>Nivel 1 · Alerta Verde</b>. Temporada de lluvias: monitoreo preventivo.</dd><dt>SENAMHI</dt><dd>Sin avisos para la zona.</dd><dt>INDECI</dt><dd>2 reporte(s) por lluvias en el departamento, lejos de la tienda (Inclan, Sama), últimas 48 h.</dd><dt>CENEPRED</dt><dd>Escenario vigente: distrito con riesgo bajo por movimientos en masa y exposición media a inundaciones.</dd><dt>Hoy</dt><dd>Sin estación SENAMHI cercana con dato.</dd></dl>
+          <p class="qh">Qué hacer · acciones del Plan FEN para Nivel 1</p><ul><li>Monitoreo de información meteorológica.</li><li>Revisión de Check-list preventivo.</li><li>Inspección visual y Mantto. preventivo de techos, canaletas y drenajes.</li><li>Actualización de directorios de emergencia.</li></ul></div>
+        <div class="botones">
+          <a class="btn" href="https://news.google.com/search?q=%22Tacna%22%20%28lluvias%20OR%20%22El%20Ni%C3%B1o%22%20OR%20huaico%20OR%20quebrada%20OR%20%22ola%20de%20calor%22%29%20%28site%3Agob.pe%20OR%20site%3Aandina.pe%29&amp;hl=es-419&amp;gl=PE&amp;ceid=PE:es-419" target="_blank" rel="noopener">Noticias oficiales de Tacna</a>
+          <a class="btn sec" href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">Avisos SENAMHI</a>
+          <a class="btn sec" href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">Emergencias INDECI</a>
+        </div>
+        <details><summary>Ver detalle técnico</summary>
+          <p class="muted est">Estación SENAMHI: sin estación a menos de 60 km</p>
+          <div class="fila"><span>T. máx últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>T. mín últimos 15 registros</span><span class="muted">—</span></div>
+          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>— / —</span></div>
+          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span><span class="muted">—</span></div>
+          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips"><span class="muted">—</span><span class="muted">—</span><span class="muted">—</span></span></div>
+          <div class="fila"><span>Lluvia verano </span><span class="muted">—</span></div>
+          <div class="fila"><span>Estimación propia (historial)</span><span class="muted">0/14 días acumulados</span></div>
+          <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 28/09 17:18<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-13091-28-9-2026-coen-indeci-171655-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-inclan-tacna/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.° 13091 – 28/9/2026 / COEN-INDECI / 17:1655 HORAS (Reporte N.º 1) LLUVIAS INTENSAS EN EL DISTRITO DE INCLÁN – TACNA</a></li><li class="nv2"><b>INDECI · Informe de emergencia</b> · 27/09 16:42<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-10739-19-8-2026-coen-indeci-0631-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-sama-tacna/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2384 – 27/9/2026 / COEN – INDECI / 16:28 HORAS (Informe N° 2) LLUVIAS INTENSAS EN EL DISTRITO DE SAMA – TACNA</a></li></ul>
+        </details>
+      </article></div></section>
+
+<footer>
+<p><b>Cómo leer:</b> T. máx / T. mín / Lluvia = último registro de la estación SENAMHI más cercana a la tienda (capas monitoreo_meteorologico, N=1).
+Series de 15 registros = capas N=15…1 de esa estación (se asume N=1 el más reciente). La estimación propia usa el historial del monitor y solo aparece con 14 días acumulados; es referencial. Pronóstico T. mín = modelo SENAMHI a 10 días. Próximo mes y verano = escenario del pronóstico estacional SENAMHI para el sector de la tienda.
+Niveles del Plan FEN (PLN-PRE, Cap. X): Nivel 1 Verde = monitoreo preventivo (base de temporada) · Nivel 2 Amarilla = aviso SENAMHI amarillo/naranja por lluvias, activación de quebradas en la provincia, reporte INDECI por lluvias en la provincia o distrito en riesgo Alto/Muy alto en un escenario CENEPRED vigente · Nivel 3 Roja = aviso SENAMHI rojo, lluvia sobre el umbral de riesgo en la provincia o emergencia/peligro inminente INDECI por lluvias en el distrito de la tienda · Nivel 4 Negra = solo por registro manual (alertas_manuales.csv). Riesgo de cada instalación según la Matriz Nacional de Riesgo del plan.</p>
+<p>Fuentes: <a href="https://enfen.imarpe.gob.pe/comunicados/" target="_blank" rel="noopener">ENFEN comunicados</a> · <a href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">SENAMHI avisos</a> · <a href="https://www.senamhi.gob.pe/?p=pronostico-meteorologico" target="_blank" rel="noopener">SENAMHI pronostico</a> · <a href="https://idesep.senamhi.gob.pe/" target="_blank" rel="noopener">IDESEP geoservicios</a> · <a href="https://www.gob.pe/senamhi" target="_blank" rel="noopener">SENAMHI noticias (gob.pe)</a> · <a href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">INDECI emergencias</a> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">CENEPRED SIGRID escenarios</a> · <a href="https://www.cpc.ncep.noaa.gov/data/indices/" target="_blank" rel="noopener">NOAA indices ENSO</a></p>
+</footer>
+</div>
+<script>
+const b=document.getElementById('btn-act');
+if(b){b.addEventListener('click',async()=>{
+  const m=document.getElementById('msg-act');b.disabled=true;m.textContent='Solicitando actualización…';
+  try{const r=await fetch(b.dataset.url,{method:'POST'});
+    m.textContent=r.ok?'Actualizando: la página se recargará en ~4 minutos.':'No se pudo solicitar ('+r.status+').';
+    if(r.ok)setTimeout(()=>location.reload(),240000);}catch(err){m.textContent='No se pudo solicitar la actualización.';}
+  finally{setTimeout(()=>{b.disabled=false},60000);}
+});}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('activo'));b.classList.add('activo');
+  const z=b.dataset.zona;document.querySelectorAll('section.zona').forEach(s=>s.style.display=(z==='todas'||s.dataset.zona===z)?'':'none');
+}));
+</script>
+</body></html>
