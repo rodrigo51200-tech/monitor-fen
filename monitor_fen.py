@@ -473,8 +473,10 @@ def fuente_corpac() -> dict:
         ts = datetime.fromisoformat(m["reportTime"].replace("Z", "+00:00")).astimezone()
         est = out.setdefault(icao, {"nombre": AEROPUERTOS_PE[icao], "lat": m.get("lat"), "lon": m.get("lon"), "obs": []})
         wx = str(m.get("wxString") or "")
-        est["obs"].append({"ts": ts, "temp": float(temp), "wx": wx,
-                           "lluvia": any(c in wx for c in LLUVIA_METAR), "raw": m.get("rawOb", "")})
+        tipo = ("tormenta" if "TS" in wx else "granizo" if "GR" in wx else "lluvia" if ("RA" in wx or "SH" in wx)
+                else "llovizna (garúa)" if "DZ" in wx else "")
+        est["obs"].append({"ts": ts, "temp": float(temp), "wx": wx, "lluvia": bool(tipo), "tipo": tipo,
+                           "raw": m.get("rawOb", "")})
     for est in out.values():
         est["obs"].sort(key=lambda o: o["ts"])
         ult = est["obs"][-1]
@@ -750,7 +752,7 @@ def interpretar(r, enfen):
         t = (f"{c['ahora']:.0f} °C a las {c['hora']} en el aeropuerto de {c['nombre'].split(' – ')[0]} (CORPAC); "
              f"últimas 24 h: máxima {r['tmax']:.0f} °C, mínima {r['tmin']:.0f} °C")
         if c["lluvia"]:
-            t += f". <b>Lluvia observada</b> (último reporte con lluvia: {c['lluvia_hora']})"
+            t += f". <b>{c['lluvia_tipo'].capitalize()} observada</b> en las últimas 6 h (último reporte: {c['lluvia_hora']})"
         lineas.append(("Hoy", t + "."))
         if r["tmax"] >= UMBRAL_CALOR:
             claves.append("calor")
@@ -936,7 +938,8 @@ def procesar(tiendas, datos):
                 hora = a["ultima"]["ts"].strftime("%H:%M")
                 r["corpac"] = {"icao": icao, "nombre": a["nombre"], "dist": dist, "ahora": a["ultima"]["temp"],
                                "hora": hora, "lluvia": bool(a["lluvia_6h"]),
-                               "lluvia_hora": a["lluvia_6h"][-1]["ts"].strftime("%H:%M") if a["lluvia_6h"] else ""}
+                               "lluvia_hora": a["lluvia_6h"][-1]["ts"].strftime("%H:%M") if a["lluvia_6h"] else "",
+                               "lluvia_tipo": a["lluvia_6h"][-1]["tipo"] if a["lluvia_6h"] else ""}
                 r["estacion"] = f"CORPAC · Aeropuerto {a['nombre']} ({dist:.0f} km), reporte {hora}"
                 r["fuente_temp"] = "CORPAC"
         nasa = datos.get("nasa", {}).get((t.lat_r, t.lon_r))
@@ -1216,11 +1219,31 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
                         f'{f["dias_hist"]}/{MIN_DIAS_PROYECCION} días acumulados</span></div>')
             pmx = "—" if f.get("prom_tmax") is None else f"{f['prom_tmax']:.1f}°"
             pmn = "—" if f.get("prom_tmin") is None else f"{f['prom_tmin']:.1f}°"
-            est_txt = f["estacion"] or f"sin estación a menos de {DIST_MAX_ESTACION_KM} km"
+            est_txt = f["estacion"] or "sin estación ni aeropuerto cercano con dato"
             c = f.get("corpac")
+            filas_det = [f'<p class="muted est">Fuente de temperatura: {e(est_txt)}</p>']
+            if any(v is not None for v in f.get("serie_tmax", [])):
+                filas_det.append(f'<div class="fila"><span>{"Temperatura horaria últimas 24 h" if c else "T. máx últimos registros"}</span>{sparkline(f["serie_tmax"])}</div>')
+            if any(v is not None for v in f.get("serie_tmin", [])):
+                filas_det.append(f'<div class="fila"><span>T. mín últimos registros</span>{sparkline(f["serie_tmin"])}</div>')
+            if f.get("prom_tmax") is not None:
+                filas_det.append(f'<div class="fila"><span>Promedio reciente · T. máx / T. mín</span><span>{pmx} / {pmn}</span></div>')
+            if any(v is not None for v in f.get("tmin10", [])):
+                filas_det.append(f'<div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span>{sparkline(f["tmin10"])}</div>')
+            if f["pm_tmax_esc"] or f["pm_tmin_esc"] or f["pm_pp_esc"]:
+                filas_det.append(f'<div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips">'
+                                 f'{chip_escenario(f["pm_tmax_esc"])}{chip_escenario(f["pm_tmin_esc"])}{chip_escenario(f["pm_pp_esc"])}</span></div>')
+            if f["verano_esc"]:
+                filas_det.append(f'<div class="fila"><span>Lluvia verano {e(str(f["verano_meta"])).replace("_", " – ").title()}</span>{chip_escenario(f["verano_esc"])}</div>')
+            if not (f["verano_esc"] or f["pm_tmax_esc"] or any(v is not None for v in f.get("tmin10", []))):
+                filas_det.append('<div class="fila"><span>Pronósticos SENAMHI (10 días, mensual, verano)</span>'
+                                 '<span class="muted">no disponibles desde el servidor</span></div>')
+            filas_det.append(proy)
+            filas_det.append(avisos)
+            detalle = "\n          ".join(filas_det)
             if c:
                 metrica3 = (f'<div><small>Ahora ({c["hora"]})</small><strong>{c["ahora"]:.0f}°</strong>'
-                            + ('<span class="delta sube">lluvia observada</span>' if c["lluvia"] else "") + "</div>")
+                            + (f'<span class="delta sube">{e(c["lluvia_tipo"])}</span>' if c["lluvia"] else "") + "</div>")
                 etq_max, etq_min, etq_serie = "Máx 24 h", "Mín 24 h", "Temperatura horaria últimas 24 h"
             else:
                 prec_txt = "—" if f["prec"] is None else f"{f['prec']:.1f}<em>mm</em>"
@@ -1245,15 +1268,7 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
           <a class="btn sec" href="{e(LINKS['INDECI emergencias'])}" target="_blank" rel="noopener">Emergencias INDECI</a>
         </div>
         <details><summary>Ver detalle técnico</summary>
-          <p class="muted est">Estación SENAMHI: {e(est_txt)}</p>
-          <div class="fila"><span>{etq_serie}</span>{sparkline(f['serie_tmax'])}</div>
-          <div class="fila"><span>T. mín últimos 15 registros</span>{sparkline(f['serie_tmin'])}</div>
-          <div class="fila"><span>Promedio 15 registros · T. máx / T. mín</span><span>{pmx} / {pmn}</span></div>
-          <div class="fila"><span>Pronóstico SENAMHI T. mín 10 días</span>{sparkline(f['tmin10'])}</div>
-          <div class="fila"><span>Próximo mes · T. máx / T. mín / Lluvia</span><span class="chips">{chip_escenario(f['pm_tmax_esc'])}{chip_escenario(f['pm_tmin_esc'])}{chip_escenario(f['pm_pp_esc'])}</span></div>
-          <div class="fila"><span>Lluvia verano {e(f['verano_meta']).replace('_', '–').title()}</span>{chip_escenario(f['verano_esc'])}</div>
-          {proy}
-          {avisos}
+          {detalle}
         </details>
       </article>""")
         bloques.append(f'<section class="zona" data-zona="{e(z)}"><h2>Zona {e(z)} <span class="frec">Reporte {e(frec).lower()}</span></h2><div class="grid">{"".join(tarjetas)}</div></section>')
@@ -1308,7 +1323,7 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
         or '<li class="muted">Sin cambios de nivel desde la actualización anterior.</li>')
 
     av_html = "".join(
-        f'<li><b>Aviso N° {e(a["numero"])}</b>{" · " + e(a["evento"]) if a["evento"] else ""}'
+        f'<li><b>Aviso N° {e(a["numero"])}</b>{" · " + e(a["evento"]) if a["evento"] else " · <span class=muted>tipo en el boletín</span>"}'
         f'{"<br><span class=muted>Vigencia: " + e(a["vigencia"]) + "</span>" if a["vigencia"] else ""}'
         f'{"<br><span class=muted>" + e(", ".join(d.title() for d in a["departamentos"])) + "</span>" if a["departamentos"] else ""}'
         f' · <a href="{e(a["link"])}" target="_blank" rel="noopener">boletín</a></li>'

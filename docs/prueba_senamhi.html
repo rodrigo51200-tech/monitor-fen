@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prueba de acceso a SENAMHI</title>
+<style>
+body{font:15px/1.5 system-ui,sans-serif;max-width:760px;margin:30px auto;padding:0 16px;color:#333}
+h1{font-size:20px} li{margin:10px 0} .ok{color:#2e7d32;font-weight:700} .no{color:#c00000;font-weight:700} .esp{color:#888}
+code{background:#f3f3f3;padding:1px 4px;border-radius:4px;font-size:12px} img{max-width:100%;border:1px solid #ddd;margin-top:6px}
+</style></head><body>
+<h1>Prueba: ¿este navegador puede leer datos de SENAMHI?</h1>
+<p>Abre esta página desde una conexión en Perú. Solo lee datos públicos; no envía nada.</p>
+<ol>
+  <li>Datos de estaciones (JSON directo): <span id="t1" class="esp">probando…</span></li>
+  <li>Datos de estaciones (JSONP): <span id="t2" class="esp">probando…</span></li>
+  <li>Mapa de avisos (imagen WMS): <span id="t3" class="esp">probando…</span><br><img id="img3" alt=""></li>
+</ol>
+<p id="res"></p>
+<script>
+const WFS="https://idesep.senamhi.gob.pe/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico:tmax_1_all_points&maxFeatures=3";
+const pon=(id,ok,txt)=>{const e=document.getElementById(id);e.className=ok?'ok':'no';e.textContent=(ok?'SÍ ✔ ':'NO ✘ ')+txt;};
+// 1) JSON con CORS
+fetch(WFS+"&outputFormat=application/json").then(r=>r.json()).then(d=>{
+  const p=(d.features||[])[0];pon('t1',true,p?`ej.: ${p.properties.estacion} ${p.properties.tmax} °C`:'respondió sin datos');
+}).catch(err=>pon('t1',false,'bloqueado por el navegador o sin conexión ('+err.message+')'));
+// 2) JSONP
+window.cbSenamhi=d=>{const p=(d.features||[])[0];pon('t2',true,p?`ej.: ${p.properties.estacion} ${p.properties.tmax} °C`:'respondió sin datos');};
+const s=document.createElement('script');
+s.src=WFS+"&outputFormat=text/javascript&format_options=callback:cbSenamhi";
+s.onerror=()=>pon('t2',false,'no disponible');
+setTimeout(()=>{if(document.getElementById('t2').className==='esp')pon('t2',false,'sin respuesta en 20 s');},20000);
+document.body.appendChild(s);
+// 3) Imagen WMS
+const img=document.getElementById('img3');
+img.onload=()=>pon('t3',true,'se ve el mapa abajo');
+img.onerror=()=>pon('t3',false,'no cargó');
+img.src="https://idesep.senamhi.gob.pe/geoserver/wms?service=WMS&version=1.1.1&request=GetMap&layers=g_acti_quebrada:view_av_activ_qdra&styles=&srs=EPSG:4326&bbox=-82,-19,-68,0&width=420&height=570&format=image/png&transparent=false";
+</script>
+</body></html>
