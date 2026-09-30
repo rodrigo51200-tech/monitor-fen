@@ -5,9 +5,12 @@ Mar frente a la costa norte (NOAA Niño 1+2): +4.7 °C sobre lo normal
 Calendario Plan FEN: Fase 2 · Mitigación (julio – setiembre)
 
 Instalaciones sobre Nivel 1 (4):
-• FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 29/09 10:06: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
+• FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 29/09 14:58: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Iquitos (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Resto de instalaciones (37): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Cajamarca: 26.0° (+3.0°)
