@@ -5,13 +5,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
-:root{--fala:#aad500;--fala-osc:#5c7a00;--fala-suave:#f3f9dd;--bg:#f5f6f4;--card:#fff;--tx:#333a36;--mut:#6b736e;--bd:#e3e6e1;
+:root{--fala:#aad500;--fala-osc:#4a6b00;--fala-suave:#f4f9e4;--grafito:#2b2f2c;--bg:#f2f4f1;--card:#fff;--tx:#2b2f2c;--mut:#5e6661;--bd:#dfe3dd;
 --rojo:#c00000;--ambar:#e07b00;--amar:#ffc000;--verde:#70ad47;--azul:#1f5fa8;--negro:#111;}
 *{box-sizing:border-box} html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 Lato,"Segoe UI",system-ui,sans-serif}
 a{color:var(--fala-osc);font-weight:700}
 .muted{color:var(--mut)} .small{font-size:11.5px}
 /* ---------- cabecera ---------- */
+.franja{background:var(--grafito);color:#e9ece8;font-size:12px}
+.franja .in{max-width:1280px;margin:0 auto;padding:6px 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.franja span:first-child{font-weight:900;letter-spacing:.01em} .franja span:last-child{color:#b9c0b8}
 .barra{background:#fff;border-bottom:4px solid var(--fala);position:sticky;top:0;z-index:5;box-shadow:0 1px 6px rgba(0,0,0,.05)}
 .barra .in{max-width:1280px;margin:0 auto;padding:12px 16px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .marca{display:flex;align-items:center;gap:12px;flex:1;min-width:260px}
@@ -24,8 +27,8 @@ a{color:var(--fala-osc);font-weight:700}
 .marca h1{font-size:20px;font-weight:900;margin:0;line-height:1.2} .marca h1 span{color:var(--fala-osc)}
 .marca p{margin:2px 0 0;font-size:12px;color:var(--mut)}
 .act{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
-.btn{display:inline-block;font:700 13px Lato,sans-serif;text-decoration:none;padding:8px 16px;border-radius:22px;background:var(--fala);color:#1d2a00;border:0;cursor:pointer}
-.btn:hover{filter:brightness(.95)} .btn.sec{background:#fff;color:var(--fala-osc);border:1.5px solid var(--fala)}
+.btn{display:inline-block;font:700 13px Lato,sans-serif;text-decoration:none;padding:8px 16px;border-radius:6px;background:var(--fala);color:#1d2a00;border:0;cursor:pointer}
+.btn:hover{filter:brightness(.95)} .btn:focus-visible,.fchip:focus-visible,.tab:focus-visible,.lnk:focus-visible,select:focus-visible,input:focus-visible,.pp-seg:focus-visible{outline:3px solid var(--fala-osc);outline-offset:2px} .btn.sec{background:#fff;color:var(--fala-osc);border:1.5px solid var(--fala)}
 .vistas{max-width:1280px;margin:10px auto 0;padding:0 16px;display:flex;gap:4px;width:100%}
 .vista{background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px;font:700 14px Lato,sans-serif;color:var(--mut);cursor:pointer}
 .vista.activo{color:var(--tx);border-bottom-color:var(--fala-osc)}
@@ -35,21 +38,21 @@ section.panel{display:none} section.panel.activo{display:block;animation:aparece
 h2{font-size:18px;font-weight:900;margin:26px 0 10px} h2 small{font-weight:400;color:var(--mut);font-size:12.5px;margin-left:6px}
 /* ---------- resumen ---------- */
 .estado{display:grid;grid-template-columns:2fr 1fr 1.4fr 1.4fr;gap:12px}
-.caja{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px}
+.caja{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:14px 16px}
 .caja small{color:var(--mut);display:block;font-size:12px} .caja strong{display:block;font-size:20px;font-weight:900;margin:2px 0}
 .caja.fen{border-left:6px solid var(--mut)} .caja.fen.rojo{border-left-color:var(--rojo)} .caja.fen.amarillo{border-left-color:var(--amar)}
 .explica{font-size:12px;color:var(--mut);margin:6px 0 0}
 .niveles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
-.nv{border-radius:10px;padding:8px 4px;text-align:center;font-size:22px;font-weight:900} .nv em{display:block;font-size:10.5px;font-style:normal;font-weight:700}
+.nv{border-radius:6px;padding:8px 4px;text-align:center;font-size:22px;font-weight:900} .nv em{display:block;font-size:10.5px;font-style:normal;font-weight:700}
 .nv.n1,.pill.n1{background:var(--verde);color:#fff} .nv.n2,.pill.n2{background:var(--amar);color:#111} .nv.n3,.pill.n3{background:var(--rojo);color:#fff} .nv.n4,.pill.n4{background:var(--negro);color:#fff}
-.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
-.tabla-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--bd);border-radius:14px}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:4px;white-space:nowrap}
+.tabla-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--bd);border-radius:8px}
 .tabla{width:100%;border-collapse:collapse;font-size:13px}
-.tabla th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--mut);background:var(--fala-suave);padding:10px 12px}
+.tabla th{text-align:left;font-size:11.5px;color:var(--mut);background:var(--fala-suave);padding:10px 12px;font-weight:700}
 .tabla td{padding:10px 12px;border-top:1px solid var(--bd);vertical-align:top}
 .fila-alerta{cursor:pointer;transition:background .15s} .fila-alerta:hover{background:var(--fala-suave)}
 .ver{color:var(--fala-osc);font-weight:700;white-space:nowrap}
-.vacio{background:var(--fala-suave);border:1px solid var(--fala);border-radius:14px;padding:16px;font-size:14px}
+.vacio{background:var(--fala-suave);border:1px solid var(--fala);border-radius:8px;padding:16px;font-size:14px}
 .tres{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .lista{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:8px;font-size:12.5px}
 .lista li{border-left:3px solid var(--fala);padding:2px 0 2px 10px}
@@ -57,20 +60,22 @@ h2{font-size:18px;font-weight:900;margin:26px 0 10px} h2 small{font-weight:400;c
 .aviso-sistema{background:#fff7e6;border:1px solid var(--ambar);border-radius:10px;padding:9px 12px;margin-top:12px;font-size:12.5px}
 /* ---------- por zona ---------- */
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}
-.tab{border:1.5px solid var(--bd);background:#fff;color:var(--tx);border-radius:20px;padding:6px 13px;cursor:pointer;font:700 13px Lato,sans-serif}
+.tab{border:1.5px solid var(--bd);background:#fff;color:var(--tx);border-radius:6px;padding:6px 13px;cursor:pointer;font:700 13px Lato,sans-serif}
 .tab span{color:var(--mut);margin-left:4px;font-weight:400} .tab.activo{background:var(--fala);border-color:var(--fala);color:#1d2a00}
 .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ambar);margin-left:6px;vertical-align:middle}
 .frec{font-size:12px;font-weight:400;color:var(--mut);margin-left:8px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
-.card{background:var(--card);border:1px solid var(--bd);border-top:5px solid var(--verde);border-radius:14px;padding:14px;scroll-margin-top:140px}
-.card.sem-rojo{border-top-color:var(--rojo)} .card.sem-amarillo{border-top-color:var(--amar)} .card.sem-negro{border-top-color:var(--negro)}
+.card{background:var(--card);border:1px solid var(--bd);border-left:6px solid var(--verde);border-radius:8px;padding:14px 14px 14px 16px;scroll-margin-top:140px;box-shadow:0 1px 2px rgba(43,47,44,.06)}
+.card[hidden],section.zona[hidden]{display:none}
+.card.sem-rojo{border-left-color:var(--rojo)} .card.sem-amarillo{border-left-color:var(--amar)} .card.sem-negro{border-left-color:var(--negro)}
+.codigo{font-size:10.5px;font-weight:700;color:var(--mut);border:1px solid var(--bd);border-radius:4px;padding:0 5px;margin-left:4px;white-space:nowrap}
 .card.resalta{animation:resalta 1.6s ease} @keyframes resalta{0%,60%{box-shadow:0 0 0 4px var(--fala)}100%{box-shadow:none}}
 .card header{display:flex;justify-content:space-between;gap:8px} .card h3{font-size:15px;margin:0;font-weight:900} .card header p{margin:2px 0 0;font-size:12px}
-.sem-badge{font-size:11px;font-weight:700;white-space:nowrap;padding:3px 9px;border-radius:12px;height:fit-content}
+.sem-badge{font-size:11px;font-weight:700;white-space:nowrap;padding:3px 9px;border-radius:4px;height:fit-content}
 .sem-verde .sem-badge{background:var(--verde);color:#fff} .sem-rojo .sem-badge{background:var(--rojo);color:#fff} .sem-amarillo .sem-badge{background:var(--amar);color:#111} .sem-negro .sem-badge{background:#111;color:#fff}
 .badges{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
 .tags{margin:4px 0 0!important;display:flex;gap:4px;flex-wrap:wrap}
-.riesgo,.tipo{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:9px;background:var(--bd)}
+.riesgo,.tipo{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:4px;background:var(--bd)}
 .r-crítico{background:#c00000;color:#fff} .r-alto{background:#ed7d31;color:#fff} .r-medio-alto{background:#ffc000;color:#111} .r-medio{background:#ffe699;color:#111} .r-bajo{background:#a9d08e;color:#111}
 .tipo{background:var(--azul);color:#fff}
 .metricas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 4px}
@@ -93,19 +98,19 @@ details{margin-top:6px;border-top:1px solid var(--bd);padding-top:6px} summary{c
 .sin-aviso{font-size:12px;color:var(--verde);margin:8px 0 0}
 /* ---------- guia ---------- */
 .guia{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}
-.nivel-card{background:var(--card);border:1px solid var(--bd);border-top:6px solid;border-radius:14px;padding:14px 16px}
-.nivel-card.n1{border-top-color:var(--verde)} .nivel-card.n2{border-top-color:var(--amar)} .nivel-card.n3{border-top-color:var(--rojo)} .nivel-card.n4{border-top-color:var(--negro)}
+.nivel-card{background:var(--card);border:1px solid var(--bd);border-left:6px solid;border-radius:8px;padding:14px 16px}
+.nivel-card.n1{border-left-color:var(--verde)} .nivel-card.n2{border-left-color:var(--amar)} .nivel-card.n3{border-left-color:var(--rojo)} .nivel-card.n4{border-left-color:var(--negro)}
 .nivel-card header{display:flex;align-items:center;gap:8px} .nivel-card h3{margin:0;font-size:15px;font-weight:900}
-.nivel-card .que{font-weight:700;margin:10px 0} .nivel-card h4{font-size:12px;text-transform:uppercase;color:var(--fala-osc);margin:10px 0 4px;letter-spacing:.03em}
+.nivel-card .que{font-weight:700;margin:10px 0} .nivel-card h4{font-size:13px;color:var(--fala-osc);margin:12px 0 4px}
 .nivel-card ul{margin:0;padding-left:18px;font-size:12.5px}
-.glosario{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px;font-size:13px}
+.glosario{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:14px 16px;font-size:13px}
 .glosario dt{font-weight:900;color:var(--fala-osc)} .glosario dd{margin:0}
 
 .mapa-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 10px}
 .leyenda{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--mut)} .leyenda i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:4px;vertical-align:-1px;border:1.5px solid #fff;box-shadow:0 0 0 1px #ccc}
 .mapa-grid{display:grid;grid-template-columns:1fr 390px;gap:12px}
-#mapa-div{height:72vh;min-height:430px;border-radius:14px;border:1px solid var(--bd);background:#e9ecef;z-index:1}
-#mapa-info{max-height:72vh;min-height:430px;overflow:auto;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px}
+#mapa-div{height:72vh;min-height:430px;border-radius:8px;border:1px solid var(--bd);background:#e9ecef;z-index:1}
+#mapa-info{max-height:72vh;min-height:430px;overflow:auto;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:14px}
 #mapa-info .card{border-left:0;border-right:0;border-bottom:0;border-radius:0;padding:12px 0 0;margin-top:10px}
 .alrededor{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:6px;font-size:12.5px}
 .alrededor li{border-left:3px solid var(--fala);padding:2px 0 2px 9px} .alrededor li.ind{border-left-color:var(--rojo)} .alrededor li.aer{border-left-color:var(--azul)}
@@ -120,16 +125,60 @@ details{margin-top:6px;border-top:1px solid var(--bd);padding-top:6px} summary{c
 .leaflet-popup-content{font:13px/1.45 Lato,sans-serif} .leaflet-container a{color:var(--fala-osc)}
 @media (max-width:900px){.mapa-grid{grid-template-columns:1fr} #mapa-div{height:60vh;min-height:360px} #mapa-info{max-height:none;min-height:0}}
 
+
+.pulso-pais{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:16px 18px 12px;margin-bottom:14px}
+.pp-cab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pp-cab h2{margin:0;font-size:22px} .pp-cab p{margin:0;font-size:12.5px;color:var(--mut)}
+.pp-barra{display:flex;gap:14px;margin-top:14px;align-items:flex-end}
+.pp-grupo{min-width:84px;display:flex;flex-direction:column;gap:6px}
+.pp-segs{display:flex;gap:3px;align-items:flex-end;height:60px;border-bottom:2px solid var(--grafito)}
+.pp-seg{flex:1 1 0;min-width:5px;max-width:26px;border-radius:3px 3px 0 0;background:var(--verde);height:22px;transform-origin:bottom;animation:crece .7s cubic-bezier(.2,.8,.2,1) both}
+.pp-seg.n2{background:var(--amar);height:36px} .pp-seg.n3{background:var(--rojo);height:48px} .pp-seg.n4{background:var(--negro);height:58px}
+.pp-seg:hover{filter:brightness(.88)}
+.pp-zona{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .pp-zona em{display:block;font-style:normal;font-weight:400;color:var(--mut);font-size:11.5px}
+@keyframes crece{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.pp-grupo:nth-child(2) .pp-seg{animation-delay:.08s} .pp-grupo:nth-child(3) .pp-seg{animation-delay:.16s} .pp-grupo:nth-child(4) .pp-seg{animation-delay:.24s} .pp-grupo:nth-child(5) .pp-seg{animation-delay:.32s} .pp-grupo:nth-child(6) .pp-seg{animation-delay:.4s}
+@media (prefers-reduced-motion:reduce){.pp-seg{animation:none}}
+.lnk{background:none;border:0;padding:0;font:700 13px Lato,sans-serif;color:var(--fala-osc);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+h2 .lnk.der{float:right;font-size:12.5px;margin-top:4px}
+.filtros{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;margin:4px 0 14px;display:grid;gap:10px;position:sticky;top:118px;z-index:4;box-shadow:0 2px 8px rgba(43,47,44,.06)}
+.f-fila{display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.f-niveles{display:flex;gap:6px;flex-wrap:wrap}
+.fchip{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--bd);background:#fff;color:var(--tx);border-radius:6px;padding:6px 11px;cursor:pointer;font:700 13px Lato,sans-serif}
+.fchip b{font-weight:400;color:var(--mut)} .fchip .b{width:10px;height:10px;border-radius:2px;display:inline-block}
+.b.n1{background:var(--verde)} .b.n2{background:var(--amar)} .b.n3{background:var(--rojo)} .b.n4{background:var(--negro)}
+.fchip[aria-pressed="true"]{background:var(--grafito);border-color:var(--grafito);color:#fff} .fchip[aria-pressed="true"] b{color:#cfd5ce}
+.fchip.alerta[aria-pressed="true"]{background:var(--fala);border-color:var(--fala);color:#1d2a00} .fchip.alerta[aria-pressed="true"] b{color:#3c4d00}
+.buscar{display:flex;align-items:center;gap:6px;border:1.5px solid var(--bd);border-radius:6px;padding:0 10px;color:var(--mut);background:#fff;flex:0 1 300px}
+.buscar input{border:0;outline:0;font:14px Lato,sans-serif;padding:7px 0;width:100%;background:none;color:var(--tx)}
+.sel{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mut)}
+.sel select{font:700 13px Lato,sans-serif;color:var(--tx);border:1.5px solid var(--bd);border-radius:6px;padding:5px 8px;background:#fff}
+.check{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
+.check input{accent-color:var(--fala-osc);width:16px;height:16px}
+.f-estado{display:flex;gap:16px;align-items:center;font-size:13px;border-top:1px solid var(--bd);padding-top:8px}
+#f-cuenta{font-weight:700;margin-right:auto}
+.leyenda-sen{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;margin-top:10px;font-size:12.5px}
+.leyenda-sen h3{grid-column:1/-1;margin:0;font-size:14px;font-weight:900}
+.leyenda-sen div{display:flex;gap:9px;align-items:flex-start} .leyenda-sen i{flex:0 0 26px;height:16px;border-radius:3px;margin-top:2px;border:1px solid rgba(0,0,0,.12)}
+.leyenda-sen p{grid-column:1/-1;margin:2px 0 0;color:var(--mut)}
+.info-sen{width:300px;height:190px;border:0;display:block;background:#fff}
+@media (max-width:900px){.filtros{position:static}}
+@media (max-width:560px){.pp-barra{flex-wrap:wrap;gap:14px 12px} .pp-grupo{flex:1 1 40%!important} .pp-segs{height:50px}
+.buscar{flex-basis:100%} .f-estado{flex-wrap:wrap} .f-fila:nth-child(2){display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.f-fila:nth-child(2) .sel{flex-direction:column;align-items:stretch;gap:2px} .sel select{width:100%} .f-fila:nth-child(2) .check{grid-column:1/-1}
+.vistas{overflow-x:auto} .vista{white-space:nowrap;padding:10px 10px}}
+
 footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(--bd);padding-top:12px}
 @media (max-width:900px){.estado,.tres{grid-template-columns:1fr 1fr}}
 @media (max-width:700px){.barra{position:static} .tabla thead{display:none} .tabla,.tabla tbody,.tabla tr,.tabla td{display:block;width:100%}
 .tabla tr{border-top:1px solid var(--bd);padding:6px 0} .tabla td{border:0;padding:4px 14px} .tabla td.ver{text-align:right}}
 @media (max-width:560px){.estado,.tres{grid-template-columns:1fr} .act{align-items:flex-start} .marca h1{font-size:17px} .metricas strong{font-size:17px}}
 </style></head><body>
+<div class="franja"><div class="in"><span>Falabella Retail Perú</span><span>Mantenimiento y Seguridad · Uso interno</span></div></div>
 <div class="barra"><div class="in">
   <div class="marca"><img class="logo" src="logo.png" alt="" onerror="this.remove()">
-    <div><h1>Monitor FEN <span>·</span> Falabella Retail Perú</h1>
-    <p>Actualizado 30/09/2026 21:08 · ENFEN, SENAMHI, INDECI, CENEPRED, CORPAC, NOAA · Niveles del Plan Integral FEN 2026/2027</p></div></div>
+    <div><h1>Monitor FEN</h1>
+    <p>Actualizado 30/09/2026 21:26 · ENFEN, SENAMHI, INDECI, CENEPRED, CORPAC, NOAA · Niveles del Plan Integral FEN 2026/2027</p></div></div>
   <div class="act"><button class="btn" onclick="location.reload()">Ver última versión</button><span class="muted small">Se actualiza solo cada hora (a los :17 min) · <a href="https://github.com/rodrigo51200-tech/monitor-fen/actions/workflows/monitor_fen.yml" target="_blank" rel="noopener">forzar actualización</a></span></div>
 </div>
 <nav class="vistas"><button class="vista activo" data-panel="resumen">Resumen</button><button class="vista" data-panel="zonas">Por zona</button><button class="vista" data-panel="mapa">Mapa</button><button class="vista" data-panel="guia">Guía de alertas</button></nav>
@@ -137,6 +186,12 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
 
 <div class="wrap">
 <section class="panel activo" id="resumen">
+  
+  <div class="pulso-pais">
+    <div class="pp-cab"><h2>3 de 41 instalaciones en alerta</h2>
+      <p>Cada barra es una instalación; mientras más alta, mayor el nivel. Presiona una para ver su ficha.</p></div>
+    <div class="pp-barra"><div class="pp-grupo" style="flex:6 1 0"><div class="pp-segs"><a class="pp-seg n1" href="#t-P002100901" data-ir="t-P002100901" title="FLB Cajamarca: Nivel 1" aria-label="FLB Cajamarca, Nivel 1"></a><a class="pp-seg n1" href="#t-P002100601" data-ir="t-P002100601" title="FLB Chiclayo Mall: Nivel 1" aria-label="FLB Chiclayo Mall, Nivel 1"></a><a class="pp-seg n1" href="#t-P002100801" data-ir="t-P002100801" title="FLB Chimbote: Nivel 1" aria-label="FLB Chimbote, Nivel 1"></a><a class="pp-seg n1" href="#t-P002102201" data-ir="t-P002102201" title="FLB Piura Centro: Nivel 1" aria-label="FLB Piura Centro, Nivel 1"></a><a class="pp-seg n1" href="#t-P002102301" data-ir="t-P002102301" title="FLB Piura Mall Open: Nivel 1" aria-label="FLB Piura Mall Open, Nivel 1"></a><a class="pp-seg n1" href="#t-P002100701" data-ir="t-P002100701" title="FLB Trujillo CC: Nivel 1" aria-label="FLB Trujillo CC, Nivel 1"></a></div><span class="pp-zona">Norte<em>sin alertas</em></span></div><div class="pp-grupo" style="flex:9 1 0"><div class="pp-segs"><a class="pp-seg n1" href="#t-P002102701" data-ir="t-P002102701" title="FLB Arequipa (Cayma): Nivel 1" aria-label="FLB Arequipa (Cayma), Nivel 1"></a><a class="pp-seg n1" href="#t-P002101401" data-ir="t-P002101401" title="FLB Canete MP: Nivel 1" aria-label="FLB Canete MP, Nivel 1"></a><a class="pp-seg n1" href="#t-P002103201" data-ir="t-P002103201" title="FLB Cusco: Nivel 1" aria-label="FLB Cusco, Nivel 1"></a><a class="pp-seg n1" href="#t-P002103301" data-ir="t-P002103301" title="FLB Exp Huaraz: Nivel 1" aria-label="FLB Exp Huaraz, Nivel 1"></a><a class="pp-seg n1" href="#t-P002103501" data-ir="t-P002103501" title="FLB Exp.Ayacucho: Nivel 1" aria-label="FLB Exp.Ayacucho, Nivel 1"></a><a class="pp-seg n1" href="#t-P002102101" data-ir="t-P002102101" title="FLB Huancayo: Nivel 1" aria-label="FLB Huancayo, Nivel 1"></a><a class="pp-seg n1" href="#t-P002101201" data-ir="t-P002101201" title="FLB Ica Mall: Nivel 1" aria-label="FLB Ica Mall, Nivel 1"></a><a class="pp-seg n1" href="#t-P002102901" data-ir="t-P002102901" title="FLB Merced: Nivel 1" aria-label="FLB Merced, Nivel 1"></a><a class="pp-seg n1" href="#t-P002101001" data-ir="t-P002101001" title="FLB Porongoche: Nivel 1" aria-label="FLB Porongoche, Nivel 1"></a></div><span class="pp-zona">Centro/Sur<em>sin alertas</em></span></div><div class="pp-grupo" style="flex:4 1 0"><div class="pp-segs"><a class="pp-seg n2" href="#t-P004101702" data-ir="t-P004101702" title="FLB Iquitos: Nivel 2" aria-label="FLB Iquitos, Nivel 2"></a><a class="pp-seg n2" href="#t-P004101301" data-ir="t-P004101301" title="FLB Pucallpa: Nivel 2" aria-label="FLB Pucallpa, Nivel 2"></a><a class="pp-seg n2" href="#t-P004103901" data-ir="t-P004103901" title="FLB Tarapoto: Nivel 2" aria-label="FLB Tarapoto, Nivel 2"></a><a class="pp-seg n1" href="#t-P004101601" data-ir="t-P004101601" title="FLB Huanuco Op: Nivel 1" aria-label="FLB Huanuco Op, Nivel 1"></a></div><span class="pp-zona">Oriente<em>3 en alerta</em></span></div><div class="pp-grupo" style="flex:21 1 0"><div class="pp-segs"><a class="pp-seg n1" href="#t-CD-LURIN" data-ir="t-CD-LURIN" title="CD Lurín: Nivel 1" aria-label="CD Lurín, Nivel 1"></a><a class="pp-seg n1" href="#t-CD-VES" data-ir="t-CD-VES" title="CD Villa El Salvador: Nivel 1" aria-label="CD Villa El Salvador, Nivel 1"></a><a class="pp-seg n1" href="#t-CORP-SAN-ISIDRO" data-ir="t-CORP-SAN-ISIDRO" title="Corporación San Isidro (oficinas): Nivel 1" aria-label="Corporación San Isidro (oficinas), Nivel 1"></a><a class="pp-seg n1" href="#t-P002102601" data-ir="t-P002102601" title="FLB Angamos: Nivel 1" aria-label="FLB Angamos, Nivel 1"></a><a class="pp-seg n1" href="#t-P002102501" data-ir="t-P002102501" title="FLB Atocongo: Nivel 1" aria-label="FLB Atocongo, Nivel 1"></a><a class="pp-seg n1" href="#t-P002102401" data-ir="t-P002102401" title="FLB Bellavista: Nivel 1" aria-label="FLB Bellavista, Nivel 1"></a><a class="pp-seg n1" href="#t-P002101801" data-ir="t-P002101801" title="FLB Centro Civico: Nivel 1" aria-label="FLB Centro Civico, Nivel 1"></a><a class="pp-seg n1" href="#t-P002103101" data-ir="t-P002103101" title="FLB Comas: Nivel 1" aria-label="FLB Comas, Nivel 1"></a><a class="pp-seg n1" href="#t-EXPO-LIMA-CENTRO" data-ir="t-EXPO-LIMA-CENTRO" title="FLB Expo Lima Centro: Nivel 1" aria-label="FLB Expo Lima Centro, Nivel 1"></a><a class="pp-seg n1" href="#t-P002100201" data-ir="t-P002100201" title="FLB Jockey Plaza: Nivel 1" aria-label="FLB Jockey Plaza, Nivel 1"></a><a class="pp-seg n1" href="#t-P002102001" data-ir="t-P002102001" title="FLB Lima Centro: Nivel 1" aria-label="FLB Lima Centro, Nivel 1"></a><a class="pp-seg n1" href="#t-P002101101" data-ir="t-P002101101" title="FLB Lima Norte (Plaza Norte): Nivel 1" aria-label="FLB Lima Norte (Plaza Norte), Nivel 1"></a><a class="pp-seg n1" href="#t-P002103801" data-ir="t-P002103801" title="FLB MOLINA: Nivel 1" aria-label="FLB MOLINA, Nivel 1"></a><a class="pp-seg n1" href="#t-P002101901" data-ir="t-P002101901" title="FLB Mall del Sur: Nivel 1" aria-label="FLB Mall del Sur, Nivel 1"></a><a class="pp-seg n1" href="#t-P002100401" data-ir="t-P002100401" title="FLB Mega Plaza: Nivel 1" aria-label="FLB Mega Plaza, Nivel 1"></a><a class="pp-seg n1" href="#t-P002100301" data-ir="t-P002100301" title="FLB Miraflores: Nivel 1" aria-label="FLB Miraflores, Nivel 1"></a><a class="pp-seg n1" href="#t-P002103001" data-ir="t-P002103001" title="FLB Puruchuco: Nivel 1" aria-label="FLB Puruchuco, Nivel 1"></a><a class="pp-seg n1" href="#t-P002101501" data-ir="t-P002101501" title="FLB Salaverry: Nivel 1" aria-label="FLB Salaverry, Nivel 1"></a><a class="pp-seg n1" href="#t-P002100101" data-ir="t-P002100101" title="FLB San Isidro: Nivel 1" aria-label="FLB San Isidro, Nivel 1"></a><a class="pp-seg n1" href="#t-P002102801" data-ir="t-P002102801" title="FLB San Miguel: Nivel 1" aria-label="FLB San Miguel, Nivel 1"></a><a class="pp-seg n1" href="#t-P002100501" data-ir="t-P002100501" title="FLB Santa Anita: Nivel 1" aria-label="FLB Santa Anita, Nivel 1"></a></div><span class="pp-zona">Lima Metropolitana<em>sin alertas</em></span></div><div class="pp-grupo" style="flex:1 1 0"><div class="pp-segs"><a class="pp-seg n1" href="#t-P002304029" data-ir="t-P002304029" title="FLB Exp Tacna: Nivel 1" aria-label="FLB Exp Tacna, Nivel 1"></a></div><span class="pp-zona">Sur<em>sin alertas</em></span></div></div>
+  </div>
   <div class="estado">
     <div class="caja fen rojo"><small>Estado ENFEN</small><strong>Alerta de El Niño Costero</strong>
       <p class="explica">ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.</p>
@@ -149,7 +204,8 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
     <div class="caja"><small>Calendario corporativo FEN</small><strong style="font-size:15px">Fase 2 · Mitigación (julio – setiembre)</strong><p class="explica">Implementar capex, barreras de contención, probar bombas, verificar grupos electrógenos y UPS, comunicaciones cruzadas y simulacro de brigadas con el mall.</p></div>
   </div>
   <div class="aviso-sistema">SENAMHI no es accesible desde el servidor: los avisos se toman de INDECI, el riesgo por distrito de CENEPRED y la temperatura de los aeropuertos CORPAC.</div>
-  <h2>Instalaciones con alerta <small>sobre Nivel 1 · clic para ver el detalle</small></h2>
+  <h2>Instalaciones con alerta <small>sobre Nivel 1; presiona una fila para ver el detalle</small>
+    <a class="lnk der" href="#zonas?alerta=1">Ver sus tarjetas</a></h2>
   <div class="tabla-wrap"><table class="tabla"><thead><tr><th>Instalación</th><th>Zona</th><th>Nivel</th><th>Por qué</th><th>Primera acción del plan</th><th></th></tr></thead><tbody><tr class="fila-alerta" data-ir="t-P004101702"><td><b>FLB Iquitos</b><br><span class="muted small">Iquitos · Riesgo Alto</span></td><td>Oriente</td><td><span class="pill n2">Nivel 2 · Amarilla</span></td><td>Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.</td><td>Limpieza inmediata de drenajes y canaletas.</td><td class="ver">Ver ›</td></tr><tr class="fila-alerta" data-ir="t-P004101301"><td><b>FLB Pucallpa</b><br><span class="muted small">Pucallpa · Riesgo Alto</span></td><td>Oriente</td><td><span class="pill n2">Nivel 2 · Amarilla</span></td><td>Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.</td><td>Limpieza inmediata de drenajes y canaletas.</td><td class="ver">Ver ›</td></tr><tr class="fila-alerta" data-ir="t-P004103901"><td><b>FLB Tarapoto</b><br><span class="muted small">Tarapoto · Riesgo Alto</span></td><td>Oriente</td><td><span class="pill n2">Nivel 2 · Amarilla</span></td><td>Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.</td><td>Limpieza inmediata de drenajes y canaletas.</td><td class="ver">Ver ›</td></tr></tbody></table></div>
   <h2>Cambios desde la última actualización</h2>
   <ul class="lista caja"><li class="muted">Sin cambios de nivel desde la actualización anterior.</li></ul>
@@ -162,10 +218,32 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
 </section>
 
 <section class="panel" id="zonas">
-  <nav class="tabs"><button class="tab activo" data-zona="todas">Todas <span>41</span></button><button class="tab" data-zona="Norte">Norte <span>6</span></button><button class="tab" data-zona="Centro/Sur">Centro/Sur <span>9</span></button><button class="tab" data-zona="Oriente">Oriente <span>4</span><i class="dot"></i></button><button class="tab" data-zona="Lima Metropolitana">Lima Metropolitana <span>21</span></button><button class="tab" data-zona="Sur">Sur <span>1</span></button></nav>
+  
+  <div class="filtros" id="filtros">
+    <div class="f-fila">
+      <div class="f-niveles" role="group" aria-label="Filtrar por nivel"><button class="fchip" data-nivel="1" aria-pressed="false"><i class="b n1"></i>Verde <b>38</b></button><button class="fchip" data-nivel="2" aria-pressed="false"><i class="b n2"></i>Amarilla <b>3</b></button><button class="fchip" data-nivel="3" aria-pressed="false"><i class="b n3"></i>Roja <b>0</b></button><button class="fchip" data-nivel="4" aria-pressed="false"><i class="b n4"></i>Negra <b>0</b></button>
+        <button class="fchip alerta" data-alerta aria-pressed="false">Solo con alerta <b>3</b></button></div>
+      <label class="buscar"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="search" id="f-buscar" placeholder="Buscar tienda, ciudad o código" aria-label="Buscar tienda, ciudad o código"></label>
+    </div>
+    <div class="f-fila">
+      <label class="sel">Zona <select id="f-zona"><option value="">Todas</option><option value="Norte">Norte (6)</option><option value="Centro/Sur">Centro/Sur (9)</option><option value="Oriente">Oriente (4, 3 en alerta)</option><option value="Lima Metropolitana">Lima Metropolitana (21)</option><option value="Sur">Sur (1)</option></select></label>
+      <label class="sel">Riesgo <select id="f-riesgo"><option value="">Todos</option><option value="Crítico">Crítico</option><option value="Alto">Alto</option><option value="Medio Alto">Medio Alto</option><option value="Medio">Medio</option><option value="Bajo">Bajo</option><option value="Sin clasificar">Sin clasificar</option></select></label>
+      <label class="sel">Tipo <select id="f-tipo"><option value="">Todos</option><option value="Centro de distribución">Centro de distribución</option><option value="Oficina corporativa">Oficina corporativa</option><option value="Tienda">Tienda</option></select></label>
+      <label class="sel">Ordenar por <select id="f-orden"><option value="nivel">Nivel de alerta</option><option value="riesgo">Riesgo de la matriz</option>
+        <option value="nombre">Nombre</option><option value="tmax">Temperatura máxima</option></select></label>
+      <label class="check"><input type="checkbox" id="f-cambios"> Solo cambios de nivel (0)</label>
+    </div>
+    <div class="f-estado"><span id="f-cuenta" aria-live="polite"></span>
+      <button class="lnk" id="f-limpiar" hidden>Limpiar filtros</button><button class="lnk" id="f-copiar">Copiar enlace de esta vista</button></div>
+  </div>
+  <p class="vacio" id="f-vacio" hidden>Ninguna instalación cumple estos filtros. <button class="lnk" data-limpiar>Limpiar filtros</button></p>
   <section class="zona" data-zona="Norte"><h2>Zona Norte <span class="frec">Reporte semanal</span></h2><div class="grid">
-      <article class="card sem-verde" id="t-P002100601" data-zona="Norte">
-        <header><div><h3>FLB Chiclayo Mall</h3><p class="muted">Chiclayo · Chiclayo · P002100601</p>
+      <article class="card sem-verde" id="t-P002100601" data-zona="Norte" data-nivel="1"
+        data-riesgo="Crítico" data-orden-riesgo="0" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Chiclayo Mall" data-tmax="29.0"
+        data-txt="flb chiclayo mall chiclayo chiclayo p002100601 c022">
+        <header><div><h3>FLB Chiclayo Mall</h3><p class="muted">Chiclayo, Chiclayo <span class="codigo">P002100601</span></p>
           <p class="tags"><span class="riesgo r-crítico">Riesgo Crítico</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -190,8 +268,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002102201" data-zona="Norte">
-        <header><div><h3>FLB Piura Centro</h3><p class="muted">Piura · Piura · P002102201</p>
+      <article class="card sem-verde" id="t-P002102201" data-zona="Norte" data-nivel="1"
+        data-riesgo="Crítico" data-orden-riesgo="0" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Piura Centro" data-tmax="31.0"
+        data-txt="flb piura centro piura piura p002102201 c020">
+        <header><div><h3>FLB Piura Centro</h3><p class="muted">Piura, Piura <span class="codigo">P002102201</span></p>
           <p class="tags"><span class="riesgo r-crítico">Riesgo Crítico</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -216,8 +297,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 30/09 01:07<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-13164-30-9-2026-coen-indeci-0030-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-mancora-piura/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.° 13164 – 30/9/2026 / COEN – INDECI / 00:30 HORAS (Reporte N.° 1) LLUVIAS INTENSAS EN EL DISTRITO DE MÁNCORA – PIURA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002102301" data-zona="Norte">
-        <header><div><h3>FLB Piura Mall Open</h3><p class="muted">Piura · Piura · P002102301</p>
+      <article class="card sem-verde" id="t-P002102301" data-zona="Norte" data-nivel="1"
+        data-riesgo="Crítico" data-orden-riesgo="0" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Piura Mall Open" data-tmax="31.0"
+        data-txt="flb piura mall open piura piura p002102301 c021">
+        <header><div><h3>FLB Piura Mall Open</h3><p class="muted">Piura, Piura <span class="codigo">P002102301</span></p>
           <p class="tags"><span class="riesgo r-crítico">Riesgo Crítico</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -242,8 +326,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 30/09 01:07<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-13164-30-9-2026-coen-indeci-0030-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-mancora-piura/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.° 13164 – 30/9/2026 / COEN – INDECI / 00:30 HORAS (Reporte N.° 1) LLUVIAS INTENSAS EN EL DISTRITO DE MÁNCORA – PIURA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002100701" data-zona="Norte">
-        <header><div><h3>FLB Trujillo CC</h3><p class="muted">Trujillo · Trujillo · P002100701</p>
+      <article class="card sem-verde" id="t-P002100701" data-zona="Norte" data-nivel="1"
+        data-riesgo="Crítico" data-orden-riesgo="0" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Trujillo CC" data-tmax="26.0"
+        data-txt="flb trujillo cc trujillo trujillo p002100701 c023">
+        <header><div><h3>FLB Trujillo CC</h3><p class="muted">Trujillo, Trujillo <span class="codigo">P002100701</span></p>
           <p class="tags"><span class="riesgo r-crítico">Riesgo Crítico</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -268,8 +355,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002100901" data-zona="Norte">
-        <header><div><h3>FLB Cajamarca</h3><p class="muted">Cajamarca · Cajamarca · P002100901</p>
+      <article class="card sem-verde" id="t-P002100901" data-zona="Norte" data-nivel="1"
+        data-riesgo="Alto" data-orden-riesgo="1" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Cajamarca" data-tmax="26.0"
+        data-txt="flb cajamarca cajamarca cajamarca p002100901 c024">
+        <header><div><h3>FLB Cajamarca</h3><p class="muted">Cajamarca, Cajamarca <span class="codigo">P002100901</span></p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -294,8 +384,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002100801" data-zona="Norte">
-        <header><div><h3>FLB Chimbote</h3><p class="muted">Chimbote · Chimbote · P002100801</p>
+      <article class="card sem-verde" id="t-P002100801" data-zona="Norte" data-nivel="1"
+        data-riesgo="Alto" data-orden-riesgo="1" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Chimbote" data-tmax="26.0"
+        data-txt="flb chimbote chimbote chimbote p002100801 c025">
+        <header><div><h3>FLB Chimbote</h3><p class="muted">Chimbote, Chimbote <span class="codigo">P002100801</span></p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -320,8 +413,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Informe de emergencia</b> · 30/09 06:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5839-21-4-2026-coen-indeci-1555-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2396 – 30/9/2026 / COEN-INDECI / 06:40 HORAS (Informe N.° 2) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLÁN – ÁNCASH</a></li><li class="nv2"><b>INDECI · Informe de emergencia</b> · 30/09 05:43<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-3869-18-3-2026-coen-indeci-0600-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2394 – 30/9/2026 / COEN-INDECI / 03:15 HORAS (Informe N.º 2) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLÁN – ÁNCASH</a></li><li class="nv2"><b>INDECI · Informe de emergencia</b> · 29/09 17:52<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-4006-19-3-2026-coen-indeci-2354-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-tarica-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.º 2392 – 29/9/2026 / COEN – INDECI / 17:30 HORAS (Informe N.º 2) LLUVIAS INTENSAS EN EL DISTRITO DE TARICÁ – ÁNCASH</a></li><li class="nv2"><b>INDECI · Informe de emergencia</b> · 29/09 17:29<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5397-13-4-2026-coen-indeci-1500-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2391 – 29/9/2026 / COEN-INDECI / 17:10 HORAS (Informe N.° 3) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLÁN – ÁNCASH</a></li></ul>
         </details>
       </article></div></section><section class="zona" data-zona="Centro/Sur"><h2>Zona Centro/Sur <span class="frec">Reporte quincenal</span></h2><div class="grid">
-      <article class="card sem-verde" id="t-P002101401" data-zona="Centro/Sur">
-        <header><div><h3>FLB Canete MP</h3><p class="muted">Cañete · San Vicente De Cañete · P002101401</p>
+      <article class="card sem-verde" id="t-P002101401" data-zona="Centro/Sur" data-nivel="1"
+        data-riesgo="Alto" data-orden-riesgo="1" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Canete MP" data-tmax="24.01"
+        data-txt="flb canete mp cañete san vicente de cañete p002101401">
+        <header><div><h3>FLB Canete MP</h3><p class="muted">Cañete, San Vicente De Cañete <span class="codigo">P002101401</span></p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -348,8 +444,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002101201" data-zona="Centro/Sur">
-        <header><div><h3>FLB Ica Mall</h3><p class="muted">Ica · Ica · P002101201</p>
+      <article class="card sem-verde" id="t-P002101201" data-zona="Centro/Sur" data-nivel="1"
+        data-riesgo="Alto" data-orden-riesgo="1" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Ica Mall" data-tmax="25.96"
+        data-txt="flb ica mall ica ica p002101201">
+        <header><div><h3>FLB Ica Mall</h3><p class="muted">Ica, Ica <span class="codigo">P002101201</span></p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -376,8 +475,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002102701" data-zona="Centro/Sur">
-        <header><div><h3>FLB Arequipa (Cayma)</h3><p class="muted">Arequipa · Cayma · P002102701</p>
+      <article class="card sem-verde" id="t-P002102701" data-zona="Centro/Sur" data-nivel="1"
+        data-riesgo="Medio Alto" data-orden-riesgo="2" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Arequipa (Cayma)" data-tmax="21.0"
+        data-txt="flb arequipa (cayma) arequipa cayma p002102701">
+        <header><div><h3>FLB Arequipa (Cayma)</h3><p class="muted">Arequipa, Cayma <span class="codigo">P002102701</span></p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -402,8 +504,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002103201" data-zona="Centro/Sur">
-        <header><div><h3>FLB Cusco</h3><p class="muted">Cusco · Cusco · P002103201</p>
+      <article class="card sem-verde" id="t-P002103201" data-zona="Centro/Sur" data-nivel="1"
+        data-riesgo="Medio Alto" data-orden-riesgo="2" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Cusco" data-tmax="21.0"
+        data-txt="flb cusco cusco cusco p002103201">
+        <header><div><h3>FLB Cusco</h3><p class="muted">Cusco, Cusco <span class="codigo">P002103201</span></p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -428,8 +533,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002103301" data-zona="Centro/Sur">
-        <header><div><h3>FLB Exp Huaraz</h3><p class="muted">Huaraz · Huaraz · P002103301</p>
+      <article class="card sem-verde" id="t-P002103301" data-zona="Centro/Sur" data-nivel="1"
+        data-riesgo="Medio Alto" data-orden-riesgo="2" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Exp Huaraz" data-tmax="24.0"
+        data-txt="flb exp huaraz huaraz huaraz p002103301">
+        <header><div><h3>FLB Exp Huaraz</h3><p class="muted">Huaraz, Huaraz <span class="codigo">P002103301</span></p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -454,8 +562,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Informe de emergencia</b> · 30/09 06:59<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5839-21-4-2026-coen-indeci-1555-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2396 – 30/9/2026 / COEN-INDECI / 06:40 HORAS (Informe N.° 2) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLÁN – ÁNCASH</a></li><li class="nv2"><b>INDECI · Informe de emergencia</b> · 30/09 05:43<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-3869-18-3-2026-coen-indeci-0600-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2394 – 30/9/2026 / COEN-INDECI / 03:15 HORAS (Informe N.º 2) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLÁN – ÁNCASH</a></li><li class="nv2"><b>INDECI · Informe de emergencia</b> · 29/09 17:52<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-4006-19-3-2026-coen-indeci-2354-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-tarica-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.º 2392 – 29/9/2026 / COEN – INDECI / 17:30 HORAS (Informe N.º 2) LLUVIAS INTENSAS EN EL DISTRITO DE TARICÁ – ÁNCASH</a></li><li class="nv2"><b>INDECI · Informe de emergencia</b> · 29/09 17:29<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5397-13-4-2026-coen-indeci-1500-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/" target="_blank" rel="noopener">INFORME DE EMERGENCIA N.° 2391 – 29/9/2026 / COEN-INDECI / 17:10 HORAS (Informe N.° 3) LLUVIAS INTENSAS EN EL DISTRITO DE HUAYLLÁN – ÁNCASH</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002103501" data-zona="Centro/Sur">
-        <header><div><h3>FLB Exp.Ayacucho</h3><p class="muted">Ayacucho · Ayacucho · P002103501</p>
+      <article class="card sem-verde" id="t-P002103501" data-zona="Centro/Sur" data-nivel="1"
+        data-riesgo="Medio Alto" data-orden-riesgo="2" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Exp.Ayacucho" data-tmax="26.0"
+        data-txt="flb exp.ayacucho ayacucho ayacucho p002103501">
+        <header><div><h3>FLB Exp.Ayacucho</h3><p class="muted">Ayacucho, Ayacucho <span class="codigo">P002103501</span></p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -480,8 +591,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002102101" data-zona="Centro/Sur">
-        <header><div><h3>FLB Huancayo</h3><p class="muted">Huancayo · Huancayo · P002102101</p>
+      <article class="card sem-verde" id="t-P002102101" data-zona="Centro/Sur" data-nivel="1"
+        data-riesgo="Medio Alto" data-orden-riesgo="2" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Huancayo" data-tmax="21.0"
+        data-txt="flb huancayo huancayo huancayo p002102101">
+        <header><div><h3>FLB Huancayo</h3><p class="muted">Huancayo, Huancayo <span class="codigo">P002102101</span></p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -506,8 +620,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002101001" data-zona="Centro/Sur">
-        <header><div><h3>FLB Porongoche</h3><p class="muted">Arequipa · Paucarpata · P002101001</p>
+      <article class="card sem-verde" id="t-P002101001" data-zona="Centro/Sur" data-nivel="1"
+        data-riesgo="Medio Alto" data-orden-riesgo="2" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Porongoche" data-tmax="21.0"
+        data-txt="flb porongoche arequipa paucarpata p002101001">
+        <header><div><h3>FLB Porongoche</h3><p class="muted">Arequipa, Paucarpata <span class="codigo">P002101001</span></p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -532,8 +649,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002102901" data-zona="Centro/Sur">
-        <header><div><h3>FLB Merced</h3><p class="muted">La Merced · Chanchamayo · P002102901</p>
+      <article class="card sem-verde" id="t-P002102901" data-zona="Centro/Sur" data-nivel="1"
+        data-riesgo="Sin clasificar" data-orden-riesgo="9" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Merced" data-tmax="16.22"
+        data-txt="flb merced la merced chanchamayo p002102901 c140">
+        <header><div><h3>FLB Merced</h3><p class="muted">La Merced, Chanchamayo <span class="codigo">P002102901</span></p>
           <p class="tags"><span class="riesgo r-sin-clasificar">Riesgo Sin clasificar</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -560,8 +680,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article></div></section><section class="zona" data-zona="Oriente"><h2>Zona Oriente <span class="frec">Reporte quincenal</span></h2><div class="grid">
-      <article class="card sem-amarillo" id="t-P004101702" data-zona="Oriente">
-        <header><div><h3>FLB Iquitos</h3><p class="muted">Iquitos · Iquitos · P004101702</p>
+      <article class="card sem-amarillo" id="t-P004101702" data-zona="Oriente" data-nivel="2"
+        data-riesgo="Alto" data-orden-riesgo="1" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Iquitos" data-tmax="34.0"
+        data-txt="flb iquitos iquitos iquitos p004101702">
+        <header><div><h3>FLB Iquitos</h3><p class="muted">Iquitos, Iquitos <span class="codigo">P004101702</span></p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 2 · Amarilla</span>
           </div></header>
@@ -586,8 +709,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv3"><b>CENEPRED/SIGRID · exposición a inundaciones</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Muy alto</a></li></ul>
         </details>
       </article>
-      <article class="card sem-amarillo" id="t-P004101301" data-zona="Oriente">
-        <header><div><h3>FLB Pucallpa</h3><p class="muted">Pucallpa · Calleria · P004101301</p>
+      <article class="card sem-amarillo" id="t-P004101301" data-zona="Oriente" data-nivel="2"
+        data-riesgo="Alto" data-orden-riesgo="1" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Pucallpa" data-tmax="33.0"
+        data-txt="flb pucallpa pucallpa calleria p004101301 c138">
+        <header><div><h3>FLB Pucallpa</h3><p class="muted">Pucallpa, Calleria <span class="codigo">P004101301</span></p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 2 · Amarilla</span>
           </div></header>
@@ -612,8 +738,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv3"><b>CENEPRED/SIGRID · exposición a inundaciones</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Muy alto</a></li><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 30/09 01:10<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-12243-14-9-2026-coen-indeci-1130-horas-reporte-n-o-1-derrumbe-en-el-distrito-de-padre-abad-ucayali/" target="_blank" rel="noopener">REPORTE COMPLEMENTARIO N.° 13165 – 30/9/2026 / COEN – INDECI / 00:25 HORAS (Reporte N.º 3) DERRUMBE DE CERRO EN EL DISTRITO DE PADRE ABAD – UCAYALI</a></li></ul>
         </details>
       </article>
-      <article class="card sem-amarillo" id="t-P004103901" data-zona="Oriente">
-        <header><div><h3>FLB Tarapoto</h3><p class="muted">Tarapoto · Tarapoto · P004103901</p>
+      <article class="card sem-amarillo" id="t-P004103901" data-zona="Oriente" data-nivel="2"
+        data-riesgo="Alto" data-orden-riesgo="1" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Tarapoto" data-tmax="35.0"
+        data-txt="flb tarapoto tarapoto tarapoto p004103901">
+        <header><div><h3>FLB Tarapoto</h3><p class="muted">Tarapoto, Tarapoto <span class="codigo">P004103901</span></p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 2 · Amarilla</span>
           </div></header>
@@ -638,8 +767,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv3"><b>CENEPRED/SIGRID · exposición a inundaciones</b><br><a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">Riesgo Alto</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P004101601" data-zona="Oriente">
-        <header><div><h3>FLB Huanuco Op</h3><p class="muted">Huánuco · Huanuco · P004101601</p>
+      <article class="card sem-verde" id="t-P004101601" data-zona="Oriente" data-nivel="1"
+        data-riesgo="Alto" data-orden-riesgo="1" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Huanuco Op" data-tmax="26.0"
+        data-txt="flb huanuco op huanuco huanuco p004101601">
+        <header><div><h3>FLB Huanuco Op</h3><p class="muted">Huánuco, Huanuco <span class="codigo">P004101601</span></p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -664,8 +796,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article></div></section><section class="zona" data-zona="Lima Metropolitana"><h2>Zona Lima Metropolitana <span class="frec">Reporte mensual</span></h2><div class="grid">
-      <article class="card sem-verde" id="t-CD-LURIN" data-zona="Lima Metropolitana">
-        <header><div><h3>CD Lurín</h3><p class="muted">Lima · Lurin · CD-LURIN</p>
+      <article class="card sem-verde" id="t-CD-LURIN" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Alto" data-orden-riesgo="1" data-tipo="Centro de distribución"
+        data-cambio="" data-nombre="CD Lurín" data-tmax="25.0"
+        data-txt="cd lurin lima lurin cd-lurin">
+        <header><div><h3>CD Lurín</h3><p class="muted">Lima, Lurin <span class="codigo">CD-LURIN</span></p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span><span class="tipo">Centro de distribución</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -690,8 +825,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-CD-VES" data-zona="Lima Metropolitana">
-        <header><div><h3>CD Villa El Salvador</h3><p class="muted">Lima · Villa El Salvador · CD-VES</p>
+      <article class="card sem-verde" id="t-CD-VES" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Alto" data-orden-riesgo="1" data-tipo="Centro de distribución"
+        data-cambio="" data-nombre="CD Villa El Salvador" data-tmax="25.0"
+        data-txt="cd villa el salvador lima villa el salvador cd-ves">
+        <header><div><h3>CD Villa El Salvador</h3><p class="muted">Lima, Villa El Salvador <span class="codigo">CD-VES</span></p>
           <p class="tags"><span class="riesgo r-alto">Riesgo Alto</span><span class="tipo">Centro de distribución</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -716,8 +854,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002101101" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Lima Norte (Plaza Norte)</h3><p class="muted">Lima · Independencia · P002101101</p>
+      <article class="card sem-verde" id="t-P002101101" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio Alto" data-orden-riesgo="2" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Lima Norte (Plaza Norte)" data-tmax="25.0"
+        data-txt="flb lima norte (plaza norte) lima independencia p002101101">
+        <header><div><h3>FLB Lima Norte (Plaza Norte)</h3><p class="muted">Lima, Independencia <span class="codigo">P002101101</span></p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -742,8 +883,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002100401" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Mega Plaza</h3><p class="muted">Lima · Independencia · P002100401</p>
+      <article class="card sem-verde" id="t-P002100401" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio Alto" data-orden-riesgo="2" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Mega Plaza" data-tmax="25.0"
+        data-txt="flb mega plaza lima independencia p002100401">
+        <header><div><h3>FLB Mega Plaza</h3><p class="muted">Lima, Independencia <span class="codigo">P002100401</span></p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -768,8 +912,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002103001" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Puruchuco</h3><p class="muted">Lima · Ate · P002103001</p>
+      <article class="card sem-verde" id="t-P002103001" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio Alto" data-orden-riesgo="2" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Puruchuco" data-tmax="25.0"
+        data-txt="flb puruchuco lima ate p002103001 c019">
+        <header><div><h3>FLB Puruchuco</h3><p class="muted">Lima, Ate <span class="codigo">P002103001</span></p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -794,8 +941,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002100501" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Santa Anita</h3><p class="muted">Lima · Santa Anita · P002100501</p>
+      <article class="card sem-verde" id="t-P002100501" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio Alto" data-orden-riesgo="2" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Santa Anita" data-tmax="25.0"
+        data-txt="flb santa anita lima santa anita p002100501 c009">
+        <header><div><h3>FLB Santa Anita</h3><p class="muted">Lima, Santa Anita <span class="codigo">P002100501</span></p>
           <p class="tags"><span class="riesgo r-medio-alto">Riesgo Medio Alto</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -820,8 +970,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-CORP-SAN-ISIDRO" data-zona="Lima Metropolitana">
-        <header><div><h3>Corporación San Isidro (oficinas)</h3><p class="muted">Lima · San Isidro · CORP-SAN-ISIDRO</p>
+      <article class="card sem-verde" id="t-CORP-SAN-ISIDRO" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Oficina corporativa"
+        data-cambio="" data-nombre="Corporación San Isidro (oficinas)" data-tmax="25.0"
+        data-txt="corporacion san isidro (oficinas) lima san isidro corp-san-isidro">
+        <header><div><h3>Corporación San Isidro (oficinas)</h3><p class="muted">Lima, San Isidro <span class="codigo">CORP-SAN-ISIDRO</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span><span class="tipo">Oficina corporativa</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -846,8 +999,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002102601" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Angamos</h3><p class="muted">Lima · Surquillo · P002102601</p>
+      <article class="card sem-verde" id="t-P002102601" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Angamos" data-tmax="25.0"
+        data-txt="flb angamos lima surquillo p002102601 c017">
+        <header><div><h3>FLB Angamos</h3><p class="muted">Lima, Surquillo <span class="codigo">P002102601</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -872,8 +1028,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002102501" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Atocongo</h3><p class="muted">Lima · San Juan De Miraflores · P002102501</p>
+      <article class="card sem-verde" id="t-P002102501" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Atocongo" data-tmax="25.0"
+        data-txt="flb atocongo lima san juan de miraflores p002102501 c007">
+        <header><div><h3>FLB Atocongo</h3><p class="muted">Lima, San Juan De Miraflores <span class="codigo">P002102501</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -898,8 +1057,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002102401" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Bellavista</h3><p class="muted">Callao · Bellavista · P002102401</p>
+      <article class="card sem-verde" id="t-P002102401" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Bellavista" data-tmax="25.0"
+        data-txt="flb bellavista callao bellavista p002102401">
+        <header><div><h3>FLB Bellavista</h3><p class="muted">Callao, Bellavista <span class="codigo">P002102401</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -924,8 +1086,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <p class="sin-aviso">Sin avisos vigentes</p>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002101801" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Centro Civico</h3><p class="muted">Lima · Lima · P002101801</p>
+      <article class="card sem-verde" id="t-P002101801" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Centro Civico" data-tmax="25.0"
+        data-txt="flb centro civico lima lima p002101801 c011">
+        <header><div><h3>FLB Centro Civico</h3><p class="muted">Lima, Lima <span class="codigo">P002101801</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -950,8 +1115,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002103101" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Comas</h3><p class="muted">Lima · Comas · P002103101</p>
+      <article class="card sem-verde" id="t-P002103101" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Comas" data-tmax="25.0"
+        data-txt="flb comas lima comas p002103101">
+        <header><div><h3>FLB Comas</h3><p class="muted">Lima, Comas <span class="codigo">P002103101</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -976,8 +1144,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-EXPO-LIMA-CENTRO" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Expo Lima Centro</h3><p class="muted">Lima · Lima · EXPO-LIMA-CENTRO</p>
+      <article class="card sem-verde" id="t-EXPO-LIMA-CENTRO" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Expo Lima Centro" data-tmax="25.0"
+        data-txt="flb expo lima centro lima lima expo-lima-centro">
+        <header><div><h3>FLB Expo Lima Centro</h3><p class="muted">Lima, Lima <span class="codigo">EXPO-LIMA-CENTRO</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -1002,8 +1173,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002100201" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Jockey Plaza</h3><p class="muted">Lima · Santiago De Surco · P002100201</p>
+      <article class="card sem-verde" id="t-P002100201" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Jockey Plaza" data-tmax="25.0"
+        data-txt="flb jockey plaza lima santiago de surco p002100201 c014">
+        <header><div><h3>FLB Jockey Plaza</h3><p class="muted">Lima, Santiago De Surco <span class="codigo">P002100201</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -1028,8 +1202,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002102001" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Lima Centro</h3><p class="muted">Lima · Lima · P002102001</p>
+      <article class="card sem-verde" id="t-P002102001" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Lima Centro" data-tmax="25.0"
+        data-txt="flb lima centro lima lima p002102001 c005">
+        <header><div><h3>FLB Lima Centro</h3><p class="muted">Lima, Lima <span class="codigo">P002102001</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -1054,8 +1231,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002101901" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Mall del Sur</h3><p class="muted">Lima · San Juan De Miraflores · P002101901</p>
+      <article class="card sem-verde" id="t-P002101901" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Mall del Sur" data-tmax="25.0"
+        data-txt="flb mall del sur lima san juan de miraflores p002101901 c012">
+        <header><div><h3>FLB Mall del Sur</h3><p class="muted">Lima, San Juan De Miraflores <span class="codigo">P002101901</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -1080,8 +1260,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002100301" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Miraflores</h3><p class="muted">Lima · Miraflores · P002100301</p>
+      <article class="card sem-verde" id="t-P002100301" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Miraflores" data-tmax="25.0"
+        data-txt="flb miraflores lima miraflores p002100301">
+        <header><div><h3>FLB Miraflores</h3><p class="muted">Lima, Miraflores <span class="codigo">P002100301</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -1106,8 +1289,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002101501" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB Salaverry</h3><p class="muted">Lima · Jesus Maria · P002101501</p>
+      <article class="card sem-verde" id="t-P002101501" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Salaverry" data-tmax="25.0"
+        data-txt="flb salaverry lima jesus maria p002101501">
+        <header><div><h3>FLB Salaverry</h3><p class="muted">Lima, Jesus Maria <span class="codigo">P002101501</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -1132,8 +1318,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002100101" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB San Isidro</h3><p class="muted">Lima · San Isidro · P002100101</p>
+      <article class="card sem-verde" id="t-P002100101" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB San Isidro" data-tmax="25.0"
+        data-txt="flb san isidro lima san isidro p002100101">
+        <header><div><h3>FLB San Isidro</h3><p class="muted">Lima, San Isidro <span class="codigo">P002100101</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -1158,8 +1347,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002102801" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB San Miguel</h3><p class="muted">Lima · San Miguel · P002102801</p>
+      <article class="card sem-verde" id="t-P002102801" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Medio" data-orden-riesgo="3" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB San Miguel" data-tmax="25.0"
+        data-txt="flb san miguel lima san miguel p002102801">
+        <header><div><h3>FLB San Miguel</h3><p class="muted">Lima, San Miguel <span class="codigo">P002102801</span></p>
           <p class="tags"><span class="riesgo r-medio">Riesgo Medio</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -1184,8 +1376,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article>
-      <article class="card sem-verde" id="t-P002103801" data-zona="Lima Metropolitana">
-        <header><div><h3>FLB MOLINA</h3><p class="muted">Lima · La Molina · P002103801</p>
+      <article class="card sem-verde" id="t-P002103801" data-zona="Lima Metropolitana" data-nivel="1"
+        data-riesgo="Bajo" data-orden-riesgo="4" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB MOLINA" data-tmax="25.0"
+        data-txt="flb molina lima la molina p002103801 c001">
+        <header><div><h3>FLB MOLINA</h3><p class="muted">Lima, La Molina <span class="codigo">P002103801</span></p>
           <p class="tags"><span class="riesgo r-bajo">Riesgo Bajo</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -1210,8 +1405,11 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
           <ul class="avisos"><li class="nv2"><b>INDECI · Reporte de emergencia</b> · 29/09 21:38<br><a href="https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/" target="_blank" rel="noopener">REPORTE PRELIMINAR N.° 0938 – 29/9/2026 / COEN – INDECI / 20:00 HORAS LLUVIAS INTENSAS EN EL DISTRITO DE YAUYOS – LIMA</a></li></ul>
         </details>
       </article></div></section><section class="zona" data-zona="Sur"><h2>Zona Sur <span class="frec">Reporte mensual</span></h2><div class="grid">
-      <article class="card sem-verde" id="t-P002304029" data-zona="Sur">
-        <header><div><h3>FLB Exp Tacna</h3><p class="muted">Tacna · Tacna · P002304029</p>
+      <article class="card sem-verde" id="t-P002304029" data-zona="Sur" data-nivel="1"
+        data-riesgo="Bajo" data-orden-riesgo="4" data-tipo="Tienda"
+        data-cambio="" data-nombre="FLB Exp Tacna" data-tmax="23.0"
+        data-txt="flb exp tacna tacna tacna p002304029">
+        <header><div><h3>FLB Exp Tacna</h3><p class="muted">Tacna, Tacna <span class="codigo">P002304029</span></p>
           <p class="tags"><span class="riesgo r-bajo">Riesgo Bajo</span></p></div>
           <div class="badges"><span class="sem-badge">Nivel 1 · Verde</span>
           </div></header>
@@ -1250,6 +1448,14 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
       <li>Con el botón de capas (arriba a la derecha) prende o apaga los avisos y quebradas de SENAMHI, las emergencias INDECI y la temperatura de aeropuertos.</li></ol>
       <p class="muted small">Puntos: 41 instalaciones · 19 ubicaciones con emergencia INDECI por lluvias (48 h) · 20 aeropuertos con reporte.</p></div></aside></div>
   <p class="nota-wms" id="nota-wms">Las capas de SENAMHI se cargan en vivo desde SENAMHI y solo se ven desde conexiones en Perú.</p>
+  <p class="nota-wms" id="nota-filtro" hidden></p>
+  <div class="leyenda-sen"><h3>Qué significan las manchas de color</h3>
+    <div><i style="background:#f3ef7a"></i><span><b>Aviso amarillo de SENAMHI.</b> Lluvias de moderada a fuerte intensidad en esa área: esté atento. Si cubre una tienda, la sube a <b>Nivel 2</b> del plan.</span></div>
+    <div><i style="background:#f5bf7f"></i><span><b>Aviso naranja de SENAMHI.</b> Lluvias de fuerte intensidad, es probable que afecten la zona: prepárese. Sube la tienda a <b>Nivel 2</b>.</span></div>
+    <div><i style="background:#ee6a5f"></i><span><b>Aviso rojo de SENAMHI.</b> Evento peligroso en la zona: actúe. Sube la tienda a <b>Nivel 3</b>.</span></div>
+    <div><i style="background:repeating-linear-gradient(45deg,#e8572f 0 4px,#f3c04a 4px 8px)"></i><span><b>Manchas pequeñas sobre ríos y quebradas.</b> Zonas con posible activación de quebradas (huaicos). A 5 km o menos de una tienda la sube a <b>Nivel 2</b>.</span></div>
+    <p>Presiona sobre una mancha para ver el detalle oficial de SENAMHI en ese punto (número de aviso, vigencia y descripción).</p>
+  </div>
 </section>
 
 <section class="panel" id="guia">
@@ -1262,7 +1468,7 @@ footer{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(
 <footer><p>Temperatura: estación SENAMHI cercana si responde; si no, aeropuerto CORPAC a 60 km o menos; si no, referencia regional NASA POWER. Un nivel alcanzado se mantiene 24 h. Riesgo de cada instalación según la Matriz Nacional de Riesgo del plan.</p>
 <p>Fuentes: <a href="https://enfen.imarpe.gob.pe/comunicados/" target="_blank" rel="noopener">ENFEN comunicados</a> · <a href="https://www.senamhi.gob.pe/?p=aviso-meteorologico" target="_blank" rel="noopener">SENAMHI avisos</a> · <a href="https://www.senamhi.gob.pe/?p=pronostico-meteorologico" target="_blank" rel="noopener">SENAMHI pronostico</a> · <a href="https://idesep.senamhi.gob.pe/" target="_blank" rel="noopener">IDESEP geoservicios</a> · <a href="https://www.gob.pe/senamhi" target="_blank" rel="noopener">SENAMHI noticias (gob.pe)</a> · <a href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">INDECI emergencias</a> · <a href="https://sigrid.cenepred.gob.pe/sigridv3/escenarios" target="_blank" rel="noopener">CENEPRED SIGRID escenarios</a> · <a href="https://www.cpc.ncep.noaa.gov/data/indices/" target="_blank" rel="noopener">NOAA indices ENSO</a></p></footer>
 </div>
-<script type="application/json" id="datos-mapa">{"puntos": [{"cod": "P002102201", "n": "FLB Piura Centro", "z": "Norte", "c": "Piura", "d": "Piura", "lat": -5.1963, "lon": -80.6307, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Crítico", "tipo": "Tienda", "t": 31.0, "tn": 24.0}, {"cod": "P002102301", "n": "FLB Piura Mall Open", "z": "Norte", "c": "Piura", "d": "Piura", "lat": -5.1784, "lon": -80.6206, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Crítico", "tipo": "Tienda", "t": 31.0, "tn": 24.0}, {"cod": "P002100601", "n": "FLB Chiclayo Mall", "z": "Norte", "c": "Chiclayo", "d": "Chiclayo", "lat": -6.7714, "lon": -79.8409, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Crítico", "tipo": "Tienda", "t": 29.0, "tn": 23.0}, {"cod": "P002100701", "n": "FLB Trujillo CC", "z": "Norte", "c": "Trujillo", "d": "Trujillo", "lat": -8.1116, "lon": -79.0288, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Crítico", "tipo": "Tienda", "t": 26.0, "tn": 23.0}, {"cod": "P002100801", "n": "FLB Chimbote", "z": "Norte", "c": "Chimbote", "d": "Chimbote", "lat": -9.0745, "lon": -78.5936, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Tienda", "t": 26.0, "tn": 23.0}, {"cod": "P002100901", "n": "FLB Cajamarca", "z": "Norte", "c": "Cajamarca", "d": "Cajamarca", "lat": -7.164, "lon": -78.5, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Tienda", "t": 26.0, "tn": 9.0}, {"cod": "P002101401", "n": "FLB Canete MP", "z": "Centro/Sur", "c": "Cañete", "d": "San Vicente De Cañete", "lat": -13.077, "lon": -76.387, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Tienda", "t": 24.01, "tn": 15.83}, {"cod": "P002101201", "n": "FLB Ica Mall", "z": "Centro/Sur", "c": "Ica", "d": "Ica", "lat": -14.068, "lon": -75.728, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Tienda", "t": 25.96, "tn": 15.42}, {"cod": "P002102101", "n": "FLB Huancayo", "z": "Centro/Sur", "c": "Huancayo", "d": "Huancayo", "lat": -12.065, "lon": -75.205, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 21.0, "tn": 3.0}, {"cod": "P002103301", "n": "FLB Exp Huaraz", "z": "Centro/Sur", "c": "Huaraz", "d": "Huaraz", "lat": -9.527, "lon": -77.528, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 24.0, "tn": 9.0}, {"cod": "P002103501", "n": "FLB Exp.Ayacucho", "z": "Centro/Sur", "c": "Ayacucho", "d": "Ayacucho", "lat": -13.16, "lon": -74.225, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 26.0, "tn": 7.0}, {"cod": "P002102701", "n": "FLB Arequipa (Cayma)", "z": "Centro/Sur", "c": "Arequipa", "d": "Cayma", "lat": -16.389, "lon": -71.547, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 21.0, "tn": 11.0}, {"cod": "P002101001", "n": "FLB Porongoche", "z": "Centro/Sur", "c": "Arequipa", "d": "Paucarpata", "lat": -16.424, "lon": -71.508, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 21.0, "tn": 11.0}, {"cod": "P002103201", "n": "FLB Cusco", "z": "Centro/Sur", "c": "Cusco", "d": "Cusco", "lat": -13.532, "lon": -71.967, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 21.0, "tn": 7.0}, {"cod": "P002102901", "n": "FLB Merced", "z": "Centro/Sur", "c": "La Merced", "d": "Chanchamayo", "lat": -11.055, "lon": -75.327, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Sin clasificar", "tipo": "Tienda", "t": 16.22, "tn": 6.76}, {"cod": "P004101702", "n": "FLB Iquitos", "z": "Oriente", "c": "Iquitos", "d": "Iquitos", "lat": -3.749, "lon": -73.253, "nv": 2, "mot": "Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.", "r": "Alto", "tipo": "Tienda", "t": 34.0, "tn": 23.0}, {"cod": "P004101301", "n": "FLB Pucallpa", "z": "Oriente", "c": "Pucallpa", "d": "Calleria", "lat": -8.379, "lon": -74.554, "nv": 2, "mot": "Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.", "r": "Alto", "tipo": "Tienda", "t": 33.0, "tn": 24.0}, {"cod": "P004101601", "n": "FLB Huanuco Op", "z": "Oriente", "c": "Huánuco", "d": "Huanuco", "lat": -9.93, "lon": -76.242, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Tienda", "t": 26.0, "tn": 17.0}, {"cod": "P004103901", "n": "FLB Tarapoto", "z": "Oriente", "c": "Tarapoto", "d": "Tarapoto", "lat": -6.488, "lon": -76.36, "nv": 2, "mot": "Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.", "r": "Alto", "tipo": "Tienda", "t": 35.0, "tn": 22.0}, {"cod": "CD-LURIN", "n": "CD Lurín", "z": "Lima Metropolitana", "c": "Lima", "d": "Lurin", "lat": -12.255, "lon": -76.89, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Centro de distribución", "t": 25.0, "tn": 21.0}, {"cod": "CD-VES", "n": "CD Villa El Salvador", "z": "Lima Metropolitana", "c": "Lima", "d": "Villa El Salvador", "lat": -12.215, "lon": -76.945, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Centro de distribución", "t": 25.0, "tn": 21.0}, {"cod": "P002100501", "n": "FLB Santa Anita", "z": "Lima Metropolitana", "c": "Lima", "d": "Santa Anita", "lat": -12.052, "lon": -76.968, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002103001", "n": "FLB Puruchuco", "z": "Lima Metropolitana", "c": "Lima", "d": "Ate", "lat": -12.034, "lon": -76.925, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002100401", "n": "FLB Mega Plaza", "z": "Lima Metropolitana", "c": "Lima", "d": "Independencia", "lat": -11.993, "lon": -77.061, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002101101", "n": "FLB Lima Norte (Plaza Norte)", "z": "Lima Metropolitana", "c": "Lima", "d": "Independencia", "lat": -12.006, "lon": -77.057, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002102401", "n": "FLB Bellavista", "z": "Lima Metropolitana", "c": "Callao", "d": "Bellavista", "lat": -12.058, "lon": -77.099, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002102801", "n": "FLB San Miguel", "z": "Lima Metropolitana", "c": "Lima", "d": "San Miguel", "lat": -12.077, "lon": -77.084, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002101901", "n": "FLB Mall del Sur", "z": "Lima Metropolitana", "c": "Lima", "d": "San Juan De Miraflores", "lat": -12.155, "lon": -76.982, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002102501", "n": "FLB Atocongo", "z": "Lima Metropolitana", "c": "Lima", "d": "San Juan De Miraflores", "lat": -12.1495, "lon": -76.9805, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002103101", "n": "FLB Comas", "z": "Lima Metropolitana", "c": "Lima", "d": "Comas", "lat": -11.935, "lon": -77.057, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002101801", "n": "FLB Centro Civico", "z": "Lima Metropolitana", "c": "Lima", "d": "Lima", "lat": -12.0565, "lon": -77.0365, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002102001", "n": "FLB Lima Centro", "z": "Lima Metropolitana", "c": "Lima", "d": "Lima", "lat": -12.05, "lon": -77.033, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "EXPO-LIMA-CENTRO", "n": "FLB Expo Lima Centro", "z": "Lima Metropolitana", "c": "Lima", "d": "Lima", "lat": -12.05, "lon": -77.033, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002102601", "n": "FLB Angamos", "z": "Lima Metropolitana", "c": "Lima", "d": "Surquillo", "lat": -12.113, "lon": -77.018, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002100301", "n": "FLB Miraflores", "z": "Lima Metropolitana", "c": "Lima", "d": "Miraflores", "lat": -12.121, "lon": -77.03, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002101501", "n": "FLB Salaverry", "z": "Lima Metropolitana", "c": "Lima", "d": "Jesus Maria", "lat": -12.09, "lon": -77.052, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002100201", "n": "FLB Jockey Plaza", "z": "Lima Metropolitana", "c": "Lima", "d": "Santiago De Surco", "lat": -12.086, "lon": -76.975, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002100101", "n": "FLB San Isidro", "z": "Lima Metropolitana", "c": "Lima", "d": "San Isidro", "lat": -12.097, "lon": -77.037, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "CORP-SAN-ISIDRO", "n": "Corporación San Isidro (oficinas)", "z": "Lima Metropolitana", "c": "Lima", "d": "San Isidro", "lat": -12.098, "lon": -77.023, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Oficina corporativa", "t": 25.0, "tn": 21.0}, {"cod": "P002103801", "n": "FLB MOLINA", "z": "Lima Metropolitana", "c": "Lima", "d": "La Molina", "lat": -12.083, "lon": -76.927, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Bajo", "tipo": "Tienda", "t": 25.0, "tn": 21.0}, {"cod": "P002304029", "n": "FLB Exp Tacna", "z": "Sur", "c": "Tacna", "d": "Tacna", "lat": -18.014, "lon": -70.251, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Bajo", "tipo": "Tienda", "t": 23.0, "tn": 17.0}], "indeci": [{"lat": -13.28333, "lon": -75.31833, "tipo": "Peligro inminente", "ev": "Lluvias intensas", "dist": "Castrovirreyna", "dep": "Huancavelica", "f": "30/09 14:22", "h": 6.8, "link": "https://portal.indeci.gob.pe/emergencias/reporte-de-peligro-inminente-n-o-0081-30-9-2026-coen-indeci-1150-horas-reporte-n-o-1-por-lluvias-intensas-en-el-distrito-de-castrovirreyna-huancavelica/"}, {"lat": -13.07611, "lon": -74.41167, "tipo": "Peligro inminente", "ev": "Lluvias intensas", "dist": "San Antonio De Antaparco", "dep": "Huancavelica", "f": "30/09 12:55", "h": 8.2, "link": "https://portal.indeci.gob.pe/emergencias/reporte-de-peligro-inminente-n-o-0070-11-9-2026-coen-indeci-0630-horas-reporte-n-o-1-por-lluvias-intensas-en-el-distrito-de-san-antonio-de-antaparco-huancavelica/"}, {"lat": -13.07194, "lon": -75.14028, "tipo": "Peligro inminente", "ev": "Lluvias intensas", "dist": "Santa Ana", "dep": "Huancavelica", "f": "30/09 12:50", "h": 8.3, "link": "https://portal.indeci.gob.pe/emergencias/reporte-de-peligro-inminente-n-o-0079-30-9-2026-coen-indeci-0300-horas-reporte-n-o-1-por-lluvias-intensas-en-el-distrito-de-santa-ana-huancavelica/"}, {"lat": -8.85806, "lon": -77.43556, "tipo": "Informe de emergencia", "ev": "Lluvias intensas", "dist": "Huayllan", "dep": "Ancash", "f": "30/09 06:59", "h": 14.2, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5839-21-4-2026-coen-indeci-1555-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/"}, {"lat": -12.95583, "lon": -74.49222, "tipo": "Informe de emergencia", "ev": "Deslizamiento", "dist": "Congalla", "dep": "Huancavelica", "f": "30/09 05:46", "h": 15.4, "link": "https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-o-0904-22-9-2026-coen-indeci-2255-horas-deslizamiento-en-el-distrito-de-congalla-huancavelica/"}, {"lat": -8.85806, "lon": -77.43556, "tipo": "Informe de emergencia", "ev": "Lluvias intensas", "dist": "Huayllan", "dep": "Ancash", "f": "30/09 05:43", "h": 15.4, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-3869-18-3-2026-coen-indeci-0600-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/"}, {"lat": -12.91722, "lon": -74.46583, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "Caja", "dep": "Huancavelica", "f": "30/09 05:38", "h": 15.5, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-12583-19-9-2026-coen-indeci-2255-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-caja-huancavelica/"}, {"lat": -12.38944, "lon": -74.85917, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "Daniel Hernandez", "dep": "Huancavelica", "f": "30/09 01:19", "h": 19.8, "link": "https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-07274-10-8-2026-coen-indeci-1745-horas-lluvias-intensas-en-el-distrito-de-daniel-hernandez-huancavelica/"}, {"lat": -9.03361, "lon": -75.5075, "tipo": "Reporte de emergencia", "ev": "Derrumbe de cerro", "dist": "Padre Abad", "dep": "Ucayali", "f": "30/09 01:10", "h": 20.0, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-12243-14-9-2026-coen-indeci-1130-horas-reporte-n-o-1-derrumbe-en-el-distrito-de-padre-abad-ucayali/"}, {"lat": -4.10694, "lon": -81.05389, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "Mancora", "dep": "Piura", "f": "30/09 01:07", "h": 20.0, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-13164-30-9-2026-coen-indeci-0030-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-mancora-piura/"}, {"lat": -12.45972, "lon": -75.91833, "tipo": "Reporte de emergencia", "ev": "Lluvias", "dist": "Yauyos", "dep": "Lima", "f": "29/09 21:38", "h": 23.5, "link": "https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/"}, {"lat": -10.83833, "lon": -76.23833, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "Vicco", "dep": "Pasco", "f": "29/09 19:22", "h": 25.8, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-12745-23-9-2026-coen-indeci-0620-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-vicco-pasco/"}, {"lat": -10.07111, "lon": -75.55028, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "Pozuzo", "dep": "Pasco", "f": "29/09 18:39", "h": 26.5, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-12249-14-9-2026-coen-indeci-1335-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-pozuzo-pasco/"}, {"lat": -9.39361, "lon": -77.575, "tipo": "Informe de emergencia", "ev": "Lluvias intensas", "dist": "Tarica", "dep": "Ancash", "f": "29/09 17:52", "h": 27.3, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-4006-19-3-2026-coen-indeci-2354-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-tarica-ancash/"}, {"lat": -8.85806, "lon": -77.43556, "tipo": "Informe de emergencia", "ev": "Lluvias intensas", "dist": "Huayllan", "dep": "Ancash", "f": "29/09 17:29", "h": 27.7, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5397-13-4-2026-coen-indeci-1500-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/"}, {"lat": -13.51833, "lon": -73.72278, "tipo": "Reporte de emergencia", "ev": "Deslizamiento", "dist": "Chincheros", "dep": "Apurimac", "f": "29/09 16:42", "h": 28.4, "link": "https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0889-19-9-2026-coen-indeci-1634-horas-deslizamiento-en-el-distrito-de-chincheros-apurimac/"}, {"lat": -12.20167, "lon": -74.78056, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "San Marcos De Rocchac", "dep": "Huancavelica", "f": "29/09 00:14", "h": 44.9, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-12402-16-9-2026-coen-indeci-1740-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-san-marcos-de-rocchac-huancavelica/"}, {"lat": -3.64083, "lon": -80.44528, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "San Jacinto", "dep": "Tumbes", "f": "28/09 23:13", "h": 45.9, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-13112-28-9-2026-coen-indeci-2305-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-san-jacinto-tumbes/"}, {"lat": -3.69333, "lon": -80.43917, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "Pampas De Hospital", "dep": "Tumbes", "f": "28/09 23:11", "h": 46.0, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-13111-28-9-2026-coen-indeci-2300-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-pampas-de-hospital-tumbes/"}], "aeropuertos": [{"icao": "SPJL", "n": "Juliaca", "lat": -15.467, "lon": -70.158, "t": 7.0, "h": "21:00", "mx": 15.0, "mn": 7.0, "ll": ""}, {"icao": "SPQT", "n": "Iquitos", "lat": -3.786, "lon": -73.306, "t": 26.0, "h": "21:00", "mx": 34.0, "mn": 23.0, "ll": "lluvia"}, {"icao": "SPME", "n": "Tumbes", "lat": -3.551, "lon": -80.385, "t": 27.0, "h": "21:00", "mx": 32.0, "mn": 25.0, "ll": ""}, {"icao": "SPHI", "n": "Chiclayo", "lat": -6.787, "lon": -79.828, "t": 24.0, "h": "21:00", "mx": 29.0, "mn": 23.0, "ll": ""}, {"icao": "SPQU", "n": "Arequipa", "lat": -16.341, "lon": -71.583, "t": 14.0, "h": "21:00", "mx": 21.0, "mn": 11.0, "ll": ""}, {"icao": "SPTN", "n": "Tacna", "lat": -18.049, "lon": -70.277, "t": 17.0, "h": "21:00", "mx": 23.0, "mn": 17.0, "ll": ""}, {"icao": "SPJC", "n": "Lima – Jorge Chávez", "lat": -12.024, "lon": -77.113, "t": 22.0, "h": "21:00", "mx": 25.0, "mn": 21.0, "ll": ""}, {"icao": "SPUR", "n": "Piura", "lat": -5.206, "lon": -80.616, "t": 26.0, "h": "21:00", "mx": 31.0, "mn": 24.0, "ll": ""}, {"icao": "SPSO", "n": "Pisco", "lat": -13.744, "lon": -76.221, "t": 21.0, "h": "21:00", "mx": 25.0, "mn": 20.0, "ll": ""}, {"icao": "SPZO", "n": "Cusco", "lat": -13.536, "lon": -71.939, "t": 12.0, "h": "21:00", "mx": 21.0, "mn": 7.0, "ll": ""}, {"icao": "SPRU", "n": "Trujillo", "lat": -8.087, "lon": -79.109, "t": 24.0, "h": "21:00", "mx": 26.0, "mn": 23.0, "ll": ""}, {"icao": "SPCL", "n": "Pucallpa", "lat": -8.378, "lon": -74.574, "t": 28.0, "h": "21:00", "mx": 33.0, "mn": 24.0, "ll": ""}, {"icao": "SPJJ", "n": "Jauja", "lat": -11.783, "lon": -75.473, "t": 18.0, "h": "18:00", "mx": 21.0, "mn": 3.0, "ll": ""}, {"icao": "SPTU", "n": "Puerto Maldonado", "lat": -12.603, "lon": -69.228, "t": 25.0, "h": "18:00", "mx": 29.0, "mn": 23.0, "ll": ""}, {"icao": "SPST", "n": "Tarapoto", "lat": -6.509, "lon": -76.373, "t": 32.0, "h": "18:00", "mx": 35.0, "mn": 22.0, "ll": ""}, {"icao": "SPJR", "n": "Cajamarca", "lat": -7.139, "lon": -78.489, "t": 19.0, "h": "18:00", "mx": 26.0, "mn": 9.0, "ll": ""}, {"icao": "SPHO", "n": "Ayacucho", "lat": -13.155, "lon": -74.204, "t": 23.0, "h": "18:00", "mx": 26.0, "mn": 7.0, "ll": ""}, {"icao": "SPNC", "n": "Huánuco", "lat": -9.879, "lon": -76.207, "t": 22.0, "h": "17:00", "mx": 26.0, "mn": 17.0, "ll": "lluvia"}, {"icao": "SPHZ", "n": "Huaraz (Anta)", "lat": -9.347, "lon": -77.598, "t": 23.0, "h": "16:00", "mx": 24.0, "mn": 9.0, "ll": ""}, {"icao": "SPEO", "n": "Chimbote", "lat": -9.15, "lon": -78.526, "t": 25.0, "h": "16:00", "mx": 26.0, "mn": 23.0, "ll": ""}], "capas": [{"id": "g_aviso:view_aviso", "n": "Avisos meteorológicos SENAMHI", "on": true}, {"id": "g_acti_quebrada:view_av_activ_qdra", "n": "Quebradas en posible activación (SENAMHI)", "on": true}, {"id": "g_prono_pp_24h:view_aviso24h", "n": "Aviso de lluvia 24 h (SENAMHI)", "on": false}], "wms": "https://idesep.senamhi.gob.pe/geoserver/wms", "radios": {"quebrada": 5, "indeci": 10}}</script>
+<script type="application/json" id="datos-mapa">{"puntos": [{"cod": "P002102201", "n": "FLB Piura Centro", "z": "Norte", "c": "Piura", "d": "Piura", "lat": -5.1963, "lon": -80.6307, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Crítico", "tipo": "Tienda", "t": 31.0, "tn": 24.0, "cb": ""}, {"cod": "P002102301", "n": "FLB Piura Mall Open", "z": "Norte", "c": "Piura", "d": "Piura", "lat": -5.1784, "lon": -80.6206, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Crítico", "tipo": "Tienda", "t": 31.0, "tn": 24.0, "cb": ""}, {"cod": "P002100601", "n": "FLB Chiclayo Mall", "z": "Norte", "c": "Chiclayo", "d": "Chiclayo", "lat": -6.7714, "lon": -79.8409, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Crítico", "tipo": "Tienda", "t": 29.0, "tn": 23.0, "cb": ""}, {"cod": "P002100701", "n": "FLB Trujillo CC", "z": "Norte", "c": "Trujillo", "d": "Trujillo", "lat": -8.1116, "lon": -79.0288, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Crítico", "tipo": "Tienda", "t": 26.0, "tn": 23.0, "cb": ""}, {"cod": "P002100801", "n": "FLB Chimbote", "z": "Norte", "c": "Chimbote", "d": "Chimbote", "lat": -9.0745, "lon": -78.5936, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Tienda", "t": 26.0, "tn": 23.0, "cb": ""}, {"cod": "P002100901", "n": "FLB Cajamarca", "z": "Norte", "c": "Cajamarca", "d": "Cajamarca", "lat": -7.164, "lon": -78.5, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Tienda", "t": 26.0, "tn": 9.0, "cb": ""}, {"cod": "P002101401", "n": "FLB Canete MP", "z": "Centro/Sur", "c": "Cañete", "d": "San Vicente De Cañete", "lat": -13.077, "lon": -76.387, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Tienda", "t": 24.01, "tn": 15.83, "cb": ""}, {"cod": "P002101201", "n": "FLB Ica Mall", "z": "Centro/Sur", "c": "Ica", "d": "Ica", "lat": -14.068, "lon": -75.728, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Tienda", "t": 25.96, "tn": 15.42, "cb": ""}, {"cod": "P002102101", "n": "FLB Huancayo", "z": "Centro/Sur", "c": "Huancayo", "d": "Huancayo", "lat": -12.065, "lon": -75.205, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 21.0, "tn": 3.0, "cb": ""}, {"cod": "P002103301", "n": "FLB Exp Huaraz", "z": "Centro/Sur", "c": "Huaraz", "d": "Huaraz", "lat": -9.527, "lon": -77.528, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 24.0, "tn": 9.0, "cb": ""}, {"cod": "P002103501", "n": "FLB Exp.Ayacucho", "z": "Centro/Sur", "c": "Ayacucho", "d": "Ayacucho", "lat": -13.16, "lon": -74.225, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 26.0, "tn": 7.0, "cb": ""}, {"cod": "P002102701", "n": "FLB Arequipa (Cayma)", "z": "Centro/Sur", "c": "Arequipa", "d": "Cayma", "lat": -16.389, "lon": -71.547, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 21.0, "tn": 11.0, "cb": ""}, {"cod": "P002101001", "n": "FLB Porongoche", "z": "Centro/Sur", "c": "Arequipa", "d": "Paucarpata", "lat": -16.424, "lon": -71.508, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 21.0, "tn": 11.0, "cb": ""}, {"cod": "P002103201", "n": "FLB Cusco", "z": "Centro/Sur", "c": "Cusco", "d": "Cusco", "lat": -13.532, "lon": -71.967, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 21.0, "tn": 7.0, "cb": ""}, {"cod": "P002102901", "n": "FLB Merced", "z": "Centro/Sur", "c": "La Merced", "d": "Chanchamayo", "lat": -11.055, "lon": -75.327, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Sin clasificar", "tipo": "Tienda", "t": 16.22, "tn": 6.76, "cb": ""}, {"cod": "P004101702", "n": "FLB Iquitos", "z": "Oriente", "c": "Iquitos", "d": "Iquitos", "lat": -3.749, "lon": -73.253, "nv": 2, "mot": "Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.", "r": "Alto", "tipo": "Tienda", "t": 34.0, "tn": 23.0, "cb": ""}, {"cod": "P004101301", "n": "FLB Pucallpa", "z": "Oriente", "c": "Pucallpa", "d": "Calleria", "lat": -8.379, "lon": -74.554, "nv": 2, "mot": "Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.", "r": "Alto", "tipo": "Tienda", "t": 33.0, "tn": 24.0, "cb": ""}, {"cod": "P004101601", "n": "FLB Huanuco Op", "z": "Oriente", "c": "Huánuco", "d": "Huanuco", "lat": -9.93, "lon": -76.242, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Tienda", "t": 26.0, "tn": 17.0, "cb": ""}, {"cod": "P004103901", "n": "FLB Tarapoto", "z": "Oriente", "c": "Tarapoto", "d": "Tarapoto", "lat": -6.488, "lon": -76.36, "nv": 2, "mot": "Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.", "r": "Alto", "tipo": "Tienda", "t": 35.0, "tn": 22.0, "cb": ""}, {"cod": "CD-LURIN", "n": "CD Lurín", "z": "Lima Metropolitana", "c": "Lima", "d": "Lurin", "lat": -12.255, "lon": -76.89, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Centro de distribución", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "CD-VES", "n": "CD Villa El Salvador", "z": "Lima Metropolitana", "c": "Lima", "d": "Villa El Salvador", "lat": -12.215, "lon": -76.945, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Alto", "tipo": "Centro de distribución", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002100501", "n": "FLB Santa Anita", "z": "Lima Metropolitana", "c": "Lima", "d": "Santa Anita", "lat": -12.052, "lon": -76.968, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002103001", "n": "FLB Puruchuco", "z": "Lima Metropolitana", "c": "Lima", "d": "Ate", "lat": -12.034, "lon": -76.925, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002100401", "n": "FLB Mega Plaza", "z": "Lima Metropolitana", "c": "Lima", "d": "Independencia", "lat": -11.993, "lon": -77.061, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002101101", "n": "FLB Lima Norte (Plaza Norte)", "z": "Lima Metropolitana", "c": "Lima", "d": "Independencia", "lat": -12.006, "lon": -77.057, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio Alto", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002102401", "n": "FLB Bellavista", "z": "Lima Metropolitana", "c": "Callao", "d": "Bellavista", "lat": -12.058, "lon": -77.099, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002102801", "n": "FLB San Miguel", "z": "Lima Metropolitana", "c": "Lima", "d": "San Miguel", "lat": -12.077, "lon": -77.084, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002101901", "n": "FLB Mall del Sur", "z": "Lima Metropolitana", "c": "Lima", "d": "San Juan De Miraflores", "lat": -12.155, "lon": -76.982, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002102501", "n": "FLB Atocongo", "z": "Lima Metropolitana", "c": "Lima", "d": "San Juan De Miraflores", "lat": -12.1495, "lon": -76.9805, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002103101", "n": "FLB Comas", "z": "Lima Metropolitana", "c": "Lima", "d": "Comas", "lat": -11.935, "lon": -77.057, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002101801", "n": "FLB Centro Civico", "z": "Lima Metropolitana", "c": "Lima", "d": "Lima", "lat": -12.0565, "lon": -77.0365, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002102001", "n": "FLB Lima Centro", "z": "Lima Metropolitana", "c": "Lima", "d": "Lima", "lat": -12.05, "lon": -77.033, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "EXPO-LIMA-CENTRO", "n": "FLB Expo Lima Centro", "z": "Lima Metropolitana", "c": "Lima", "d": "Lima", "lat": -12.05, "lon": -77.033, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002102601", "n": "FLB Angamos", "z": "Lima Metropolitana", "c": "Lima", "d": "Surquillo", "lat": -12.113, "lon": -77.018, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002100301", "n": "FLB Miraflores", "z": "Lima Metropolitana", "c": "Lima", "d": "Miraflores", "lat": -12.121, "lon": -77.03, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002101501", "n": "FLB Salaverry", "z": "Lima Metropolitana", "c": "Lima", "d": "Jesus Maria", "lat": -12.09, "lon": -77.052, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002100201", "n": "FLB Jockey Plaza", "z": "Lima Metropolitana", "c": "Lima", "d": "Santiago De Surco", "lat": -12.086, "lon": -76.975, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002100101", "n": "FLB San Isidro", "z": "Lima Metropolitana", "c": "Lima", "d": "San Isidro", "lat": -12.097, "lon": -77.037, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "CORP-SAN-ISIDRO", "n": "Corporación San Isidro (oficinas)", "z": "Lima Metropolitana", "c": "Lima", "d": "San Isidro", "lat": -12.098, "lon": -77.023, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Medio", "tipo": "Oficina corporativa", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002103801", "n": "FLB MOLINA", "z": "Lima Metropolitana", "c": "Lima", "d": "La Molina", "lat": -12.083, "lon": -76.927, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Bajo", "tipo": "Tienda", "t": 25.0, "tn": 21.0, "cb": ""}, {"cod": "P002304029", "n": "FLB Exp Tacna", "z": "Sur", "c": "Tacna", "d": "Tacna", "lat": -18.014, "lon": -70.251, "nv": 1, "mot": "Temporada de lluvias: monitoreo preventivo.", "r": "Bajo", "tipo": "Tienda", "t": 23.0, "tn": 17.0, "cb": ""}], "indeci": [{"lat": -13.28333, "lon": -75.31833, "tipo": "Peligro inminente", "ev": "Lluvias intensas", "dist": "Castrovirreyna", "dep": "Huancavelica", "f": "30/09 14:22", "h": 7.1, "link": "https://portal.indeci.gob.pe/emergencias/reporte-de-peligro-inminente-n-o-0081-30-9-2026-coen-indeci-1150-horas-reporte-n-o-1-por-lluvias-intensas-en-el-distrito-de-castrovirreyna-huancavelica/"}, {"lat": -13.07611, "lon": -74.41167, "tipo": "Peligro inminente", "ev": "Lluvias intensas", "dist": "San Antonio De Antaparco", "dep": "Huancavelica", "f": "30/09 12:55", "h": 8.5, "link": "https://portal.indeci.gob.pe/emergencias/reporte-de-peligro-inminente-n-o-0070-11-9-2026-coen-indeci-0630-horas-reporte-n-o-1-por-lluvias-intensas-en-el-distrito-de-san-antonio-de-antaparco-huancavelica/"}, {"lat": -13.07194, "lon": -75.14028, "tipo": "Peligro inminente", "ev": "Lluvias intensas", "dist": "Santa Ana", "dep": "Huancavelica", "f": "30/09 12:50", "h": 8.6, "link": "https://portal.indeci.gob.pe/emergencias/reporte-de-peligro-inminente-n-o-0079-30-9-2026-coen-indeci-0300-horas-reporte-n-o-1-por-lluvias-intensas-en-el-distrito-de-santa-ana-huancavelica/"}, {"lat": -8.85806, "lon": -77.43556, "tipo": "Informe de emergencia", "ev": "Lluvias intensas", "dist": "Huayllan", "dep": "Ancash", "f": "30/09 06:59", "h": 14.5, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5839-21-4-2026-coen-indeci-1555-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/"}, {"lat": -12.95583, "lon": -74.49222, "tipo": "Informe de emergencia", "ev": "Deslizamiento", "dist": "Congalla", "dep": "Huancavelica", "f": "30/09 05:46", "h": 15.7, "link": "https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-o-0904-22-9-2026-coen-indeci-2255-horas-deslizamiento-en-el-distrito-de-congalla-huancavelica/"}, {"lat": -8.85806, "lon": -77.43556, "tipo": "Informe de emergencia", "ev": "Lluvias intensas", "dist": "Huayllan", "dep": "Ancash", "f": "30/09 05:43", "h": 15.7, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-3869-18-3-2026-coen-indeci-0600-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/"}, {"lat": -12.91722, "lon": -74.46583, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "Caja", "dep": "Huancavelica", "f": "30/09 05:38", "h": 15.8, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-12583-19-9-2026-coen-indeci-2255-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-caja-huancavelica/"}, {"lat": -12.38944, "lon": -74.85917, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "Daniel Hernandez", "dep": "Huancavelica", "f": "30/09 01:19", "h": 20.1, "link": "https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-07274-10-8-2026-coen-indeci-1745-horas-lluvias-intensas-en-el-distrito-de-daniel-hernandez-huancavelica/"}, {"lat": -9.03361, "lon": -75.5075, "tipo": "Reporte de emergencia", "ev": "Derrumbe de cerro", "dist": "Padre Abad", "dep": "Ucayali", "f": "30/09 01:10", "h": 20.3, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-12243-14-9-2026-coen-indeci-1130-horas-reporte-n-o-1-derrumbe-en-el-distrito-de-padre-abad-ucayali/"}, {"lat": -4.10694, "lon": -81.05389, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "Mancora", "dep": "Piura", "f": "30/09 01:07", "h": 20.3, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-13164-30-9-2026-coen-indeci-0030-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-mancora-piura/"}, {"lat": -12.45972, "lon": -75.91833, "tipo": "Reporte de emergencia", "ev": "Lluvias", "dist": "Yauyos", "dep": "Lima", "f": "29/09 21:38", "h": 23.8, "link": "https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0938-29-9-2026-coen-indeci-2000-horas-lluvias-intensas-en-el-distrito-de-yauyos-lima/"}, {"lat": -10.83833, "lon": -76.23833, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "Vicco", "dep": "Pasco", "f": "29/09 19:22", "h": 26.1, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-12745-23-9-2026-coen-indeci-0620-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-vicco-pasco/"}, {"lat": -10.07111, "lon": -75.55028, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "Pozuzo", "dep": "Pasco", "f": "29/09 18:39", "h": 26.8, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-12249-14-9-2026-coen-indeci-1335-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-pozuzo-pasco/"}, {"lat": -9.39361, "lon": -77.575, "tipo": "Informe de emergencia", "ev": "Lluvias intensas", "dist": "Tarica", "dep": "Ancash", "f": "29/09 17:52", "h": 27.6, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-4006-19-3-2026-coen-indeci-2354-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-tarica-ancash/"}, {"lat": -8.85806, "lon": -77.43556, "tipo": "Informe de emergencia", "ev": "Lluvias intensas", "dist": "Huayllan", "dep": "Ancash", "f": "29/09 17:29", "h": 28.0, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-5397-13-4-2026-coen-indeci-1500-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-huayllan-ancash/"}, {"lat": -13.51833, "lon": -73.72278, "tipo": "Reporte de emergencia", "ev": "Deslizamiento", "dist": "Chincheros", "dep": "Apurimac", "f": "29/09 16:42", "h": 28.8, "link": "https://portal.indeci.gob.pe/emergencias/reporte-preliminar-n-0889-19-9-2026-coen-indeci-1634-horas-deslizamiento-en-el-distrito-de-chincheros-apurimac/"}, {"lat": -12.20167, "lon": -74.78056, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "San Marcos De Rocchac", "dep": "Huancavelica", "f": "29/09 00:14", "h": 45.2, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-o-12402-16-9-2026-coen-indeci-1740-horas-reporte-n-o-1-lluvias-intensas-en-el-distrito-de-san-marcos-de-rocchac-huancavelica/"}, {"lat": -3.64083, "lon": -80.44528, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "San Jacinto", "dep": "Tumbes", "f": "28/09 23:13", "h": 46.2, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-13112-28-9-2026-coen-indeci-2305-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-san-jacinto-tumbes/"}, {"lat": -3.69333, "lon": -80.43917, "tipo": "Reporte de emergencia", "ev": "Lluvias intensas", "dist": "Pampas De Hospital", "dep": "Tumbes", "f": "28/09 23:11", "h": 46.3, "link": "https://portal.indeci.gob.pe/emergencias/reporte-complementario-n-13111-28-9-2026-coen-indeci-2300-horas-reporte-n-1-lluvias-intensas-en-el-distrito-de-pampas-de-hospital-tumbes/"}], "aeropuertos": [{"icao": "SPJC", "n": "Lima – Jorge Chávez", "lat": -12.024, "lon": -77.113, "t": 22.0, "h": "21:00", "mx": 25.0, "mn": 21.0, "ll": ""}, {"icao": "SPUR", "n": "Piura", "lat": -5.206, "lon": -80.616, "t": 26.0, "h": "21:00", "mx": 31.0, "mn": 24.0, "ll": ""}, {"icao": "SPJL", "n": "Juliaca", "lat": -15.467, "lon": -70.158, "t": 7.0, "h": "21:00", "mx": 15.0, "mn": 7.0, "ll": ""}, {"icao": "SPME", "n": "Tumbes", "lat": -3.551, "lon": -80.385, "t": 27.0, "h": "21:00", "mx": 32.0, "mn": 25.0, "ll": ""}, {"icao": "SPHI", "n": "Chiclayo", "lat": -6.787, "lon": -79.828, "t": 24.0, "h": "21:00", "mx": 29.0, "mn": 23.0, "ll": ""}, {"icao": "SPQU", "n": "Arequipa", "lat": -16.341, "lon": -71.583, "t": 14.0, "h": "21:00", "mx": 21.0, "mn": 11.0, "ll": ""}, {"icao": "SPSO", "n": "Pisco", "lat": -13.744, "lon": -76.221, "t": 21.0, "h": "21:00", "mx": 25.0, "mn": 20.0, "ll": ""}, {"icao": "SPTN", "n": "Tacna", "lat": -18.049, "lon": -70.277, "t": 17.0, "h": "21:00", "mx": 23.0, "mn": 17.0, "ll": ""}, {"icao": "SPZO", "n": "Cusco", "lat": -13.536, "lon": -71.939, "t": 12.0, "h": "21:00", "mx": 21.0, "mn": 7.0, "ll": ""}, {"icao": "SPQT", "n": "Iquitos", "lat": -3.786, "lon": -73.306, "t": 26.0, "h": "21:00", "mx": 34.0, "mn": 23.0, "ll": "lluvia"}, {"icao": "SPCL", "n": "Pucallpa", "lat": -8.378, "lon": -74.574, "t": 28.0, "h": "21:00", "mx": 33.0, "mn": 24.0, "ll": ""}, {"icao": "SPRU", "n": "Trujillo", "lat": -8.087, "lon": -79.109, "t": 24.0, "h": "21:00", "mx": 26.0, "mn": 23.0, "ll": ""}, {"icao": "SPTU", "n": "Puerto Maldonado", "lat": -12.603, "lon": -69.228, "t": 25.0, "h": "18:00", "mx": 29.0, "mn": 23.0, "ll": ""}, {"icao": "SPST", "n": "Tarapoto", "lat": -6.509, "lon": -76.373, "t": 32.0, "h": "18:00", "mx": 35.0, "mn": 22.0, "ll": ""}, {"icao": "SPJJ", "n": "Jauja", "lat": -11.783, "lon": -75.473, "t": 18.0, "h": "18:00", "mx": 21.0, "mn": 3.0, "ll": ""}, {"icao": "SPHO", "n": "Ayacucho", "lat": -13.155, "lon": -74.204, "t": 23.0, "h": "18:00", "mx": 26.0, "mn": 7.0, "ll": ""}, {"icao": "SPJR", "n": "Cajamarca", "lat": -7.139, "lon": -78.489, "t": 19.0, "h": "18:00", "mx": 26.0, "mn": 9.0, "ll": ""}, {"icao": "SPNC", "n": "Huánuco", "lat": -9.879, "lon": -76.207, "t": 22.0, "h": "17:00", "mx": 26.0, "mn": 17.0, "ll": "lluvia"}, {"icao": "SPEO", "n": "Chimbote", "lat": -9.15, "lon": -78.526, "t": 25.0, "h": "16:00", "mx": 26.0, "mn": 23.0, "ll": ""}, {"icao": "SPHZ", "n": "Huaraz (Anta)", "lat": -9.347, "lon": -77.598, "t": 23.0, "h": "16:00", "mx": 24.0, "mn": 9.0, "ll": ""}], "capas": [{"id": "g_aviso:view_aviso", "n": "Avisos meteorológicos SENAMHI", "on": true}, {"id": "g_acti_quebrada:view_av_activ_qdra", "n": "Quebradas en posible activación (SENAMHI)", "on": true}, {"id": "g_prono_pp_24h:view_aviso24h", "n": "Aviso de lluvia 24 h (SENAMHI)", "on": false}], "wms": "https://idesep.senamhi.gob.pe/geoserver/wms", "radios": {"quebrada": 5, "indeci": 10}}</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const b=document.getElementById('btn-act');
@@ -1277,18 +1483,10 @@ function panel(id){document.querySelectorAll('.vista').forEach(x=>x.classList.to
   document.querySelectorAll('section.panel').forEach(s=>s.classList.toggle('activo',s.id===id));
   if(id==='mapa')setTimeout(iniciarMapa,60);}
 document.querySelectorAll('.vista').forEach(v=>v.addEventListener('click',()=>{panel(v.dataset.panel);window.scrollTo({top:0});}));
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('activo'));b.classList.add('activo');
-  const z=b.dataset.zona;document.querySelectorAll('section.zona').forEach(s=>s.style.display=(z==='todas'||s.dataset.zona===z)?'':'none');
-}));
-document.querySelectorAll('.fila-alerta').forEach(tr=>tr.addEventListener('click',()=>{
-  panel('zonas');document.querySelector('.tab[data-zona="todas"]').click();
-  const c=document.getElementById(tr.dataset.ir);if(c){c.scrollIntoView({behavior:'smooth',block:'start'});c.classList.remove('resalta');void c.offsetWidth;c.classList.add('resalta');}
-}));
 
 const M=JSON.parse(document.getElementById('datos-mapa').textContent);
 const COL={1:'#70ad47',2:'#ffc000',3:'#c00000',4:'#111111'}, NOM={1:'Verde',2:'Amarilla',3:'Roja',4:'Negra'};
-let mapa=null, capaSel=null, gTie=null, wmsOk=0, wmsMal=0;
+let mapa=null, capaSel=null, gTie=null, wmsOk=0, wmsMal=0, capasWms=[];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function km(a,b,c,d){const r=Math.PI/180,x=Math.sin((c-a)*r/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin((d-b)*r/2)**2;return 12742*Math.asin(Math.sqrt(x));}
 const ayuda=document.getElementById('mapa-info').innerHTML;
@@ -1307,7 +1505,14 @@ function iniciarMapa(){
   const over={};
   M.capas.forEach(c=>{const l=L.tileLayer.wms(M.wms,{layers:c.id,format:'image/png',transparent:true,opacity:.55,attribution:'Capas: SENAMHI'});
     l.on('tileload',()=>{wmsOk++;notaWms();});l.on('tileerror',()=>{wmsMal++;notaWms();});
-    if(c.on)l.addTo(mapa);over[c.n]=l;});
+    if(c.on)l.addTo(mapa);over[c.n]=l;capasWms.push({id:c.id,n:c.n,l:l});});
+  mapa.on('click',ev=>{const act=capasWms.filter(c=>mapa.hasLayer(c.l));if(!act.length)return;
+    const sz=mapa.getSize(),b=mapa.getBounds(),pt=mapa.latLngToContainerPoint(ev.latlng),ids=act.map(c=>c.id).join(',');
+    const u=M.wms+'?service=WMS&version=1.1.1&request=GetFeatureInfo&layers='+ids+'&query_layers='+ids+'&styles=&srs=EPSG:4326'
+      +'&bbox='+[b.getWest(),b.getSouth(),b.getEast(),b.getNorth()].join(',')+'&width='+sz.x+'&height='+sz.y
+      +'&x='+Math.round(pt.x)+'&y='+Math.round(pt.y)+'&info_format=text/html&feature_count=5';
+    L.popup({maxWidth:330}).setLatLng(ev.latlng).setContent(`<b>SENAMHI en este punto</b><br><span class="muted small">Si no aparece nada, aquí no hay aviso vigente.</span>
+      <iframe class="info-sen" src="${esc(u)}" title="Detalle SENAMHI"></iframe><a href="${esc(u)}" target="_blank" rel="noopener">Abrir en otra pestaña</a>`).openOn(mapa);});
   const gInd=L.layerGroup(M.indeci.map(r=>L.marker([r.lat,r.lon],{icon:L.divIcon({className:'ico-indeci',html:'!',iconSize:[21,21]}),
     title:r.tipo+' · '+r.dist}).bindPopup(`<b>${esc(r.tipo)} · INDECI</b><br>${esc(r.ev)} en ${esc(r.dist)} (${esc(r.dep)})<br>
     <span class="muted">${esc(r.f)} · hace ${Math.round(r.h)} h</span><br><a href="${esc(r.link)}" target="_blank" rel="noopener">Ver reporte</a>`)));
@@ -1319,13 +1524,22 @@ function iniciarMapa(){
   mapa.createPane('tiendas');mapa.getPane('tiendas').style.zIndex=640;
   gTie=L.featureGroup();
   M.puntos.slice().sort((a,b)=>a.nv-b.nv).forEach(p=>{
-    const m=L.circleMarker([p.lat,p.lon],{radius:p.nv>1?10:7,color:'#fff',weight:2,fillColor:COL[p.nv],fillOpacity:.95,pane:'tiendas',className:p.nv>1?'pulso':''});
+    const m=L.circleMarker([p.lat,p.lon],{radius:p.nv>1?10:7,color:'#fff',weight:2,fillColor:COL[p.nv],fillOpacity:.95,pane:'tiendas',bubblingMouseEvents:false,className:p.nv>1?'pulso':''});
     m.bindTooltip(`<b>${esc(p.n)}</b><br>Nivel ${p.nv} · ${NOM[p.nv]}`,{direction:'top',offset:[0,-6]});
     m.on('click',()=>seleccionar(p.cod));p._m=m;gTie.addLayer(m);});
   gTie.addTo(mapa);over['Instalaciones Saga Falabella']=gTie;
   L.control.layers(null,over,{collapsed:window.innerWidth<900}).addTo(mapa);
   L.control.scale({imperial:false}).addTo(mapa);
   mapa.fitBounds(gTie.getBounds(),{padding:[24,24]});
+  filtrarMapa();
+}
+function filtrarMapa(){
+  if(!gTie||typeof pasa!=='function')return;let n=0;
+  M.puntos.forEach(p=>{const ok=pasa({nv:p.nv,z:p.z,r:p.r,tipo:p.tipo,cb:p.cb,txt:normz(p.n+' '+p.c+' '+p.d+' '+p.cod)},true);
+    if(ok){n++;if(!gTie.hasLayer(p._m))gTie.addLayer(p._m);}else if(gTie.hasLayer(p._m))gTie.removeLayer(p._m);});
+  const nf=document.getElementById('nota-filtro');
+  if(nf){nf.hidden=!filtroActivo();nf.innerHTML=`Filtro de “Por zona” aplicado: se muestran ${n} de ${M.puntos.length} instalaciones. <button class="lnk" data-limpiar-mapa>Mostrar todas</button>`;
+    const bl=nf.querySelector('[data-limpiar-mapa]');if(bl)bl.onclick=()=>limpiar();}
 }
 function seleccionar(cod){
   const p=M.puntos.find(x=>x.cod===cod);if(!p)return;
@@ -1361,6 +1575,79 @@ document.querySelectorAll('.zona-mapa').forEach(b=>b.addEventListener('click',()
   if(mapa&&pts.length)mapa.fitBounds(L.latLngBounds(pts.map(p=>[p.lat,p.lon])),{padding:[30,30],maxZoom:12});}));
 document.addEventListener('click',ev=>{const a=ev.target.closest('[data-mapa]');if(!a)return;ev.preventDefault();
   panel('mapa');window.scrollTo({top:0});setTimeout(()=>{iniciarMapa();seleccionar(a.dataset.mapa);},80);});
+
+
+const F={niveles:new Set(),alerta:false,zona:'',riesgo:'',tipo:'',cambios:false,q:'',orden:'nivel'};
+const normz=t=>String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const $=id=>document.getElementById(id);
+function filtroActivo(){return F.niveles.size||F.alerta||F.zona||F.riesgo||F.tipo||F.cambios||F.q;}
+function pasa(d,sinZona){
+  if(F.alerta&&d.nv<2)return false;
+  if(F.niveles.size&&!F.niveles.has(d.nv))return false;
+  if(!sinZona&&F.zona&&d.z!==F.zona)return false;
+  if(F.riesgo&&d.r!==F.riesgo)return false;
+  if(F.tipo&&d.tipo!==F.tipo)return false;
+  if(F.cambios&&!d.cb)return false;
+  if(F.q&&!d.txt.includes(F.q))return false;
+  return true;}
+function datoCard(c){const x=c.dataset;return{nv:+x.nivel,z:x.zona,r:x.riesgo,tipo:x.tipo,cb:x.cambio,txt:normz(x.txt+' '+x.nombre),
+  n:x.nombre,or:+x.ordenRiesgo,t:x.tmax===''?-99:parseFloat(x.tmax)};}
+function cmp(a,b){const A=datoCard(a),B=datoCard(b);
+  if(F.orden==='riesgo')return A.or-B.or||B.nv-A.nv||A.n.localeCompare(B.n);
+  if(F.orden==='nombre')return A.n.localeCompare(B.n);
+  if(F.orden==='tmax')return B.t-A.t||A.n.localeCompare(B.n);
+  return B.nv-A.nv||A.or-B.or||A.n.localeCompare(B.n);}
+function aEnlace(){const q=new URLSearchParams();
+  if(F.niveles.size)q.set('nivel',[...F.niveles].sort().join('.'));if(F.alerta)q.set('alerta','1');
+  if(F.zona)q.set('zona',F.zona);if(F.riesgo)q.set('riesgo',F.riesgo);if(F.tipo)q.set('tipo',F.tipo);
+  if(F.cambios)q.set('cambios','1');if(F.q)q.set('q',F.q);if(F.orden!=='nivel')q.set('orden',F.orden);
+  const t=q.toString();return '#zonas'+(t?'?'+t:'');}
+function deEnlace(h){const i=h.indexOf('?');const q=new URLSearchParams(i<0?'':h.slice(i+1));
+  F.niveles=new Set((q.get('nivel')||'').split('.').filter(Boolean).map(Number));F.alerta=q.get('alerta')==='1';
+  F.zona=q.get('zona')||'';F.riesgo=q.get('riesgo')||'';F.tipo=q.get('tipo')||'';F.cambios=q.get('cambios')==='1';
+  F.q=normz(q.get('q')||'');F.orden=q.get('orden')||'nivel';}
+function pintarControles(){
+  document.querySelectorAll('.fchip[data-nivel]').forEach(b=>b.setAttribute('aria-pressed',F.niveles.has(+b.dataset.nivel)));
+  document.querySelector('.fchip[data-alerta]').setAttribute('aria-pressed',F.alerta);
+  $('f-zona').value=F.zona;$('f-riesgo').value=F.riesgo;$('f-tipo').value=F.tipo;$('f-orden').value=F.orden;$('f-cambios').checked=F.cambios;
+  if(normz($('f-buscar').value)!==F.q)$('f-buscar').value=F.q;}
+function aplicar(guardar){
+  const cards=[...document.querySelectorAll('#zonas article.card')];let vis=0;
+  cards.forEach(c=>{const ok=pasa(datoCard(c));c.hidden=!ok;if(ok)vis++;});
+  document.querySelectorAll('#zonas section.zona').forEach(sec=>{const g=sec.querySelector('.grid');
+    [...g.children].sort(cmp).forEach(x=>g.appendChild(x));sec.hidden=![...g.children].some(c=>!c.hidden);});
+  $('f-cuenta').textContent=`Mostrando ${vis} de ${cards.length} instalaciones`;
+  $('f-limpiar').hidden=!filtroActivo();$('f-vacio').hidden=vis>0;
+  pintarControles();
+  if(guardar&&document.getElementById('zonas').classList.contains('activo'))history.replaceState(null,'',aEnlace());
+  if(typeof filtrarMapa==='function')filtrarMapa();}
+function limpiar(){F.niveles.clear();F.alerta=false;F.zona=F.riesgo=F.tipo=F.q='';F.cambios=false;F.orden='nivel';aplicar(true);}
+document.querySelectorAll('.fchip[data-nivel]').forEach(b=>b.addEventListener('click',()=>{const n=+b.dataset.nivel;
+  F.niveles.has(n)?F.niveles.delete(n):F.niveles.add(n);F.alerta=false;aplicar(true);}));
+document.querySelector('.fchip[data-alerta]').addEventListener('click',()=>{F.alerta=!F.alerta;if(F.alerta)F.niveles.clear();aplicar(true);});
+[['f-zona','zona'],['f-riesgo','riesgo'],['f-tipo','tipo'],['f-orden','orden']].forEach(([id,k])=>$(id).addEventListener('change',ev=>{F[k]=ev.target.value||(k==='orden'?'nivel':'');aplicar(true);}));
+$('f-cambios').addEventListener('change',ev=>{F.cambios=ev.target.checked;aplicar(true);});
+let tBus;$('f-buscar').addEventListener('input',ev=>{clearTimeout(tBus);tBus=setTimeout(()=>{F.q=normz(ev.target.value.trim());aplicar(true);},150);});
+$('f-limpiar').addEventListener('click',limpiar);
+document.querySelectorAll('[data-limpiar]').forEach(b=>b.addEventListener('click',limpiar));
+$('f-copiar').addEventListener('click',async()=>{const u=location.origin+location.pathname+aEnlace();
+  try{await navigator.clipboard.writeText(u);$('f-copiar').textContent='Enlace copiado';}catch(e){prompt('Copia este enlace:',u);}
+  setTimeout(()=>{$('f-copiar').textContent='Copiar enlace de esta vista';},2500);});
+function irA(destino){
+  if(destino.startsWith('#zonas')){deEnlace(destino);panel('zonas');aplicar(false);history.replaceState(null,'',aEnlace());window.scrollTo({top:0});return true;}
+  const id=destino.replace('#','');if(['resumen','mapa','guia'].includes(id)){panel(id);history.replaceState(null,'','#'+id);return true;}
+  return false;}
+document.querySelectorAll('.vista').forEach(v=>v.addEventListener('click',()=>{
+  history.replaceState(null,'',v.dataset.panel==='zonas'?aEnlace():'#'+v.dataset.panel);
+  if(v.dataset.panel==='zonas')aplicar(false);}));
+document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#zonas"]');if(!a)return;ev.preventDefault();irA(a.getAttribute('href'));});
+document.querySelectorAll('[data-ir]').forEach(el=>el.addEventListener('click',ev=>{ev.preventDefault();
+  const c=document.getElementById(el.dataset.ir);if(!c)return;
+  if(c.hidden)limpiar();panel('zonas');history.replaceState(null,'',aEnlace());
+  c.scrollIntoView({behavior:'smooth',block:'start'});c.classList.remove('resalta');void c.offsetWidth;c.classList.add('resalta');}));
+if(location.hash&&location.hash.length>1)irA(decodeURIComponent(location.hash));
+window.addEventListener('hashchange',()=>{if(location.hash.length>1)irA(decodeURIComponent(location.hash));});
+aplicar(false);
 
 </script>
 </body></html>
