@@ -91,6 +91,29 @@ DIST_MAX_AEROPUERTO_KM = 60    # aeropuerto mas lejano aceptado para la temperat
 LLUVIA_METAR = ("RA", "DZ", "TS", "SH", "GR")   # codigos METAR de lluvia, llovizna, tormenta, chubasco, granizo
 HORAS_BOLETIN_AVISO = 72       # boletines INDECI de aviso meteorologico a considerar
 ARCH_MANUALES = CARPETA / "alertas_manuales.csv"   # Nivel 4 u otros ajustes manuales
+# Estaciones SENAMHI que SENAMHI envia a la red mundial de la OMM (partes SYNOP), republicadas por OGIMET.
+# Se excluyen las de aeropuerto (ya cubiertas por CORPAC). (id OMM: nombre, lat, lon, altitud m)
+OGIMET_SYNOP = "https://www.ogimet.com/cgi-bin/getsynop"
+ESTACIONES_OMM = {
+    "84392": ("Lancones", -4.6428, -80.5472, 136), "84398": ("Chulucanas", -5.1083, -80.1694, 89),
+    "84402": ("San Ignacio", -5.1442, -78.9997, 1270), "84403": ("Canchaque", -5.4006, -79.6053, 1270),
+    "84404": ("El Virrey", -5.5358, -79.9842, 211), "84420": ("Jaén", -5.6767, -78.7742, 618),
+    "84442": ("Motupe", -6.0667, -79.6819, 191), "84446": ("Tinajones", -6.655, -79.4281, 181),
+    "84447": ("Chugur", -6.6689, -78.7381, 2748), "84479": ("estación 84479", -7.3225, -78.1725, 2287),
+    "84563": ("estación 84563", -9.8789, -76.5908, 3584), "84614": ("Tarma", -11.3967, -75.6903, 3200),
+    "84617": ("Matucana", -11.8389, -76.3778, 2417), "84618": ("Marcapomacocha", -11.4044, -76.325, 4443),
+    "84619": ("Huaytapallana", -11.9272, -75.0619, 4648), "84620": ("estación 84620 (Lurigancho)", -11.9875, -76.8419, 553),
+    "84621": ("Von Humboldt (La Molina)", -12.0822, -76.9394, 247), "84632": ("Carania", -12.3444, -75.8722, 3840),
+    "84682": ("Calca", -13.3331, -71.955, 2924), "84696": ("Sicuani", -14.2372, -71.2367, 3534),
+    "84711": ("Palca", -15.2358, -70.5931, 4067), "84712": ("Pampahuta", -15.4836, -70.6761, 4311),
+    "84738": ("Illpa", -15.6872, -70.08, 3827), "84739": ("Imata", -15.8428, -71.0906, 4475),
+    "84742": ("Puno", -15.8261, -70.0119, 3812), "84753": ("Uzuna", -16.5811, -71.3283, 3269),
+    "84759": ("estación 84759", -16.3356, -72.1525, 1498), "84761": ("Moquegua", -17.1786, -70.9325, 1440),
+    "84762": ("Candarave", -17.2681, -70.2542, 3410), "84763": ("Ayro", -17.5803, -69.6267, 4260),
+}
+DIST_MAX_OMM_KM = 25           # estacion SENAMHI (OMM) mas lejana aceptada para una tienda
+ALT_MAX_OMM_M = 4000           # estaciones de alta montana no representan a una ciudad
+HORAS_MAX_OMM = 6              # antiguedad maxima del ultimo reporte para usarlo
 
 # Niveles de alerta y acciones: PLN-PRE Plan Integral FEN 2026/2027, Cap. X (pag. 8)
 NIVELES_PLAN = {
@@ -488,6 +511,108 @@ def fuente_corpac() -> dict:
     return out
 
 
+def _synop_temp(g):
+    """Grupo snTTT -> grados C (None si falta)."""
+    if len(g) != 4 or "/" in g or g[0] not in "01":
+        return None
+    return (-1 if g[0] == "1" else 1) * int(g[1:]) / 10
+
+
+def _synop_lluvia(g):
+    """Grupo RRRt de precipitacion -> (mm, horas)."""
+    if len(g) != 4 or "/" in g[:3]:
+        return None, None
+    rrr = int(g[:3])
+    mm = 0.0 if rrr == 990 else (rrr - 990) / 10 if rrr > 990 else float(rrr)
+    horas = {"1": 6, "2": 12, "3": 18, "4": 24, "5": 1, "6": 2, "7": 3, "8": 9, "9": 15}.get(g[3])
+    return mm, horas
+
+
+def parse_synop(texto: str) -> dict:
+    """Decodifica lo necesario de un parte SYNOP (FM-12): temperatura, max/min, lluvia y tiempo presente."""
+    t = texto.replace("==", "").replace("=", "").split()
+    if "AAXX" in t:
+        t = t[t.index("AAXX") + 1:]
+    if len(t) < 4 or "NIL" in t:
+        return {}
+    t = t[2:]                                    # quita YYGGi y el indicativo de estacion
+    sec1, sec3 = (t[:t.index("333")], t[t.index("333") + 1:]) if "333" in t else (t, [])
+    if "555" in sec3:
+        sec3 = sec3[:sec3.index("555")]
+    out = {}
+    cuerpo = sec1[2:] if len(sec1) > 2 else []   # salta iRixhVV y Nddff
+    if cuerpo and cuerpo[0].startswith("00"):
+        cuerpo = cuerpo[1:]                      # viento >= 99 nudos
+    for g in cuerpo:
+        if len(g) != 5:
+            continue
+        k, resto = g[0], g[1:]
+        if k == "1" and "temp" not in out:
+            out["temp"] = _synop_temp(resto)
+        elif k == "6":
+            out["lluvia"] = _synop_lluvia(resto)
+        elif k == "7" and resto[:2].isdigit():
+            out["ww"] = int(resto[:2])
+    for g in sec3:
+        if len(g) != 5:
+            continue
+        k, resto = g[0], g[1:]
+        if k == "1" and "tmax" not in out:
+            out["tmax"] = _synop_temp(resto)
+        elif k == "2" and "tmin" not in out:
+            out["tmin"] = _synop_temp(resto)
+        elif k == "6" and "lluvia" not in out:
+            out["lluvia"] = _synop_lluvia(resto)
+        elif k == "7" and resto.isdigit():
+            out["lluvia24"] = int(resto) / 10
+    return out
+
+
+def tipo_ww(ww):
+    if ww is None:
+        return ""
+    return ("tormenta" if 91 <= ww <= 99 or ww in (17, 29) else "chubasco" if 80 <= ww <= 90 else
+            "lluvia" if 60 <= ww <= 69 else "llovizna (garúa)" if 50 <= ww <= 59 else "")
+
+
+def fuente_omm() -> dict:
+    """Partes SYNOP de las ultimas 30 h de las estaciones SENAMHI en la red OMM (via OGIMET)."""
+    from datetime import timezone, timedelta
+    ahora = datetime.now(timezone.utc)
+    ini = ahora - timedelta(hours=30)
+    r = http_get(OGIMET_SYNOP, params={"begin": ini.strftime("%Y%m%d%H00"), "end": ahora.strftime("%Y%m%d%H%M"),
+                                       "state": "Peru"}, headers=HEADERS, timeout=TIMEOUT)
+    r.raise_for_status()
+    if "AAXX" not in r.text:
+        raise ValueError("OGIMET no devolvió partes SYNOP: " + r.text[:120])
+    out = {}
+    for linea in r.text.splitlines():
+        p = linea.split(",", 6)
+        if len(p) < 7 or p[0] not in ESTACIONES_OMM:
+            continue
+        ts = datetime(int(p[1]), int(p[2]), int(p[3]), int(p[4]), int(p[5]), tzinfo=timezone.utc).astimezone()
+        d = parse_synop(p[6])
+        if not d:
+            continue
+        nombre, lat, lon, alt = ESTACIONES_OMM[p[0]]
+        out.setdefault(p[0], {"nombre": nombre, "lat": lat, "lon": lon, "alt": alt, "obs": []})["obs"].append({"ts": ts, **d})
+    ahora_l = ahora.astimezone()
+    for est in out.values():
+        est["obs"].sort(key=lambda o: o["ts"])
+        u24 = [o for o in est["obs"] if (ahora_l - o["ts"]).total_seconds() <= 24 * 3600]
+        temps = [o["temp"] for o in u24 if o.get("temp") is not None]
+        maxs = temps + [o["tmax"] for o in u24 if o.get("tmax") is not None]
+        mins = temps + [o["tmin"] for o in u24 if o.get("tmin") is not None]
+        con_t = [o for o in est["obs"] if o.get("temp") is not None]
+        l24 = [o["lluvia24"] for o in u24 if o.get("lluvia24") is not None]
+        l24 += [o["lluvia"][0] for o in u24 if o.get("lluvia") and o["lluvia"][0] is not None and o["lluvia"][1] == 24]
+        ll6 = [o for o in est["obs"] if tipo_ww(o.get("ww")) and (ahora_l - o["ts"]).total_seconds() <= 6 * 3600]
+        est.update({"ultima": con_t[-1] if con_t else None, "tmax24": max(maxs) if maxs else None,
+                    "tmin24": min(mins) if mins else None, "prec24": max(l24) if l24 else None,
+                    "lluvia_6h": [{"ts": o["ts"], "tipo": tipo_ww(o["ww"])} for o in ll6], "serie": temps[-24:]})
+    return out
+
+
 def fuente_nasa_power(tiendas: pd.DataFrame) -> dict:
     """Respaldo de temperatura/lluvia diaria (NASA POWER) por punto de tienda: ultimos 20 dias."""
     fin = datetime.now()
@@ -749,8 +874,10 @@ def interpretar(r, enfen):
     # 2) Hoy
     if r.get("corpac"):
         c = r["corpac"]
-        t = (f"{c['ahora']:.0f} °C a las {c['hora']} en el aeropuerto de {c['nombre'].split(' – ')[0]} (CORPAC); "
+        t = (f"{c['ahora']:.0f} °C a las {c['hora']} {c['lugar']}; "
              f"últimas 24 h: máxima {r['tmax']:.0f} °C, mínima {r['tmin']:.0f} °C")
+        if c.get("prec24"):
+            t += f", lluvia acumulada {c['prec24']:.1f} mm"
         if c["lluvia"]:
             t += f". <b>{c['lluvia_tipo'].capitalize()} observada</b> en las últimas 6 h (último reporte: {c['lluvia_hora']})"
         lineas.append(("Hoy", t + "."))
@@ -927,10 +1054,29 @@ def procesar(tiendas, datos):
         # Si no hay estacion SENAMHI: aeropuerto CORPAC cercano; si tampoco, respaldo NASA POWER
         r["fuente_temp"] = "SENAMHI" if r["tmax"] is not None else ""
         r["corpac"] = None
+        ahora_l = datetime.now().astimezone()
+        cand_omm = sorted(((haversine_km(t.lat, t.lon, a["lat"], a["lon"]), c, a) for c, a in (datos.get("omm") or {}).items()
+                           if a["alt"] < ALT_MAX_OMM_M and a.get("ultima") and a["tmax24"] is not None
+                           and (ahora_l - a["ultima"]["ts"]).total_seconds() <= HORAS_MAX_OMM * 3600), key=lambda x: x[0])
+        cand_omm = [c for c in cand_omm if c[0] <= DIST_MAX_OMM_KM]
+        cand_aer = sorted(((haversine_km(t.lat, t.lon, a["lat"], a["lon"]), c, a) for c, a in (datos.get("corpac") or {}).items()
+                           if a.get("lat") is not None and a.get("tmax24") is not None), key=lambda x: x[0])
+        cand_aer = [c for c in cand_aer if c[0] <= DIST_MAX_AEROPUERTO_KM]
+        if r["tmax"] is None and cand_omm and (not cand_aer or cand_omm[0][0] <= cand_aer[0][0]):
+            dist, wmo, a = cand_omm[0]
+            r["tmax"], r["tmin"], r["prec"] = a["tmax24"], a["tmin24"], a["prec24"]
+            r["serie_tmax"], r["serie_tmin"] = a["serie"], []
+            r["prom_tmax"] = r["tend_tmax"] = r["prom_tmin"] = r["tend_tmin"] = None
+            hora = a["ultima"]["ts"].strftime("%H:%M")
+            r["corpac"] = {"icao": wmo, "nombre": a["nombre"], "dist": dist, "ahora": a["ultima"]["temp"], "hora": hora,
+                           "lluvia": bool(a["lluvia_6h"]), "lugar": f"en la estación SENAMHI {a['nombre']} (red OMM)",
+                           "lluvia_hora": a["lluvia_6h"][-1]["ts"].strftime("%H:%M") if a["lluvia_6h"] else "",
+                           "lluvia_tipo": a["lluvia_6h"][-1]["tipo"] if a["lluvia_6h"] else "", "prec24": a["prec24"]}
+            r["estacion"] = f"Estación SENAMHI {a['nombre']} ({dist:.0f} km), parte OMM de las {hora}"
+            r["fuente_temp"] = "SENAMHI (OMM)"
         if r["tmax"] is None and datos.get("corpac"):
-            cand = sorted(((haversine_km(t.lat, t.lon, a["lat"], a["lon"]), c, a) for c, a in datos["corpac"].items()
-                           if a.get("lat") is not None), key=lambda x: x[0])
-            if cand and cand[0][0] <= DIST_MAX_AEROPUERTO_KM and cand[0][2]["tmax24"] is not None:
+            cand = cand_aer
+            if cand:
                 dist, icao, a = cand[0]
                 r["tmax"], r["tmin"], r["prec"] = a["tmax24"], a["tmin24"], None
                 r["serie_tmax"], r["serie_tmin"] = a["serie"], []
@@ -939,7 +1085,8 @@ def procesar(tiendas, datos):
                 r["corpac"] = {"icao": icao, "nombre": a["nombre"], "dist": dist, "ahora": a["ultima"]["temp"],
                                "hora": hora, "lluvia": bool(a["lluvia_6h"]),
                                "lluvia_hora": a["lluvia_6h"][-1]["ts"].strftime("%H:%M") if a["lluvia_6h"] else "",
-                               "lluvia_tipo": a["lluvia_6h"][-1]["tipo"] if a["lluvia_6h"] else ""}
+                               "lluvia_tipo": a["lluvia_6h"][-1]["tipo"] if a["lluvia_6h"] else "",
+                               "lugar": f"en el aeropuerto de {a['nombre'].split(' – ')[0]} (CORPAC)"}
                 r["estacion"] = f"CORPAC · Aeropuerto {a['nombre']} ({dist:.0f} km), reporte {hora}"
                 r["fuente_temp"] = "CORPAC"
         nasa = datos.get("nasa", {}).get((t.lat_r, t.lon_r))
@@ -1294,6 +1441,56 @@ aplicar(false);
 """
 
 
+MODERNO_CSS = """
+:root{--bg:#ffffff;--bd:#e7eae6;--tx:#1f2421;--mut:#646b66;--fala-osc:#3f5c00;--fala-suave:#f5f9ea}
+body{font-size:15px}
+.franja{font-size:11.5px} .franja .in{padding:4px 16px}
+.barra{border-bottom:3px solid var(--fala);box-shadow:none}
+.barra .in{padding:10px 16px;flex-wrap:nowrap;align-items:center;gap:20px}
+.marca{flex:0 1 auto;min-width:0} .marca h1{font-size:22px;letter-spacing:-.01em} .marca p{margin:0}
+.logo{width:40px;height:40px}
+.vistas{margin:0 0 0 auto;width:auto;gap:2px;background:#f1f3f0;border-radius:10px;padding:4px;max-width:none}
+.vista{border:0;border-radius:8px;padding:7px 14px;color:var(--mut);font-size:14px}
+.vista.activo{background:#fff;color:var(--tx);box-shadow:0 1px 2px rgba(31,36,33,.12);border-bottom:0}
+.act{flex:0 0 auto} .act .small{display:none} .act .btn{padding:7px 14px}
+.wrap{padding:30px 16px 48px}
+h2{font-size:20px}
+.res-cab{display:flex;justify-content:space-between;align-items:flex-end;gap:16px 32px;flex-wrap:wrap;padding-bottom:22px;border-bottom:1px solid var(--bd)}
+.titular{font-size:clamp(30px,4.4vw,46px);font-weight:900;line-height:1.05;margin:0;letter-spacing:-.015em;max-width:22ch}
+.col-zona.larga{grid-column:span 2} .col-zona.larga ul{columns:2;column-gap:36px} .col-zona.larga li{break-inside:avoid}
+.contexto{display:flex;gap:16px 32px;margin:0;flex-wrap:wrap}
+.contexto dt{font-size:12.5px;color:var(--mut)} .contexto dd{margin:2px 0 0;font-weight:700;font-size:15px}
+.contexto dd.rojo{color:var(--rojo)} .contexto dd.amarillo{color:#9a6b00}
+.puntos{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:30px 36px;margin-top:26px}
+.col-zona h3{font-size:15px;font-weight:900;margin:0 0 6px;display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:2px solid var(--tx);padding-bottom:6px}
+.col-zona h3 span{font-weight:400;color:var(--mut);font-size:12.5px}
+.col-zona ul{list-style:none;margin:0;padding:0}
+.col-zona a{display:grid;grid-template-columns:12px 1fr;column-gap:10px;align-items:center;padding:5px 6px;margin:0 -6px;border-radius:6px;text-decoration:none;color:var(--tx);font-weight:400;font-size:14.5px}
+.col-zona a:hover,.col-zona a:focus-visible{background:#f1f4ef}
+.col-zona a.alerta .nom{font-weight:900}
+.col-zona .por{grid-column:2;font-size:12.5px;color:var(--mut);line-height:1.3}
+.pt{width:11px;height:11px;border-radius:50%;display:inline-block;background:var(--verde);flex:0 0 auto}
+.pt.n2{background:var(--amar);box-shadow:0 0 0 3px rgba(255,192,0,.28)} .pt.n3{background:var(--rojo);box-shadow:0 0 0 3px rgba(192,0,0,.22)} .pt.n4{background:#000;box-shadow:0 0 0 3px rgba(0,0,0,.18)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.leyenda-puntos{display:flex;gap:8px 20px;flex-wrap:wrap;font-size:12.5px;margin:30px 0 0;padding-top:14px;border-top:1px solid var(--bd)}
+.leyenda-puntos span{display:inline-flex;align-items:center;gap:7px}
+.novedades{margin-top:22px;border:1px solid var(--bd);border-radius:10px}
+.novedades summary{padding:14px 16px;font-weight:900;font-size:15px;cursor:pointer;color:var(--tx)}
+.novedades summary .muted{font-weight:400;font-size:13px;margin-left:8px}
+.novedades[open] summary{border-bottom:1px solid var(--bd)}
+.nov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px 30px;padding:16px 16px 20px}
+.nov-grid h3{font-size:14px;margin:0 0 6px} .nov-grid p{font-size:13.5px;margin:0 0 6px}
+.nota-fuentes{font-size:12.5px;color:var(--mut);margin:0 0 8px}
+.card,.card.sem-rojo,.card.sem-amarillo,.card.sem-negro{border:1px solid var(--bd);box-shadow:none;border-radius:10px;padding:16px;scroll-margin-top:96px}
+.interp{background:#f6f8f3}
+.filtros{box-shadow:none;border-radius:10px;position:static}
+.fchip,.tab,.sel select,.buscar{border-width:1px}
+.caja,.nivel-card,.glosario,.leyenda-sen,#mapa-div,#mapa-info,.pulso-pais{border-radius:10px}
+.ico-omm{background:var(--fala-osc);color:#fff;border-radius:10px;font:700 11px/18px Lato,sans-serif;text-align:center;border:1.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+@media (max-width:980px){.barra .in{flex-wrap:wrap} .vistas{order:3;width:100%;margin:2px 0 0;overflow-x:auto} .act{margin-left:auto}}
+@media (max-width:560px){.col-zona.larga{grid-column:auto} .wrap{padding-top:20px} .contexto{gap:10px 20px} .puntos{grid-template-columns:1fr;gap:22px} .vista{padding:7px 10px}}
+"""
+
 MAPA_CSS = """
 .mapa-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 10px}
 .leyenda{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--mut)} .leyenda i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:4px;vertical-align:-1px;border:1.5px solid #fff;box-shadow:0 0 0 1px #ccc}
@@ -1346,6 +1543,10 @@ function iniciarMapa(){
     title:a.n}).bindPopup(`<b>Aeropuerto ${esc(a.n)}</b> · CORPAC<br>Ahora (${esc(a.h)}): <b>${a.t.toFixed(0)} °C</b><br>
     Últimas 24 h: máx ${a.mx==null?'—':a.mx.toFixed(0)+'°'} · mín ${a.mn==null?'—':a.mn.toFixed(0)+'°'}${a.ll?'<br>Observado: <b>'+esc(a.ll)+'</b>':''}`)));
   gAer.addTo(mapa);over['Temperatura en aeropuertos (CORPAC)']=gAer;
+  const gOmm=L.layerGroup((M.estaciones||[]).map(a=>L.marker([a.lat,a.lon],{icon:L.divIcon({className:'ico-omm',html:Math.round(a.t)+'°',iconSize:[34,21],iconAnchor:[-9,10]}),
+    title:a.n}).bindPopup(`<b>Estación SENAMHI ${esc(a.n)}</b><br><span class="muted">Red OMM · ${a.alt} m s. n. m.</span><br>Último parte (${esc(a.h)}): <b>${a.t.toFixed(1)} °C</b><br>
+    Últimas 24 h: máx ${a.mx==null?'—':a.mx.toFixed(1)+'°'} · mín ${a.mn==null?'—':a.mn.toFixed(1)+'°'}${a.pp!=null?'<br>Lluvia 24 h: <b>'+a.pp.toFixed(1)+' mm</b>':''}${a.ll?'<br>Observado: <b>'+esc(a.ll)+'</b>':''}`)));
+  gOmm.addTo(mapa);over[`Temperatura en estaciones SENAMHI (red OMM, ${(M.estaciones||[]).length})`]=gOmm;
   mapa.createPane('tiendas');mapa.getPane('tiendas').style.zIndex=640;
   gTie=L.featureGroup();
   M.puntos.slice().sort((a,b)=>a.nv-b.nv).forEach(p=>{
@@ -1380,6 +1581,8 @@ function seleccionar(cod){
   let li=ind.map(r=>`<li class="ind"><b>${esc(r.tipo)}</b> · ${esc(r.ev)} en ${esc(r.dist)} · ${r.d.toFixed(0)} km · ${esc(r.f)} · <a href="${esc(r.link)}" target="_blank" rel="noopener">reporte</a></li>`).join('');
   if(!ind.length)li+='<li>Sin emergencias INDECI por lluvias a 30 km o menos (últimas 48 h).</li>';
   if(aer&&aer.d<=60)li+=`<li class="aer">Aeropuerto ${esc(aer.n)} a ${aer.d.toFixed(0)} km: <b>${aer.t.toFixed(0)} °C</b> a las ${esc(aer.h)}${aer.ll?' · '+esc(aer.ll):''}</li>`;
+  const om=(M.estaciones||[]).map(a=>({...a,d:km(p.lat,p.lon,a.lat,a.lon)})).sort((a,b)=>a.d-b.d)[0];
+  if(om&&om.d<=25)li+=`<li class="aer">Estación SENAMHI ${esc(om.n)} a ${om.d.toFixed(0)} km: <b>${om.t.toFixed(1)} °C</b> (${esc(om.h)})${om.ll?' · '+esc(om.ll):''}</li>`;
   if(vec.length)li+=`<li>Otras instalaciones a 5 km o menos: ${vec.map(x=>esc(x.n)+' ('+x.d.toFixed(1)+' km)').join(', ')}</li>`;
   const info=document.getElementById('mapa-info');
   info.innerHTML=`<div class="sel-cab"><div><h3>${esc(p.n)}</h3><span class="muted small">${esc(p.c)} · ${esc(p.d)} · Zona ${esc(p.z)}</span></div>
@@ -1426,7 +1629,15 @@ def datos_mapa(filas, datos) -> dict:
         aerop.append({"icao": icao, "n": a["nombre"], "lat": a["lat"], "lon": a["lon"], "t": u["temp"],
                       "h": u["ts"].strftime("%H:%M"), "mx": a["tmax24"], "mn": a["tmin24"],
                       "ll": a["lluvia_6h"][-1]["tipo"] if a["lluvia_6h"] else ""})
-    return {"puntos": puntos, "indeci": indeci, "aeropuertos": aerop,
+    estac = []
+    for wmo, a in (datos.get("omm") or {}).items():
+        u = a.get("ultima")
+        if not u:
+            continue
+        estac.append({"id": wmo, "n": a["nombre"], "lat": a["lat"], "lon": a["lon"], "t": u["temp"], "alt": a["alt"],
+                      "h": u["ts"].strftime("%d/%m %H:%M"), "mx": a["tmax24"], "mn": a["tmin24"], "pp": a["prec24"],
+                      "ll": a["lluvia_6h"][-1]["tipo"] if a["lluvia_6h"] else ""})
+    return {"puntos": puntos, "indeci": indeci, "aeropuertos": aerop, "estaciones": estac,
             "capas": [{"id": c, "n": n, "on": on} for c, n, on in CAPAS_MAPA_SENAMHI], "wms": WMS_SENAMHI,
             "radios": {"quebrada": DIST_QUEBRADA_KM, "indeci": DIST_INDECI_KM}}
 
@@ -1593,11 +1804,12 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
         otros_err = [k for k in errores if k != "SENAMHI (IDESEP)"]
         partes = []
         if "SENAMHI (IDESEP)" in errores:
-            partes.append("SENAMHI no es accesible desde el servidor: los avisos se toman de INDECI, el riesgo por distrito "
-                          "de CENEPRED y la temperatura de los aeropuertos CORPAC.")
+            partes.append("El servidor que arma el monitor está fuera de Perú y SENAMHI no le responde. Por eso la temperatura "
+                          "viene de estaciones SENAMHI publicadas en la red de la OMM y de aeropuertos CORPAC, los avisos de los "
+                          "boletines de INDECI y el riesgo por distrito de CENEPRED. Los mapas de SENAMHI sí se ven en vivo desde Perú.")
         if otros_err:
             partes.append("<b>No respondieron en esta actualización:</b> " + ", ".join(e(k) for k in otros_err) + ".")
-        err_html = '<div class="aviso-sistema">' + " ".join(partes) + "</div>"
+        err_html = '<p class="nota-fuentes">' + " ".join(partes) + "</p>"
 
     esc_html = " · ".join(
         f'<a href="{e(x["url"])}" target="_blank" rel="noopener">{e(x["ambito"].title())} ({e(x["inicio"][8:10])}/{e(x["inicio"][5:7])} – '
@@ -1664,6 +1876,35 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
         for rep, ts in cercanos.values()) or \
         f'<li class="muted">Ninguna cerca de una instalación (últimas {HORAS_INDECI} h; {len(extra.get("indeci", []))} reporte(s) por lluvias en el país).</li>'
 
+    # ---------------- RESUMEN: listado de puntos ----------------
+    def motivo_corto(f):
+        m = norm(f["motivo_nivel"])
+        if f.get("manual"): return "Registro manual"
+        if "UMBRAL" in m: return "Lluvia sobre el umbral"
+        if "QUEBRADA" in m: return "Quebrada cercana"
+        if "INDECI" in m: return "Emergencia INDECI cercana"
+        if "AVISO" in m: return "Aviso SENAMHI"
+        if "INUNDACION" in m: return "Riesgo de inundación"
+        if "MOVIMIENTOS EN MASA" in m: return "Riesgo de huaico o deslizamiento"
+        return f["motivo_nivel"][:50]
+    cols = []
+    zonas_res = sorted(zonas, key=lambda x: (-max(f["nivel_plan"] for f in filas if f["zona"] == x[1]),
+                                             -sum(f["nivel_plan"] >= 2 for f in filas if f["zona"] == x[1]), x[0]))
+    for _, z, _fr in zonas_res:
+        fz = sorted([f for f in filas if f["zona"] == z], key=lambda f: (-f["nivel_plan"], f["tienda"]))
+        items = "".join(
+            f'<li><a href="#t-{e(f["cod_p"])}" data-ir="t-{e(f["cod_p"])}" class="{"alerta" if f["nivel_plan"] >= 2 else ""}">'
+            f'<i class="pt n{f["nivel_plan"]}" aria-hidden="true"></i><span class="nom">{e(f["tienda"].replace("FLB ", ""))}</span>'
+            + (f'<span class="por">{"▲ " if f.get("cambio") == "sube" else ""}{e(motivo_corto(f))}</span>' if f["nivel_plan"] >= 2 else "")
+            + f'<span class="sr">Nivel {f["nivel_plan"]}</span></a></li>' for f in fz)
+        al = sum(f["nivel_plan"] >= 2 for f in fz)
+        cols.append(f'<section class="col-zona{" larga" if len(fz) > 12 else ""}"><h3>{e(z)}<span>{len(fz)}{" · " + str(al) + " en alerta" if al else ""}</span></h3><ul>{items}</ul></section>')
+    lista_puntos = "".join(cols)
+    titular = (f"{n_alerta} de {len(filas)} instalaciones en alerta" if n_alerta
+               else f"Las {len(filas)} instalaciones están en Nivel 1")
+    n_novedades = (f"{len(extra.get('avisos_indeci', []))} avisos SENAMHI, {len(cercanos)} emergencias INDECI cercanas, "
+                   f"{len(cambios)} cambios de nivel")
+
     # ---------------- GUIA ----------------
     disparadores = {
         1: ["Base de la temporada de lluvias: todas las instalaciones parten aquí."],
@@ -1688,6 +1929,7 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
         ("SENAMHI", "Servicio meteorológico nacional: emite los avisos de lluvias y los pronósticos."),
         ("INDECI / COEN", "Defensa Civil: reporta emergencias y peligros inminentes por distrito y republica los avisos de SENAMHI."),
         ("CENEPRED", "Estima qué distritos están en riesgo (Muy alto, Alto, Medio) con base en cada aviso de SENAMHI."),
+        ("Red OMM", "SENAMHI envía los partes de sus estaciones a la red mundial de la Organización Meteorológica Mundial; el monitor los lee desde ahí (OGIMET)."),
         ("CORPAC", "Reportes meteorológicos horarios de los aeropuertos: temperatura actual y lluvia observada."),
         ("Mar Niño 1+2 (NOAA)", "Temperatura del mar frente a la costa norte comparada con lo normal; sobre +1 °C favorece calor y lluvias."),
         ("Riesgo de la instalación", "Clasificación fija de la Matriz Nacional de Riesgo del plan (Crítico, Alto, Medio Alto, Medio, Bajo)."),
@@ -1803,6 +2045,7 @@ details{{margin-top:6px;border-top:1px solid var(--bd);padding-top:6px}} summary
 .glosario dt{{font-weight:900;color:var(--fala-osc)}} .glosario dd{{margin:0}}
 {MAPA_CSS}
 {FILTROS_CSS}
+{MODERNO_CSS}
 footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(--bd);padding-top:12px}}
 @media (max-width:900px){{.estado,.tres{{grid-template-columns:1fr 1fr}}}}
 @media (max-width:700px){{.barra{{position:static}} .tabla thead{{display:none}} .tabla,.tabla tbody,.tabla tr,.tabla td{{display:block;width:100%}}
@@ -1813,38 +2056,34 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
 <div class="barra"><div class="in">
   <div class="marca"><img class="logo" src="logo.png" alt="" onerror="this.remove()">
     <div><h1>Monitor FEN</h1>
-    <p>Actualizado {HOY:%d/%m/%Y %H:%M} · ENFEN, SENAMHI, INDECI, CENEPRED, CORPAC, NOAA · Niveles del Plan Integral FEN 2026/2027</p></div></div>
+    <p>Actualizado el {HOY:%d/%m a las %H:%M}</p></div></div>
+  <nav class="vistas" aria-label="Vistas"><button class="vista activo" data-panel="resumen">Resumen</button><button class="vista" data-panel="zonas">Por zona</button><button class="vista" data-panel="mapa">Mapa</button><button class="vista" data-panel="guia">Guía de alertas</button></nav>
   <div class="act">{boton_actualizar}</div>
 </div>
-<nav class="vistas"><button class="vista activo" data-panel="resumen">Resumen</button><button class="vista" data-panel="zonas">Por zona</button><button class="vista" data-panel="mapa">Mapa</button><button class="vista" data-panel="guia">Guía de alertas</button></nav>
 </div>
 
 <div class="wrap">
 <section class="panel activo" id="resumen">
-  {pulso_pais}
-  <div class="estado">
-    <div class="caja fen {estado_cls}"><small>Estado ENFEN</small><strong>{e(estado)}</strong>
-      <p class="explica">{e(fen_txt)}</p>
-      <span class="muted small">{e(enfen.get('comunicado'))} · {e(enfen.get('fecha'))}</span>
-      {f' · <a class="small" href="{e(enfen.get("url_pdf"))}" target="_blank" rel="noopener">comunicado</a>' if enfen.get('url_pdf') else ''}</div>
-    <div class="caja"><small>Mar frente a la costa norte (Niño 1+2)</small><strong>{noaa_txt}</strong><span class="muted small">{noaa_sub}</span><div>{noaa_spark}</div></div>
-    <div class="caja"><small>Instalaciones por nivel</small>
-      <div class="niveles"><span class="nv n1">{cuenta[1]}<em>Verde</em></span><span class="nv n2">{cuenta[2]}<em>Amarilla</em></span><span class="nv n3">{cuenta[3]}<em>Roja</em></span><span class="nv n4">{cuenta[4]}<em>Negra</em></span></div>
-      <p class="explica">de {len(filas)} instalaciones</p></div>
-    <div class="caja"><small>Calendario corporativo FEN</small><strong style="font-size:15px">{e(fase)}</strong><p class="explica">{e(fase_obj)}</p></div>
+  <div class="res-cab">
+    <h2 class="titular">{titular}</h2>
+    <dl class="contexto">
+      <div><dt>ENFEN</dt><dd class="{estado_cls}">{e(estado)}</dd></div>
+      <div><dt>Mar costa norte (Niño 1+2)</dt><dd>{noaa_txt}{' sobre lo normal' if noaa_txt != '—' else ''}</dd></div>
+      <div><dt>Calendario del plan</dt><dd>{e(fase)}</dd></div>
+    </dl>
   </div>
-  {err_html}
-  <h2>Instalaciones con alerta <small>sobre Nivel 1; presiona una fila para ver el detalle</small>
-    <a class="lnk der" href="#zonas?alerta=1">Ver sus tarjetas</a></h2>
-  {tabla_alertas}
-  <h2>Cambios desde la última actualización</h2>
-  <ul class="lista caja">{cambios_html}</ul>
-  <h2>Situación oficial vigente</h2>
-  <div class="tres">
-    <div class="caja"><small>Avisos SENAMHI (vía INDECI)</small><ul class="lista">{av_html}</ul></div>
-    <div class="caja"><small>Escenarios de riesgo CENEPRED</small><ul class="lista">{esc_li}</ul></div>
-    <div class="caja"><small>Emergencias INDECI por lluvias cerca de una instalación</small><ul class="lista">{ind_li}</ul></div>
-  </div>
+  <div class="puntos">{lista_puntos}</div>
+  <p class="leyenda-puntos"><span><i class="pt n1"></i>Nivel 1 Verde</span><span><i class="pt n2"></i>Nivel 2 Amarilla</span><span><i class="pt n3"></i>Nivel 3 Roja</span><span><i class="pt n4"></i>Nivel 4 Negra</span>
+    <span class="muted">Presiona una instalación para ver su tarjeta.</span></p>
+  <details class="novedades"><summary>Novedades oficiales <span class="muted">{n_novedades}</span></summary>
+    <div class="nov-grid">
+      <div><h3>Qué dice ENFEN</h3><p>{e(fen_txt)}</p><p class="muted small">{e(enfen.get('comunicado'))}, {e(enfen.get('fecha'))}{f' · <a href="{e(enfen.get("url_pdf"))}" target="_blank" rel="noopener">leer comunicado</a>' if enfen.get('url_pdf') else ''}</p></div>
+      <div><h3>Cambios de nivel</h3><ul class="lista">{cambios_html}</ul></div>
+      <div><h3>Avisos SENAMHI</h3><ul class="lista">{av_html}</ul></div>
+      <div><h3>Emergencias INDECI cerca de una instalación</h3><ul class="lista">{ind_li}</ul></div>
+      <div><h3>Escenarios de riesgo CENEPRED</h3><ul class="lista">{esc_li}</ul></div>
+    </div>
+  </details>
 </section>
 
 <section class="panel" id="zonas">
@@ -1856,7 +2095,7 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
   <div class="mapa-top"><nav class="tabs">{chips_mapa}</nav>
     <div class="leyenda"><span><i style="background:#70ad47"></i>Nivel 1</span><span><i style="background:#ffc000"></i>Nivel 2</span>
       <span><i style="background:#c00000"></i>Nivel 3</span><span><i style="background:#111"></i>Nivel 4</span>
-      <span><i style="background:#c00000;border-radius:50%"></i>INDECI</span><span><i style="background:#1f5fa8;border-radius:4px"></i>Aeropuerto °C</span></div></div>
+      <span><i style="background:#c00000;border-radius:50%"></i>INDECI</span><span><i style="background:#1f5fa8;border-radius:4px"></i>Aeropuerto °C</span><span><i style="background:#3f5c00;border-radius:4px"></i>Estación SENAMHI °C</span></div></div>
   <div class="mapa-grid"><div id="mapa-div" role="region" aria-label="Mapa de instalaciones"></div>
     <aside id="mapa-info"><div class="mapa-ayuda"><h3>¿Cómo está la zona?</h3>
       <ol><li>Presiona un punto para ver el nivel de la instalación, por qué está así y qué hacer.</li>
@@ -1881,7 +2120,7 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
   <dl class="glosario">{glos}</dl>
 </section>
 
-<footer><p>Temperatura: estación SENAMHI cercana si responde; si no, aeropuerto CORPAC a {DIST_MAX_AEROPUERTO_KM} km o menos; si no, referencia regional NASA POWER. Un nivel alcanzado se mantiene {PERSISTENCIA_HORAS} h. Riesgo de cada instalación según la Matriz Nacional de Riesgo del plan.</p>
+<footer>{err_html}<p>Temperatura: estación SENAMHI más cercana (directa o vía red OMM, a {DIST_MAX_OMM_KM} km o menos) o aeropuerto CORPAC (a {DIST_MAX_AEROPUERTO_KM} km o menos), la que esté más cerca; si no hay ninguna, referencia regional NASA POWER. Un nivel alcanzado se mantiene {PERSISTENCIA_HORAS} h. Riesgo de cada instalación según la Matriz Nacional de Riesgo del plan.</p>
 <p>Fuentes: {fuentes}</p></footer>
 </div>
 <script type="application/json" id="datos-mapa">{mapa_json}</script>
@@ -2002,7 +2241,11 @@ def main():
         if err: errores["SENAMHI Tmin 10d"] = err
     sin_temp = all(d is None or d.empty for d in [datos["estaciones"].get(("tmax", 1))])
     datos["nasa"], datos["corpac"] = {}, {}
+    datos["omm"] = {}
     if sin_temp:
+        datos["omm"], err = seguro("SENAMHI vía red OMM (OGIMET, partes SYNOP)", fuente_omm, {})
+        if err: errores["SENAMHI vía OMM"] = err
+        log(f"     SENAMHI vía OMM: {len(datos['omm'])} estaciones con parte")
         datos["corpac"], err = seguro("CORPAC aeropuertos (temperatura horaria)", fuente_corpac, {})
         if err: errores["CORPAC"] = err
         log(f"     CORPAC: {len(datos['corpac'])} aeropuertos con reporte")
