@@ -2105,11 +2105,10 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
   <p class="nota-wms" id="nota-wms">Las capas de SENAMHI se cargan en vivo desde SENAMHI y solo se ven desde conexiones en Perú.</p>
   <p class="nota-wms" id="nota-filtro" hidden></p>
   <div class="leyenda-sen"><h3>Qué significan las manchas de color</h3>
-    <div><i style="background:#f3ef7a"></i><span><b>Aviso amarillo de SENAMHI.</b> Lluvias de moderada a fuerte intensidad en esa área: esté atento. Si cubre una tienda, la sube a <b>Nivel 2</b> del plan.</span></div>
-    <div><i style="background:#f5bf7f"></i><span><b>Aviso naranja de SENAMHI.</b> Lluvias de fuerte intensidad, es probable que afecten la zona: prepárese. Sube la tienda a <b>Nivel 2</b>.</span></div>
-    <div><i style="background:#ee6a5f"></i><span><b>Aviso rojo de SENAMHI.</b> Evento peligroso en la zona: actúe. Sube la tienda a <b>Nivel 3</b>.</span></div>
-    <div><i style="background:repeating-linear-gradient(45deg,#e8572f 0 4px,#f3c04a 4px 8px)"></i><span><b>Manchas pequeñas sobre ríos y quebradas.</b> Zonas con posible activación de quebradas (huaicos). A {DIST_QUEBRADA_KM} km o menos de una tienda la sube a <b>Nivel 2</b>.</span></div>
-    <p>Para leer el texto completo de un aviso (número, vigencia y descripción) entra a <a href="{e(LINKS['SENAMHI avisos'])}" target="_blank" rel="noopener">Avisos SENAMHI</a>.</p>
+    <div><i style="background:#f3ef7a"></i><span><b>Avisos meteorológicos SENAMHI.</b> Amarillo: esté atento. Naranja: prepárese. Rojo: actúe, evento peligroso. Cada aviso dice el tipo de evento (lluvias, viento, temperatura).</span></div>
+    <div><i style="background:repeating-linear-gradient(90deg,#f3ef7a 0 33%,#f5bf7f 33% 66%,#ee6a5f 66%)"></i><span><b>Aviso de lluvia 24 h</b> (apagado al abrir). Pronóstico de lluvias para hoy con probable activación de quebradas. Escala propia: amarillo es Nivel 1, el más bajo; naranja, Nivel 2; rojo, Nivel 3.</span></div>
+    <div><i style="background:repeating-linear-gradient(45deg,#e8572f 0 4px,#f3c04a 4px 8px)"></i><span><b>Manchas pequeñas sobre ríos y quebradas.</b> Zonas con posible activación de quebradas (huaicos).</span></div>
+    <p><b>Importante:</b> estas manchas son la referencia visual de SENAMHI y no cambian por sí solas el nivel de las tiendas. El nivel de cada instalación se calcula con los avisos SENAMHI publicados por INDECI, las emergencias INDECI y el riesgo CENEPRED (detalle en la Guía de alertas). Para leer el texto completo de un aviso entra a <a href="{e(LINKS['SENAMHI avisos'])}" target="_blank" rel="noopener">Avisos SENAMHI</a>.</p>
   </div>
 </section>
 
