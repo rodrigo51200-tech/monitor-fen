@@ -1175,12 +1175,131 @@ CAPAS_MAPA_SENAMHI = [   # (capa WMS, nombre visible, encendida al abrir)
 ]
 
 
+FILTROS_CSS = """
+.pulso-pais{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:16px 18px 12px;margin-bottom:14px}
+.pp-cab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pp-cab h2{margin:0;font-size:22px} .pp-cab p{margin:0;font-size:12.5px;color:var(--mut)}
+.pp-barra{display:flex;gap:14px;margin-top:14px;align-items:flex-end}
+.pp-grupo{min-width:84px;display:flex;flex-direction:column;gap:6px}
+.pp-segs{display:flex;gap:3px;align-items:flex-end;height:60px;border-bottom:2px solid var(--grafito)}
+.pp-seg{flex:1 1 0;min-width:5px;max-width:26px;border-radius:3px 3px 0 0;background:var(--verde);height:22px;transform-origin:bottom;animation:crece .7s cubic-bezier(.2,.8,.2,1) both}
+.pp-seg.n2{background:var(--amar);height:36px} .pp-seg.n3{background:var(--rojo);height:48px} .pp-seg.n4{background:var(--negro);height:58px}
+.pp-seg:hover{filter:brightness(.88)}
+.pp-zona{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .pp-zona em{display:block;font-style:normal;font-weight:400;color:var(--mut);font-size:11.5px}
+@keyframes crece{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.pp-grupo:nth-child(2) .pp-seg{animation-delay:.08s} .pp-grupo:nth-child(3) .pp-seg{animation-delay:.16s} .pp-grupo:nth-child(4) .pp-seg{animation-delay:.24s} .pp-grupo:nth-child(5) .pp-seg{animation-delay:.32s} .pp-grupo:nth-child(6) .pp-seg{animation-delay:.4s}
+@media (prefers-reduced-motion:reduce){.pp-seg{animation:none}}
+.lnk{background:none;border:0;padding:0;font:700 13px Lato,sans-serif;color:var(--fala-osc);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+h2 .lnk.der{float:right;font-size:12.5px;margin-top:4px}
+.filtros{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;margin:4px 0 14px;display:grid;gap:10px;position:sticky;top:118px;z-index:4;box-shadow:0 2px 8px rgba(43,47,44,.06)}
+.f-fila{display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.f-niveles{display:flex;gap:6px;flex-wrap:wrap}
+.fchip{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--bd);background:#fff;color:var(--tx);border-radius:6px;padding:6px 11px;cursor:pointer;font:700 13px Lato,sans-serif}
+.fchip b{font-weight:400;color:var(--mut)} .fchip .b{width:10px;height:10px;border-radius:2px;display:inline-block}
+.b.n1{background:var(--verde)} .b.n2{background:var(--amar)} .b.n3{background:var(--rojo)} .b.n4{background:var(--negro)}
+.fchip[aria-pressed="true"]{background:var(--grafito);border-color:var(--grafito);color:#fff} .fchip[aria-pressed="true"] b{color:#cfd5ce}
+.fchip.alerta[aria-pressed="true"]{background:var(--fala);border-color:var(--fala);color:#1d2a00} .fchip.alerta[aria-pressed="true"] b{color:#3c4d00}
+.buscar{display:flex;align-items:center;gap:6px;border:1.5px solid var(--bd);border-radius:6px;padding:0 10px;color:var(--mut);background:#fff;flex:0 1 300px}
+.buscar input{border:0;outline:0;font:14px Lato,sans-serif;padding:7px 0;width:100%;background:none;color:var(--tx)}
+.sel{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mut)}
+.sel select{font:700 13px Lato,sans-serif;color:var(--tx);border:1.5px solid var(--bd);border-radius:6px;padding:5px 8px;background:#fff}
+.check{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
+.check input{accent-color:var(--fala-osc);width:16px;height:16px}
+.f-estado{display:flex;gap:16px;align-items:center;font-size:13px;border-top:1px solid var(--bd);padding-top:8px}
+#f-cuenta{font-weight:700;margin-right:auto}
+.leyenda-sen{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;margin-top:10px;font-size:12.5px}
+.leyenda-sen h3{grid-column:1/-1;margin:0;font-size:14px;font-weight:900}
+.leyenda-sen div{display:flex;gap:9px;align-items:flex-start} .leyenda-sen i{flex:0 0 26px;height:16px;border-radius:3px;margin-top:2px;border:1px solid rgba(0,0,0,.12)}
+.leyenda-sen p{grid-column:1/-1;margin:2px 0 0;color:var(--mut)}
+.info-sen{width:300px;height:190px;border:0;display:block;background:#fff}
+@media (max-width:900px){.filtros{position:static}}
+@media (max-width:560px){.pp-barra{flex-wrap:wrap;gap:14px 12px} .pp-grupo{flex:1 1 40%!important} .pp-segs{height:50px}
+.buscar{flex-basis:100%} .f-estado{flex-wrap:wrap} .f-fila:nth-child(2){display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.f-fila:nth-child(2) .sel{flex-direction:column;align-items:stretch;gap:2px} .sel select{width:100%} .f-fila:nth-child(2) .check{grid-column:1/-1}
+.vistas{overflow-x:auto} .vista{white-space:nowrap;padding:10px 10px}}
+"""
+
+FILTROS_JS = r"""
+const F={niveles:new Set(),alerta:false,zona:'',riesgo:'',tipo:'',cambios:false,q:'',orden:'nivel'};
+const normz=t=>String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const $=id=>document.getElementById(id);
+function filtroActivo(){return F.niveles.size||F.alerta||F.zona||F.riesgo||F.tipo||F.cambios||F.q;}
+function pasa(d,sinZona){
+  if(F.alerta&&d.nv<2)return false;
+  if(F.niveles.size&&!F.niveles.has(d.nv))return false;
+  if(!sinZona&&F.zona&&d.z!==F.zona)return false;
+  if(F.riesgo&&d.r!==F.riesgo)return false;
+  if(F.tipo&&d.tipo!==F.tipo)return false;
+  if(F.cambios&&!d.cb)return false;
+  if(F.q&&!d.txt.includes(F.q))return false;
+  return true;}
+function datoCard(c){const x=c.dataset;return{nv:+x.nivel,z:x.zona,r:x.riesgo,tipo:x.tipo,cb:x.cambio,txt:normz(x.txt+' '+x.nombre),
+  n:x.nombre,or:+x.ordenRiesgo,t:x.tmax===''?-99:parseFloat(x.tmax)};}
+function cmp(a,b){const A=datoCard(a),B=datoCard(b);
+  if(F.orden==='riesgo')return A.or-B.or||B.nv-A.nv||A.n.localeCompare(B.n);
+  if(F.orden==='nombre')return A.n.localeCompare(B.n);
+  if(F.orden==='tmax')return B.t-A.t||A.n.localeCompare(B.n);
+  return B.nv-A.nv||A.or-B.or||A.n.localeCompare(B.n);}
+function aEnlace(){const q=new URLSearchParams();
+  if(F.niveles.size)q.set('nivel',[...F.niveles].sort().join('.'));if(F.alerta)q.set('alerta','1');
+  if(F.zona)q.set('zona',F.zona);if(F.riesgo)q.set('riesgo',F.riesgo);if(F.tipo)q.set('tipo',F.tipo);
+  if(F.cambios)q.set('cambios','1');if(F.q)q.set('q',F.q);if(F.orden!=='nivel')q.set('orden',F.orden);
+  const t=q.toString();return '#zonas'+(t?'?'+t:'');}
+function deEnlace(h){const i=h.indexOf('?');const q=new URLSearchParams(i<0?'':h.slice(i+1));
+  F.niveles=new Set((q.get('nivel')||'').split('.').filter(Boolean).map(Number));F.alerta=q.get('alerta')==='1';
+  F.zona=q.get('zona')||'';F.riesgo=q.get('riesgo')||'';F.tipo=q.get('tipo')||'';F.cambios=q.get('cambios')==='1';
+  F.q=normz(q.get('q')||'');F.orden=q.get('orden')||'nivel';}
+function pintarControles(){
+  document.querySelectorAll('.fchip[data-nivel]').forEach(b=>b.setAttribute('aria-pressed',F.niveles.has(+b.dataset.nivel)));
+  document.querySelector('.fchip[data-alerta]').setAttribute('aria-pressed',F.alerta);
+  $('f-zona').value=F.zona;$('f-riesgo').value=F.riesgo;$('f-tipo').value=F.tipo;$('f-orden').value=F.orden;$('f-cambios').checked=F.cambios;
+  if(normz($('f-buscar').value)!==F.q)$('f-buscar').value=F.q;}
+function aplicar(guardar){
+  const cards=[...document.querySelectorAll('#zonas article.card')];let vis=0;
+  cards.forEach(c=>{const ok=pasa(datoCard(c));c.hidden=!ok;if(ok)vis++;});
+  document.querySelectorAll('#zonas section.zona').forEach(sec=>{const g=sec.querySelector('.grid');
+    [...g.children].sort(cmp).forEach(x=>g.appendChild(x));sec.hidden=![...g.children].some(c=>!c.hidden);});
+  $('f-cuenta').textContent=`Mostrando ${vis} de ${cards.length} instalaciones`;
+  $('f-limpiar').hidden=!filtroActivo();$('f-vacio').hidden=vis>0;
+  pintarControles();
+  if(guardar&&document.getElementById('zonas').classList.contains('activo'))history.replaceState(null,'',aEnlace());
+  if(typeof filtrarMapa==='function')filtrarMapa();}
+function limpiar(){F.niveles.clear();F.alerta=false;F.zona=F.riesgo=F.tipo=F.q='';F.cambios=false;F.orden='nivel';aplicar(true);}
+document.querySelectorAll('.fchip[data-nivel]').forEach(b=>b.addEventListener('click',()=>{const n=+b.dataset.nivel;
+  F.niveles.has(n)?F.niveles.delete(n):F.niveles.add(n);F.alerta=false;aplicar(true);}));
+document.querySelector('.fchip[data-alerta]').addEventListener('click',()=>{F.alerta=!F.alerta;if(F.alerta)F.niveles.clear();aplicar(true);});
+[['f-zona','zona'],['f-riesgo','riesgo'],['f-tipo','tipo'],['f-orden','orden']].forEach(([id,k])=>$(id).addEventListener('change',ev=>{F[k]=ev.target.value||(k==='orden'?'nivel':'');aplicar(true);}));
+$('f-cambios').addEventListener('change',ev=>{F.cambios=ev.target.checked;aplicar(true);});
+let tBus;$('f-buscar').addEventListener('input',ev=>{clearTimeout(tBus);tBus=setTimeout(()=>{F.q=normz(ev.target.value.trim());aplicar(true);},150);});
+$('f-limpiar').addEventListener('click',limpiar);
+document.querySelectorAll('[data-limpiar]').forEach(b=>b.addEventListener('click',limpiar));
+$('f-copiar').addEventListener('click',async()=>{const u=location.origin+location.pathname+aEnlace();
+  try{await navigator.clipboard.writeText(u);$('f-copiar').textContent='Enlace copiado';}catch(e){prompt('Copia este enlace:',u);}
+  setTimeout(()=>{$('f-copiar').textContent='Copiar enlace de esta vista';},2500);});
+function irA(destino){
+  if(destino.startsWith('#zonas')){deEnlace(destino);panel('zonas');aplicar(false);history.replaceState(null,'',aEnlace());window.scrollTo({top:0});return true;}
+  const id=destino.replace('#','');if(['resumen','mapa','guia'].includes(id)){panel(id);history.replaceState(null,'','#'+id);return true;}
+  return false;}
+document.querySelectorAll('.vista').forEach(v=>v.addEventListener('click',()=>{
+  history.replaceState(null,'',v.dataset.panel==='zonas'?aEnlace():'#'+v.dataset.panel);
+  if(v.dataset.panel==='zonas')aplicar(false);}));
+document.addEventListener('click',ev=>{const a=ev.target.closest('a[href^="#zonas"]');if(!a)return;ev.preventDefault();irA(a.getAttribute('href'));});
+document.querySelectorAll('[data-ir]').forEach(el=>el.addEventListener('click',ev=>{ev.preventDefault();
+  const c=document.getElementById(el.dataset.ir);if(!c)return;
+  if(c.hidden)limpiar();panel('zonas');history.replaceState(null,'',aEnlace());
+  c.scrollIntoView({behavior:'smooth',block:'start'});c.classList.remove('resalta');void c.offsetWidth;c.classList.add('resalta');}));
+if(location.hash&&location.hash.length>1)irA(decodeURIComponent(location.hash));
+window.addEventListener('hashchange',()=>{if(location.hash.length>1)irA(decodeURIComponent(location.hash));});
+aplicar(false);
+"""
+
+
 MAPA_CSS = """
 .mapa-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 10px}
 .leyenda{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--mut)} .leyenda i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:4px;vertical-align:-1px;border:1.5px solid #fff;box-shadow:0 0 0 1px #ccc}
 .mapa-grid{display:grid;grid-template-columns:1fr 390px;gap:12px}
-#mapa-div{height:72vh;min-height:430px;border-radius:14px;border:1px solid var(--bd);background:#e9ecef;z-index:1}
-#mapa-info{max-height:72vh;min-height:430px;overflow:auto;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px}
+#mapa-div{height:72vh;min-height:430px;border-radius:8px;border:1px solid var(--bd);background:#e9ecef;z-index:1}
+#mapa-info{max-height:72vh;min-height:430px;overflow:auto;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:14px}
 #mapa-info .card{border-left:0;border-right:0;border-bottom:0;border-radius:0;padding:12px 0 0;margin-top:10px}
 .alrededor{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:6px;font-size:12.5px}
 .alrededor li{border-left:3px solid var(--fala);padding:2px 0 2px 9px} .alrededor li.ind{border-left-color:var(--rojo)} .alrededor li.aer{border-left-color:var(--azul)}
@@ -1199,7 +1318,7 @@ MAPA_CSS = """
 MAPA_JS = r"""
 const M=JSON.parse(document.getElementById('datos-mapa').textContent);
 const COL={1:'#70ad47',2:'#ffc000',3:'#c00000',4:'#111111'}, NOM={1:'Verde',2:'Amarilla',3:'Roja',4:'Negra'};
-let mapa=null, capaSel=null, gTie=null, wmsOk=0, wmsMal=0;
+let mapa=null, capaSel=null, gTie=null, wmsOk=0, wmsMal=0, capasWms=[];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function km(a,b,c,d){const r=Math.PI/180,x=Math.sin((c-a)*r/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin((d-b)*r/2)**2;return 12742*Math.asin(Math.sqrt(x));}
 const ayuda=document.getElementById('mapa-info').innerHTML;
@@ -1218,7 +1337,14 @@ function iniciarMapa(){
   const over={};
   M.capas.forEach(c=>{const l=L.tileLayer.wms(M.wms,{layers:c.id,format:'image/png',transparent:true,opacity:.55,attribution:'Capas: SENAMHI'});
     l.on('tileload',()=>{wmsOk++;notaWms();});l.on('tileerror',()=>{wmsMal++;notaWms();});
-    if(c.on)l.addTo(mapa);over[c.n]=l;});
+    if(c.on)l.addTo(mapa);over[c.n]=l;capasWms.push({id:c.id,n:c.n,l:l});});
+  mapa.on('click',ev=>{const act=capasWms.filter(c=>mapa.hasLayer(c.l));if(!act.length)return;
+    const sz=mapa.getSize(),b=mapa.getBounds(),pt=mapa.latLngToContainerPoint(ev.latlng),ids=act.map(c=>c.id).join(',');
+    const u=M.wms+'?service=WMS&version=1.1.1&request=GetFeatureInfo&layers='+ids+'&query_layers='+ids+'&styles=&srs=EPSG:4326'
+      +'&bbox='+[b.getWest(),b.getSouth(),b.getEast(),b.getNorth()].join(',')+'&width='+sz.x+'&height='+sz.y
+      +'&x='+Math.round(pt.x)+'&y='+Math.round(pt.y)+'&info_format=text/html&feature_count=5';
+    L.popup({maxWidth:330}).setLatLng(ev.latlng).setContent(`<b>SENAMHI en este punto</b><br><span class="muted small">Si no aparece nada, aquí no hay aviso vigente.</span>
+      <iframe class="info-sen" src="${esc(u)}" title="Detalle SENAMHI"></iframe><a href="${esc(u)}" target="_blank" rel="noopener">Abrir en otra pestaña</a>`).openOn(mapa);});
   const gInd=L.layerGroup(M.indeci.map(r=>L.marker([r.lat,r.lon],{icon:L.divIcon({className:'ico-indeci',html:'!',iconSize:[21,21]}),
     title:r.tipo+' · '+r.dist}).bindPopup(`<b>${esc(r.tipo)} · INDECI</b><br>${esc(r.ev)} en ${esc(r.dist)} (${esc(r.dep)})<br>
     <span class="muted">${esc(r.f)} · hace ${Math.round(r.h)} h</span><br><a href="${esc(r.link)}" target="_blank" rel="noopener">Ver reporte</a>`)));
@@ -1230,13 +1356,22 @@ function iniciarMapa(){
   mapa.createPane('tiendas');mapa.getPane('tiendas').style.zIndex=640;
   gTie=L.featureGroup();
   M.puntos.slice().sort((a,b)=>a.nv-b.nv).forEach(p=>{
-    const m=L.circleMarker([p.lat,p.lon],{radius:p.nv>1?10:7,color:'#fff',weight:2,fillColor:COL[p.nv],fillOpacity:.95,pane:'tiendas',className:p.nv>1?'pulso':''});
+    const m=L.circleMarker([p.lat,p.lon],{radius:p.nv>1?10:7,color:'#fff',weight:2,fillColor:COL[p.nv],fillOpacity:.95,pane:'tiendas',bubblingMouseEvents:false,className:p.nv>1?'pulso':''});
     m.bindTooltip(`<b>${esc(p.n)}</b><br>Nivel ${p.nv} · ${NOM[p.nv]}`,{direction:'top',offset:[0,-6]});
     m.on('click',()=>seleccionar(p.cod));p._m=m;gTie.addLayer(m);});
   gTie.addTo(mapa);over['Instalaciones Saga Falabella']=gTie;
   L.control.layers(null,over,{collapsed:window.innerWidth<900}).addTo(mapa);
   L.control.scale({imperial:false}).addTo(mapa);
   mapa.fitBounds(gTie.getBounds(),{padding:[24,24]});
+  filtrarMapa();
+}
+function filtrarMapa(){
+  if(!gTie||typeof pasa!=='function')return;let n=0;
+  M.puntos.forEach(p=>{const ok=pasa({nv:p.nv,z:p.z,r:p.r,tipo:p.tipo,cb:p.cb,txt:normz(p.n+' '+p.c+' '+p.d+' '+p.cod)},true);
+    if(ok){n++;if(!gTie.hasLayer(p._m))gTie.addLayer(p._m);}else if(gTie.hasLayer(p._m))gTie.removeLayer(p._m);});
+  const nf=document.getElementById('nota-filtro');
+  if(nf){nf.hidden=!filtroActivo();nf.innerHTML=`Filtro de “Por zona” aplicado: se muestran ${n} de ${M.puntos.length} instalaciones. <button class="lnk" data-limpiar-mapa>Mostrar todas</button>`;
+    const bl=nf.querySelector('[data-limpiar-mapa]');if(bl)bl.onclick=()=>limpiar();}
 }
 function seleccionar(cod){
   const p=M.puntos.find(x=>x.cod===cod);if(!p)return;
@@ -1280,7 +1415,7 @@ def datos_mapa(filas, datos) -> dict:
     puntos = [{"cod": str(f["cod_p"]), "n": f["tienda"], "z": f["zona"], "c": f["ciudad"],
                "d": str(f["distrito"]).title(), "lat": float(f["lat"]), "lon": float(f["lon"]),
                "nv": int(f["nivel_plan"]), "mot": f["motivo_nivel"], "r": f["riesgo_plan"], "tipo": f["tipo"],
-               "t": f["tmax"], "tn": f["tmin"]} for f in filas]
+               "t": f["tmax"], "tn": f["tmin"], "cb": f.get("cambio") or ""} for f in filas]
     ubi = datos.get("ubigeo", {})
     indeci = []
     for rep in datos.get("indeci", []):
@@ -1321,13 +1456,60 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
     fen_txt = next((v for k, v in ESTADO_ENFEN_TXT.items() if k in estado.lower()), "")
     estado_cls = "rojo" if "niño costero" in estado.lower() and "alerta" in estado.lower() else "amarillo" if "vigilancia" in estado.lower() else "neutro"
 
-    # Tabs de zonas
-    tabs = ['<button class="tab activo" data-zona="todas">Todas <span>' + str(len(filas)) + '</span></button>']
+    # Filtros de la vista "Por zona"
+    n_alerta = sum(f["nivel_plan"] >= 2 for f in filas)
+    chips_nivel = "".join(
+        f'<button class="fchip" data-nivel="{n}" aria-pressed="false"><i class="b n{n}"></i>'
+        f'{e(NIVELES_PLAN[n]["nombre"].replace("Alerta ", ""))} <b>{cuenta_n}</b></button>'
+        for n in (1, 2, 3, 4) for cuenta_n in [sum(f["nivel_plan"] == n for f in filas)])
+    op_zona = "".join(
+        f'<option value="{e(z)}">{e(z)} ({sum(f["zona"] == z for f in filas)}'
+        f'{", " + str(a) + " en alerta" if a else ""})</option>'
+        for _, z, _fr in zonas for a in [sum(f["zona"] == z and f["nivel_plan"] >= 2 for f in filas)])
+    op_riesgo = "".join(f'<option value="{e(r)}">{e(r)}</option>'
+                        for r in sorted({f["riesgo_plan"] for f in filas}, key=lambda r: ORDEN_RIESGO.get(r, 9)))
+    op_tipo = "".join(f'<option value="{e(t)}">{e(t)}</option>' for t in sorted({f["tipo"] for f in filas}))
+    n_cambios = sum(bool(f.get("cambio")) for f in filas)
+    filtros_html = f"""
+  <div class="filtros" id="filtros">
+    <div class="f-fila">
+      <div class="f-niveles" role="group" aria-label="Filtrar por nivel">{chips_nivel}
+        <button class="fchip alerta" data-alerta aria-pressed="false">Solo con alerta <b>{n_alerta}</b></button></div>
+      <label class="buscar"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="search" id="f-buscar" placeholder="Buscar tienda, ciudad o código" aria-label="Buscar tienda, ciudad o código"></label>
+    </div>
+    <div class="f-fila">
+      <label class="sel">Zona <select id="f-zona"><option value="">Todas</option>{op_zona}</select></label>
+      <label class="sel">Riesgo <select id="f-riesgo"><option value="">Todos</option>{op_riesgo}</select></label>
+      <label class="sel">Tipo <select id="f-tipo"><option value="">Todos</option>{op_tipo}</select></label>
+      <label class="sel">Ordenar por <select id="f-orden"><option value="nivel">Nivel de alerta</option><option value="riesgo">Riesgo de la matriz</option>
+        <option value="nombre">Nombre</option><option value="tmax">Temperatura máxima</option></select></label>
+      <label class="check"><input type="checkbox" id="f-cambios"> Solo cambios de nivel ({n_cambios})</label>
+    </div>
+    <div class="f-estado"><span id="f-cuenta" aria-live="polite"></span>
+      <button class="lnk" id="f-limpiar" hidden>Limpiar filtros</button><button class="lnk" id="f-copiar">Copiar enlace de esta vista</button></div>
+  </div>
+  <p class="vacio" id="f-vacio" hidden>Ninguna instalación cumple estos filtros. <button class="lnk" data-limpiar>Limpiar filtros</button></p>"""
+
+    # Barra de estado nacional: una barra por instalacion, agrupadas por zona
+    grupos = []
     for _, z, _fr in zonas:
-        n = sum(f["zona"] == z for f in filas)
-        alerta = sum(f["zona"] == z and f["nivel_plan"] >= 2 for f in filas)
-        punto = '<i class="dot"></i>' if alerta else ""
-        tabs.append(f'<button class="tab" data-zona="{e(z)}">{e(z)} <span>{n}</span>{punto}</button>')
+        fz = sorted([f for f in filas if f["zona"] == z], key=lambda f: (-f["nivel_plan"], f["tienda"]))
+        segs = "".join(
+            f'<a class="pp-seg n{f["nivel_plan"]}" href="#t-{e(f["cod_p"])}" data-ir="t-{e(f["cod_p"])}" '
+            f'title="{e(f["tienda"])}: Nivel {f["nivel_plan"]}" aria-label="{e(f["tienda"])}, Nivel {f["nivel_plan"]}"></a>'
+            for f in fz)
+        al = sum(f["nivel_plan"] >= 2 for f in fz)
+        grupos.append(f'<div class="pp-grupo" style="flex:{len(fz)} 1 0"><div class="pp-segs">{segs}</div>'
+                      f'<span class="pp-zona">{e(z)}<em>{"sin alertas" if not al else str(al) + " en alerta"}</em></span></div>')
+    titulo_pais = (f"{n_alerta} de {len(filas)} instalaciones en alerta" if n_alerta
+                   else f"Las {len(filas)} instalaciones en Nivel 1")
+    pulso_pais = f"""
+  <div class="pulso-pais">
+    <div class="pp-cab"><h2>{titulo_pais}</h2>
+      <p>Cada barra es una instalación; mientras más alta, mayor el nivel. Presiona una para ver su ficha.</p></div>
+    <div class="pp-barra">{"".join(grupos)}</div>
+  </div>"""
 
     # Tarjetas de tienda por zona
     bloques = []
@@ -1386,8 +1568,11 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
                 metrica3 = f"<div><small>Lluvia</small><strong>{prec_txt}</strong></div>"
                 etq_max, etq_min, etq_serie = "T. máx", "T. mín", "T. máx últimos 15 registros"
             tarjetas.append(f"""
-      <article class="card sem-{f['semaforo']}" id="t-{e(f['cod_p'])}" data-zona="{e(z)}">
-        <header><div><h3>{e(f['tienda'])}</h3><p class="muted">{e(f['ciudad'])} · {e(f['distrito'].title())} · {e(f['cod_p'])}</p>
+      <article class="card sem-{f['semaforo']}" id="t-{e(f['cod_p'])}" data-zona="{e(z)}" data-nivel="{f['nivel_plan']}"
+        data-riesgo="{e(f['riesgo_plan'])}" data-orden-riesgo="{ORDEN_RIESGO.get(f['riesgo_plan'], 9)}" data-tipo="{e(f['tipo'])}"
+        data-cambio="{e(f.get('cambio') or '')}" data-nombre="{e(f['tienda'])}" data-tmax="{'' if f['tmax'] is None else f['tmax']}"
+        data-txt="{e(norm(' '.join(str(x) for x in (f['tienda'], f['ciudad'], f['distrito'], f['cod_p'], f['cod_c']))).lower())}">
+        <header><div><h3>{e(f['tienda'])}</h3><p class="muted">{e(f['ciudad'])}, {e(f['distrito'].title())} <span class="codigo">{e(f['cod_p'])}</span></p>
           <p class="tags"><span class="riesgo r-{e(str(f['riesgo_plan']).lower().replace(' ', '-'))}">Riesgo {e(f['riesgo_plan'])}</span>{'' if f['tipo'] == 'Tienda' else f'<span class="tipo">{e(f["tipo"])}</span>'}</p></div>
           <div class="badges"><span class="sem-badge">Nivel {f['nivel_plan']} · {e(NIVELES_PLAN[f['nivel_plan']]['nombre'].replace('Alerta ', ''))}</span>
           {'' if not f.get('cambio') else f'<span class="cambio {f["cambio"]}">{"▲ Subió" if f["cambio"] == "sube" else "▼ Bajó"} desde Nivel {f["nivel_anterior"]}</span>'}</div></header>
@@ -1523,13 +1708,16 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
-:root{{--fala:#aad500;--fala-osc:#5c7a00;--fala-suave:#f3f9dd;--bg:#f5f6f4;--card:#fff;--tx:#333a36;--mut:#6b736e;--bd:#e3e6e1;
+:root{{--fala:#aad500;--fala-osc:#4a6b00;--fala-suave:#f4f9e4;--grafito:#2b2f2c;--bg:#f2f4f1;--card:#fff;--tx:#2b2f2c;--mut:#5e6661;--bd:#dfe3dd;
 --rojo:#c00000;--ambar:#e07b00;--amar:#ffc000;--verde:#70ad47;--azul:#1f5fa8;--negro:#111;}}
 *{{box-sizing:border-box}} html{{scroll-behavior:smooth}}
 body{{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 Lato,"Segoe UI",system-ui,sans-serif}}
 a{{color:var(--fala-osc);font-weight:700}}
 .muted{{color:var(--mut)}} .small{{font-size:11.5px}}
 /* ---------- cabecera ---------- */
+.franja{{background:var(--grafito);color:#e9ece8;font-size:12px}}
+.franja .in{{max-width:1280px;margin:0 auto;padding:6px 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}}
+.franja span:first-child{{font-weight:900;letter-spacing:.01em}} .franja span:last-child{{color:#b9c0b8}}
 .barra{{background:#fff;border-bottom:4px solid var(--fala);position:sticky;top:0;z-index:5;box-shadow:0 1px 6px rgba(0,0,0,.05)}}
 .barra .in{{max-width:1280px;margin:0 auto;padding:12px 16px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}}
 .marca{{display:flex;align-items:center;gap:12px;flex:1;min-width:260px}}
@@ -1542,8 +1730,8 @@ a{{color:var(--fala-osc);font-weight:700}}
 .marca h1{{font-size:20px;font-weight:900;margin:0;line-height:1.2}} .marca h1 span{{color:var(--fala-osc)}}
 .marca p{{margin:2px 0 0;font-size:12px;color:var(--mut)}}
 .act{{display:flex;flex-direction:column;align-items:flex-end;gap:3px}}
-.btn{{display:inline-block;font:700 13px Lato,sans-serif;text-decoration:none;padding:8px 16px;border-radius:22px;background:var(--fala);color:#1d2a00;border:0;cursor:pointer}}
-.btn:hover{{filter:brightness(.95)}} .btn.sec{{background:#fff;color:var(--fala-osc);border:1.5px solid var(--fala)}}
+.btn{{display:inline-block;font:700 13px Lato,sans-serif;text-decoration:none;padding:8px 16px;border-radius:6px;background:var(--fala);color:#1d2a00;border:0;cursor:pointer}}
+.btn:hover{{filter:brightness(.95)}} .btn:focus-visible,.fchip:focus-visible,.tab:focus-visible,.lnk:focus-visible,select:focus-visible,input:focus-visible,.pp-seg:focus-visible{{outline:3px solid var(--fala-osc);outline-offset:2px}} .btn.sec{{background:#fff;color:var(--fala-osc);border:1.5px solid var(--fala)}}
 .vistas{{max-width:1280px;margin:10px auto 0;padding:0 16px;display:flex;gap:4px;width:100%}}
 .vista{{background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px;font:700 14px Lato,sans-serif;color:var(--mut);cursor:pointer}}
 .vista.activo{{color:var(--tx);border-bottom-color:var(--fala-osc)}}
@@ -1553,21 +1741,21 @@ section.panel{{display:none}} section.panel.activo{{display:block;animation:apar
 h2{{font-size:18px;font-weight:900;margin:26px 0 10px}} h2 small{{font-weight:400;color:var(--mut);font-size:12.5px;margin-left:6px}}
 /* ---------- resumen ---------- */
 .estado{{display:grid;grid-template-columns:2fr 1fr 1.4fr 1.4fr;gap:12px}}
-.caja{{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px}}
+.caja{{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:14px 16px}}
 .caja small{{color:var(--mut);display:block;font-size:12px}} .caja strong{{display:block;font-size:20px;font-weight:900;margin:2px 0}}
 .caja.fen{{border-left:6px solid var(--mut)}} .caja.fen.rojo{{border-left-color:var(--rojo)}} .caja.fen.amarillo{{border-left-color:var(--amar)}}
 .explica{{font-size:12px;color:var(--mut);margin:6px 0 0}}
 .niveles{{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}}
-.nv{{border-radius:10px;padding:8px 4px;text-align:center;font-size:22px;font-weight:900}} .nv em{{display:block;font-size:10.5px;font-style:normal;font-weight:700}}
+.nv{{border-radius:6px;padding:8px 4px;text-align:center;font-size:22px;font-weight:900}} .nv em{{display:block;font-size:10.5px;font-style:normal;font-weight:700}}
 .nv.n1,.pill.n1{{background:var(--verde);color:#fff}} .nv.n2,.pill.n2{{background:var(--amar);color:#111}} .nv.n3,.pill.n3{{background:var(--rojo);color:#fff}} .nv.n4,.pill.n4{{background:var(--negro);color:#fff}}
-.pill{{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}}
-.tabla-wrap{{overflow-x:auto;background:var(--card);border:1px solid var(--bd);border-radius:14px}}
+.pill{{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:4px;white-space:nowrap}}
+.tabla-wrap{{overflow-x:auto;background:var(--card);border:1px solid var(--bd);border-radius:8px}}
 .tabla{{width:100%;border-collapse:collapse;font-size:13px}}
-.tabla th{{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--mut);background:var(--fala-suave);padding:10px 12px}}
+.tabla th{{text-align:left;font-size:11.5px;color:var(--mut);background:var(--fala-suave);padding:10px 12px;font-weight:700}}
 .tabla td{{padding:10px 12px;border-top:1px solid var(--bd);vertical-align:top}}
 .fila-alerta{{cursor:pointer;transition:background .15s}} .fila-alerta:hover{{background:var(--fala-suave)}}
 .ver{{color:var(--fala-osc);font-weight:700;white-space:nowrap}}
-.vacio{{background:var(--fala-suave);border:1px solid var(--fala);border-radius:14px;padding:16px;font-size:14px}}
+.vacio{{background:var(--fala-suave);border:1px solid var(--fala);border-radius:8px;padding:16px;font-size:14px}}
 .tres{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}}
 .lista{{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:8px;font-size:12.5px}}
 .lista li{{border-left:3px solid var(--fala);padding:2px 0 2px 10px}}
@@ -1575,20 +1763,22 @@ h2{{font-size:18px;font-weight:900;margin:26px 0 10px}} h2 small{{font-weight:40
 .aviso-sistema{{background:#fff7e6;border:1px solid var(--ambar);border-radius:10px;padding:9px 12px;margin-top:12px;font-size:12.5px}}
 /* ---------- por zona ---------- */
 .tabs{{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}}
-.tab{{border:1.5px solid var(--bd);background:#fff;color:var(--tx);border-radius:20px;padding:6px 13px;cursor:pointer;font:700 13px Lato,sans-serif}}
+.tab{{border:1.5px solid var(--bd);background:#fff;color:var(--tx);border-radius:6px;padding:6px 13px;cursor:pointer;font:700 13px Lato,sans-serif}}
 .tab span{{color:var(--mut);margin-left:4px;font-weight:400}} .tab.activo{{background:var(--fala);border-color:var(--fala);color:#1d2a00}}
 .dot{{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ambar);margin-left:6px;vertical-align:middle}}
 .frec{{font-size:12px;font-weight:400;color:var(--mut);margin-left:8px}}
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}}
-.card{{background:var(--card);border:1px solid var(--bd);border-top:5px solid var(--verde);border-radius:14px;padding:14px;scroll-margin-top:140px}}
-.card.sem-rojo{{border-top-color:var(--rojo)}} .card.sem-amarillo{{border-top-color:var(--amar)}} .card.sem-negro{{border-top-color:var(--negro)}}
+.card{{background:var(--card);border:1px solid var(--bd);border-left:6px solid var(--verde);border-radius:8px;padding:14px 14px 14px 16px;scroll-margin-top:140px;box-shadow:0 1px 2px rgba(43,47,44,.06)}}
+.card[hidden],section.zona[hidden]{{display:none}}
+.card.sem-rojo{{border-left-color:var(--rojo)}} .card.sem-amarillo{{border-left-color:var(--amar)}} .card.sem-negro{{border-left-color:var(--negro)}}
+.codigo{{font-size:10.5px;font-weight:700;color:var(--mut);border:1px solid var(--bd);border-radius:4px;padding:0 5px;margin-left:4px;white-space:nowrap}}
 .card.resalta{{animation:resalta 1.6s ease}} @keyframes resalta{{0%,60%{{box-shadow:0 0 0 4px var(--fala)}}100%{{box-shadow:none}}}}
 .card header{{display:flex;justify-content:space-between;gap:8px}} .card h3{{font-size:15px;margin:0;font-weight:900}} .card header p{{margin:2px 0 0;font-size:12px}}
-.sem-badge{{font-size:11px;font-weight:700;white-space:nowrap;padding:3px 9px;border-radius:12px;height:fit-content}}
+.sem-badge{{font-size:11px;font-weight:700;white-space:nowrap;padding:3px 9px;border-radius:4px;height:fit-content}}
 .sem-verde .sem-badge{{background:var(--verde);color:#fff}} .sem-rojo .sem-badge{{background:var(--rojo);color:#fff}} .sem-amarillo .sem-badge{{background:var(--amar);color:#111}} .sem-negro .sem-badge{{background:#111;color:#fff}}
 .badges{{display:flex;flex-direction:column;align-items:flex-end;gap:4px}}
 .tags{{margin:4px 0 0!important;display:flex;gap:4px;flex-wrap:wrap}}
-.riesgo,.tipo{{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:9px;background:var(--bd)}}
+.riesgo,.tipo{{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:4px;background:var(--bd)}}
 .r-crítico{{background:#c00000;color:#fff}} .r-alto{{background:#ed7d31;color:#fff}} .r-medio-alto{{background:#ffc000;color:#111}} .r-medio{{background:#ffe699;color:#111}} .r-bajo{{background:#a9d08e;color:#111}}
 .tipo{{background:var(--azul);color:#fff}}
 .metricas{{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 4px}}
@@ -1611,23 +1801,25 @@ details{{margin-top:6px;border-top:1px solid var(--bd);padding-top:6px}} summary
 .sin-aviso{{font-size:12px;color:var(--verde);margin:8px 0 0}}
 /* ---------- guia ---------- */
 .guia{{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}}
-.nivel-card{{background:var(--card);border:1px solid var(--bd);border-top:6px solid;border-radius:14px;padding:14px 16px}}
-.nivel-card.n1{{border-top-color:var(--verde)}} .nivel-card.n2{{border-top-color:var(--amar)}} .nivel-card.n3{{border-top-color:var(--rojo)}} .nivel-card.n4{{border-top-color:var(--negro)}}
+.nivel-card{{background:var(--card);border:1px solid var(--bd);border-left:6px solid;border-radius:8px;padding:14px 16px}}
+.nivel-card.n1{{border-left-color:var(--verde)}} .nivel-card.n2{{border-left-color:var(--amar)}} .nivel-card.n3{{border-left-color:var(--rojo)}} .nivel-card.n4{{border-left-color:var(--negro)}}
 .nivel-card header{{display:flex;align-items:center;gap:8px}} .nivel-card h3{{margin:0;font-size:15px;font-weight:900}}
-.nivel-card .que{{font-weight:700;margin:10px 0}} .nivel-card h4{{font-size:12px;text-transform:uppercase;color:var(--fala-osc);margin:10px 0 4px;letter-spacing:.03em}}
+.nivel-card .que{{font-weight:700;margin:10px 0}} .nivel-card h4{{font-size:13px;color:var(--fala-osc);margin:12px 0 4px}}
 .nivel-card ul{{margin:0;padding-left:18px;font-size:12.5px}}
-.glosario{{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px;font-size:13px}}
+.glosario{{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:14px 16px;font-size:13px}}
 .glosario dt{{font-weight:900;color:var(--fala-osc)}} .glosario dd{{margin:0}}
 {MAPA_CSS}
+{FILTROS_CSS}
 footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(--bd);padding-top:12px}}
 @media (max-width:900px){{.estado,.tres{{grid-template-columns:1fr 1fr}}}}
 @media (max-width:700px){{.barra{{position:static}} .tabla thead{{display:none}} .tabla,.tabla tbody,.tabla tr,.tabla td{{display:block;width:100%}}
 .tabla tr{{border-top:1px solid var(--bd);padding:6px 0}} .tabla td{{border:0;padding:4px 14px}} .tabla td.ver{{text-align:right}}}}
 @media (max-width:560px){{.estado,.tres{{grid-template-columns:1fr}} .act{{align-items:flex-start}} .marca h1{{font-size:17px}} .metricas strong{{font-size:17px}}}}
 </style></head><body>
+<div class="franja"><div class="in"><span>Falabella Retail Perú</span><span>Mantenimiento y Seguridad · Uso interno</span></div></div>
 <div class="barra"><div class="in">
   <div class="marca"><img class="logo" src="logo.png" alt="" onerror="this.remove()">
-    <div><h1>Monitor FEN <span>·</span> Falabella Retail Perú</h1>
+    <div><h1>Monitor FEN</h1>
     <p>Actualizado {HOY:%d/%m/%Y %H:%M} · ENFEN, SENAMHI, INDECI, CENEPRED, CORPAC, NOAA · Niveles del Plan Integral FEN 2026/2027</p></div></div>
   <div class="act">{boton_actualizar}</div>
 </div>
@@ -1636,6 +1828,7 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
 
 <div class="wrap">
 <section class="panel activo" id="resumen">
+  {pulso_pais}
   <div class="estado">
     <div class="caja fen {estado_cls}"><small>Estado ENFEN</small><strong>{e(estado)}</strong>
       <p class="explica">{e(fen_txt)}</p>
@@ -1648,7 +1841,8 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
     <div class="caja"><small>Calendario corporativo FEN</small><strong style="font-size:15px">{e(fase)}</strong><p class="explica">{e(fase_obj)}</p></div>
   </div>
   {err_html}
-  <h2>Instalaciones con alerta <small>sobre Nivel 1 · clic para ver el detalle</small></h2>
+  <h2>Instalaciones con alerta <small>sobre Nivel 1; presiona una fila para ver el detalle</small>
+    <a class="lnk der" href="#zonas?alerta=1">Ver sus tarjetas</a></h2>
   {tabla_alertas}
   <h2>Cambios desde la última actualización</h2>
   <ul class="lista caja">{cambios_html}</ul>
@@ -1661,7 +1855,7 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
 </section>
 
 <section class="panel" id="zonas">
-  <nav class="tabs">{''.join(tabs)}</nav>
+  {filtros_html}
   {''.join(bloques)}
 </section>
 
@@ -1677,6 +1871,14 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
       <li>Con el botón de capas (arriba a la derecha) prende o apaga los avisos y quebradas de SENAMHI, las emergencias INDECI y la temperatura de aeropuertos.</li></ol>
       <p class="muted small">Puntos: {len(mapa['puntos'])} instalaciones · {len(mapa['indeci'])} ubicaciones con emergencia INDECI por lluvias (48 h) · {len(mapa['aeropuertos'])} aeropuertos con reporte.</p></div></aside></div>
   <p class="nota-wms" id="nota-wms">Las capas de SENAMHI se cargan en vivo desde SENAMHI y solo se ven desde conexiones en Perú.</p>
+  <p class="nota-wms" id="nota-filtro" hidden></p>
+  <div class="leyenda-sen"><h3>Qué significan las manchas de color</h3>
+    <div><i style="background:#f3ef7a"></i><span><b>Aviso amarillo de SENAMHI.</b> Lluvias de moderada a fuerte intensidad en esa área: esté atento. Si cubre una tienda, la sube a <b>Nivel 2</b> del plan.</span></div>
+    <div><i style="background:#f5bf7f"></i><span><b>Aviso naranja de SENAMHI.</b> Lluvias de fuerte intensidad, es probable que afecten la zona: prepárese. Sube la tienda a <b>Nivel 2</b>.</span></div>
+    <div><i style="background:#ee6a5f"></i><span><b>Aviso rojo de SENAMHI.</b> Evento peligroso en la zona: actúe. Sube la tienda a <b>Nivel 3</b>.</span></div>
+    <div><i style="background:repeating-linear-gradient(45deg,#e8572f 0 4px,#f3c04a 4px 8px)"></i><span><b>Manchas pequeñas sobre ríos y quebradas.</b> Zonas con posible activación de quebradas (huaicos). A {DIST_QUEBRADA_KM} km o menos de una tienda la sube a <b>Nivel 2</b>.</span></div>
+    <p>Presiona sobre una mancha para ver el detalle oficial de SENAMHI en ese punto (número de aviso, vigencia y descripción).</p>
+  </div>
 </section>
 
 <section class="panel" id="guia">
@@ -1704,15 +1906,8 @@ function panel(id){{document.querySelectorAll('.vista').forEach(x=>x.classList.t
   document.querySelectorAll('section.panel').forEach(s=>s.classList.toggle('activo',s.id===id));
   if(id==='mapa')setTimeout(iniciarMapa,60);}}
 document.querySelectorAll('.vista').forEach(v=>v.addEventListener('click',()=>{{panel(v.dataset.panel);window.scrollTo({{top:0}});}}));
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{{
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('activo'));b.classList.add('activo');
-  const z=b.dataset.zona;document.querySelectorAll('section.zona').forEach(s=>s.style.display=(z==='todas'||s.dataset.zona===z)?'':'none');
-}}));
-document.querySelectorAll('.fila-alerta').forEach(tr=>tr.addEventListener('click',()=>{{
-  panel('zonas');document.querySelector('.tab[data-zona="todas"]').click();
-  const c=document.getElementById(tr.dataset.ir);if(c){{c.scrollIntoView({{behavior:'smooth',block:'start'}});c.classList.remove('resalta');void c.offsetWidth;c.classList.add('resalta');}}
-}}));
 {MAPA_JS}
+{FILTROS_JS}
 </script>
 </body></html>"""
 
