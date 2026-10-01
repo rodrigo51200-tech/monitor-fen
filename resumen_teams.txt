@@ -1,8 +1,8 @@
-🌊 Monitor FEN · 30/09/2026
+🌊 Monitor FEN · 01/10/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 17-2026 · 28 Septiembre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +4.7 °C sobre lo normal
-Calendario Plan FEN: Fase 2 · Mitigación (julio – setiembre)
+Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
 Instalaciones sobre Nivel 1 (3):
 • FLB Iquitos (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
@@ -10,7 +10,3 @@ Instalaciones sobre Nivel 1 (3):
 • FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Resto de instalaciones (38): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Cajamarca: 26.0° (+3.0°)
-• FLB Exp.Ayacucho: 26.0° (+5.0°)
