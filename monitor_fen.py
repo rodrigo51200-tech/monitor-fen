@@ -1338,13 +1338,6 @@ function iniciarMapa(){
   M.capas.forEach(c=>{const l=L.tileLayer.wms(M.wms,{layers:c.id,format:'image/png',transparent:true,opacity:.55,attribution:'Capas: SENAMHI'});
     l.on('tileload',()=>{wmsOk++;notaWms();});l.on('tileerror',()=>{wmsMal++;notaWms();});
     if(c.on)l.addTo(mapa);over[c.n]=l;capasWms.push({id:c.id,n:c.n,l:l});});
-  mapa.on('click',ev=>{const act=capasWms.filter(c=>mapa.hasLayer(c.l));if(!act.length)return;
-    const sz=mapa.getSize(),b=mapa.getBounds(),pt=mapa.latLngToContainerPoint(ev.latlng),ids=act.map(c=>c.id).join(',');
-    const u=M.wms+'?service=WMS&version=1.1.1&request=GetFeatureInfo&layers='+ids+'&query_layers='+ids+'&styles=&srs=EPSG:4326'
-      +'&bbox='+[b.getWest(),b.getSouth(),b.getEast(),b.getNorth()].join(',')+'&width='+sz.x+'&height='+sz.y
-      +'&x='+Math.round(pt.x)+'&y='+Math.round(pt.y)+'&info_format=text/html&feature_count=5';
-    L.popup({maxWidth:330}).setLatLng(ev.latlng).setContent(`<b>SENAMHI en este punto</b><br><span class="muted small">Si no aparece nada, aquí no hay aviso vigente.</span>
-      <iframe class="info-sen" src="${esc(u)}" title="Detalle SENAMHI"></iframe><a href="${esc(u)}" target="_blank" rel="noopener">Abrir en otra pestaña</a>`).openOn(mapa);});
   const gInd=L.layerGroup(M.indeci.map(r=>L.marker([r.lat,r.lon],{icon:L.divIcon({className:'ico-indeci',html:'!',iconSize:[21,21]}),
     title:r.tipo+' · '+r.dist}).bindPopup(`<b>${esc(r.tipo)} · INDECI</b><br>${esc(r.ev)} en ${esc(r.dist)} (${esc(r.dep)})<br>
     <span class="muted">${esc(r.f)} · hace ${Math.round(r.h)} h</span><br><a href="${esc(r.link)}" target="_blank" rel="noopener">Ver reporte</a>`)));
@@ -1877,7 +1870,7 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
     <div><i style="background:#f5bf7f"></i><span><b>Aviso naranja de SENAMHI.</b> Lluvias de fuerte intensidad, es probable que afecten la zona: prepárese. Sube la tienda a <b>Nivel 2</b>.</span></div>
     <div><i style="background:#ee6a5f"></i><span><b>Aviso rojo de SENAMHI.</b> Evento peligroso en la zona: actúe. Sube la tienda a <b>Nivel 3</b>.</span></div>
     <div><i style="background:repeating-linear-gradient(45deg,#e8572f 0 4px,#f3c04a 4px 8px)"></i><span><b>Manchas pequeñas sobre ríos y quebradas.</b> Zonas con posible activación de quebradas (huaicos). A {DIST_QUEBRADA_KM} km o menos de una tienda la sube a <b>Nivel 2</b>.</span></div>
-    <p>Presiona sobre una mancha para ver el detalle oficial de SENAMHI en ese punto (número de aviso, vigencia y descripción).</p>
+    <p>Para leer el texto completo de un aviso (número, vigencia y descripción) entra a <a href="{e(LINKS['SENAMHI avisos'])}" target="_blank" rel="noopener">Avisos SENAMHI</a>.</p>
   </div>
 </section>
 
