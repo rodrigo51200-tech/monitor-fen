@@ -1167,6 +1167,142 @@ def chip_escenario(esc):
     return f'<span class="chip {clase}">{e(esc)}</span>'
 
 
+WMS_SENAMHI = "https://idesep.senamhi.gob.pe/geoserver/wms"
+CAPAS_MAPA_SENAMHI = [   # (capa WMS, nombre visible, encendida al abrir)
+    ("g_aviso:view_aviso", "Avisos meteorológicos SENAMHI", True),
+    ("g_acti_quebrada:view_av_activ_qdra", "Quebradas en posible activación (SENAMHI)", True),
+    ("g_prono_pp_24h:view_aviso24h", "Aviso de lluvia 24 h (SENAMHI)", False),
+]
+
+
+MAPA_CSS = """
+.mapa-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 10px}
+.leyenda{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--mut)} .leyenda i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:4px;vertical-align:-1px;border:1.5px solid #fff;box-shadow:0 0 0 1px #ccc}
+.mapa-grid{display:grid;grid-template-columns:1fr 390px;gap:12px}
+#mapa-div{height:72vh;min-height:430px;border-radius:14px;border:1px solid var(--bd);background:#e9ecef;z-index:1}
+#mapa-info{max-height:72vh;min-height:430px;overflow:auto;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px}
+#mapa-info .card{border-left:0;border-right:0;border-bottom:0;border-radius:0;padding:12px 0 0;margin-top:10px}
+.alrededor{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:6px;font-size:12.5px}
+.alrededor li{border-left:3px solid var(--fala);padding:2px 0 2px 9px} .alrededor li.ind{border-left-color:var(--rojo)} .alrededor li.aer{border-left-color:var(--azul)}
+.mapa-ayuda h3{margin:0 0 6px;font-size:16px;font-weight:900} .mapa-ayuda ol{padding-left:18px;font-size:13px;margin:6px 0}
+.sel-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:8px} .sel-cab h3{margin:0;font-size:16px;font-weight:900}
+.cerrar{border:0;background:var(--bd);border-radius:50%;width:26px;height:26px;cursor:pointer;font-weight:900}
+.nota-wms{font-size:12px;margin:8px 0 0;padding:7px 10px;border-radius:8px;background:var(--fala-suave)} .nota-wms.mal{background:#fff7e6;border:1px solid var(--ambar)}
+.ico-indeci{background:var(--rojo);color:#fff;border-radius:50%;font:900 12px/17px Lato,sans-serif;text-align:center;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.ico-aer{background:var(--azul);color:#fff;border-radius:10px;font:700 11px/18px Lato,sans-serif;text-align:center;border:1.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.pulso{animation:pulso 1.8s ease-in-out infinite} @keyframes pulso{0%,100%{stroke-width:2}50%{stroke-width:9;stroke-opacity:.35}}
+@media (prefers-reduced-motion:reduce){.pulso{animation:none}}
+.leaflet-popup-content{font:13px/1.45 Lato,sans-serif} .leaflet-container a{color:var(--fala-osc)}
+@media (max-width:900px){.mapa-grid{grid-template-columns:1fr} #mapa-div{height:60vh;min-height:360px} #mapa-info{max-height:none;min-height:0}}
+"""
+
+MAPA_JS = r"""
+const M=JSON.parse(document.getElementById('datos-mapa').textContent);
+const COL={1:'#70ad47',2:'#ffc000',3:'#c00000',4:'#111111'}, NOM={1:'Verde',2:'Amarilla',3:'Roja',4:'Negra'};
+let mapa=null, capaSel=null, gTie=null, wmsOk=0, wmsMal=0;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function km(a,b,c,d){const r=Math.PI/180,x=Math.sin((c-a)*r/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin((d-b)*r/2)**2;return 12742*Math.asin(Math.sqrt(x));}
+const ayuda=document.getElementById('mapa-info').innerHTML;
+function notaWms(){const n=document.getElementById('nota-wms');if(!n)return;
+  if(wmsOk){n.className='nota-wms';n.textContent='✔ Capas oficiales de SENAMHI cargadas en vivo desde SENAMHI.';}
+  else if(wmsMal>3){n.className='nota-wms mal';n.textContent='Las capas de SENAMHI no cargaron: SENAMHI solo las entrega a conexiones desde Perú. Los puntos, niveles e INDECI sí están actualizados.';}}
+function iniciarMapa(){
+  if(mapa){mapa.invalidateSize();return;}
+  if(!window.L){document.getElementById('mapa-div').innerHTML='<p style="padding:16px">No se pudo cargar el mapa. Revisa la conexión y recarga la página.</p>';return;}
+  mapa=L.map('mapa-div',{preferCanvas:false}).setView([-9.5,-75.5],5);
+  const ESRI='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
+  L.tileLayer(ESRI+'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,
+    attribution:'Mapa base © Esri, HERE, Garmin, © OpenStreetMap'}).addTo(mapa);
+  mapa.createPane('nombres');mapa.getPane('nombres').style.zIndex=350;mapa.getPane('nombres').style.pointerEvents='none';
+  L.tileLayer(ESRI+'World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,pane:'nombres'}).addTo(mapa);
+  const over={};
+  M.capas.forEach(c=>{const l=L.tileLayer.wms(M.wms,{layers:c.id,format:'image/png',transparent:true,opacity:.55,attribution:'Capas: SENAMHI'});
+    l.on('tileload',()=>{wmsOk++;notaWms();});l.on('tileerror',()=>{wmsMal++;notaWms();});
+    if(c.on)l.addTo(mapa);over[c.n]=l;});
+  const gInd=L.layerGroup(M.indeci.map(r=>L.marker([r.lat,r.lon],{icon:L.divIcon({className:'ico-indeci',html:'!',iconSize:[21,21]}),
+    title:r.tipo+' · '+r.dist}).bindPopup(`<b>${esc(r.tipo)} · INDECI</b><br>${esc(r.ev)} en ${esc(r.dist)} (${esc(r.dep)})<br>
+    <span class="muted">${esc(r.f)} · hace ${Math.round(r.h)} h</span><br><a href="${esc(r.link)}" target="_blank" rel="noopener">Ver reporte</a>`)));
+  gInd.addTo(mapa);over[`Emergencias INDECI por lluvias (${M.indeci.length})`]=gInd;
+  const gAer=L.layerGroup(M.aeropuertos.map(a=>L.marker([a.lat,a.lon],{icon:L.divIcon({className:'ico-aer',html:Math.round(a.t)+'°',iconSize:[34,21],iconAnchor:[-9,10]}),
+    title:a.n}).bindPopup(`<b>Aeropuerto ${esc(a.n)}</b> · CORPAC<br>Ahora (${esc(a.h)}): <b>${a.t.toFixed(0)} °C</b><br>
+    Últimas 24 h: máx ${a.mx==null?'—':a.mx.toFixed(0)+'°'} · mín ${a.mn==null?'—':a.mn.toFixed(0)+'°'}${a.ll?'<br>Observado: <b>'+esc(a.ll)+'</b>':''}`)));
+  gAer.addTo(mapa);over['Temperatura en aeropuertos (CORPAC)']=gAer;
+  mapa.createPane('tiendas');mapa.getPane('tiendas').style.zIndex=640;
+  gTie=L.featureGroup();
+  M.puntos.slice().sort((a,b)=>a.nv-b.nv).forEach(p=>{
+    const m=L.circleMarker([p.lat,p.lon],{radius:p.nv>1?10:7,color:'#fff',weight:2,fillColor:COL[p.nv],fillOpacity:.95,pane:'tiendas',className:p.nv>1?'pulso':''});
+    m.bindTooltip(`<b>${esc(p.n)}</b><br>Nivel ${p.nv} · ${NOM[p.nv]}`,{direction:'top',offset:[0,-6]});
+    m.on('click',()=>seleccionar(p.cod));p._m=m;gTie.addLayer(m);});
+  gTie.addTo(mapa);over['Instalaciones Saga Falabella']=gTie;
+  L.control.layers(null,over,{collapsed:window.innerWidth<900}).addTo(mapa);
+  L.control.scale({imperial:false}).addTo(mapa);
+  mapa.fitBounds(gTie.getBounds(),{padding:[24,24]});
+}
+function seleccionar(cod){
+  const p=M.puntos.find(x=>x.cod===cod);if(!p)return;
+  if(!mapa){panel('mapa');iniciarMapa();}
+  if(capaSel)mapa.removeLayer(capaSel);
+  capaSel=L.layerGroup([
+    L.circle([p.lat,p.lon],{radius:M.radios.indeci*1000,color:'#5c7a00',weight:1.5,fill:false,dashArray:'6 6',interactive:false}),
+    L.circle([p.lat,p.lon],{radius:M.radios.quebrada*1000,color:'#5c7a00',weight:2,fillColor:'#aad500',fillOpacity:.10,interactive:false})]).addTo(mapa);
+  mapa.flyTo([p.lat,p.lon],12,{duration:.8});
+  const ind=M.indeci.map(r=>({...r,d:km(p.lat,p.lon,r.lat,r.lon)})).filter(r=>r.d<=30).sort((a,b)=>a.d-b.d);
+  const aer=M.aeropuertos.map(a=>({...a,d:km(p.lat,p.lon,a.lat,a.lon)})).sort((a,b)=>a.d-b.d)[0];
+  const vec=M.puntos.filter(x=>x.cod!==p.cod).map(x=>({...x,d:km(p.lat,p.lon,x.lat,x.lon)})).filter(x=>x.d<=5).sort((a,b)=>a.d-b.d);
+  let li=ind.map(r=>`<li class="ind"><b>${esc(r.tipo)}</b> · ${esc(r.ev)} en ${esc(r.dist)} · ${r.d.toFixed(0)} km · ${esc(r.f)} · <a href="${esc(r.link)}" target="_blank" rel="noopener">reporte</a></li>`).join('');
+  if(!ind.length)li+='<li>Sin emergencias INDECI por lluvias a 30 km o menos (últimas 48 h).</li>';
+  if(aer&&aer.d<=60)li+=`<li class="aer">Aeropuerto ${esc(aer.n)} a ${aer.d.toFixed(0)} km: <b>${aer.t.toFixed(0)} °C</b> a las ${esc(aer.h)}${aer.ll?' · '+esc(aer.ll):''}</li>`;
+  if(vec.length)li+=`<li>Otras instalaciones a 5 km o menos: ${vec.map(x=>esc(x.n)+' ('+x.d.toFixed(1)+' km)').join(', ')}</li>`;
+  const info=document.getElementById('mapa-info');
+  info.innerHTML=`<div class="sel-cab"><div><h3>${esc(p.n)}</h3><span class="muted small">${esc(p.c)} · ${esc(p.d)} · Zona ${esc(p.z)}</span></div>
+    <button class="cerrar" title="Cerrar" aria-label="Cerrar">×</button></div>
+    <p style="margin:8px 0"><span class="pill n${p.nv}">Nivel ${p.nv} · ${NOM[p.nv]}</span></p>
+    <p style="margin:0 0 6px;font-size:13px">${esc(p.mot)}</p>
+    <small class="muted">Alrededor · círculo verde ${M.radios.quebrada} km (quebradas), punteado ${M.radios.indeci} km (INDECI)</small>
+    <ul class="alrededor">${li}</ul>`;
+  const c=document.getElementById('t-'+cod);
+  if(c){const k=c.cloneNode(true);k.removeAttribute('id');k.querySelectorAll('[data-mapa]').forEach(x=>x.remove());
+    k.querySelectorAll('header').forEach(x=>x.remove());k.querySelector('details')?.setAttribute('open','');info.appendChild(k);}
+  info.querySelector('.cerrar').onclick=()=>{info.innerHTML=ayuda;if(capaSel){mapa.removeLayer(capaSel);capaSel=null;}notaWms();};
+  info.scrollTop=0;if(window.innerWidth<900)info.scrollIntoView({behavior:'smooth'});
+}
+document.querySelectorAll('.zona-mapa').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.zona-mapa').forEach(x=>x.classList.toggle('activo',x===b));
+  const z=b.dataset.zona,pts=M.puntos.filter(p=>z==='todas'||p.z===z);
+  if(mapa&&pts.length)mapa.fitBounds(L.latLngBounds(pts.map(p=>[p.lat,p.lon])),{padding:[30,30],maxZoom:12});}));
+document.addEventListener('click',ev=>{const a=ev.target.closest('[data-mapa]');if(!a)return;ev.preventDefault();
+  panel('mapa');window.scrollTo({top:0});setTimeout(()=>{iniciarMapa();seleccionar(a.dataset.mapa);},80);});
+"""
+
+
+def datos_mapa(filas, datos) -> dict:
+    """Puntos para la pestana Mapa: instalaciones, reportes INDECI ubicados y aeropuertos CORPAC."""
+    puntos = [{"cod": str(f["cod_p"]), "n": f["tienda"], "z": f["zona"], "c": f["ciudad"],
+               "d": str(f["distrito"]).title(), "lat": float(f["lat"]), "lon": float(f["lon"]),
+               "nv": int(f["nivel_plan"]), "mot": f["motivo_nivel"], "r": f["riesgo_plan"], "tipo": f["tipo"],
+               "t": f["tmax"], "tn": f["tmin"]} for f in filas]
+    ubi = datos.get("ubigeo", {})
+    indeci = []
+    for rep in datos.get("indeci", []):
+        for d in rep["distritos"]:
+            for _prov, lat, lon in ubi.get((norm(rep["departamento"]), norm(d)), [])[:1]:
+                if lat is not None:
+                    indeci.append({"lat": lat, "lon": lon, "tipo": rep["tipo"], "ev": rep["evento"],
+                                   "dist": d.title(), "dep": rep["departamento"].title(), "f": rep["fecha"],
+                                   "h": round(rep["horas"], 1), "link": rep["link"]})
+    aerop = []
+    for icao, a in (datos.get("corpac") or {}).items():
+        if a.get("lat") is None or not a.get("obs"):
+            continue
+        u = a["ultima"]
+        aerop.append({"icao": icao, "n": a["nombre"], "lat": a["lat"], "lon": a["lon"], "t": u["temp"],
+                      "h": u["ts"].strftime("%H:%M"), "mx": a["tmax24"], "mn": a["tmin24"],
+                      "ll": a["lluvia_6h"][-1]["tipo"] if a["lluvia_6h"] else ""})
+    return {"puntos": puntos, "indeci": indeci, "aeropuertos": aerop,
+            "capas": [{"id": c, "n": n, "on": on} for c, n, on in CAPAS_MAPA_SENAMHI], "wms": WMS_SENAMHI,
+            "radios": {"quebrada": DIST_QUEBRADA_KM, "indeci": DIST_INDECI_KM}}
+
+
 def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
     zonas = sorted({(f["orden_zona"], f["zona"], f["frecuencia_reporte"]) for f in filas})
     cuenta = {n: sum(f["nivel_plan"] == n for f in filas) for n in (1, 2, 3, 4)}
@@ -1266,6 +1402,7 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
           <a class="btn" href="{e(f['url_noticias'])}" target="_blank" rel="noopener">Noticias oficiales de {e(f['ciudad'])}</a>
           <a class="btn sec" href="{e(LINKS['SENAMHI avisos'])}" target="_blank" rel="noopener">Avisos SENAMHI</a>
           <a class="btn sec" href="{e(LINKS['INDECI emergencias'])}" target="_blank" rel="noopener">Emergencias INDECI</a>
+          <a class="btn sec" href="#mapa" data-mapa="{e(f['cod_p'])}">Ver en mapa</a>
         </div>
         <details><summary>Ver detalle técnico</summary>
           {detalle}
@@ -1297,6 +1434,11 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
                             f'<span class="muted small">Se actualiza solo {HORAS_AUTOMATICAS}{enlace}</span>')
     fuentes = " · ".join(f'<a href="{e(u)}" target="_blank" rel="noopener">{e(n)}</a>' for n, u in LINKS.items())
     extra = extra or {}
+    mapa = extra.get("mapa") or {"puntos": [], "indeci": [], "aeropuertos": [], "capas": [], "wms": WMS_SENAMHI,
+                                 "radios": {"quebrada": DIST_QUEBRADA_KM, "indeci": DIST_INDECI_KM}}
+    mapa_json = json.dumps(mapa, ensure_ascii=False, default=str).replace("</", "<\\/")
+    chips_mapa = ('<button class="tab zona-mapa activo" data-zona="todas">Todo el país</button>'
+                  + "".join(f'<button class="tab zona-mapa" data-zona="{e(z)}">{e(z)}</button>' for _, z, _fr in zonas))
 
     # ---------------- RESUMEN ----------------
     alertas = sorted([f for f in filas if f["nivel_plan"] >= 2],
@@ -1379,6 +1521,7 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
 <title>Monitor FEN · Falabella Retail Perú</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
 :root{{--fala:#aad500;--fala-osc:#5c7a00;--fala-suave:#f3f9dd;--bg:#f5f6f4;--card:#fff;--tx:#333a36;--mut:#6b736e;--bd:#e3e6e1;
 --rojo:#c00000;--ambar:#e07b00;--amar:#ffc000;--verde:#70ad47;--azul:#1f5fa8;--negro:#111;}}
@@ -1475,6 +1618,7 @@ details{{margin-top:6px;border-top:1px solid var(--bd);padding-top:6px}} summary
 .nivel-card ul{{margin:0;padding-left:18px;font-size:12.5px}}
 .glosario{{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px;font-size:13px}}
 .glosario dt{{font-weight:900;color:var(--fala-osc)}} .glosario dd{{margin:0}}
+{MAPA_CSS}
 footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(--bd);padding-top:12px}}
 @media (max-width:900px){{.estado,.tres{{grid-template-columns:1fr 1fr}}}}
 @media (max-width:700px){{.barra{{position:static}} .tabla thead{{display:none}} .tabla,.tabla tbody,.tabla tr,.tabla td{{display:block;width:100%}}
@@ -1487,7 +1631,7 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
     <p>Actualizado {HOY:%d/%m/%Y %H:%M} · ENFEN, SENAMHI, INDECI, CENEPRED, CORPAC, NOAA · Niveles del Plan Integral FEN 2026/2027</p></div></div>
   <div class="act">{boton_actualizar}</div>
 </div>
-<nav class="vistas"><button class="vista activo" data-panel="resumen">Resumen</button><button class="vista" data-panel="zonas">Por zona</button><button class="vista" data-panel="guia">Guía de alertas</button></nav>
+<nav class="vistas"><button class="vista activo" data-panel="resumen">Resumen</button><button class="vista" data-panel="zonas">Por zona</button><button class="vista" data-panel="mapa">Mapa</button><button class="vista" data-panel="guia">Guía de alertas</button></nav>
 </div>
 
 <div class="wrap">
@@ -1521,6 +1665,20 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
   {''.join(bloques)}
 </section>
 
+<section class="panel" id="mapa">
+  <div class="mapa-top"><nav class="tabs">{chips_mapa}</nav>
+    <div class="leyenda"><span><i style="background:#70ad47"></i>Nivel 1</span><span><i style="background:#ffc000"></i>Nivel 2</span>
+      <span><i style="background:#c00000"></i>Nivel 3</span><span><i style="background:#111"></i>Nivel 4</span>
+      <span><i style="background:#c00000;border-radius:50%"></i>INDECI</span><span><i style="background:#1f5fa8;border-radius:4px"></i>Aeropuerto °C</span></div></div>
+  <div class="mapa-grid"><div id="mapa-div" role="region" aria-label="Mapa de instalaciones"></div>
+    <aside id="mapa-info"><div class="mapa-ayuda"><h3>¿Cómo está la zona?</h3>
+      <ol><li>Presiona un punto para ver el nivel de la instalación, por qué está así y qué hacer.</li>
+      <li>Los círculos muestran el radio que revisa el monitor: {DIST_QUEBRADA_KM} km para quebradas y {DIST_INDECI_KM} km para emergencias INDECI.</li>
+      <li>Con el botón de capas (arriba a la derecha) prende o apaga los avisos y quebradas de SENAMHI, las emergencias INDECI y la temperatura de aeropuertos.</li></ol>
+      <p class="muted small">Puntos: {len(mapa['puntos'])} instalaciones · {len(mapa['indeci'])} ubicaciones con emergencia INDECI por lluvias (48 h) · {len(mapa['aeropuertos'])} aeropuertos con reporte.</p></div></aside></div>
+  <p class="nota-wms" id="nota-wms">Las capas de SENAMHI se cargan en vivo desde SENAMHI y solo se ven desde conexiones en Perú.</p>
+</section>
+
 <section class="panel" id="guia">
   <h2>¿Qué significa cada alerta?</h2>
   <div class="guia">{guia}</div>
@@ -1531,6 +1689,8 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
 <footer><p>Temperatura: estación SENAMHI cercana si responde; si no, aeropuerto CORPAC a {DIST_MAX_AEROPUERTO_KM} km o menos; si no, referencia regional NASA POWER. Un nivel alcanzado se mantiene {PERSISTENCIA_HORAS} h. Riesgo de cada instalación según la Matriz Nacional de Riesgo del plan.</p>
 <p>Fuentes: {fuentes}</p></footer>
 </div>
+<script type="application/json" id="datos-mapa">{mapa_json}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const b=document.getElementById('btn-act');
 if(b){{b.addEventListener('click',async()=>{{
@@ -1541,7 +1701,8 @@ if(b){{b.addEventListener('click',async()=>{{
   finally{{setTimeout(()=>{{b.disabled=false}},60000);}}
 }});}}
 function panel(id){{document.querySelectorAll('.vista').forEach(x=>x.classList.toggle('activo',x.dataset.panel===id));
-  document.querySelectorAll('section.panel').forEach(s=>s.classList.toggle('activo',s.id===id));}}
+  document.querySelectorAll('section.panel').forEach(s=>s.classList.toggle('activo',s.id===id));
+  if(id==='mapa')setTimeout(iniciarMapa,60);}}
 document.querySelectorAll('.vista').forEach(v=>v.addEventListener('click',()=>{{panel(v.dataset.panel);window.scrollTo({{top:0}});}}));
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('activo'));b.classList.add('activo');
@@ -1551,6 +1712,7 @@ document.querySelectorAll('.fila-alerta').forEach(tr=>tr.addEventListener('click
   panel('zonas');document.querySelector('.tab[data-zona="todas"]').click();
   const c=document.getElementById(tr.dataset.ir);if(c){{c.scrollIntoView({{behavior:'smooth',block:'start'}});c.classList.remove('resalta');void c.offsetWidth;c.classList.add('resalta');}}
 }}));
+{MAPA_JS}
 </script>
 </body></html>"""
 
@@ -1680,7 +1842,8 @@ def main():
 
     ARCH_HTML.parent.mkdir(parents=True, exist_ok=True)
     ARCH_HTML.write_text(generar_html(filas, enfen, noaa, errores, datos["sigrid"]["escenarios"],
-                                  {"avisos_indeci": datos.get("avisos_indeci", []), "indeci": datos.get("indeci", [])}), encoding="utf-8")
+                                  {"avisos_indeci": datos.get("avisos_indeci", []), "indeci": datos.get("indeci", []),
+                                   "mapa": datos_mapa(filas, datos)}), encoding="utf-8")
     ARCH_RESUMEN.write_text(generar_resumen(filas, enfen, noaa), encoding="utf-8")
     log(f"HTML: {ARCH_HTML}")
     log(f"Resumen: {ARCH_RESUMEN}")
