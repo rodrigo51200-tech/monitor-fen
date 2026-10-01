@@ -1456,7 +1456,7 @@ body{font-size:15px}
 .wrap{padding:30px 16px 48px}
 h2{font-size:20px}
 .res-cab{display:flex;justify-content:space-between;align-items:flex-end;gap:16px 32px;flex-wrap:wrap;padding-bottom:22px;border-bottom:1px solid var(--bd)}
-.titular{font-size:clamp(30px,4.4vw,46px);font-weight:900;line-height:1.05;margin:0;letter-spacing:-.015em;max-width:22ch}
+.titular{font-size:clamp(30px,4.4vw,46px);font-weight:900;line-height:1.05;margin:0;letter-spacing:-.015em;max-width:none;text-wrap:balance}
 .col-zona.larga{grid-column:span 2} .col-zona.larga ul{columns:2;column-gap:36px} .col-zona.larga li{break-inside:avoid}
 .contexto{display:flex;gap:16px 32px;margin:0;flex-wrap:wrap}
 .contexto dt{font-size:12.5px;color:var(--mut)} .contexto dd{margin:2px 0 0;font-weight:700;font-size:15px}
