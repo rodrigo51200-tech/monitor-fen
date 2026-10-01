@@ -90,7 +90,8 @@ AEROPUERTOS_PE = {"SPJC": "Lima – Jorge Chávez", "SPUR": "Piura", "SPHI": "Ch
 DIST_MAX_AEROPUERTO_KM = 60    # aeropuerto mas lejano aceptado para la temperatura de una tienda
 LLUVIA_METAR = ("RA", "DZ", "TS", "SH", "GR")   # codigos METAR de lluvia, llovizna, tormenta, chubasco, granizo
 HORAS_BOLETIN_AVISO = 72       # boletines INDECI de aviso meteorologico a considerar
-ARCH_MANUALES = CARPETA / "alertas_manuales.csv"   # Nivel 4 u otros ajustes manuales
+ARCH_MANUALES = CARPETA / "alertas_manuales.csv"
+COSTA_ARIDA = ("ICA", "CANETE", "TACNA")   # ademas de Lima: costa desertica donde los modelos confunden garua con lluvia   # Nivel 4 u otros ajustes manuales
 # Estaciones SENAMHI que SENAMHI envia a la red mundial de la OMM (partes SYNOP), republicadas por OGIMET.
 # Se excluyen las de aeropuerto (ya cubiertas por CORPAC). (id OMM: nombre, lat, lon, altitud m)
 OGIMET_SYNOP = "https://www.ogimet.com/cgi-bin/getsynop"
@@ -498,8 +499,14 @@ def fuente_corpac() -> dict:
         wx = str(m.get("wxString") or "")
         tipo = ("tormenta" if "TS" in wx else "granizo" if "GR" in wx else "lluvia" if ("RA" in wx or "SH" in wx)
                 else "llovizna (garúa)" if "DZ" in wx else "")
+        vis = m.get("visib")
+        try:
+            vis = 6.21 if "+" in str(vis) else float(vis)           # millas; "6+" = 10 km o mas
+        except (TypeError, ValueError):
+            vis = None
+        base = min((c["base"] for c in (m.get("clouds") or []) if c.get("base") is not None), default=None)
         est["obs"].append({"ts": ts, "temp": float(temp), "wx": wx, "lluvia": bool(tipo), "tipo": tipo,
-                           "raw": m.get("rawOb", "")})
+                           "dewp": m.get("dewp"), "visib": vis, "base": base, "raw": m.get("rawOb", "")})
     for est in out.values():
         est["obs"].sort(key=lambda o: o["ts"])
         ult = est["obs"][-1]
@@ -904,6 +911,17 @@ def interpretar(r, enfen):
     else:
         lineas.append(("Hoy", "Sin estación SENAMHI cercana con dato."))
 
+    # 2b) Pronostico de lluvia (ECMWF conjunto + GFS) y garua en Lima
+    if r.get("pron_lluvia"):
+        lineas.append(("Lluvia", " · ".join(f"<b>{e(d['dia'])}:</b> {e(d['frase'])}" for d in r["pron_lluvia"])
+                       + ' <span class="muted">(modelos ECMWF y NOAA; desde las 7 a. m. de cada día)</span>.'))
+    if r.get("garua"):
+        g = r["garua"]
+        t = e(g.get("frase", ""))
+        if (r.get("garua_ahora") or {}).get("hay"):
+            t = f"<b>{e(r['garua_ahora']['frase'])}</b> " + t
+        lineas.append(("Garúa", t))
+
     # 3) Tendencia (ultimos 15 registros SENAMHI)
     tend = r.get("tend_tmax")
     if tend is not None:
@@ -1202,6 +1220,10 @@ def procesar(tiendas, datos):
             r["nivel_plan"], r["motivo_nivel"] = man["nivel"], f"Registro manual: {man['motivo']}"
         r["semaforo"] = NIVELES_PLAN[r["nivel_plan"]]["clase"]
         r["url_noticias"] = url_noticias(t.ciudad)
+        pron = datos.get("pronostico") or {}
+        r["pron_lluvia"] = (pron.get("lluvia") or {}).get(str(t.cod_p), [])
+        r["garua"] = pron.get("garua") if t.zona == "Lima Metropolitana" else None
+        r["garua_ahora"] = pron.get("garua_ahora") if t.zona == "Lima Metropolitana" else None
         filas.append(r)
     return filas
 
@@ -1489,6 +1511,19 @@ h2{font-size:20px}
 .ico-omm{background:var(--fala-osc);color:#fff;border-radius:10px;font:700 11px/18px Lato,sans-serif;text-align:center;border:1.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)}
 @media (max-width:980px){.barra .in{flex-wrap:wrap} .vistas{order:3;width:100%;margin:2px 0 0;overflow-x:auto} .act{margin-left:auto}}
 @media (max-width:560px){.col-zona.larga{grid-column:auto} .wrap{padding-top:20px} .contexto{gap:10px 20px} .puntos{grid-template-columns:1fr;gap:22px} .vista{padding:7px 10px}}
+"""
+
+PRON_CSS = """
+.pron-res{margin:28px 0 8px;padding-top:18px;border-top:1px solid var(--bd)}
+.pron-res h2{margin:0 0 12px}
+.pron-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 28px}
+.pron-grid h3{font-size:14px;margin:0 0 6px} .pron-grid ul{margin:0;padding-left:18px;font-size:14px;line-height:1.7}
+.pron-grid p{margin:0 0 4px;font-size:14px}
+.garua-res{border-left:4px solid var(--azul);padding-left:12px}
+.guia-pron{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;background:var(--card);
+  border:1px solid var(--bd);border-radius:10px;padding:16px 18px;font-size:13.5px}
+.guia-pron h3{margin:0 0 6px;font-size:15px} .guia-pron p{margin:0 0 8px}
+.tabla.mini{width:auto;font-size:12.5px} .tabla.mini td,.tabla.mini th{padding:5px 12px}
 """
 
 MAPA_CSS = """
@@ -1936,6 +1971,71 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
     ]
     glos = "".join(f"<dt>{e(a)}</dt><dd>{e(b)}</dd>" for a, b in glosario)
 
+    # ---------------- PRONOSTICO (resumen y guia) ----------------
+    pron = extra.get("pronostico") or {}
+    fuertes, probables = [], []
+    for f in filas:
+        for d in (f.get("pron_lluvia") or [])[:2]:
+            if d.get("nivel", 0) >= 3 or (d.get("nivel", 0) >= 2 and (d.get("p10") or 0) >= 50):
+                fuertes.append((f, d)); break
+        else:
+            for d in (f.get("pron_lluvia") or [])[:2]:
+                if d.get("nivel", 0) >= 2:
+                    probables.append((f, d)); break
+    def _item(f, d):
+        return (f'<li><a href="#t-{e(f["cod_p"])}" data-ir="t-{e(f["cod_p"])}">{e(f["tienda"].replace("FLB ", ""))}</a>'
+                f' <span class="muted">{e(d["dia"].lower())}, {d["p1"]:.0f} %</span></li>')
+    if pron.get("lluvia"):
+        bloques_pron = []
+        if fuertes:
+            bloques_pron.append('<div><h3>Lluvia fuerte probable</h3><ul>' + "".join(_item(f, d) for f, d in fuertes) + '</ul></div>')
+        if probables:
+            bloques_pron.append('<div><h3>Lluvia probable</h3><ul>' + "".join(_item(f, d) for f, d in probables) + '</ul></div>')
+        if not bloques_pron:
+            bloques_pron.append('<div><h3>Sin lluvias importantes previstas</h3><p class="muted">Ninguna instalación con lluvia probable hoy ni mañana.</p></div>')
+    else:
+        bloques_pron = ['<div><p class="muted">Pronóstico de lluvia no disponible en esta actualización.</p></div>']
+    g, ga = pron.get("garua") or {}, pron.get("garua_ahora") or {}
+    if g or ga.get("frase"):
+        gt = (f'<p><b>{e(ga["frase"])}</b></p>' if ga.get("hay") else "") + f'<p>{e(g.get("frase", ""))}</p>'
+        bloques_pron.append(f'<div class="garua-res"><h3>Garúa en Lima</h3>{gt}</div>')
+    fuentes_pron = pron.get("fuentes") or {}
+    pron_res = (f'<section class="pron-res"><h2>Lluvia en los próximos 2 días</h2><div class="pron-grid">{"".join(bloques_pron)}</div>'
+                f'<p class="muted small">Pronóstico calculado el {e(pron.get("calculado", "—"))}; próxima actualización a las '
+                f'{e(pron.get("proxima", "—"))}. Modelos ECMWF (corrida {e(fuentes_pron.get("ecmwf", "—"))}) y NOAA GFS '
+                f'(corrida {e(fuentes_pron.get("gfs", "—"))}). Es una estimación para anticiparse: '
+                f'<b>no cambia el nivel del plan</b>.</p></section>')
+    ac = pron.get("aciertos_garua")
+    if ac:
+        filas_ac = ""
+        for k, v in ac["por_rango"].items():
+            pct = "—" if not v["mananas"] else f'{v["garuo"] / v["mananas"]:.0%}'
+            filas_ac += f'<tr><td>{e(k)}</td><td>{v["mananas"]}</td><td>{v["garuo"]}</td><td>{pct}</td></tr>'
+        aciertos_html = (f'<p>Últimas {ac["n"]} mañanas verificadas:</p><table class="tabla mini"><thead><tr><th>Pronóstico</th>'
+                         f'<th>Mañanas</th><th>Garuó</th><th>%</th></tr></thead><tbody>{filas_ac}</tbody></table>')
+    else:
+        aciertos_html = ('<p class="muted">El registro de aciertos empieza con las primeras mañanas verificadas '
+                         '(pronóstico calculado la víspera y comparado con lo observado en el aeropuerto).</p>')
+    guia_pron = f"""
+  <h2>Pronóstico de lluvia y garúa</h2>
+  <div class="guia-pron">
+    <div><h3>Lluvia (todas las instalaciones)</h3>
+      <p>Usa el conjunto de 51 simulaciones del Centro Europeo (ECMWF): la probabilidad es la proporción de simulaciones
+      que dan más de 1 mm en el día. Menos de 30 %: sin lluvia prevista. De 30 a 60 %: posible. Más de 60 %: probable.
+      Se avisa "moderada a fuerte" o "fuerte" cuando hay 30 % o más de superar 10 o 20 mm. La hora del día sale de los modelos
+      ECMWF y NOAA GFS; si NOAA no coincide, se dice expresamente.</p>
+      <p>En Lima, Cañete, Ica y Tacna los modelos confunden la garúa con lluvia, por eso ahí solo se avisa lluvia si los dos
+      modelos coinciden.</p>
+      <p>Se actualiza cada 4 horas desde las 4 a. m. (4, 8, 12, 16, 20 y 0 h). Es informativo: el nivel del plan sigue dependiendo
+      de los avisos oficiales.</p></div>
+    <div><h3>Garúa en Lima</h3>
+      <p>Los modelos globales casi no anticipan la garúa. Por eso se estima con lo que observa el aeropuerto Jorge Chávez la víspera
+      (humedad, altura de las nubes, visibilidad y si ya garuó), calibrado con 366 mañanas de junio a setiembre de 2023 a 2025.</p>
+      <p><b>Poco probable</b>: en mañanas así garuó 1 de cada 10. <b>Posible</b>: 3 de cada 10. <b>Probable</b>: 1 de cada 2.
+      Se calcula desde las 5 p. m. para la mañana siguiente, de mayo a noviembre.</p>
+      {aciertos_html}</div>
+  </div>"""
+
     return f"""<!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Monitor FEN · Falabella Retail Perú</title>
@@ -2046,6 +2146,7 @@ details{{margin-top:6px;border-top:1px solid var(--bd);padding-top:6px}} summary
 {MAPA_CSS}
 {FILTROS_CSS}
 {MODERNO_CSS}
+{PRON_CSS}
 footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(--bd);padding-top:12px}}
 @media (max-width:900px){{.estado,.tres{{grid-template-columns:1fr 1fr}}}}
 @media (max-width:700px){{.barra{{position:static}} .tabla thead{{display:none}} .tabla,.tabla tbody,.tabla tr,.tabla td{{display:block;width:100%}}
@@ -2075,6 +2176,7 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
   <div class="puntos">{lista_puntos}</div>
   <p class="leyenda-puntos"><span><i class="pt n1"></i>Nivel 1 Verde</span><span><i class="pt n2"></i>Nivel 2 Amarilla</span><span><i class="pt n3"></i>Nivel 3 Roja</span><span><i class="pt n4"></i>Nivel 4 Negra</span>
     <span class="muted">Presiona una instalación para ver su tarjeta.</span></p>
+  {pron_res}
   <details class="novedades"><summary>Novedades oficiales <span class="muted">{n_novedades}</span></summary>
     <div class="nov-grid">
       <div><h3>Qué dice ENFEN</h3><p>{e(fen_txt)}</p><p class="muted small">{e(enfen.get('comunicado'))}, {e(enfen.get('fecha'))}{f' · <a href="{e(enfen.get("url_pdf"))}" target="_blank" rel="noopener">leer comunicado</a>' if enfen.get('url_pdf') else ''}</p></div>
@@ -2115,6 +2217,7 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
 <section class="panel" id="guia">
   <h2>¿Qué significa cada alerta?</h2>
   <div class="guia">{guia}</div>
+  {guia_pron}
   <h2>Fuentes y términos</h2>
   <dl class="glosario">{glos}</dl>
 </section>
@@ -2256,6 +2359,16 @@ def main():
             datos["nasa"], err = seguro(f"NASA POWER (respaldo para {len(lejos)} instalaciones lejos de aeropuertos)",
                                         lambda: fuente_nasa_power(lejos), {})
             if err: errores["NASA POWER"] = err
+    # Pronostico de lluvia (ECMWF + NOAA GFS) y garua en Lima: se recalcula una vez por franja de 4 h
+    import pronostico
+    spjc = (datos.get("corpac") or {}).get("SPJC", {}).get("obs", [])
+    puntos = [(str(t.cod_p), float(t.lat), float(t.lon)) for t in tiendas.itertuples()]
+    aridos = {str(t.cod_p) for t in tiendas.itertuples() if t.zona == "Lima Metropolitana" or norm(t.ciudad) in COSTA_ARIDA}
+    datos["pronostico"], err = seguro("Pronóstico de lluvia y garúa (ECMWF, NOAA GFS)",
+                                      lambda: pronostico.obtener(puntos, spjc, CARPETA, log, aridos=aridos), {})
+    if err: errores["Pronóstico de lluvia"] = err
+    if (datos["pronostico"] or {}).get("error_lluvia"):
+        errores["Pronóstico de lluvia"] = datos["pronostico"]["error_lluvia"]
     datos["cache_estacional"] = leer_cache_estacional()
 
     datos["manuales"], err = seguro("Alertas manuales", leer_manuales, {})
@@ -2273,7 +2386,8 @@ def main():
     ARCH_HTML.parent.mkdir(parents=True, exist_ok=True)
     ARCH_HTML.write_text(generar_html(filas, enfen, noaa, errores, datos["sigrid"]["escenarios"],
                                   {"avisos_indeci": datos.get("avisos_indeci", []), "indeci": datos.get("indeci", []),
-                                   "mapa": datos_mapa(filas, datos)}), encoding="utf-8")
+                                   "mapa": datos_mapa(filas, datos), "pronostico": datos.get("pronostico") or {}}),
+                       encoding="utf-8")
     ARCH_RESUMEN.write_text(generar_resumen(filas, enfen, noaa), encoding="utf-8")
     log(f"HTML: {ARCH_HTML}")
     log(f"Resumen: {ARCH_RESUMEN}")

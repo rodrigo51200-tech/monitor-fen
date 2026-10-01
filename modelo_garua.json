@@ -1,0 +1,57 @@
+{
+ "variables": [
+  "rh",
+  "spread",
+  "techo",
+  "dz_tarde",
+  "vis",
+  "dz_ayer"
+ ],
+ "media": {
+  "rh": 79.22177,
+  "spread": 3.70101,
+  "techo": 1.15546,
+  "dz_tarde": 0.06831,
+  "vis": 5.32981,
+  "dz_ayer": 0.31148
+ },
+ "desv": {
+  "rh": 4.81015,
+  "spread": 0.99197,
+  "techo": 0.55504,
+  "dz_tarde": 0.25262,
+  "vis": 1.17144,
+  "dz_ayer": 0.46373
+ },
+ "coef": {
+  "rh": 0.31651,
+  "spread": -0.44218,
+  "techo": -0.28816,
+  "dz_tarde": 0.0111,
+  "vis": -0.17624,
+  "dz_ayer": 0.26995
+ },
+ "intercepto": -1.15549,
+ "rangos": [
+  [
+   0.0,
+   0.2,
+   "Poco probable",
+   0.09
+  ],
+  [
+   0.2,
+   0.35,
+   "Posible",
+   0.29
+  ],
+  [
+   0.35,
+   1.01,
+   "Probable",
+   0.52
+  ]
+ ],
+ "entrenado": "METAR SPJC 17-23 h de la víspera; garúa/llovizna 00-11 h; junio-setiembre 2023-2025 (366 mañanas); validación dejando fuera un invierno: AUC 0.76",
+ "frecuencia_base": 0.292
+}
