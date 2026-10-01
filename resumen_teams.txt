@@ -13,3 +13,6 @@ Resto de instalaciones (38): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Exp Huaraz: 28.0° (+4.0°)
+• FLB Cusco: 24.0° (+3.0°)
+• FLB Iquitos: 30.0° (-4.0°)
+• FLB Huanuco Op: 29.0° (+3.0°)
