@@ -1,42 +1,42 @@
 cod_c,cod_p,tienda,tipo,zona,orden_zona,frecuencia_reporte,riesgo_plan,departamento,provincia,distrito,ciudad,lat,lon
-C020,P002102201,FLB Piura Centro,Tienda,Norte,1,Semanal,Crítico,PIURA,PIURA,PIURA,Piura,-5.1963,-80.6307
+C020,P002102201,FLB Piura Centro,Tienda,Norte,1,Semanal,Crítico,PIURA,PIURA,PIURA,Piura,-5.19665,-80.62798
 C021,P002102301,FLB Piura Mall Open,Tienda,Norte,1,Semanal,Crítico,PIURA,PIURA,PIURA,Piura,-5.1784,-80.6206
-C022,P002100601,FLB Chiclayo Mall,Tienda,Norte,1,Semanal,Crítico,LAMBAYEQUE,CHICLAYO,CHICLAYO,Chiclayo,-6.7714,-79.8409
-C023,P002100701,FLB Trujillo CC,Tienda,Norte,1,Semanal,Crítico,LA LIBERTAD,TRUJILLO,TRUJILLO,Trujillo,-8.1116,-79.0288
-C025,P002100801,FLB Chimbote,Tienda,Norte,1,Semanal,Alto,ANCASH,SANTA,CHIMBOTE,Chimbote,-9.0745,-78.5936
-C024,P002100901,FLB Cajamarca,Tienda,Norte,1,Semanal,Alto,CAJAMARCA,CAJAMARCA,CAJAMARCA,Cajamarca,-7.1640,-78.5000
-,P002101401,FLB Canete MP,Tienda,Centro/Sur,2,Quincenal,Alto,LIMA,CAÑETE,SAN VICENTE DE CAÑETE,Cañete,-13.0770,-76.3870
-,P002101201,FLB Ica Mall,Tienda,Centro/Sur,2,Quincenal,Alto,ICA,ICA,ICA,Ica,-14.0680,-75.7280
-,P002102101,FLB Huancayo,Tienda,Centro/Sur,2,Quincenal,Medio Alto,JUNIN,HUANCAYO,HUANCAYO,Huancayo,-12.0650,-75.2050
-,P002103301,FLB Exp Huaraz,Tienda,Centro/Sur,2,Quincenal,Medio Alto,ANCASH,HUARAZ,HUARAZ,Huaraz,-9.5270,-77.5280
+C022,P002100601,FLB Chiclayo Mall,Tienda,Norte,1,Semanal,Crítico,LAMBAYEQUE,CHICLAYO,CHICLAYO,Chiclayo,-6.77750,-79.83223
+C023,P002100701,FLB Trujillo CC,Tienda,Norte,1,Semanal,Crítico,LA LIBERTAD,TRUJILLO,TRUJILLO,Trujillo,-8.10287,-79.04674
+C025,P002100801,FLB Chimbote,Tienda,Norte,1,Semanal,Alto,ANCASH,SANTA,CHIMBOTE,Chimbote,-9.10258,-78.55671
+C024,P002100901,FLB Cajamarca,Tienda,Norte,1,Semanal,Alto,CAJAMARCA,CAJAMARCA,CAJAMARCA,Cajamarca,-7.14973,-78.50966
+,P002101401,FLB Canete MP,Tienda,Centro/Sur,2,Quincenal,Alto,LIMA,CAÑETE,SAN VICENTE DE CAÑETE,Cañete,-13.07592,-76.37311
+,P002101201,FLB Ica Mall,Tienda,Centro/Sur,2,Quincenal,Alto,ICA,ICA,ICA,Ica,-14.07537,-75.73917
+,P002102101,FLB Huancayo,Tienda,Centro/Sur,2,Quincenal,Medio Alto,JUNIN,HUANCAYO,HUANCAYO,Huancayo,-12.06197,-75.20952
+,P002103301,FLB Exp Huaraz,Tienda,Centro/Sur,2,Quincenal,Medio Alto,ANCASH,HUARAZ,HUARAZ,Huaraz,-9.52810,-77.52821
 ,P002103501,FLB Exp.Ayacucho,Tienda,Centro/Sur,2,Quincenal,Medio Alto,AYACUCHO,HUAMANGA,AYACUCHO,Ayacucho,-13.1600,-74.2250
-,P002102701,FLB Arequipa (Cayma),Tienda,Centro/Sur,2,Quincenal,Medio Alto,AREQUIPA,AREQUIPA,CAYMA,Arequipa,-16.3890,-71.5470
-,P002101001,FLB Porongoche,Tienda,Centro/Sur,2,Quincenal,Medio Alto,AREQUIPA,AREQUIPA,PAUCARPATA,Arequipa,-16.4240,-71.5080
+,P002102701,FLB Arequipa (Cayma),Tienda,Centro/Sur,2,Quincenal,Medio Alto,AREQUIPA,AREQUIPA,CAYMA,Arequipa,-16.39063,-71.54664
+,P002101001,FLB Porongoche,Tienda,Centro/Sur,2,Quincenal,Medio Alto,AREQUIPA,AREQUIPA,PAUCARPATA,Arequipa,-16.41673,-71.51440
 ,P002103201,FLB Cusco,Tienda,Centro/Sur,2,Quincenal,Medio Alto,CUSCO,CUSCO,CUSCO,Cusco,-13.5320,-71.9670
 C140,P002102901,FLB Merced,Tienda,Centro/Sur,2,Quincenal,Sin clasificar,JUNIN,CHANCHAMAYO,CHANCHAMAYO,La Merced,-11.0550,-75.3270
-,P004101702,FLB Iquitos,Tienda,Oriente,3,Quincenal,Alto,LORETO,MAYNAS,IQUITOS,Iquitos,-3.7490,-73.2530
-C138,P004101301,FLB Pucallpa,Tienda,Oriente,3,Quincenal,Alto,UCAYALI,CORONEL PORTILLO,CALLERIA,Pucallpa,-8.3790,-74.5540
-,P004101601,FLB Huanuco Op,Tienda,Oriente,3,Quincenal,Alto,HUANUCO,HUANUCO,HUANUCO,Huánuco,-9.9300,-76.2420
+,P004101702,FLB Iquitos,Tienda,Oriente,3,Quincenal,Alto,LORETO,MAYNAS,IQUITOS,Iquitos,-3.75336,-73.24641
+C138,P004101301,FLB Pucallpa,Tienda,Oriente,3,Quincenal,Alto,UCAYALI,CORONEL PORTILLO,CALLERIA,Pucallpa,-8.38637,-74.56703
+,P004101601,FLB Huanuco Op,Tienda,Oriente,3,Quincenal,Alto,HUANUCO,HUANUCO,HUANUCO,Huánuco,-9.93840,-76.24767
 ,P004103901,FLB Tarapoto,Tienda,Oriente,3,Quincenal,Alto,SAN MARTIN,SAN MARTIN,TARAPOTO,Tarapoto,-6.4880,-76.3600
-,CD-LURIN,CD Lurín,Centro de distribución,Lima Metropolitana,4,Mensual,Alto,LIMA,LIMA,LURIN,Lima,-12.2550,-76.8900
-,CD-VES,CD Villa El Salvador,Centro de distribución,Lima Metropolitana,4,Mensual,Alto,LIMA,LIMA,VILLA EL SALVADOR,Lima,-12.2150,-76.9450
-C009,P002100501,FLB Santa Anita,Tienda,Lima Metropolitana,4,Mensual,Medio Alto,LIMA,LIMA,SANTA ANITA,Lima,-12.0520,-76.9680
-C019,P002103001,FLB Puruchuco,Tienda,Lima Metropolitana,4,Mensual,Medio Alto,LIMA,LIMA,ATE,Lima,-12.0340,-76.9250
-,P002100401,FLB Mega Plaza,Tienda,Lima Metropolitana,4,Mensual,Medio Alto,LIMA,LIMA,INDEPENDENCIA,Lima,-11.9930,-77.0610
-,P002101101,FLB Lima Norte (Plaza Norte),Tienda,Lima Metropolitana,4,Mensual,Medio Alto,LIMA,LIMA,INDEPENDENCIA,Lima,-12.0060,-77.0570
-,P002102401,FLB Bellavista,Tienda,Lima Metropolitana,4,Mensual,Medio,CALLAO,CALLAO,BELLAVISTA,Callao,-12.0580,-77.0990
-,P002102801,FLB San Miguel,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SAN MIGUEL,Lima,-12.0770,-77.0840
-C012,P002101901,FLB Mall del Sur,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SAN JUAN DE MIRAFLORES,Lima,-12.1550,-76.9820
-C007,P002102501,FLB Atocongo,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SAN JUAN DE MIRAFLORES,Lima,-12.1495,-76.9805
-,P002103101,FLB Comas,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,COMAS,Lima,-11.9350,-77.0570
-C011,P002101801,FLB Centro Civico,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,LIMA,Lima,-12.0565,-77.0365
-C005,P002102001,FLB Lima Centro,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,LIMA,Lima,-12.0500,-77.0330
-,EXPO-LIMA-CENTRO,FLB Expo Lima Centro,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,LIMA,Lima,-12.0500,-77.0330
-C017,P002102601,FLB Angamos,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SURQUILLO,Lima,-12.1130,-77.0180
-,P002100301,FLB Miraflores,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,MIRAFLORES,Lima,-12.1210,-77.0300
-,P002101501,FLB Salaverry,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,JESUS MARIA,Lima,-12.0900,-77.0520
-C014,P002100201,FLB Jockey Plaza,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SANTIAGO DE SURCO,Lima,-12.0860,-76.9750
-,P002100101,FLB San Isidro,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SAN ISIDRO,Lima,-12.0970,-77.0370
-,CORP-SAN-ISIDRO,Corporación San Isidro (oficinas),Oficina corporativa,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SAN ISIDRO,Lima,-12.0980,-77.0230
-C001,P002103801,FLB MOLINA,Tienda,Lima Metropolitana,4,Mensual,Bajo,LIMA,LIMA,LA MOLINA,Lima,-12.0830,-76.9270
-,P002304029,FLB Exp Tacna,Tienda,Sur,5,Mensual,Bajo,TACNA,TACNA,TACNA,Tacna,-18.0140,-70.2510
+,CD-LURIN,CD Lurín,Centro de distribución,Lima Metropolitana,4,Mensual,Alto,LIMA,LIMA,LURIN,Lima,-12.25919,-76.82323
+,CD-VES,CD Villa El Salvador,Centro de distribución,Lima Metropolitana,4,Mensual,Alto,LIMA,LIMA,VILLA EL SALVADOR,Lima,-12.21284,-76.96237
+C009,P002100501,FLB Santa Anita,Tienda,Lima Metropolitana,4,Mensual,Medio Alto,LIMA,LIMA,SANTA ANITA,Lima,-12.05702,-76.97134
+C019,P002103001,FLB Puruchuco,Tienda,Lima Metropolitana,4,Mensual,Medio Alto,LIMA,LIMA,ATE,Lima,-12.04085,-76.93224
+,P002100401,FLB Mega Plaza,Tienda,Lima Metropolitana,4,Mensual,Medio Alto,LIMA,LIMA,INDEPENDENCIA,Lima,-11.99367,-77.06036
+,P002101101,FLB Lima Norte (Plaza Norte),Tienda,Lima Metropolitana,4,Mensual,Medio Alto,LIMA,LIMA,INDEPENDENCIA,Lima,-12.00628,-77.05709
+,P002102401,FLB Bellavista,Tienda,Lima Metropolitana,4,Mensual,Medio,CALLAO,CALLAO,BELLAVISTA,Callao,-12.05594,-77.10098
+,P002102801,FLB San Miguel,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SAN MIGUEL,Lima,-12.07672,-77.08349
+C012,P002101901,FLB Mall del Sur,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SAN JUAN DE MIRAFLORES,Lima,-12.15404,-76.98257
+C007,P002102501,FLB Atocongo,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SAN JUAN DE MIRAFLORES,Lima,-12.14749,-76.98158
+,P002103101,FLB Comas,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,COMAS,Lima,-11.93634,-77.06545
+C011,P002101801,FLB Centro Civico,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,LIMA,Lima,-12.05718,-77.03773
+C005,P002102001,FLB Lima Centro,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,LIMA,Lima,-12.04760,-77.03194
+,EXPO-LIMA-CENTRO,FLB Expo Lima Centro,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,LIMA,Lima,-12.04760,-77.03194
+C017,P002102601,FLB Angamos,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SURQUILLO,Lima,-12.11220,-77.01205
+,P002100301,FLB Miraflores,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,MIRAFLORES,Lima,-12.11872,-77.02953
+,P002101501,FLB Salaverry,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,JESUS MARIA,Lima,-12.08988,-77.05272
+C014,P002100201,FLB Jockey Plaza,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SANTIAGO DE SURCO,Lima,-12.08660,-76.97803
+,P002100101,FLB San Isidro,Tienda,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SAN ISIDRO,Lima,-12.09504,-77.02507
+,CORP-SAN-ISIDRO,Oficinas SF San Isidro,Oficina corporativa,Lima Metropolitana,4,Mensual,Medio,LIMA,LIMA,SAN ISIDRO,Lima,-12.09530,-77.02480
+C001,P002103801,FLB MOLINA,Tienda,Lima Metropolitana,4,Mensual,Bajo,LIMA,LIMA,LA MOLINA,Lima,-12.07607,-76.93565
+,P002304029,FLB Exp Tacna,Tienda,Sur,5,Mensual,Bajo,TACNA,TACNA,TACNA,Tacna,-18.01370,-70.25041
