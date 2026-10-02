@@ -2,8 +2,9 @@ name: Monitor FEN
 
 on:
   schedule:
-        # Cada hora a los 17 minutos
-       - cron: "17 * * * *"
+        # Cada 15 minutos (GitHub suele saltarse corridas; asi la pagina queda al dia).
+        # Los pronosticos solo se recalculan cada 4 h (pronostico.py).
+       - cron: "7,22,37,52 * * * *"
   workflow_dispatch:         # permite ejecutarlo a mano ("Run workflow")
 
 permissions:

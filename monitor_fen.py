@@ -42,7 +42,7 @@ ARCH_TIENDAS = CARPETA / "zonas_tiendas.csv"
 ARCH_HTML = Path(os.environ.get("MONITOR_HTML") or CARPETA / "monitor_fen.html")   # en GitHub: docs/index.html
 REPO_GITHUB = os.environ.get("GITHUB_REPOSITORY", "")      # lo define GitHub Actions (usuario/repositorio)
 URL_ACTUALIZAR = os.environ.get("MONITOR_URL_ACTUALIZAR", "")  # opcional: servicio que dispara la actualizacion
-HORAS_AUTOMATICAS = "cada hora (a los :17 min)"   # informativo, igual que el workflow
+HORAS_AUTOMATICAS = "cada 15 minutos"   # informativo, igual que el workflow
 ARCH_RESUMEN = CARPETA / "resumen_teams.txt"
 CARPETA_HIST = CARPETA / "historial"
 
@@ -1044,6 +1044,24 @@ def fase_actual():
     return "", ""
 
 
+HORAS_LLUVIA_AHORA = 3        # lluvia o garua observada en el aeropuerto en estas ultimas horas
+
+
+def lluvia_observada(corpac, lat, lon):
+    """Lluvia/garua reportada en las ultimas horas por el aeropuerto mas cercano (a 60 km o menos)."""
+    ahora = datetime.now().astimezone()
+    cerca = sorted(((haversine_km(lat, lon, a["lat"], a["lon"]), a) for a in corpac.values()
+                    if a.get("lat") is not None and a.get("obs")), key=lambda x: x[0])
+    if not cerca or cerca[0][0] > DIST_MAX_AEROPUERTO_KM:
+        return None
+    dist, a = cerca[0]
+    rec = [o for o in a["obs"] if o["lluvia"] and (ahora - o["ts"]).total_seconds() <= HORAS_LLUVIA_AHORA * 3600]
+    if not rec:
+        return None
+    u = rec[-1]
+    return {"tipo": u["tipo"], "hora": u["ts"].strftime("%H:%M"), "lugar": a["nombre"], "dist": dist}
+
+
 def procesar(tiendas, datos):
     filas = []
     est = datos["estaciones"]
@@ -1224,6 +1242,7 @@ def procesar(tiendas, datos):
         r["pron_lluvia"] = (pron.get("lluvia") or {}).get(str(t.cod_p), [])
         r["garua"] = pron.get("garua") if t.zona == "Lima Metropolitana" else None
         r["garua_ahora"] = pron.get("garua_ahora") if t.zona == "Lima Metropolitana" else None
+        r["lluvia_ahora"] = lluvia_observada(datos.get("corpac") or {}, t.lat, t.lon)
         filas.append(r)
     return filas
 
@@ -1574,7 +1593,7 @@ function iniciarMapa(){
     title:r.tipo+' · '+r.dist}).bindPopup(`<b>${esc(r.tipo)} · INDECI</b><br>${esc(r.ev)} en ${esc(r.dist)} (${esc(r.dep)})<br>
     <span class="muted">${esc(r.f)} · hace ${Math.round(r.h)} h</span><br><a href="${esc(r.link)}" target="_blank" rel="noopener">Ver reporte</a>`)));
   gInd.addTo(mapa);over[`Emergencias INDECI por lluvias (${M.indeci.length})`]=gInd;
-  const gAer=L.layerGroup(M.aeropuertos.map(a=>L.marker([a.lat,a.lon],{icon:L.divIcon({className:'ico-aer',html:Math.round(a.t)+'°',iconSize:[34,21],iconAnchor:[-9,10]}),
+  const gAer=L.layerGroup(M.aeropuertos.map(a=>L.marker([a.lat,a.lon],{icon:L.divIcon({className:a.ll?'ico-aer lluvia':'ico-aer',html:(a.ll?'<svg width="8" height="10" viewBox="0 0 8 10" style="margin-right:3px;vertical-align:-1px"><path d="M4 0C4 0 0 4.6 0 6.4A4 4 0 0 0 8 6.4C8 4.6 4 0 4 0z" fill="#fff"/></svg>':'')+Math.round(a.t)+'°',iconSize:[a.ll?44:34,21],iconAnchor:[-9,10]}),
     title:a.n}).bindPopup(`<b>Aeropuerto ${esc(a.n)}</b> · CORPAC<br>Ahora (${esc(a.h)}): <b>${a.t.toFixed(0)} °C</b><br>
     Últimas 24 h: máx ${a.mx==null?'—':a.mx.toFixed(0)+'°'} · mín ${a.mn==null?'—':a.mn.toFixed(0)+'°'}${a.ll?'<br>Observado: <b>'+esc(a.ll)+'</b>':''}`)));
   gAer.addTo(mapa);over['Temperatura en aeropuertos (CORPAC)']=gAer;
@@ -1661,9 +1680,11 @@ def datos_mapa(filas, datos) -> dict:
         if a.get("lat") is None or not a.get("obs"):
             continue
         u = a["ultima"]
+        rec = [o for o in a["obs"] if o["lluvia"]
+               and (datetime.now().astimezone() - o["ts"]).total_seconds() <= HORAS_LLUVIA_AHORA * 3600]
         aerop.append({"icao": icao, "n": a["nombre"], "lat": a["lat"], "lon": a["lon"], "t": u["temp"],
                       "h": u["ts"].strftime("%H:%M"), "mx": a["tmax24"], "mn": a["tmin24"],
-                      "ll": a["lluvia_6h"][-1]["tipo"] if a["lluvia_6h"] else ""})
+                      "ll": f'{rec[-1]["tipo"]} a las {rec[-1]["ts"]:%H:%M}' if rec else ""})
     estac = []
     for wmo, a in (datos.get("omm") or {}).items():
         u = a.get("ultima")
@@ -1806,6 +1827,9 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
                 prec_txt = "—" if f["prec"] is None else f"{f['prec']:.1f}<em>mm</em>"
                 metrica3 = f"<div><small>Lluvia</small><strong>{prec_txt}</strong></div>"
                 etq_max, etq_min, etq_serie = "T. máx", "T. mín", "T. máx últimos 15 registros"
+            la = f.get("lluvia_ahora")
+            if la and not (c and c.get("lluvia")):
+                metrica3 = metrica3[:-6] + f'<span class="delta sube">{e(la["tipo"])} ({e(la["hora"])})</span></div>'
             tarjetas.append(f"""
       <article class="card sem-{f['semaforo']}" id="t-{e(f['cod_p'])}" data-zona="{e(z)}" data-nivel="{f['nivel_plan']}"
         data-riesgo="{e(f['riesgo_plan'])}" data-orden-riesgo="{ORDEN_RIESGO.get(f['riesgo_plan'], 9)}" data-tipo="{e(f['tipo'])}"
@@ -1970,6 +1994,23 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
         ("Riesgo de la instalación", "Clasificación fija de la Matriz Nacional de Riesgo del plan (Crítico, Alto, Medio Alto, Medio, Bajo)."),
     ]
     glos = "".join(f"<dt>{e(a)}</dt><dd>{e(b)}</dd>" for a, b in glosario)
+
+    # ---------------- LLUVIA O GARUA OBSERVADA AHORA ----------------
+    obs_ahora = {}
+    for f in filas:
+        la = f.get("lluvia_ahora")
+        if la:
+            obs_ahora.setdefault(la["lugar"], la)
+    if obs_ahora:
+        partes_obs = []
+        for lugar, la in sorted(obs_ahora.items(), key=lambda x: x[1]["hora"], reverse=True):
+            ciudad, _, aerop = lugar.partition(" – ")
+            donde = f"{ciudad} (aeropuerto {aerop})" if aerop else f"{ciudad} (aeropuerto)"
+            partes_obs.append(f'<b>{e(la["tipo"].capitalize())}</b> en {e(donde)}, {e(la["hora"])}')
+        obs_html = (f'<p class="obs-ahora"><span class="gota" aria-hidden="true"></span><span>Observado en las últimas '
+                    f'{HORAS_LLUVIA_AHORA} horas: ' + " · ".join(partes_obs) + '.</span></p>')
+    else:
+        obs_html = ""
 
     # ---------------- PRONOSTICO (resumen y guia) ----------------
     pron = extra.get("pronostico") or {}
@@ -2147,6 +2188,9 @@ details{{margin-top:6px;border-top:1px solid var(--bd);padding-top:6px}} summary
 {FILTROS_CSS}
 {MODERNO_CSS}
 {PRON_CSS}
+.obs-ahora{{margin:18px 0 0;padding:11px 14px;border-left:4px solid var(--azul);background:#eef4fb;border-radius:6px;font-size:14.5px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}}
+.gota{{width:10px;height:13px;background:var(--azul);border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;clip-path:polygon(50% 0,100% 62%,92% 85%,70% 100%,30% 100%,8% 85%,0 62%);flex:0 0 10px;align-self:center}}
+.ico-aer.lluvia{{background:#0b6fd6;box-shadow:0 0 0 3px rgba(11,111,214,.35)}}
 footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(--bd);padding-top:12px}}
 @media (max-width:900px){{.estado,.tres{{grid-template-columns:1fr 1fr}}}}
 @media (max-width:700px){{.barra{{position:static}} .tabla thead{{display:none}} .tabla,.tabla tbody,.tabla tr,.tabla td{{display:block;width:100%}}
@@ -2173,6 +2217,7 @@ footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var
       <div><dt>Calendario del plan</dt><dd>{e(fase)}</dd></div>
     </dl>
   </div>
+  {obs_html}
   <div class="puntos">{lista_puntos}</div>
   <p class="leyenda-puntos"><span><i class="pt n1"></i>Nivel 1 Verde</span><span><i class="pt n2"></i>Nivel 2 Amarilla</span><span><i class="pt n3"></i>Nivel 3 Roja</span><span><i class="pt n4"></i>Nivel 4 Negra</span>
     <span class="muted">Presiona una instalación para ver su tarjeta.</span></p>

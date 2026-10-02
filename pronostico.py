@@ -301,7 +301,7 @@ def garua_lima(obs, modelo, ahora_lima):
         objetivo, vispera = ahora_lima.date() + timedelta(days=1), ahora_lima.date()
     else:
         return {"estado": "pendiente", "objetivo": (ahora_lima.date() + timedelta(days=1)).isoformat(),
-                "frase": "El pronóstico de garúa para mañana temprano se calcula desde las 5 p. m. "
+                "frase": "El pronóstico de garúa para mañana temprano se publica en la actualización de las 8 p. m., "
                          "con las observaciones de la tarde."}
     tarde = [o for o in obs if o["ts"].date() == vispera and o["ts"].hour >= 17
              and o.get("temp") is not None and o.get("dewp") is not None]
