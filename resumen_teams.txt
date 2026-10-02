@@ -13,3 +13,4 @@ Resto de instalaciones (38): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Merced: 12.7° (-3.1°)
+• FLB Pucallpa: 33.0° (+4.0°)
