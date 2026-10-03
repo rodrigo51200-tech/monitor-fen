@@ -5,14 +5,25 @@ Mar frente a la costa norte (NOAA Niño 1+2): +4.7 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
 Instalaciones sobre Nivel 1 (3):
-• FLB Iquitos (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 02/10 13:44: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 02/10 13:44: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 02/10 13:44: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
+• FLB Iquitos (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 02/10 17:37: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
+• FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 02/10 17:37: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
+• FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 02/10 17:37: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Resto de instalaciones (38): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Chiclayo Mall: 30.0° (+3.0°)
 • FLB Merced: 17.4° (+4.8°)
-• FLB Iquitos: 28.0° (-3.0°)
-• FLB Exp Tacna: 22.0° (+3.0°)
+• CD Lurín: 27.5° (+3.7°)
+• CD Villa El Salvador: 27.5° (+3.7°)
+• FLB Santa Anita: 27.5° (+3.7°)
+• FLB Puruchuco: 27.5° (+3.7°)
+• FLB Mall del Sur: 27.5° (+3.7°)
+• FLB Atocongo: 27.5° (+3.7°)
+• FLB Angamos: 27.5° (+3.7°)
+• FLB Miraflores: 27.5° (+3.7°)
+• FLB Jockey Plaza: 27.5° (+3.7°)
+• FLB San Isidro: 27.5° (+3.7°)
+• Oficinas SF San Isidro: 27.5° (+3.7°)
+• FLB MOLINA: 27.5° (+3.7°)
+• FLB Exp Tacna: 23.0° (+4.0°)

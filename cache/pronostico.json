@@ -18,8 +18,8 @@
     "p1": 7.5,
     "p10": 1.5,
     "p20": 0.0,
-    "mm_modelos": 0.0,
-    "gfs_mm": 0.0,
+    "mm_modelos": 0.1,
+    "gfs_mm": 0.1,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    },
@@ -30,7 +30,7 @@
     "p10": 0.0,
     "p20": 0.0,
     "mm_modelos": 0.0,
-    "gfs_mm": 0.0,
+    "gfs_mm": 0.1,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    }
@@ -42,10 +42,10 @@
     "p1": 58.5,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 1.7,
-    "gfs_mm": 0.9,
+    "mm_modelos": 1.3,
+    "gfs_mm": 0.2,
     "nivel": 1,
-    "frase": "Posible lluvia (58 %), sobre todo en la noche"
+    "frase": "Posible lluvia (58 %), sobre todo en la madrugada"
    },
    {
     "dia": "Mañana",
@@ -53,8 +53,8 @@
     "p1": 19.5,
     "p10": 2.5,
     "p20": 1.0,
-    "mm_modelos": 0.5,
-    "gfs_mm": 1.0,
+    "mm_modelos": 1.2,
+    "gfs_mm": 2.2,
     "nivel": 0,
     "frase": "Sin lluvia prevista (20 %)"
    },
@@ -64,8 +64,8 @@
     "p1": 3.5,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 0.6,
-    "gfs_mm": 1.1,
+    "mm_modelos": 0.4,
+    "gfs_mm": 0.7,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    }
@@ -99,7 +99,7 @@
     "p1": 4.0,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 0.1,
+    "mm_modelos": 0.0,
     "gfs_mm": 0.1,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
@@ -182,8 +182,8 @@
     "p1": 81.5,
     "p10": 0.5,
     "p20": 0.0,
-    "mm_modelos": 3.9,
-    "gfs_mm": 6.1,
+    "mm_modelos": 4.2,
+    "gfs_mm": 6.6,
     "nivel": 2,
     "frase": "Lluvia probable (82 %), sobre todo en la tarde"
    },
@@ -193,8 +193,8 @@
     "p1": 99.5,
     "p10": 9.0,
     "p20": 0.0,
-    "mm_modelos": 5.2,
-    "gfs_mm": 5.2,
+    "mm_modelos": 7.0,
+    "gfs_mm": 8.9,
     "nivel": 2,
     "frase": "Lluvia probable (100 %), sobre todo en la tarde"
    },
@@ -204,8 +204,8 @@
     "p1": 99.5,
     "p10": 15.5,
     "p20": 0.5,
-    "mm_modelos": 9.6,
-    "gfs_mm": 12.6,
+    "mm_modelos": 9.8,
+    "gfs_mm": 13.1,
     "nivel": 2,
     "frase": "Lluvia probable (100 %), sobre todo en la tarde"
    }
@@ -299,7 +299,7 @@
     "p10": 0.0,
     "p20": 0.0,
     "mm_modelos": 0.6,
-    "gfs_mm": 1.2,
+    "gfs_mm": 1.1,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    },
@@ -309,8 +309,8 @@
     "p1": 1.0,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 1.3,
-    "gfs_mm": 2.4,
+    "mm_modelos": 2.3,
+    "gfs_mm": 4.3,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    }
@@ -322,8 +322,8 @@
     "p1": 0.0,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 0.3,
-    "gfs_mm": 0.7,
+    "mm_modelos": 0.4,
+    "gfs_mm": 0.9,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    },
@@ -358,7 +358,7 @@
     "p10": 0.0,
     "p20": 0.0,
     "mm_modelos": 0.1,
-    "gfs_mm": 0.2,
+    "gfs_mm": 0.1,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    },
@@ -369,7 +369,7 @@
     "p10": 0.0,
     "p20": 0.0,
     "mm_modelos": 1.0,
-    "gfs_mm": 2.0,
+    "gfs_mm": 1.9,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    },
@@ -379,8 +379,8 @@
     "p1": 1.0,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 1.8,
-    "gfs_mm": 3.5,
+    "mm_modelos": 1.6,
+    "gfs_mm": 3.1,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    }
@@ -462,8 +462,8 @@
     "p1": 0.0,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 0.4,
-    "gfs_mm": 0.9,
+    "mm_modelos": 0.3,
+    "gfs_mm": 0.6,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    },
@@ -473,8 +473,8 @@
     "p1": 0.0,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 0.2,
-    "gfs_mm": 0.2,
+    "mm_modelos": 0.1,
+    "gfs_mm": 0.1,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    },
@@ -484,8 +484,8 @@
     "p1": 0.0,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 0.3,
-    "gfs_mm": 0.6,
+    "mm_modelos": 0.2,
+    "gfs_mm": 0.4,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    }
@@ -497,8 +497,8 @@
     "p1": 87.5,
     "p10": 5.5,
     "p20": 0.0,
-    "mm_modelos": 3.0,
-    "gfs_mm": 2.4,
+    "mm_modelos": 3.5,
+    "gfs_mm": 3.2,
     "nivel": 2,
     "frase": "Lluvia probable (88 %), sobre todo en la noche"
    },
@@ -508,8 +508,8 @@
     "p1": 99.5,
     "p10": 13.5,
     "p20": 0.0,
-    "mm_modelos": 5.4,
-    "gfs_mm": 5.8,
+    "mm_modelos": 6.3,
+    "gfs_mm": 7.6,
     "nivel": 2,
     "frase": "Lluvia probable (100 %), sobre todo en la tarde"
    },
@@ -533,7 +533,7 @@
     "p10": 2.0,
     "p20": 0.0,
     "mm_modelos": 0.3,
-    "gfs_mm": 0.1,
+    "gfs_mm": 0.0,
     "nivel": 1,
     "frase": "Posible lluvia (50 %)"
    },
@@ -554,8 +554,8 @@
     "p1": 74.5,
     "p10": 2.0,
     "p20": 0.0,
-    "mm_modelos": 2.8,
-    "gfs_mm": 1.7,
+    "mm_modelos": 2.1,
+    "gfs_mm": 0.2,
     "nivel": 2,
     "frase": "Lluvia probable (74 %), sobre todo en la tarde"
    }
@@ -568,7 +568,7 @@
     "p10": 0.0,
     "p20": 0.0,
     "mm_modelos": 0.2,
-    "gfs_mm": 0.0,
+    "gfs_mm": 0.1,
     "nivel": 0,
     "frase": "Sin lluvia prevista (15 %)"
    },
@@ -578,7 +578,7 @@
     "p1": 4.0,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 0.0,
+    "mm_modelos": 0.1,
     "gfs_mm": 0.1,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
@@ -589,8 +589,8 @@
     "p1": 20.0,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 0.1,
-    "gfs_mm": 0.1,
+    "mm_modelos": 0.0,
+    "gfs_mm": 0.0,
     "nivel": 0,
     "frase": "Sin lluvia prevista (20 %)"
    }
@@ -603,7 +603,7 @@
     "p10": 0.0,
     "p20": 0.0,
     "mm_modelos": 0.6,
-    "gfs_mm": 0.4,
+    "gfs_mm": 0.5,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    },
@@ -613,8 +613,8 @@
     "p1": 82.0,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 2.6,
-    "gfs_mm": 2.9,
+    "mm_modelos": 2.4,
+    "gfs_mm": 2.6,
     "nivel": 2,
     "frase": "Lluvia probable (82 %), sobre todo en la tarde"
    },
@@ -624,8 +624,8 @@
     "p1": 86.0,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 1.8,
-    "gfs_mm": 0.8,
+    "mm_modelos": 2.3,
+    "gfs_mm": 1.9,
     "nivel": 2,
     "frase": "Lluvia probable (86 %), sobre todo en la tarde"
    }
@@ -637,10 +637,10 @@
     "p1": 70.5,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 0.9,
-    "gfs_mm": 0.2,
+    "mm_modelos": 0.8,
+    "gfs_mm": 0.0,
     "nivel": 2,
-    "frase": "Lluvia probable (70 %), sobre todo en la tarde"
+    "frase": "Lluvia probable (70 %), sobre todo en la tarde. El modelo de NOAA no prevé lluvia: hay incertidumbre"
    },
    {
     "dia": "Mañana",
@@ -648,8 +648,8 @@
     "p1": 13.5,
     "p10": 0.0,
     "p20": 0.0,
-    "mm_modelos": 0.2,
-    "gfs_mm": 0.2,
+    "mm_modelos": 0.1,
+    "gfs_mm": 0.0,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    },
@@ -673,7 +673,7 @@
     "p10": 0.0,
     "p20": 0.0,
     "mm_modelos": 0.0,
-    "gfs_mm": 0.0,
+    "gfs_mm": 0.1,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    },
@@ -695,7 +695,7 @@
     "p10": 0.0,
     "p20": 0.0,
     "mm_modelos": 0.0,
-    "gfs_mm": 0.1,
+    "gfs_mm": 0.0,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    }
@@ -730,7 +730,7 @@
     "p10": 0.0,
     "p20": 0.0,
     "mm_modelos": 0.4,
-    "gfs_mm": 0.3,
+    "gfs_mm": 0.2,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    }
@@ -975,7 +975,7 @@
     "p10": 0.0,
     "p20": 0.0,
     "mm_modelos": 0.4,
-    "gfs_mm": 0.3,
+    "gfs_mm": 0.2,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    }
@@ -1010,7 +1010,7 @@
     "p10": 0.0,
     "p20": 0.0,
     "mm_modelos": 0.4,
-    "gfs_mm": 0.3,
+    "gfs_mm": 0.2,
     "nivel": 0,
     "frase": "Sin lluvia prevista"
    }
@@ -1438,7 +1438,7 @@
  },
  "fuentes": {
   "ecmwf": "03/10 00 UTC",
-  "gfs": "03/10 06 UTC"
+  "gfs": "03/10 12 UTC"
  },
  "error_lluvia": "",
  "garua": {
@@ -1446,6 +1446,6 @@
   "objetivo": "2026-10-04",
   "frase": "El pronóstico de garúa para mañana temprano se publica en la actualización de las 8 p. m., con las observaciones de la tarde."
  },
- "franja": "2026-10-03 08:00",
- "calculado": "03/10 11:40"
+ "franja": "2026-10-03 12:00",
+ "calculado": "03/10 14:33"
 }
