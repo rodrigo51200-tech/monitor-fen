@@ -1,33 +1,10 @@
-🌊 Monitor FEN · 03/10/2026
+🌊 Monitor FEN · 04/10/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 17-2026 · 28 Septiembre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +4.7 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-🔔 Cambios desde la última actualización (4):
-▲ FLB Cajamarca: Nivel 1 → Nivel 2 Alerta Amarilla – Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-▼ FLB Iquitos: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-▼ FLB Pucallpa: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-▼ FLB Tarapoto: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-
 Instalaciones sobre Nivel 1 (1):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (40): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Chiclayo Mall: 30.0° (+3.0°)
-• FLB Merced: 17.4° (+4.8°)
-• CD Lurín: 27.5° (+3.7°)
-• CD Villa El Salvador: 27.5° (+3.7°)
-• FLB Santa Anita: 27.5° (+3.7°)
-• FLB Puruchuco: 27.5° (+3.7°)
-• FLB Mall del Sur: 27.5° (+3.7°)
-• FLB Atocongo: 27.5° (+3.7°)
-• FLB Angamos: 27.5° (+3.7°)
-• FLB Miraflores: 27.5° (+3.7°)
-• FLB Jockey Plaza: 27.5° (+3.7°)
-• FLB San Isidro: 27.5° (+3.7°)
-• Oficinas SF San Isidro: 27.5° (+3.7°)
-• FLB MOLINA: 27.5° (+3.7°)
-• FLB Exp Tacna: 23.0° (+4.0°)
