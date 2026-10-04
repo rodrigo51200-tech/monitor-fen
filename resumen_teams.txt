@@ -8,3 +8,7 @@ Instalaciones sobre Nivel 1 (1):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (40): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Iquitos: 34.0° (+4.0°)
+• FLB Exp Tacna: 26.0° (+3.0°)
