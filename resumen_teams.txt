@@ -4,12 +4,16 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +4.7 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (3):
-• FLB Iquitos (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 02/10 17:37: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 02/10 17:37: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 02/10 17:37: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
+🔔 Cambios desde la última actualización (4):
+▲ FLB Cajamarca: Nivel 1 → Nivel 2 Alerta Amarilla – Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
+▼ FLB Iquitos: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+▼ FLB Pucallpa: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+▼ FLB Tarapoto: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
 
-Resto de instalaciones (38): Nivel 1 Alerta Verde – monitoreo preventivo.
+Instalaciones sobre Nivel 1 (1):
+• FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
+
+Resto de instalaciones (40): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Chiclayo Mall: 30.0° (+3.0°)
