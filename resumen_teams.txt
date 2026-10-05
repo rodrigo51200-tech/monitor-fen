@@ -1,4 +1,4 @@
-🌊 Monitor FEN · 04/10/2026
+🌊 Monitor FEN · 05/10/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 17-2026 · 28 Septiembre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +4.7 °C sobre lo normal
@@ -10,5 +10,4 @@ Instalaciones sobre Nivel 1 (1):
 Resto de instalaciones (40): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Iquitos: 35.0° (+5.0°)
-• FLB Exp Tacna: 26.0° (+3.0°)
+• FLB Merced: 13.9° (-3.6°)
