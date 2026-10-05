@@ -10,4 +10,6 @@ Instalaciones sobre Nivel 1 (1):
 Resto de instalaciones (40): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Piura Centro: 35.0° (+3.0°)
+• FLB Piura Mall Open: 35.0° (+3.0°)
 • FLB Merced: 13.9° (-3.6°)
