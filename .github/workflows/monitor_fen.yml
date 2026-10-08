@@ -17,12 +17,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # 1) Genera el HTML, guarda historial en el repo y deja listo el paquete para Pages.
   actualizar:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04      # fijo: ubuntu-latest pasa a Ubuntu 26 desde el 19/10/2026
     timeout-minutes: 20
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
     env:
       TZ: America/Lima
       MONITOR_HTML: docs/index.html
@@ -63,5 +61,28 @@ jobs:
         with:
           path: docs
 
+  # 2) Publica en GitHub Pages. Si falla, se puede relanzar solo este job
+  #    ("Re-run failed jobs") sin volver a correr el monitor.
+  publicar:
+    needs: actualizar
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url || steps.deploy2.outputs.page_url }}
+    steps:
       - id: deploy
+        name: Publicar en Pages (intento 1)
+        uses: actions/deploy-pages@v4
+        continue-on-error: true    # un error 500 de GitHub no corta aquí; se reintenta abajo
+
+      - name: Esperar antes de reintentar
+        if: steps.deploy.outcome == 'failure'
+        run: |
+          echo "::warning::Falló la publicación en Pages (intento 1). Reintentando en 60 s."
+          sleep 60
+
+      - id: deploy2
+        name: Publicar en Pages (intento 2)
+        if: steps.deploy.outcome == 'failure'
         uses: actions/deploy-pages@v4
