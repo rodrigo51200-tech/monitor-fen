@@ -9,3 +9,20 @@ Instalaciones sobre Nivel 1 (2):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Peligro inminente de INDECI por lluvias intensas a 5 km de la tienda (Los Baños Del Inca).
 
 Resto de instalaciones (39): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Piura Centro: 33.0° (+3.0°)
+• FLB Piura Mall Open: 33.0° (+3.0°)
+• FLB Chiclayo Mall: 29.0° (+3.0°)
+• CD Lurín: 27.7° (+4.3°)
+• CD Villa El Salvador: 27.7° (+4.3°)
+• FLB Santa Anita: 27.7° (+4.3°)
+• FLB Puruchuco: 27.7° (+4.3°)
+• FLB Mall del Sur: 27.7° (+4.3°)
+• FLB Atocongo: 27.7° (+4.3°)
+• FLB Angamos: 27.7° (+4.3°)
+• FLB Miraflores: 27.7° (+4.3°)
+• FLB Jockey Plaza: 27.7° (+4.3°)
+• FLB San Isidro: 27.7° (+4.3°)
+• Oficinas SF San Isidro: 27.7° (+4.3°)
+• FLB MOLINA: 27.7° (+4.3°)
