@@ -915,6 +915,9 @@ def interpretar(r, enfen):
     if r.get("pron_lluvia"):
         lineas.append(("Lluvia", " · ".join(f"<b>{e(d['dia'])}:</b> {e(d['frase'])}" for d in r["pron_lluvia"])
                        + ' <span class="muted">(modelos ECMWF y NOAA; desde las 7 a. m. de cada día)</span>.'))
+        mm_txt = lluvia_vs_normal(r)
+        if mm_txt:
+            lineas.append(("Lluvia en mm", mm_txt))
     if r.get("garua"):
         g = r["garua"]
         t = e(g.get("frase", ""))
@@ -1045,6 +1048,87 @@ def fase_actual():
 
 
 HORAS_LLUVIA_AHORA = 3        # lluvia o garua observada en el aeropuerto en estas ultimas horas
+
+# ----------------------------------------------------------------------------
+# Lluvia en mm frente a lo normal (clima_normal.json, generado por climatologia_lluvia.py)
+# ----------------------------------------------------------------------------
+ARCH_CLIMA_NORMAL = CARPETA / "clima_normal.json"
+MESES_TXT = ["", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto",
+             "septiembre", "octubre", "noviembre", "diciembre"]
+# Categorias SENAMHI de lluvia diaria por percentiles (dias con lluvia >= 1 mm)
+CAT_LLUVIA = [(0, "Sin lluvia significativa", "ll-0"), (1, "Normal para la época", "ll-1"),
+              (2, "Moderadamente lluvioso", "ll-2"), (3, "Muy lluvioso", "ll-3"),
+              (4, "Extremadamente lluvioso", "ll-4")]
+_CLIMA_CACHE = None
+
+
+def clima_normal() -> dict:
+    global _CLIMA_CACHE
+    if _CLIMA_CACHE is None:
+        try:
+            _CLIMA_CACHE = json.loads(ARCH_CLIMA_NORMAL.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            _CLIMA_CACHE = {}
+    return _CLIMA_CACHE
+
+
+def categoria_lluvia(mm, n: dict) -> int:
+    if mm is None or mm < 1:
+        return 0
+    if mm > n["p99"]:
+        return 4
+    if mm > n["p95"]:
+        return 3
+    if mm > n["p90"]:
+        return 2
+    return 1
+
+
+def fmt_mm(v) -> str:
+    return f"{v:.0f}" if v >= 10 else f"{v:.1f}".replace(".", ",")
+
+
+def lluvia_vs_normal(r) -> str | None:
+    """Linea 'Lluvia en mm' de la tarjeta: pronostico en mm por dia, ubicado en la escala de la tienda."""
+    cn = clima_normal()
+    t = (cn.get("tiendas") or {}).get(str(r.get("cod_p")))
+    if not t or not r.get("pron_lluvia"):
+        return None
+    mes = datetime.now().month
+    n = t["meses"][str(mes)]
+    chips, peor, peor_mm = [], 0, 0.0
+    for d in r["pron_lluvia"]:
+        vals = [v for v in (d.get("mm_modelos"), d.get("gfs_mm")) if v is not None]
+        if not vals:
+            continue
+        lo, hi = min(vals), max(vals)
+        cat = categoria_lluvia(hi, n)          # se clasifica con el modelo mas lluvioso (criterio conservador)
+        rango = f"{fmt_mm(lo)}–{fmt_mm(hi)}" if hi - lo >= 1 else fmt_mm(hi)
+        chips.append(f'<span class="ll {CAT_LLUVIA[cat][2]}"><b>{e(d["dia"])}</b> {rango} mm · {CAT_LLUVIA[cat][1]}</span>')
+        if hi > peor_mm:
+            peor, peor_mm = cat, hi
+    if not chips:
+        return None
+    # Barra: 0 .. p99*1.3, con marcas en p90 / p95 / p99 y el dia mas lluvioso previsto
+    tope = max(n["p99"] * 1.3, peor_mm * 1.05, 1)
+    pos = lambda v: f"{min(v / tope, 1) * 100:.1f}%"  # noqa: E731
+    barra = (f'<div class="ll-barra" title="Día más lluvioso previsto: {fmt_mm(peor_mm)} mm">'
+             f'<i class="z1" style="width:{pos(n["p90"])}"></i>'
+             f'<i class="z2" style="left:{pos(n["p90"])};width:calc({pos(n["p95"])} - {pos(n["p90"])})"></i>'
+             f'<i class="z3" style="left:{pos(n["p95"])};width:calc({pos(n["p99"])} - {pos(n["p95"])})"></i>'
+             f'<i class="z4" style="left:{pos(n["p99"])};right:0"></i>'
+             f'<b class="mk" style="left:{pos(peor_mm)}"></b></div>'
+             f'<div class="ll-ejes"><span>0</span><span style="left:{pos(n["p90"])}">{fmt_mm(n["p90"])}</span>'
+             f'<span style="left:{pos(n["p95"])}">{fmt_mm(n["p95"])}</span>'
+             f'<span style="left:{pos(n["p99"])}">{fmt_mm(n["p99"])} mm</span></div>')
+    dias10 = n["frec_lluvia"] / 10
+    frec = ("casi nunca llueve" if dias10 < 0.3 else
+            f"llueve ~{max(round(dias10), 1)} de cada 10 días")
+    ref = (f'<span class="muted">Normal en {MESES_TXT[mes]} aquí: {frec}, ~{fmt_mm(n["normal_mes"])} mm en el mes. '
+           f'Día moderadamente lluvioso desde {fmt_mm(n["p90"])} mm, muy lluvioso desde {fmt_mm(n["p95"])} mm, '
+           f'extremo desde {fmt_mm(n["p99"])} mm. 1 mm = 1 litro por m². '
+           f'Fuente de lo normal: {e(cn.get("fuente", ""))}.</span>')
+    return f'<div class="ll-chips">{"".join(chips)}</div>{barra}{ref}'
 
 
 def lluvia_observada(corpac, lat, lon):
@@ -2169,6 +2253,17 @@ details{{margin-top:6px;border-top:1px solid var(--bd);padding-top:6px}} summary
 .fila{{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--bd);padding:6px 0;font-size:12px}} .fila>span:first-child{{color:var(--mut)}}
 .spark{{vertical-align:middle}} .spark polyline{{fill:none;stroke:var(--fala-osc);stroke-width:1.8}} .spark circle{{fill:var(--fala-osc)}}
 .spark-rango{{font-size:11px;color:var(--mut);margin-left:6px}}
+.ll-chips{{display:flex;flex-direction:column;gap:3px;margin-bottom:6px}}
+.ll{{display:inline-block;width:max-content;max-width:100%;font-size:12px;padding:2px 8px;border-radius:6px;border-left:4px solid}}
+.ll-0{{background:#f1f3f4;border-color:#b0b7bc;color:#4a5358}} .ll-1{{background:#e8f5e9;border-color:#43a047;color:#1b5e20}}
+.ll-2{{background:#fff8e1;border-color:#f9a825;color:#6d4c00}} .ll-3{{background:#fff0e0;border-color:#ef6c00;color:#7a3300}}
+.ll-4{{background:#fdecea;border-color:#c62828;color:#7f1414}}
+.ll-barra{{position:relative;height:10px;border-radius:5px;background:#e8f5e9;overflow:visible;margin:4px 0 2px}}
+.ll-barra i{{position:absolute;top:0;bottom:0;display:block}} .ll-barra .z1{{left:0;background:#c8e6c9;border-radius:5px 0 0 5px}}
+.ll-barra .z2{{background:#ffe082}} .ll-barra .z3{{background:#ffb74d}} .ll-barra .z4{{background:#ef9a9a;border-radius:0 5px 5px 0}}
+.ll-barra .mk{{position:absolute;top:-4px;width:3px;height:18px;margin-left:-1px;background:#212121;border-radius:2px}}
+.ll-ejes{{position:relative;height:14px;font-size:10px;color:var(--mut);margin-bottom:4px}} .ll-ejes span{{position:absolute;transform:translateX(-50%);white-space:nowrap}} .ll-ejes span:first-child{{transform:none}}
+.ll-ejes span:last-child{{transform:translateX(-85%)}}
 .chips{{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}} .chip{{font-size:11px;padding:2px 7px;border-radius:10px;background:var(--bd)}}
 .esc-sup{{background:#fde8e8;color:var(--rojo)}} .esc-inf{{background:#e6eef9;color:var(--azul)}}
 .avisos{{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:6px}}

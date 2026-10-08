@@ -1,0 +1,4682 @@
+{
+ "fuente": "NASA POWER 1991-2020 (provisional, se reemplazará por PISCO de SENAMHI)",
+ "periodo": "1991-2020",
+ "dia_lluvioso_mm": 1.0,
+ "generado": "2026-10-08 09:53",
+ "tiendas": {
+  "P002102201": {
+   "tienda": "FLB Piura Centro",
+   "ciudad": "Piura",
+   "meses": {
+    "1": {
+     "media_dia": 0.95,
+     "normal_mes": 29.5,
+     "frec_lluvia": 12.0,
+     "dias_lluviosos_base": 112,
+     "p90": 15.7,
+     "p95": 35.8,
+     "p99": 64.4
+    },
+    "2": {
+     "media_dia": 1.76,
+     "normal_mes": 49.7,
+     "frec_lluvia": 29.1,
+     "dias_lluviosos_base": 247,
+     "p90": 13.3,
+     "p95": 20.9,
+     "p99": 35.2
+    },
+    "3": {
+     "media_dia": 1.97,
+     "normal_mes": 61.1,
+     "frec_lluvia": 30.2,
+     "dias_lluviosos_base": 281,
+     "p90": 14.4,
+     "p95": 23.2,
+     "p99": 38.1
+    },
+    "4": {
+     "media_dia": 0.59,
+     "normal_mes": 17.6,
+     "frec_lluvia": 15.9,
+     "dias_lluviosos_base": 143,
+     "p90": 6.2,
+     "p95": 8.7,
+     "p99": 11.9
+    },
+    "5": {
+     "media_dia": 0.18,
+     "normal_mes": 5.7,
+     "frec_lluvia": 4.5,
+     "dias_lluviosos_base": 42,
+     "p90": 2.9,
+     "p95": 3.8,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.06,
+     "normal_mes": 1.9,
+     "frec_lluvia": 0.4,
+     "dias_lluviosos_base": 53,
+     "p90": 3.8,
+     "p95": 4.1,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.06,
+     "normal_mes": 1.9,
+     "frec_lluvia": 0.8,
+     "dias_lluviosos_base": 17,
+     "p90": 4.1,
+     "p95": 4.1,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 21,
+     "p90": 4.1,
+     "p95": 4.4,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.06,
+     "normal_mes": 1.9,
+     "frec_lluvia": 0.9,
+     "dias_lluviosos_base": 40,
+     "p90": 3.2,
+     "p95": 5.4,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.13,
+     "normal_mes": 4.0,
+     "frec_lluvia": 2.8,
+     "dias_lluviosos_base": 62,
+     "p90": 3.3,
+     "p95": 5.3,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.14,
+     "normal_mes": 4.3,
+     "frec_lluvia": 3.1,
+     "dias_lluviosos_base": 118,
+     "p90": 6.1,
+     "p95": 8.8,
+     "p99": 27.7
+    },
+    "12": {
+     "media_dia": 0.4,
+     "normal_mes": 12.4,
+     "frec_lluvia": 6.9,
+     "dias_lluviosos_base": 64,
+     "p90": 8.2,
+     "p95": 11.6,
+     "p99": 30.7
+    }
+   }
+  },
+  "P002102301": {
+   "tienda": "FLB Piura Mall Open",
+   "ciudad": "Piura",
+   "meses": {
+    "1": {
+     "media_dia": 0.95,
+     "normal_mes": 29.5,
+     "frec_lluvia": 12.0,
+     "dias_lluviosos_base": 112,
+     "p90": 15.7,
+     "p95": 35.8,
+     "p99": 64.4
+    },
+    "2": {
+     "media_dia": 1.76,
+     "normal_mes": 49.7,
+     "frec_lluvia": 29.1,
+     "dias_lluviosos_base": 247,
+     "p90": 13.3,
+     "p95": 20.9,
+     "p99": 35.2
+    },
+    "3": {
+     "media_dia": 1.97,
+     "normal_mes": 61.1,
+     "frec_lluvia": 30.2,
+     "dias_lluviosos_base": 281,
+     "p90": 14.4,
+     "p95": 23.2,
+     "p99": 38.1
+    },
+    "4": {
+     "media_dia": 0.59,
+     "normal_mes": 17.6,
+     "frec_lluvia": 15.9,
+     "dias_lluviosos_base": 143,
+     "p90": 6.2,
+     "p95": 8.7,
+     "p99": 11.9
+    },
+    "5": {
+     "media_dia": 0.18,
+     "normal_mes": 5.7,
+     "frec_lluvia": 4.5,
+     "dias_lluviosos_base": 42,
+     "p90": 2.9,
+     "p95": 3.8,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.06,
+     "normal_mes": 1.9,
+     "frec_lluvia": 0.4,
+     "dias_lluviosos_base": 53,
+     "p90": 3.8,
+     "p95": 4.1,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.06,
+     "normal_mes": 1.9,
+     "frec_lluvia": 0.8,
+     "dias_lluviosos_base": 17,
+     "p90": 4.1,
+     "p95": 4.1,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 21,
+     "p90": 4.1,
+     "p95": 4.4,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.06,
+     "normal_mes": 1.9,
+     "frec_lluvia": 0.9,
+     "dias_lluviosos_base": 40,
+     "p90": 3.2,
+     "p95": 5.4,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.13,
+     "normal_mes": 4.0,
+     "frec_lluvia": 2.8,
+     "dias_lluviosos_base": 62,
+     "p90": 3.3,
+     "p95": 5.3,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.14,
+     "normal_mes": 4.3,
+     "frec_lluvia": 3.1,
+     "dias_lluviosos_base": 118,
+     "p90": 6.1,
+     "p95": 8.8,
+     "p99": 27.7
+    },
+    "12": {
+     "media_dia": 0.4,
+     "normal_mes": 12.4,
+     "frec_lluvia": 6.9,
+     "dias_lluviosos_base": 64,
+     "p90": 8.2,
+     "p95": 11.6,
+     "p99": 30.7
+    }
+   }
+  },
+  "P002100601": {
+   "tienda": "FLB Chiclayo Mall",
+   "ciudad": "Chiclayo",
+   "meses": {
+    "1": {
+     "media_dia": 0.3,
+     "normal_mes": 9.4,
+     "frec_lluvia": 5.8,
+     "dias_lluviosos_base": 54,
+     "p90": 6.0,
+     "p95": 7.6,
+     "p99": 11.0
+    },
+    "2": {
+     "media_dia": 0.62,
+     "normal_mes": 17.6,
+     "frec_lluvia": 12.7,
+     "dias_lluviosos_base": 108,
+     "p90": 7.6,
+     "p95": 11.3,
+     "p99": 19.4
+    },
+    "3": {
+     "media_dia": 0.82,
+     "normal_mes": 25.4,
+     "frec_lluvia": 14.8,
+     "dias_lluviosos_base": 138,
+     "p90": 8.0,
+     "p95": 16.6,
+     "p99": 21.9
+    },
+    "4": {
+     "media_dia": 0.37,
+     "normal_mes": 11.1,
+     "frec_lluvia": 7.6,
+     "dias_lluviosos_base": 68,
+     "p90": 6.1,
+     "p95": 7.2,
+     "p99": 15.8
+    },
+    "5": {
+     "media_dia": 0.13,
+     "normal_mes": 4.0,
+     "frec_lluvia": 2.7,
+     "dias_lluviosos_base": 96,
+     "p90": 5.4,
+     "p95": 6.8,
+     "p99": 9.8
+    },
+    "6": {
+     "media_dia": 0.03,
+     "normal_mes": 1.0,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 32,
+     "p90": 3.2,
+     "p95": 4.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.4,
+     "dias_lluviosos_base": 8,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.02,
+     "normal_mes": 0.6,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 10,
+     "p90": 4.1,
+     "p95": 4.1,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.06,
+     "normal_mes": 1.7,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 4.1,
+     "p95": 5.1,
+     "p99": 14.9
+    },
+    "10": {
+     "media_dia": 0.17,
+     "normal_mes": 5.2,
+     "frec_lluvia": 2.6,
+     "dias_lluviosos_base": 65,
+     "p90": 3.8,
+     "p95": 5.4,
+     "p99": 16.8
+    },
+    "11": {
+     "media_dia": 0.19,
+     "normal_mes": 5.6,
+     "frec_lluvia": 4.0,
+     "dias_lluviosos_base": 36,
+     "p90": 3.2,
+     "p95": 4.6,
+     "p99": 12.5
+    },
+    "12": {
+     "media_dia": 0.21,
+     "normal_mes": 6.4,
+     "frec_lluvia": 3.9,
+     "dias_lluviosos_base": 36,
+     "p90": 3.2,
+     "p95": 3.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002100701": {
+   "tienda": "FLB Trujillo CC",
+   "ciudad": "Trujillo",
+   "meses": {
+    "1": {
+     "media_dia": 0.73,
+     "normal_mes": 22.5,
+     "frec_lluvia": 21.2,
+     "dias_lluviosos_base": 197,
+     "p90": 4.7,
+     "p95": 6.5,
+     "p99": 12.5
+    },
+    "2": {
+     "media_dia": 0.95,
+     "normal_mes": 26.7,
+     "frec_lluvia": 27.6,
+     "dias_lluviosos_base": 234,
+     "p90": 4.9,
+     "p95": 7.2,
+     "p99": 13.7
+    },
+    "3": {
+     "media_dia": 1.08,
+     "normal_mes": 33.6,
+     "frec_lluvia": 33.5,
+     "dias_lluviosos_base": 312,
+     "p90": 4.5,
+     "p95": 6.3,
+     "p99": 14.5
+    },
+    "4": {
+     "media_dia": 0.92,
+     "normal_mes": 27.7,
+     "frec_lluvia": 20.0,
+     "dias_lluviosos_base": 180,
+     "p90": 5.9,
+     "p95": 11.7,
+     "p99": 26.4
+    },
+    "5": {
+     "media_dia": 0.32,
+     "normal_mes": 10.0,
+     "frec_lluvia": 9.2,
+     "dias_lluviosos_base": 86,
+     "p90": 4.0,
+     "p95": 6.1,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.09,
+     "normal_mes": 2.7,
+     "frec_lluvia": 2.1,
+     "dias_lluviosos_base": 120,
+     "p90": 6.0,
+     "p95": 6.3,
+     "p99": 16.3
+    },
+    "7": {
+     "media_dia": 0.14,
+     "normal_mes": 4.5,
+     "frec_lluvia": 1.6,
+     "dias_lluviosos_base": 47,
+     "p90": 6.1,
+     "p95": 10.6,
+     "p99": 30.0
+    },
+    "8": {
+     "media_dia": 0.06,
+     "normal_mes": 1.7,
+     "frec_lluvia": 1.4,
+     "dias_lluviosos_base": 90,
+     "p90": 5.4,
+     "p95": 8.2,
+     "p99": 19.9
+    },
+    "9": {
+     "media_dia": 0.24,
+     "normal_mes": 7.1,
+     "frec_lluvia": 6.9,
+     "dias_lluviosos_base": 62,
+     "p90": 4.9,
+     "p95": 6.3,
+     "p99": 9.4
+    },
+    "10": {
+     "media_dia": 0.62,
+     "normal_mes": 19.2,
+     "frec_lluvia": 16.9,
+     "dias_lluviosos_base": 157,
+     "p90": 5.8,
+     "p95": 7.5,
+     "p99": 11.9
+    },
+    "11": {
+     "media_dia": 0.66,
+     "normal_mes": 19.7,
+     "frec_lluvia": 18.6,
+     "dias_lluviosos_base": 167,
+     "p90": 4.4,
+     "p95": 5.7,
+     "p99": 21.8
+    },
+    "12": {
+     "media_dia": 0.62,
+     "normal_mes": 19.3,
+     "frec_lluvia": 20.9,
+     "dias_lluviosos_base": 194,
+     "p90": 3.9,
+     "p95": 4.7,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002100801": {
+   "tienda": "FLB Chimbote",
+   "ciudad": "Chimbote",
+   "meses": {
+    "1": {
+     "media_dia": 0.23,
+     "normal_mes": 7.0,
+     "frec_lluvia": 4.6,
+     "dias_lluviosos_base": 43,
+     "p90": 5.3,
+     "p95": 7.5,
+     "p99": 11.3
+    },
+    "2": {
+     "media_dia": 0.27,
+     "normal_mes": 7.7,
+     "frec_lluvia": 6.8,
+     "dias_lluviosos_base": 58,
+     "p90": 3.6,
+     "p95": 5.1,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.36,
+     "normal_mes": 11.1,
+     "frec_lluvia": 8.9,
+     "dias_lluviosos_base": 83,
+     "p90": 5.0,
+     "p95": 5.6,
+     "p99": 10.9
+    },
+    "4": {
+     "media_dia": 0.26,
+     "normal_mes": 7.8,
+     "frec_lluvia": 6.3,
+     "dias_lluviosos_base": 57,
+     "p90": 3.6,
+     "p95": 7.0,
+     "p99": 20.3
+    },
+    "5": {
+     "media_dia": 0.14,
+     "normal_mes": 4.2,
+     "frec_lluvia": 3.1,
+     "dias_lluviosos_base": 87,
+     "p90": 4.6,
+     "p95": 6.9,
+     "p99": 13.6
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 34,
+     "p90": 6.6,
+     "p95": 10.2,
+     "p99": 15.7
+    },
+    "7": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.4,
+     "dias_lluviosos_base": 9,
+     "p90": 14.7,
+     "p95": 15.6,
+     "p99": 16.3
+    },
+    "8": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.4,
+     "dias_lluviosos_base": 23,
+     "p90": 9.3,
+     "p95": 13.9,
+     "p99": 16.0
+    },
+    "9": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 68,
+     "p90": 5.7,
+     "p95": 6.2,
+     "p99": 9.8
+    },
+    "10": {
+     "media_dia": 0.23,
+     "normal_mes": 7.1,
+     "frec_lluvia": 5.3,
+     "dias_lluviosos_base": 49,
+     "p90": 5.8,
+     "p95": 6.2,
+     "p99": 8.4
+    },
+    "11": {
+     "media_dia": 0.19,
+     "normal_mes": 5.6,
+     "frec_lluvia": 4.2,
+     "dias_lluviosos_base": 38,
+     "p90": 3.3,
+     "p95": 4.5,
+     "p99": 14.8
+    },
+    "12": {
+     "media_dia": 0.28,
+     "normal_mes": 8.7,
+     "frec_lluvia": 5.3,
+     "dias_lluviosos_base": 49,
+     "p90": 4.4,
+     "p95": 5.8,
+     "p99": 28.9
+    }
+   }
+  },
+  "P002100901": {
+   "tienda": "FLB Cajamarca",
+   "ciudad": "Cajamarca",
+   "meses": {
+    "1": {
+     "media_dia": 1.94,
+     "normal_mes": 60.0,
+     "frec_lluvia": 34.6,
+     "dias_lluviosos_base": 322,
+     "p90": 10.6,
+     "p95": 14.6,
+     "p99": 22.7
+    },
+    "2": {
+     "media_dia": 2.38,
+     "normal_mes": 67.2,
+     "frec_lluvia": 44.1,
+     "dias_lluviosos_base": 374,
+     "p90": 9.5,
+     "p95": 14.0,
+     "p99": 25.6
+    },
+    "3": {
+     "media_dia": 2.74,
+     "normal_mes": 84.9,
+     "frec_lluvia": 51.2,
+     "dias_lluviosos_base": 476,
+     "p90": 10.2,
+     "p95": 13.7,
+     "p99": 20.9
+    },
+    "4": {
+     "media_dia": 2.0,
+     "normal_mes": 60.0,
+     "frec_lluvia": 35.0,
+     "dias_lluviosos_base": 315,
+     "p90": 9.8,
+     "p95": 14.1,
+     "p99": 43.5
+    },
+    "5": {
+     "media_dia": 0.73,
+     "normal_mes": 22.7,
+     "frec_lluvia": 18.0,
+     "dias_lluviosos_base": 167,
+     "p90": 7.5,
+     "p95": 8.4,
+     "p99": 13.1
+    },
+    "6": {
+     "media_dia": 0.23,
+     "normal_mes": 6.8,
+     "frec_lluvia": 5.7,
+     "dias_lluviosos_base": 51,
+     "p90": 5.8,
+     "p95": 6.3,
+     "p99": 9.8
+    },
+    "7": {
+     "media_dia": 0.21,
+     "normal_mes": 6.6,
+     "frec_lluvia": 3.7,
+     "dias_lluviosos_base": 34,
+     "p90": 8.0,
+     "p95": 8.8,
+     "p99": 40.4
+    },
+    "8": {
+     "media_dia": 0.14,
+     "normal_mes": 4.2,
+     "frec_lluvia": 3.4,
+     "dias_lluviosos_base": 32,
+     "p90": 4.7,
+     "p95": 5.3,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.56,
+     "normal_mes": 16.8,
+     "frec_lluvia": 12.6,
+     "dias_lluviosos_base": 113,
+     "p90": 7.5,
+     "p95": 11.4,
+     "p99": 16.5
+    },
+    "10": {
+     "media_dia": 1.4,
+     "normal_mes": 43.3,
+     "frec_lluvia": 28.7,
+     "dias_lluviosos_base": 267,
+     "p90": 8.7,
+     "p95": 10.6,
+     "p99": 18.2
+    },
+    "11": {
+     "media_dia": 1.71,
+     "normal_mes": 51.2,
+     "frec_lluvia": 32.4,
+     "dias_lluviosos_base": 292,
+     "p90": 10.3,
+     "p95": 13.2,
+     "p99": 18.9
+    },
+    "12": {
+     "media_dia": 1.68,
+     "normal_mes": 52.0,
+     "frec_lluvia": 35.6,
+     "dias_lluviosos_base": 331,
+     "p90": 8.5,
+     "p95": 11.5,
+     "p99": 17.1
+    }
+   }
+  },
+  "P002101401": {
+   "tienda": "FLB Canete MP",
+   "ciudad": "Cañete",
+   "meses": {
+    "1": {
+     "media_dia": 0.2,
+     "normal_mes": 6.3,
+     "frec_lluvia": 3.5,
+     "dias_lluviosos_base": 33,
+     "p90": 4.5,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.25,
+     "normal_mes": 7.1,
+     "frec_lluvia": 5.5,
+     "dias_lluviosos_base": 47,
+     "p90": 3.6,
+     "p95": 4.0,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.18,
+     "normal_mes": 5.6,
+     "frec_lluvia": 3.3,
+     "dias_lluviosos_base": 31,
+     "p90": 3.5,
+     "p95": 3.9,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.04,
+     "normal_mes": 1.3,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 37,
+     "p90": 3.6,
+     "p95": 4.1,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.4,
+     "dias_lluviosos_base": 6,
+     "p90": 5.2,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.5,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 7,
+     "p90": 4.8,
+     "p95": 5.8,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.02,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 7,
+     "p90": 3.0,
+     "p95": 3.9,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.03,
+     "normal_mes": 1.0,
+     "frec_lluvia": 0.4,
+     "dias_lluviosos_base": 11,
+     "p90": 2.9,
+     "p95": 3.9,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.05,
+     "normal_mes": 1.4,
+     "frec_lluvia": 0.4,
+     "dias_lluviosos_base": 29,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.13,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.3,
+     "dias_lluviosos_base": 37,
+     "p90": 5.2,
+     "p95": 5.8,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.1,
+     "normal_mes": 3.0,
+     "frec_lluvia": 1.3,
+     "dias_lluviosos_base": 62,
+     "p90": 4.9,
+     "p95": 5.6,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.19,
+     "normal_mes": 5.8,
+     "frec_lluvia": 3.1,
+     "dias_lluviosos_base": 74,
+     "p90": 4.1,
+     "p95": 4.8,
+     "p99": 9.3
+    }
+   }
+  },
+  "P002101201": {
+   "tienda": "FLB Ica Mall",
+   "ciudad": "Ica",
+   "meses": {
+    "1": {
+     "media_dia": 0.4,
+     "normal_mes": 12.5,
+     "frec_lluvia": 11.2,
+     "dias_lluviosos_base": 104,
+     "p90": 3.9,
+     "p95": 5.7,
+     "p99": 8.8
+    },
+    "2": {
+     "media_dia": 0.48,
+     "normal_mes": 13.7,
+     "frec_lluvia": 14.3,
+     "dias_lluviosos_base": 121,
+     "p90": 4.2,
+     "p95": 5.2,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.34,
+     "normal_mes": 10.7,
+     "frec_lluvia": 8.3,
+     "dias_lluviosos_base": 77,
+     "p90": 3.7,
+     "p95": 5.1,
+     "p99": 10.3
+    },
+    "4": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 2.6,
+     "dias_lluviosos_base": 115,
+     "p90": 3.7,
+     "p95": 5.3,
+     "p99": 11.5
+    },
+    "5": {
+     "media_dia": 0.09,
+     "normal_mes": 2.7,
+     "frec_lluvia": 1.6,
+     "dias_lluviosos_base": 39,
+     "p90": 3.4,
+     "p95": 5.8,
+     "p99": 13.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 21,
+     "p90": 5.2,
+     "p95": 11.7,
+     "p99": 13.3
+    },
+    "7": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.5,
+     "dias_lluviosos_base": 12,
+     "p90": 3.3,
+     "p95": 5.1,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.05,
+     "normal_mes": 1.5,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 31,
+     "p90": 3.3,
+     "p95": 4.8,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.09,
+     "normal_mes": 2.6,
+     "frec_lluvia": 2.2,
+     "dias_lluviosos_base": 64,
+     "p90": 5.2,
+     "p95": 6.2,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.21,
+     "normal_mes": 6.4,
+     "frec_lluvia": 4.1,
+     "dias_lluviosos_base": 38,
+     "p90": 5.4,
+     "p95": 6.2,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.2,
+     "normal_mes": 6.0,
+     "frec_lluvia": 4.8,
+     "dias_lluviosos_base": 43,
+     "p90": 3.3,
+     "p95": 4.3,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.4,
+     "normal_mes": 12.3,
+     "frec_lluvia": 11.5,
+     "dias_lluviosos_base": 107,
+     "p90": 4.0,
+     "p95": 5.7,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002102101": {
+   "tienda": "FLB Huancayo",
+   "ciudad": "Huancayo",
+   "meses": {
+    "1": {
+     "media_dia": 2.03,
+     "normal_mes": 62.9,
+     "frec_lluvia": 45.2,
+     "dias_lluviosos_base": 420,
+     "p90": 8.0,
+     "p95": 10.6,
+     "p99": 24.2
+    },
+    "2": {
+     "media_dia": 2.59,
+     "normal_mes": 73.3,
+     "frec_lluvia": 49.6,
+     "dias_lluviosos_base": 421,
+     "p90": 9.7,
+     "p95": 12.2,
+     "p99": 27.1
+    },
+    "3": {
+     "media_dia": 2.06,
+     "normal_mes": 63.9,
+     "frec_lluvia": 43.4,
+     "dias_lluviosos_base": 404,
+     "p90": 7.8,
+     "p95": 10.4,
+     "p99": 18.7
+    },
+    "4": {
+     "media_dia": 0.55,
+     "normal_mes": 16.4,
+     "frec_lluvia": 14.6,
+     "dias_lluviosos_base": 131,
+     "p90": 6.2,
+     "p95": 8.9,
+     "p99": 12.8
+    },
+    "5": {
+     "media_dia": 0.26,
+     "normal_mes": 8.1,
+     "frec_lluvia": 6.1,
+     "dias_lluviosos_base": 57,
+     "p90": 5.6,
+     "p95": 6.8,
+     "p99": 19.7
+    },
+    "6": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 3.1,
+     "dias_lluviosos_base": 126,
+     "p90": 6.5,
+     "p95": 8.2,
+     "p99": 17.6
+    },
+    "7": {
+     "media_dia": 0.2,
+     "normal_mes": 6.2,
+     "frec_lluvia": 4.4,
+     "dias_lluviosos_base": 41,
+     "p90": 8.3,
+     "p95": 10.6,
+     "p99": 12.4
+    },
+    "8": {
+     "media_dia": 0.22,
+     "normal_mes": 7.0,
+     "frec_lluvia": 6.0,
+     "dias_lluviosos_base": 56,
+     "p90": 4.7,
+     "p95": 8.7,
+     "p99": 15.5
+    },
+    "9": {
+     "media_dia": 0.44,
+     "normal_mes": 13.3,
+     "frec_lluvia": 12.4,
+     "dias_lluviosos_base": 112,
+     "p90": 5.3,
+     "p95": 8.4,
+     "p99": 10.3
+    },
+    "10": {
+     "media_dia": 0.98,
+     "normal_mes": 30.5,
+     "frec_lluvia": 21.8,
+     "dias_lluviosos_base": 203,
+     "p90": 8.0,
+     "p95": 12.3,
+     "p99": 21.6
+    },
+    "11": {
+     "media_dia": 1.16,
+     "normal_mes": 34.7,
+     "frec_lluvia": 27.4,
+     "dias_lluviosos_base": 247,
+     "p90": 7.2,
+     "p95": 10.3,
+     "p99": 21.3
+    },
+    "12": {
+     "media_dia": 2.03,
+     "normal_mes": 63.0,
+     "frec_lluvia": 43.1,
+     "dias_lluviosos_base": 401,
+     "p90": 8.7,
+     "p95": 11.1,
+     "p99": 23.4
+    }
+   }
+  },
+  "P002103301": {
+   "tienda": "FLB Exp Huaraz",
+   "ciudad": "Huaraz",
+   "meses": {
+    "1": {
+     "media_dia": 1.74,
+     "normal_mes": 53.9,
+     "frec_lluvia": 33.4,
+     "dias_lluviosos_base": 311,
+     "p90": 10.1,
+     "p95": 13.8,
+     "p99": 25.5
+    },
+    "2": {
+     "media_dia": 2.1,
+     "normal_mes": 59.4,
+     "frec_lluvia": 36.7,
+     "dias_lluviosos_base": 311,
+     "p90": 11.5,
+     "p95": 14.6,
+     "p99": 26.6
+    },
+    "3": {
+     "media_dia": 2.09,
+     "normal_mes": 64.7,
+     "frec_lluvia": 36.8,
+     "dias_lluviosos_base": 342,
+     "p90": 12.0,
+     "p95": 13.8,
+     "p99": 19.5
+    },
+    "4": {
+     "media_dia": 1.21,
+     "normal_mes": 36.4,
+     "frec_lluvia": 23.6,
+     "dias_lluviosos_base": 212,
+     "p90": 10.3,
+     "p95": 12.6,
+     "p99": 16.1
+    },
+    "5": {
+     "media_dia": 0.88,
+     "normal_mes": 27.3,
+     "frec_lluvia": 17.1,
+     "dias_lluviosos_base": 159,
+     "p90": 10.1,
+     "p95": 12.8,
+     "p99": 19.2
+    },
+    "6": {
+     "media_dia": 0.32,
+     "normal_mes": 9.7,
+     "frec_lluvia": 8.0,
+     "dias_lluviosos_base": 72,
+     "p90": 6.1,
+     "p95": 7.6,
+     "p99": 9.7
+    },
+    "7": {
+     "media_dia": 0.28,
+     "normal_mes": 8.6,
+     "frec_lluvia": 6.6,
+     "dias_lluviosos_base": 61,
+     "p90": 7.1,
+     "p95": 8.4,
+     "p99": 13.2
+    },
+    "8": {
+     "media_dia": 0.25,
+     "normal_mes": 7.9,
+     "frec_lluvia": 6.2,
+     "dias_lluviosos_base": 58,
+     "p90": 5.9,
+     "p95": 9.7,
+     "p99": 16.4
+    },
+    "9": {
+     "media_dia": 0.59,
+     "normal_mes": 17.8,
+     "frec_lluvia": 14.0,
+     "dias_lluviosos_base": 126,
+     "p90": 7.6,
+     "p95": 9.9,
+     "p99": 12.4
+    },
+    "10": {
+     "media_dia": 1.1,
+     "normal_mes": 34.0,
+     "frec_lluvia": 21.4,
+     "dias_lluviosos_base": 199,
+     "p90": 8.8,
+     "p95": 13.1,
+     "p99": 18.7
+    },
+    "11": {
+     "media_dia": 1.56,
+     "normal_mes": 46.7,
+     "frec_lluvia": 30.2,
+     "dias_lluviosos_base": 272,
+     "p90": 10.8,
+     "p95": 16.1,
+     "p99": 27.3
+    },
+    "12": {
+     "media_dia": 2.01,
+     "normal_mes": 62.4,
+     "frec_lluvia": 36.7,
+     "dias_lluviosos_base": 341,
+     "p90": 11.5,
+     "p95": 15.2,
+     "p99": 24.4
+    }
+   }
+  },
+  "P002103501": {
+   "tienda": "FLB Exp.Ayacucho",
+   "ciudad": "Ayacucho",
+   "meses": {
+    "1": {
+     "media_dia": 3.11,
+     "normal_mes": 96.4,
+     "frec_lluvia": 57.5,
+     "dias_lluviosos_base": 535,
+     "p90": 10.9,
+     "p95": 14.5,
+     "p99": 26.4
+    },
+    "2": {
+     "media_dia": 3.86,
+     "normal_mes": 109.0,
+     "frec_lluvia": 62.3,
+     "dias_lluviosos_base": 528,
+     "p90": 12.1,
+     "p95": 15.5,
+     "p99": 28.0
+    },
+    "3": {
+     "media_dia": 2.99,
+     "normal_mes": 92.6,
+     "frec_lluvia": 53.4,
+     "dias_lluviosos_base": 497,
+     "p90": 10.3,
+     "p95": 14.2,
+     "p99": 20.5
+    },
+    "4": {
+     "media_dia": 0.79,
+     "normal_mes": 23.8,
+     "frec_lluvia": 19.2,
+     "dias_lluviosos_base": 173,
+     "p90": 7.3,
+     "p95": 11.0,
+     "p99": 16.7
+    },
+    "5": {
+     "media_dia": 0.38,
+     "normal_mes": 11.8,
+     "frec_lluvia": 8.4,
+     "dias_lluviosos_base": 78,
+     "p90": 6.3,
+     "p95": 8.3,
+     "p99": 31.5
+    },
+    "6": {
+     "media_dia": 0.15,
+     "normal_mes": 4.6,
+     "frec_lluvia": 4.7,
+     "dias_lluviosos_base": 42,
+     "p90": 5.8,
+     "p95": 6.8,
+     "p99": 8.8
+    },
+    "7": {
+     "media_dia": 0.27,
+     "normal_mes": 8.4,
+     "frec_lluvia": 5.8,
+     "dias_lluviosos_base": 54,
+     "p90": 10.7,
+     "p95": 13.9,
+     "p99": 14.9
+    },
+    "8": {
+     "media_dia": 0.32,
+     "normal_mes": 9.8,
+     "frec_lluvia": 8.8,
+     "dias_lluviosos_base": 82,
+     "p90": 6.2,
+     "p95": 10.1,
+     "p99": 12.5
+    },
+    "9": {
+     "media_dia": 0.66,
+     "normal_mes": 19.9,
+     "frec_lluvia": 15.7,
+     "dias_lluviosos_base": 141,
+     "p90": 6.9,
+     "p95": 9.4,
+     "p99": 12.8
+    },
+    "10": {
+     "media_dia": 1.35,
+     "normal_mes": 41.9,
+     "frec_lluvia": 27.3,
+     "dias_lluviosos_base": 254,
+     "p90": 9.0,
+     "p95": 13.4,
+     "p99": 29.1
+    },
+    "11": {
+     "media_dia": 1.66,
+     "normal_mes": 49.9,
+     "frec_lluvia": 33.2,
+     "dias_lluviosos_base": 299,
+     "p90": 9.2,
+     "p95": 13.2,
+     "p99": 27.7
+    },
+    "12": {
+     "media_dia": 2.97,
+     "normal_mes": 92.2,
+     "frec_lluvia": 51.3,
+     "dias_lluviosos_base": 477,
+     "p90": 11.4,
+     "p95": 14.5,
+     "p99": 26.5
+    }
+   }
+  },
+  "P002102701": {
+   "tienda": "FLB Arequipa (Cayma)",
+   "ciudad": "Arequipa",
+   "meses": {
+    "1": {
+     "media_dia": 1.14,
+     "normal_mes": 35.3,
+     "frec_lluvia": 28.9,
+     "dias_lluviosos_base": 269,
+     "p90": 6.7,
+     "p95": 8.7,
+     "p99": 16.9
+    },
+    "2": {
+     "media_dia": 1.41,
+     "normal_mes": 40.0,
+     "frec_lluvia": 32.2,
+     "dias_lluviosos_base": 273,
+     "p90": 8.5,
+     "p95": 11.6,
+     "p99": 20.4
+    },
+    "3": {
+     "media_dia": 0.82,
+     "normal_mes": 25.3,
+     "frec_lluvia": 17.8,
+     "dias_lluviosos_base": 166,
+     "p90": 7.5,
+     "p95": 12.2,
+     "p99": 26.1
+    },
+    "4": {
+     "media_dia": 0.18,
+     "normal_mes": 5.4,
+     "frec_lluvia": 5.1,
+     "dias_lluviosos_base": 46,
+     "p90": 4.2,
+     "p95": 5.6,
+     "p99": 8.9
+    },
+    "5": {
+     "media_dia": 0.05,
+     "normal_mes": 1.7,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 60,
+     "p90": 4.5,
+     "p95": 5.7,
+     "p99": 12.8
+    },
+    "6": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 20,
+     "p90": 7.7,
+     "p95": 8.7,
+     "p99": 14.2
+    },
+    "7": {
+     "media_dia": 0.04,
+     "normal_mes": 1.4,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 19,
+     "p90": 7.8,
+     "p95": 8.5,
+     "p99": 9.8
+    },
+    "8": {
+     "media_dia": 0.05,
+     "normal_mes": 1.6,
+     "frec_lluvia": 0.9,
+     "dias_lluviosos_base": 34,
+     "p90": 7.5,
+     "p95": 8.9,
+     "p99": 11.5
+    },
+    "9": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 2.2,
+     "dias_lluviosos_base": 63,
+     "p90": 5.5,
+     "p95": 9.8,
+     "p99": 18.8
+    },
+    "10": {
+     "media_dia": 0.19,
+     "normal_mes": 5.9,
+     "frec_lluvia": 3.8,
+     "dias_lluviosos_base": 35,
+     "p90": 6.0,
+     "p95": 8.4,
+     "p99": 23.4
+    },
+    "11": {
+     "media_dia": 0.13,
+     "normal_mes": 3.8,
+     "frec_lluvia": 3.1,
+     "dias_lluviosos_base": 175,
+     "p90": 4.5,
+     "p95": 6.0,
+     "p99": 19.3
+    },
+    "12": {
+     "media_dia": 0.44,
+     "normal_mes": 13.6,
+     "frec_lluvia": 12.0,
+     "dias_lluviosos_base": 112,
+     "p90": 4.6,
+     "p95": 5.6,
+     "p99": 16.7
+    }
+   }
+  },
+  "P002101001": {
+   "tienda": "FLB Porongoche",
+   "ciudad": "Arequipa",
+   "meses": {
+    "1": {
+     "media_dia": 1.14,
+     "normal_mes": 35.3,
+     "frec_lluvia": 28.9,
+     "dias_lluviosos_base": 269,
+     "p90": 6.7,
+     "p95": 8.7,
+     "p99": 16.9
+    },
+    "2": {
+     "media_dia": 1.41,
+     "normal_mes": 40.0,
+     "frec_lluvia": 32.2,
+     "dias_lluviosos_base": 273,
+     "p90": 8.5,
+     "p95": 11.6,
+     "p99": 20.4
+    },
+    "3": {
+     "media_dia": 0.82,
+     "normal_mes": 25.3,
+     "frec_lluvia": 17.8,
+     "dias_lluviosos_base": 166,
+     "p90": 7.5,
+     "p95": 12.2,
+     "p99": 26.1
+    },
+    "4": {
+     "media_dia": 0.18,
+     "normal_mes": 5.4,
+     "frec_lluvia": 5.1,
+     "dias_lluviosos_base": 46,
+     "p90": 4.2,
+     "p95": 5.6,
+     "p99": 8.9
+    },
+    "5": {
+     "media_dia": 0.05,
+     "normal_mes": 1.7,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 60,
+     "p90": 4.5,
+     "p95": 5.7,
+     "p99": 12.8
+    },
+    "6": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 20,
+     "p90": 7.7,
+     "p95": 8.7,
+     "p99": 14.2
+    },
+    "7": {
+     "media_dia": 0.04,
+     "normal_mes": 1.4,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 19,
+     "p90": 7.8,
+     "p95": 8.5,
+     "p99": 9.8
+    },
+    "8": {
+     "media_dia": 0.05,
+     "normal_mes": 1.6,
+     "frec_lluvia": 0.9,
+     "dias_lluviosos_base": 34,
+     "p90": 7.5,
+     "p95": 8.9,
+     "p99": 11.5
+    },
+    "9": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 2.2,
+     "dias_lluviosos_base": 63,
+     "p90": 5.5,
+     "p95": 9.8,
+     "p99": 18.8
+    },
+    "10": {
+     "media_dia": 0.19,
+     "normal_mes": 5.9,
+     "frec_lluvia": 3.8,
+     "dias_lluviosos_base": 35,
+     "p90": 6.0,
+     "p95": 8.4,
+     "p99": 23.4
+    },
+    "11": {
+     "media_dia": 0.13,
+     "normal_mes": 3.8,
+     "frec_lluvia": 3.1,
+     "dias_lluviosos_base": 175,
+     "p90": 4.5,
+     "p95": 6.0,
+     "p99": 19.3
+    },
+    "12": {
+     "media_dia": 0.44,
+     "normal_mes": 13.6,
+     "frec_lluvia": 12.0,
+     "dias_lluviosos_base": 112,
+     "p90": 4.6,
+     "p95": 5.6,
+     "p99": 16.7
+    }
+   }
+  },
+  "P002103201": {
+   "tienda": "FLB Cusco",
+   "ciudad": "Cusco",
+   "meses": {
+    "1": {
+     "media_dia": 4.28,
+     "normal_mes": 132.6,
+     "frec_lluvia": 69.5,
+     "dias_lluviosos_base": 646,
+     "p90": 12.3,
+     "p95": 15.8,
+     "p99": 24.7
+    },
+    "2": {
+     "media_dia": 4.37,
+     "normal_mes": 123.5,
+     "frec_lluvia": 71.2,
+     "dias_lluviosos_base": 604,
+     "p90": 12.9,
+     "p95": 15.8,
+     "p99": 23.9
+    },
+    "3": {
+     "media_dia": 3.06,
+     "normal_mes": 94.9,
+     "frec_lluvia": 59.7,
+     "dias_lluviosos_base": 555,
+     "p90": 10.4,
+     "p95": 14.2,
+     "p99": 19.9
+    },
+    "4": {
+     "media_dia": 1.29,
+     "normal_mes": 38.8,
+     "frec_lluvia": 23.6,
+     "dias_lluviosos_base": 212,
+     "p90": 8.7,
+     "p95": 13.7,
+     "p99": 43.3
+    },
+    "5": {
+     "media_dia": 0.26,
+     "normal_mes": 8.0,
+     "frec_lluvia": 7.6,
+     "dias_lluviosos_base": 71,
+     "p90": 4.5,
+     "p95": 4.8,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 4.4,
+     "dias_lluviosos_base": 40,
+     "p90": 4.5,
+     "p95": 5.7,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.24,
+     "normal_mes": 7.6,
+     "frec_lluvia": 4.4,
+     "dias_lluviosos_base": 41,
+     "p90": 9.8,
+     "p95": 13.1,
+     "p99": 26.6
+    },
+    "8": {
+     "media_dia": 0.28,
+     "normal_mes": 8.7,
+     "frec_lluvia": 6.2,
+     "dias_lluviosos_base": 58,
+     "p90": 7.3,
+     "p95": 10.5,
+     "p99": 14.8
+    },
+    "9": {
+     "media_dia": 0.6,
+     "normal_mes": 18.0,
+     "frec_lluvia": 14.8,
+     "dias_lluviosos_base": 133,
+     "p90": 6.6,
+     "p95": 9.0,
+     "p99": 17.1
+    },
+    "10": {
+     "media_dia": 1.89,
+     "normal_mes": 58.4,
+     "frec_lluvia": 36.6,
+     "dias_lluviosos_base": 340,
+     "p90": 10.4,
+     "p95": 12.7,
+     "p99": 28.7
+    },
+    "11": {
+     "media_dia": 2.4,
+     "normal_mes": 71.9,
+     "frec_lluvia": 41.0,
+     "dias_lluviosos_base": 369,
+     "p90": 12.0,
+     "p95": 15.8,
+     "p99": 23.7
+    },
+    "12": {
+     "media_dia": 4.18,
+     "normal_mes": 129.7,
+     "frec_lluvia": 64.3,
+     "dias_lluviosos_base": 598,
+     "p90": 13.0,
+     "p95": 16.9,
+     "p99": 32.7
+    }
+   }
+  },
+  "P002102901": {
+   "tienda": "FLB Merced",
+   "ciudad": "La Merced",
+   "meses": {
+    "1": {
+     "media_dia": 1.06,
+     "normal_mes": 32.9,
+     "frec_lluvia": 27.7,
+     "dias_lluviosos_base": 258,
+     "p90": 6.2,
+     "p95": 8.6,
+     "p99": 13.9
+    },
+    "2": {
+     "media_dia": 1.32,
+     "normal_mes": 37.3,
+     "frec_lluvia": 32.2,
+     "dias_lluviosos_base": 273,
+     "p90": 7.0,
+     "p95": 9.1,
+     "p99": 15.5
+    },
+    "3": {
+     "media_dia": 1.18,
+     "normal_mes": 36.6,
+     "frec_lluvia": 28.4,
+     "dias_lluviosos_base": 264,
+     "p90": 6.9,
+     "p95": 9.1,
+     "p99": 13.3
+    },
+    "4": {
+     "media_dia": 0.44,
+     "normal_mes": 13.2,
+     "frec_lluvia": 12.0,
+     "dias_lluviosos_base": 108,
+     "p90": 5.3,
+     "p95": 6.4,
+     "p99": 8.5
+    },
+    "5": {
+     "media_dia": 0.29,
+     "normal_mes": 9.0,
+     "frec_lluvia": 7.5,
+     "dias_lluviosos_base": 70,
+     "p90": 5.4,
+     "p95": 7.1,
+     "p99": 8.3
+    },
+    "6": {
+     "media_dia": 0.22,
+     "normal_mes": 6.5,
+     "frec_lluvia": 5.1,
+     "dias_lluviosos_base": 46,
+     "p90": 5.4,
+     "p95": 8.2,
+     "p99": 14.7
+    },
+    "7": {
+     "media_dia": 0.18,
+     "normal_mes": 5.5,
+     "frec_lluvia": 3.9,
+     "dias_lluviosos_base": 36,
+     "p90": 5.9,
+     "p95": 6.3,
+     "p99": 17.5
+    },
+    "8": {
+     "media_dia": 0.19,
+     "normal_mes": 6.0,
+     "frec_lluvia": 3.8,
+     "dias_lluviosos_base": 35,
+     "p90": 5.1,
+     "p95": 7.8,
+     "p99": 30.1
+    },
+    "9": {
+     "media_dia": 0.27,
+     "normal_mes": 8.0,
+     "frec_lluvia": 8.1,
+     "dias_lluviosos_base": 73,
+     "p90": 4.1,
+     "p95": 5.1,
+     "p99": 8.1
+    },
+    "10": {
+     "media_dia": 0.69,
+     "normal_mes": 21.3,
+     "frec_lluvia": 15.9,
+     "dias_lluviosos_base": 148,
+     "p90": 6.9,
+     "p95": 11.6,
+     "p99": 15.5
+    },
+    "11": {
+     "media_dia": 0.83,
+     "normal_mes": 24.8,
+     "frec_lluvia": 19.1,
+     "dias_lluviosos_base": 172,
+     "p90": 8.8,
+     "p95": 12.7,
+     "p99": 18.2
+    },
+    "12": {
+     "media_dia": 1.25,
+     "normal_mes": 38.7,
+     "frec_lluvia": 25.4,
+     "dias_lluviosos_base": 236,
+     "p90": 8.7,
+     "p95": 11.0,
+     "p99": 32.6
+    }
+   }
+  },
+  "P004101702": {
+   "tienda": "FLB Iquitos",
+   "ciudad": "Iquitos",
+   "meses": {
+    "1": {
+     "media_dia": 9.0,
+     "normal_mes": 279.1,
+     "frec_lluvia": 70.4,
+     "dias_lluviosos_base": 655,
+     "p90": 28.0,
+     "p95": 43.3,
+     "p99": 70.4
+    },
+    "2": {
+     "media_dia": 8.86,
+     "normal_mes": 250.4,
+     "frec_lluvia": 71.0,
+     "dias_lluviosos_base": 602,
+     "p90": 27.1,
+     "p95": 37.8,
+     "p99": 57.7
+    },
+    "3": {
+     "media_dia": 10.19,
+     "normal_mes": 315.9,
+     "frec_lluvia": 75.3,
+     "dias_lluviosos_base": 700,
+     "p90": 31.0,
+     "p95": 41.9,
+     "p99": 69.1
+    },
+    "4": {
+     "media_dia": 9.85,
+     "normal_mes": 295.6,
+     "frec_lluvia": 71.2,
+     "dias_lluviosos_base": 641,
+     "p90": 31.2,
+     "p95": 42.3,
+     "p99": 64.6
+    },
+    "5": {
+     "media_dia": 8.13,
+     "normal_mes": 252.1,
+     "frec_lluvia": 66.3,
+     "dias_lluviosos_base": 617,
+     "p90": 28.7,
+     "p95": 40.0,
+     "p99": 69.9
+    },
+    "6": {
+     "media_dia": 6.15,
+     "normal_mes": 184.4,
+     "frec_lluvia": 59.4,
+     "dias_lluviosos_base": 535,
+     "p90": 22.2,
+     "p95": 33.5,
+     "p99": 55.6
+    },
+    "7": {
+     "media_dia": 4.46,
+     "normal_mes": 138.4,
+     "frec_lluvia": 50.1,
+     "dias_lluviosos_base": 466,
+     "p90": 20.8,
+     "p95": 30.1,
+     "p99": 42.0
+    },
+    "8": {
+     "media_dia": 4.63,
+     "normal_mes": 143.5,
+     "frec_lluvia": 46.5,
+     "dias_lluviosos_base": 432,
+     "p90": 22.1,
+     "p95": 32.6,
+     "p99": 54.2
+    },
+    "9": {
+     "media_dia": 5.87,
+     "normal_mes": 176.1,
+     "frec_lluvia": 51.7,
+     "dias_lluviosos_base": 465,
+     "p90": 27.7,
+     "p95": 36.0,
+     "p99": 56.4
+    },
+    "10": {
+     "media_dia": 7.66,
+     "normal_mes": 237.3,
+     "frec_lluvia": 63.0,
+     "dias_lluviosos_base": 586,
+     "p90": 29.6,
+     "p95": 48.3,
+     "p99": 79.9
+    },
+    "11": {
+     "media_dia": 8.14,
+     "normal_mes": 244.3,
+     "frec_lluvia": 67.0,
+     "dias_lluviosos_base": 603,
+     "p90": 30.0,
+     "p95": 42.2,
+     "p99": 73.3
+    },
+    "12": {
+     "media_dia": 8.45,
+     "normal_mes": 262.0,
+     "frec_lluvia": 71.1,
+     "dias_lluviosos_base": 661,
+     "p90": 27.4,
+     "p95": 39.0,
+     "p99": 56.7
+    }
+   }
+  },
+  "P004101301": {
+   "tienda": "FLB Pucallpa",
+   "ciudad": "Pucallpa",
+   "meses": {
+    "1": {
+     "media_dia": 5.42,
+     "normal_mes": 167.9,
+     "frec_lluvia": 66.3,
+     "dias_lluviosos_base": 617,
+     "p90": 21.2,
+     "p95": 31.0,
+     "p99": 66.3
+    },
+    "2": {
+     "media_dia": 6.27,
+     "normal_mes": 177.3,
+     "frec_lluvia": 69.8,
+     "dias_lluviosos_base": 592,
+     "p90": 22.6,
+     "p95": 32.4,
+     "p99": 55.5
+    },
+    "3": {
+     "media_dia": 5.58,
+     "normal_mes": 173.1,
+     "frec_lluvia": 72.0,
+     "dias_lluviosos_base": 670,
+     "p90": 18.6,
+     "p95": 28.0,
+     "p99": 43.7
+    },
+    "4": {
+     "media_dia": 4.83,
+     "normal_mes": 144.8,
+     "frec_lluvia": 61.3,
+     "dias_lluviosos_base": 552,
+     "p90": 19.4,
+     "p95": 26.1,
+     "p99": 59.3
+    },
+    "5": {
+     "media_dia": 2.95,
+     "normal_mes": 91.3,
+     "frec_lluvia": 46.1,
+     "dias_lluviosos_base": 429,
+     "p90": 13.1,
+     "p95": 21.9,
+     "p99": 37.1
+    },
+    "6": {
+     "media_dia": 2.18,
+     "normal_mes": 65.5,
+     "frec_lluvia": 29.9,
+     "dias_lluviosos_base": 269,
+     "p90": 19.0,
+     "p95": 26.3,
+     "p99": 44.6
+    },
+    "7": {
+     "media_dia": 1.61,
+     "normal_mes": 49.8,
+     "frec_lluvia": 24.2,
+     "dias_lluviosos_base": 225,
+     "p90": 14.3,
+     "p95": 23.4,
+     "p99": 44.2
+    },
+    "8": {
+     "media_dia": 1.53,
+     "normal_mes": 47.3,
+     "frec_lluvia": 23.0,
+     "dias_lluviosos_base": 214,
+     "p90": 13.9,
+     "p95": 22.0,
+     "p99": 39.2
+    },
+    "9": {
+     "media_dia": 2.55,
+     "normal_mes": 76.6,
+     "frec_lluvia": 38.4,
+     "dias_lluviosos_base": 346,
+     "p90": 16.1,
+     "p95": 24.6,
+     "p99": 40.8
+    },
+    "10": {
+     "media_dia": 4.27,
+     "normal_mes": 132.2,
+     "frec_lluvia": 52.9,
+     "dias_lluviosos_base": 492,
+     "p90": 19.9,
+     "p95": 30.0,
+     "p99": 42.1
+    },
+    "11": {
+     "media_dia": 5.04,
+     "normal_mes": 151.3,
+     "frec_lluvia": 59.3,
+     "dias_lluviosos_base": 534,
+     "p90": 21.4,
+     "p95": 30.3,
+     "p99": 57.3
+    },
+    "12": {
+     "media_dia": 4.74,
+     "normal_mes": 146.8,
+     "frec_lluvia": 64.7,
+     "dias_lluviosos_base": 602,
+     "p90": 15.4,
+     "p95": 27.0,
+     "p99": 55.6
+    }
+   }
+  },
+  "P004101601": {
+   "tienda": "FLB Huanuco Op",
+   "ciudad": "Huánuco",
+   "meses": {
+    "1": {
+     "media_dia": 2.74,
+     "normal_mes": 84.8,
+     "frec_lluvia": 46.8,
+     "dias_lluviosos_base": 435,
+     "p90": 11.7,
+     "p95": 15.3,
+     "p99": 26.8
+    },
+    "2": {
+     "media_dia": 3.28,
+     "normal_mes": 92.7,
+     "frec_lluvia": 52.0,
+     "dias_lluviosos_base": 441,
+     "p90": 13.4,
+     "p95": 17.4,
+     "p99": 32.6
+    },
+    "3": {
+     "media_dia": 2.95,
+     "normal_mes": 91.4,
+     "frec_lluvia": 50.6,
+     "dias_lluviosos_base": 471,
+     "p90": 12.7,
+     "p95": 16.1,
+     "p99": 25.2
+    },
+    "4": {
+     "media_dia": 1.52,
+     "normal_mes": 45.5,
+     "frec_lluvia": 33.2,
+     "dias_lluviosos_base": 299,
+     "p90": 10.2,
+     "p95": 13.3,
+     "p99": 23.0
+    },
+    "5": {
+     "media_dia": 1.21,
+     "normal_mes": 37.6,
+     "frec_lluvia": 25.1,
+     "dias_lluviosos_base": 233,
+     "p90": 9.7,
+     "p95": 15.0,
+     "p99": 24.1
+    },
+    "6": {
+     "media_dia": 0.77,
+     "normal_mes": 23.0,
+     "frec_lluvia": 17.2,
+     "dias_lluviosos_base": 155,
+     "p90": 8.8,
+     "p95": 11.7,
+     "p99": 21.2
+    },
+    "7": {
+     "media_dia": 0.62,
+     "normal_mes": 19.2,
+     "frec_lluvia": 11.7,
+     "dias_lluviosos_base": 109,
+     "p90": 8.3,
+     "p95": 16.0,
+     "p99": 32.8
+    },
+    "8": {
+     "media_dia": 0.58,
+     "normal_mes": 18.1,
+     "frec_lluvia": 13.0,
+     "dias_lluviosos_base": 121,
+     "p90": 7.0,
+     "p95": 9.8,
+     "p99": 12.5
+    },
+    "9": {
+     "media_dia": 0.93,
+     "normal_mes": 27.9,
+     "frec_lluvia": 21.6,
+     "dias_lluviosos_base": 194,
+     "p90": 8.3,
+     "p95": 11.3,
+     "p99": 14.7
+    },
+    "10": {
+     "media_dia": 1.79,
+     "normal_mes": 55.5,
+     "frec_lluvia": 31.6,
+     "dias_lluviosos_base": 294,
+     "p90": 12.4,
+     "p95": 14.6,
+     "p99": 31.5
+    },
+    "11": {
+     "media_dia": 2.36,
+     "normal_mes": 70.7,
+     "frec_lluvia": 42.1,
+     "dias_lluviosos_base": 379,
+     "p90": 11.1,
+     "p95": 16.3,
+     "p99": 31.9
+    },
+    "12": {
+     "media_dia": 2.98,
+     "normal_mes": 92.2,
+     "frec_lluvia": 48.5,
+     "dias_lluviosos_base": 451,
+     "p90": 12.5,
+     "p95": 18.3,
+     "p99": 27.3
+    }
+   }
+  },
+  "P004103901": {
+   "tienda": "FLB Tarapoto",
+   "ciudad": "Tarapoto",
+   "meses": {
+    "1": {
+     "media_dia": 3.22,
+     "normal_mes": 99.7,
+     "frec_lluvia": 43.2,
+     "dias_lluviosos_base": 402,
+     "p90": 16.5,
+     "p95": 22.1,
+     "p99": 33.9
+    },
+    "2": {
+     "media_dia": 4.3,
+     "normal_mes": 121.6,
+     "frec_lluvia": 55.1,
+     "dias_lluviosos_base": 467,
+     "p90": 18.8,
+     "p95": 23.2,
+     "p99": 38.4
+    },
+    "3": {
+     "media_dia": 4.43,
+     "normal_mes": 137.3,
+     "frec_lluvia": 58.1,
+     "dias_lluviosos_base": 540,
+     "p90": 17.0,
+     "p95": 21.6,
+     "p99": 37.7
+    },
+    "4": {
+     "media_dia": 4.27,
+     "normal_mes": 128.1,
+     "frec_lluvia": 52.6,
+     "dias_lluviosos_base": 473,
+     "p90": 17.6,
+     "p95": 22.8,
+     "p99": 38.4
+    },
+    "5": {
+     "media_dia": 2.99,
+     "normal_mes": 92.7,
+     "frec_lluvia": 42.7,
+     "dias_lluviosos_base": 397,
+     "p90": 14.8,
+     "p95": 19.4,
+     "p99": 36.5
+    },
+    "6": {
+     "media_dia": 2.27,
+     "normal_mes": 68.0,
+     "frec_lluvia": 31.2,
+     "dias_lluviosos_base": 281,
+     "p90": 16.1,
+     "p95": 21.6,
+     "p99": 33.8
+    },
+    "7": {
+     "media_dia": 1.58,
+     "normal_mes": 49.0,
+     "frec_lluvia": 23.5,
+     "dias_lluviosos_base": 219,
+     "p90": 13.0,
+     "p95": 21.8,
+     "p99": 37.9
+    },
+    "8": {
+     "media_dia": 1.27,
+     "normal_mes": 39.5,
+     "frec_lluvia": 22.4,
+     "dias_lluviosos_base": 208,
+     "p90": 11.0,
+     "p95": 14.4,
+     "p99": 32.6
+    },
+    "9": {
+     "media_dia": 2.49,
+     "normal_mes": 74.6,
+     "frec_lluvia": 32.8,
+     "dias_lluviosos_base": 295,
+     "p90": 15.9,
+     "p95": 21.5,
+     "p99": 36.0
+    },
+    "10": {
+     "media_dia": 3.29,
+     "normal_mes": 101.9,
+     "frec_lluvia": 44.4,
+     "dias_lluviosos_base": 413,
+     "p90": 15.8,
+     "p95": 20.3,
+     "p99": 41.3
+    },
+    "11": {
+     "media_dia": 3.99,
+     "normal_mes": 119.8,
+     "frec_lluvia": 47.7,
+     "dias_lluviosos_base": 429,
+     "p90": 19.0,
+     "p95": 27.8,
+     "p99": 41.8
+    },
+    "12": {
+     "media_dia": 3.49,
+     "normal_mes": 108.1,
+     "frec_lluvia": 48.0,
+     "dias_lluviosos_base": 446,
+     "p90": 18.1,
+     "p95": 23.2,
+     "p99": 35.8
+    }
+   }
+  },
+  "CD-LURIN": {
+   "tienda": "CD Lurín",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.15,
+     "normal_mes": 4.5,
+     "frec_lluvia": 3.2,
+     "dias_lluviosos_base": 30,
+     "p90": 3.1,
+     "p95": 3.5,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.22,
+     "normal_mes": 6.3,
+     "frec_lluvia": 5.2,
+     "dias_lluviosos_base": 44,
+     "p90": 3.2,
+     "p95": 4.6,
+     "p99": 15.3
+    },
+    "3": {
+     "media_dia": 0.19,
+     "normal_mes": 5.8,
+     "frec_lluvia": 4.2,
+     "dias_lluviosos_base": 39,
+     "p90": 4.1,
+     "p95": 5.2,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 43,
+     "p90": 3.9,
+     "p95": 5.1,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 1.0,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.9,
+     "p95": 3.2,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.0,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 3,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.03,
+     "normal_mes": 1.0,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 3,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 18,
+     "p90": 4.2,
+     "p95": 4.2,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.08,
+     "normal_mes": 2.6,
+     "frec_lluvia": 1.6,
+     "dias_lluviosos_base": 25,
+     "p90": 4.1,
+     "p95": 4.2,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.9,
+     "dias_lluviosos_base": 35,
+     "p90": 4.0,
+     "p95": 4.2,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.1,
+     "normal_mes": 3.0,
+     "frec_lluvia": 1.3,
+     "dias_lluviosos_base": 50,
+     "p90": 3.1,
+     "p95": 3.5,
+     "p99": 8.0
+    }
+   }
+  },
+  "CD-VES": {
+   "tienda": "CD Villa El Salvador",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002100501": {
+   "tienda": "FLB Santa Anita",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002103001": {
+   "tienda": "FLB Puruchuco",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002100401": {
+   "tienda": "FLB Mega Plaza",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002101101": {
+   "tienda": "FLB Lima Norte (Plaza Norte)",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002102401": {
+   "tienda": "FLB Bellavista",
+   "ciudad": "Callao",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002102801": {
+   "tienda": "FLB San Miguel",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002101901": {
+   "tienda": "FLB Mall del Sur",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002102501": {
+   "tienda": "FLB Atocongo",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002103101": {
+   "tienda": "FLB Comas",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002101801": {
+   "tienda": "FLB Centro Civico",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002102001": {
+   "tienda": "FLB Lima Centro",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "EXPO-LIMA-CENTRO": {
+   "tienda": "FLB Expo Lima Centro",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002102601": {
+   "tienda": "FLB Angamos",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002100301": {
+   "tienda": "FLB Miraflores",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002101501": {
+   "tienda": "FLB Salaverry",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002100201": {
+   "tienda": "FLB Jockey Plaza",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002100101": {
+   "tienda": "FLB San Isidro",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "CORP-SAN-ISIDRO": {
+   "tienda": "Oficinas SF San Isidro",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002103801": {
+   "tienda": "FLB MOLINA",
+   "ciudad": "Lima",
+   "meses": {
+    "1": {
+     "media_dia": 0.1,
+     "normal_mes": 3.2,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 40,
+     "p90": 4.8,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "2": {
+     "media_dia": 0.15,
+     "normal_mes": 4.2,
+     "frec_lluvia": 2.0,
+     "dias_lluviosos_base": 54,
+     "p90": 4.1,
+     "p95": 4.9,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.13,
+     "normal_mes": 3.9,
+     "frec_lluvia": 2.5,
+     "dias_lluviosos_base": 40,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.03,
+     "normal_mes": 0.8,
+     "frec_lluvia": 0.0,
+     "dias_lluviosos_base": 26,
+     "p90": 3.1,
+     "p95": 3.6,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.03,
+     "normal_mes": 0.9,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 4,
+     "p90": 1.0,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.02,
+     "normal_mes": 0.7,
+     "frec_lluvia": 0.1,
+     "dias_lluviosos_base": 6,
+     "p90": 4.3,
+     "p95": 5.0,
+     "p99": 8.0
+    },
+    "7": {
+     "media_dia": 0.03,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.2,
+     "dias_lluviosos_base": 6,
+     "p90": 2.2,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "8": {
+     "media_dia": 0.04,
+     "normal_mes": 1.1,
+     "frec_lluvia": 0.3,
+     "dias_lluviosos_base": 10,
+     "p90": 2.7,
+     "p95": 3.0,
+     "p99": 8.0
+    },
+    "9": {
+     "media_dia": 0.04,
+     "normal_mes": 1.2,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 24,
+     "p90": 5.5,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.11,
+     "normal_mes": 3.3,
+     "frec_lluvia": 1.7,
+     "dias_lluviosos_base": 26,
+     "p90": 5.6,
+     "p95": 6.0,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 30,
+     "p90": 5.6,
+     "p95": 5.9,
+     "p99": 8.0
+    },
+    "12": {
+     "media_dia": 0.09,
+     "normal_mes": 2.8,
+     "frec_lluvia": 1.0,
+     "dias_lluviosos_base": 28,
+     "p90": 4.9,
+     "p95": 4.9,
+     "p99": 8.0
+    }
+   }
+  },
+  "P002304029": {
+   "tienda": "FLB Exp Tacna",
+   "ciudad": "Tacna",
+   "meses": {
+    "1": {
+     "media_dia": 0.42,
+     "normal_mes": 13.0,
+     "frec_lluvia": 12.2,
+     "dias_lluviosos_base": 113,
+     "p90": 3.3,
+     "p95": 4.9,
+     "p99": 8.2
+    },
+    "2": {
+     "media_dia": 0.36,
+     "normal_mes": 10.2,
+     "frec_lluvia": 9.7,
+     "dias_lluviosos_base": 82,
+     "p90": 3.7,
+     "p95": 4.6,
+     "p99": 8.0
+    },
+    "3": {
+     "media_dia": 0.23,
+     "normal_mes": 7.0,
+     "frec_lluvia": 7.1,
+     "dias_lluviosos_base": 66,
+     "p90": 2.8,
+     "p95": 3.1,
+     "p99": 8.0
+    },
+    "4": {
+     "media_dia": 0.06,
+     "normal_mes": 1.7,
+     "frec_lluvia": 1.2,
+     "dias_lluviosos_base": 81,
+     "p90": 2.8,
+     "p95": 3.2,
+     "p99": 8.0
+    },
+    "5": {
+     "media_dia": 0.02,
+     "normal_mes": 0.5,
+     "frec_lluvia": 0.4,
+     "dias_lluviosos_base": 20,
+     "p90": 2.6,
+     "p95": 3.3,
+     "p99": 8.0
+    },
+    "6": {
+     "media_dia": 0.03,
+     "normal_mes": 1.0,
+     "frec_lluvia": 0.6,
+     "dias_lluviosos_base": 23,
+     "p90": 3.9,
+     "p95": 10.8,
+     "p99": 17.7
+    },
+    "7": {
+     "media_dia": 0.08,
+     "normal_mes": 2.5,
+     "frec_lluvia": 1.5,
+     "dias_lluviosos_base": 30,
+     "p90": 5.2,
+     "p95": 9.8,
+     "p99": 17.2
+    },
+    "8": {
+     "media_dia": 0.07,
+     "normal_mes": 2.1,
+     "frec_lluvia": 1.2,
+     "dias_lluviosos_base": 35,
+     "p90": 5.1,
+     "p95": 8.8,
+     "p99": 16.8
+    },
+    "9": {
+     "media_dia": 0.06,
+     "normal_mes": 1.8,
+     "frec_lluvia": 1.1,
+     "dias_lluviosos_base": 25,
+     "p90": 4.5,
+     "p95": 5.2,
+     "p99": 8.0
+    },
+    "10": {
+     "media_dia": 0.04,
+     "normal_mes": 1.4,
+     "frec_lluvia": 0.4,
+     "dias_lluviosos_base": 26,
+     "p90": 3.2,
+     "p95": 4.5,
+     "p99": 8.0
+    },
+    "11": {
+     "media_dia": 0.06,
+     "normal_mes": 1.9,
+     "frec_lluvia": 1.3,
+     "dias_lluviosos_base": 48,
+     "p90": 3.6,
+     "p95": 4.6,
+     "p99": 17.5
+    },
+    "12": {
+     "media_dia": 0.17,
+     "normal_mes": 5.3,
+     "frec_lluvia": 3.4,
+     "dias_lluviosos_base": 32,
+     "p90": 3.6,
+     "p95": 5.2,
+     "p99": 20.8
+    }
+   }
+  }
+ }
+}
