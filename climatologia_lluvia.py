@@ -11,10 +11,11 @@ Para cada instalacion de zonas_tiendas.csv y cada mes calcula, con la lluvia dia
   - p90/p95/p99    percentiles de los dias con lluvia (>= 1 mm). Son los cortes que usa SENAMHI:
                    > p90 moderadamente lluvioso, > p95 muy lluvioso, > p99 extremadamente lluvioso.
 
-Fuente PROVISIONAL: NASA POWER (PRECTOTCORR, grilla ~50 km).
-Cuando se tenga acceso a PISCO (SENAMHI), reemplazar `serie_diaria()` y FUENTE.
+Fuente principal: PISCO v2.1 de SENAMHI (datos/pisco_compacto.json, descargado una vez).
+Respaldo: NASA POWER (PRECTOTCORR, grilla ~50 km), solo con --nasa.
 
-Uso:  python climatologia_lluvia.py
+Uso:  python climatologia_lluvia.py          (PISCO)
+      python climatologia_lluvia.py --nasa   (NASA POWER, solo referencia)
 """
 import json
 import time
@@ -85,7 +86,35 @@ def estadisticos(s: pd.Series) -> dict:
     return meses
 
 
+ARCH_PISCO = CARPETA / "datos" / "pisco_compacto.json"
+FUENTE_PISCO = "PISCO v2.1 de SENAMHI, lluvia diaria 1981-2016 (celdas de ~10 km)"
+CAMPOS_PISCO = ["media_dia", "normal_mes", "frec_lluvia", "dias_lluviosos_base", "p90", "p95", "p99"]
+
+
+def desde_pisco():
+    """Arma clima_normal.json desde datos/pisco_compacto.json.
+
+    Ese archivo se obtuvo una sola vez (oct-2026) del IRI Data Library, que cierra a fines de 2026.
+    Por cada celda PISCO de 0.1 grados guarda: [n_dias, mes1..mes12], cada mes con CAMPOS_PISCO,
+    calculados con la misma regla de este script (dias >= 1 mm, pisos para costa arida).
+    """
+    p = json.loads(ARCH_PISCO.read_text(encoding="utf-8"))
+    t = pd.read_csv(ARCH_TIENDAS, dtype={"cod_p": str})
+    salida = {}
+    for _, f in t.iterrows():
+        celda = p["mapa"][f.cod_p]
+        meses = {str(i): dict(zip(CAMPOS_PISCO, v)) for i, v in enumerate(p["celdas"][celda][1:], start=1)}
+        salida[f.cod_p] = {"tienda": f.tienda, "ciudad": f.ciudad, "celda_pisco": celda, "meses": meses}
+    datos = {"fuente": FUENTE_PISCO, "periodo": "1981-2016", "dia_lluvioso_mm": DIA_LLUVIOSO_MM,
+             "generado": pd.Timestamp.now(tz="America/Lima").strftime("%Y-%m-%d %H:%M"), "tiendas": salida}
+    ARCH_SALIDA.write_text(json.dumps(datos, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"OK: {ARCH_SALIDA.name} desde PISCO con {len(salida)} instalaciones ({len(p['celdas'])} celdas)")
+
+
 def main():
+    import sys
+    if "--nasa" not in sys.argv:          # por defecto: PISCO (SENAMHI)
+        return desde_pisco()
     t = pd.read_csv(ARCH_TIENDAS, dtype={"cod_p": str})
     # NASA POWER tiene grilla de 0.5 x 0.625 grados: tiendas en la misma celda comparten serie
     t["celda"] = t["lat"].apply(lambda v: round(v * 2) / 2).astype(str) + "," + \
