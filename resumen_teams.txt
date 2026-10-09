@@ -1,28 +1,11 @@
-🌊 Monitor FEN · 08/10/2026
+🌊 Monitor FEN · 09/10/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 17-2026 · 28 Septiembre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.3 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
 Instalaciones sobre Nivel 1 (2):
-• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
+• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 08/10 05:25: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Peligro inminente de INDECI por lluvias intensas a 5 km de la tienda (Los Baños Del Inca).
 
 Resto de instalaciones (39): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Piura Centro: 33.0° (+3.0°)
-• FLB Piura Mall Open: 33.0° (+3.0°)
-• FLB Chiclayo Mall: 29.0° (+3.0°)
-• CD Lurín: 27.7° (+4.3°)
-• CD Villa El Salvador: 27.7° (+4.3°)
-• FLB Santa Anita: 27.7° (+4.3°)
-• FLB Puruchuco: 27.7° (+4.3°)
-• FLB Mall del Sur: 27.7° (+4.3°)
-• FLB Atocongo: 27.7° (+4.3°)
-• FLB Angamos: 27.7° (+4.3°)
-• FLB Miraflores: 27.7° (+4.3°)
-• FLB Jockey Plaza: 27.7° (+4.3°)
-• FLB San Isidro: 27.7° (+4.3°)
-• Oficinas SF San Isidro: 27.7° (+4.3°)
-• FLB MOLINA: 27.7° (+4.3°)
