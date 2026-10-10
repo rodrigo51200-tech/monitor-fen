@@ -1,11 +1,14 @@
-🌊 Monitor FEN · 09/10/2026
+🌊 Monitor FEN · 10/10/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 17-2026 · 28 Septiembre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.3 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
+🔔 Cambios desde la última actualización (1):
+▼ FLB Exp Huaraz: Nivel 3 → Nivel 2 Alerta Amarilla – Se mantiene por 24 h desde el 09/10 04:34: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda (hace 30 h).
+
 Instalaciones sobre Nivel 1 (2):
-• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 08/10 21:31: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
+• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 09/10 04:34: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda (hace 30 h).
 
 Resto de instalaciones (39): Nivel 1 Alerta Verde – monitoreo preventivo.
