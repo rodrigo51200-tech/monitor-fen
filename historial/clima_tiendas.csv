@@ -491,44 +491,44 @@
 2026-10-09,CORP-SAN-ISIDRO,Oficinas SF San Isidro,Lima Metropolitana,28.8,21.0,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 19:00",verde,1,Medio,2,0
 2026-10-09,P002103801,FLB MOLINA,Lima Metropolitana,28.8,21.0,,"Estación SENAMHI Von Humboldt (La Molina) (1 km), parte OMM de las 19:00",verde,1,Bajo,2,0
 2026-10-09,P002304029,FLB Exp Tacna,Sur,23.0,16.0,,"CORPAC · Aeropuerto Tacna (5 km), reporte 19:00",verde,1,Bajo,1,0
-2026-10-10,P002102201,FLB Piura Centro,Norte,34.0,24.0,,"CORPAC · Aeropuerto Piura (2 km), reporte 12:00",verde,1,Crítico,1,0
-2026-10-10,P002102301,FLB Piura Mall Open,Norte,34.0,24.0,,"CORPAC · Aeropuerto Piura (3 km), reporte 12:00",verde,1,Crítico,1,0
-2026-10-10,P002100601,FLB Chiclayo Mall,Norte,29.0,23.0,,"CORPAC · Aeropuerto Chiclayo (1 km), reporte 12:00",verde,1,Crítico,0,0
-2026-10-10,P002100701,FLB Trujillo CC,Norte,27.0,23.0,,"CORPAC · Aeropuerto Trujillo (7 km), reporte 12:00",verde,1,Crítico,0,0
-2026-10-10,P002100801,FLB Chimbote,Norte,27.0,24.0,,"CORPAC · Aeropuerto Chimbote (6 km), reporte 12:00",verde,1,Alto,0,0
-2026-10-10,P002100901,FLB Cajamarca,Norte,25.0,11.0,,"CORPAC · Aeropuerto Cajamarca (3 km), reporte 12:30",amarillo,2,Alto,2,0
-2026-10-10,P002101401,FLB Canete MP,Centro/Sur,24.82,16.13,0.0,"NASA POWER, referencia regional (celda de ~50 km), dato del 07/10",verde,1,Alto,2,0
+2026-10-10,P002102201,FLB Piura Centro,Norte,33.0,24.0,,"CORPAC · Aeropuerto Piura (2 km), reporte 16:00",verde,1,Crítico,1,0
+2026-10-10,P002102301,FLB Piura Mall Open,Norte,33.0,24.0,,"CORPAC · Aeropuerto Piura (3 km), reporte 16:00",verde,1,Crítico,1,0
+2026-10-10,P002100601,FLB Chiclayo Mall,Norte,28.0,23.0,,"CORPAC · Aeropuerto Chiclayo (1 km), reporte 16:00",verde,1,Crítico,0,0
+2026-10-10,P002100701,FLB Trujillo CC,Norte,27.0,23.0,,"CORPAC · Aeropuerto Trujillo (7 km), reporte 16:00",verde,1,Crítico,0,0
+2026-10-10,P002100801,FLB Chimbote,Norte,27.0,24.0,,"CORPAC · Aeropuerto Chimbote (6 km), reporte 16:00",verde,1,Alto,0,0
+2026-10-10,P002100901,FLB Cajamarca,Norte,25.0,11.0,,"CORPAC · Aeropuerto Cajamarca (3 km), reporte 16:30",amarillo,2,Alto,2,0
+2026-10-10,P002101401,FLB Canete MP,Centro/Sur,24.82,16.13,0.0,"NASA POWER, referencia regional (celda de ~50 km), dato del 07/10",verde,1,Alto,1,0
 2026-10-10,P002101201,FLB Ica Mall,Centro/Sur,27.68,14.84,0.0,"NASA POWER, referencia regional (celda de ~50 km), dato del 07/10",verde,1,Alto,0,0
-2026-10-10,P002102101,FLB Huancayo,Centro/Sur,24.0,5.0,,"CORPAC · Aeropuerto Jauja (42 km), reporte 12:00",verde,1,Medio Alto,0,0
-2026-10-10,P002103301,FLB Exp Huaraz,Centro/Sur,29.0,12.0,,"CORPAC · Aeropuerto Huaraz (Anta) (22 km), reporte 12:00",amarillo,2,Medio Alto,0,0
-2026-10-10,P002103501,FLB Exp.Ayacucho,Centro/Sur,28.0,12.0,,"CORPAC · Aeropuerto Ayacucho (2 km), reporte 12:00",verde,1,Medio Alto,0,0
-2026-10-10,P002102701,FLB Arequipa (Cayma),Centro/Sur,22.0,8.0,,"CORPAC · Aeropuerto Arequipa (7 km), reporte 12:00",verde,1,Medio Alto,1,0
-2026-10-10,P002101001,FLB Porongoche,Centro/Sur,22.0,8.0,,"CORPAC · Aeropuerto Arequipa (11 km), reporte 12:00",verde,1,Medio Alto,1,0
-2026-10-10,P002103201,FLB Cusco,Centro/Sur,24.0,8.0,,"CORPAC · Aeropuerto Cusco (3 km), reporte 12:30",verde,1,Medio Alto,0,0
+2026-10-10,P002102101,FLB Huancayo,Centro/Sur,23.0,5.0,,"CORPAC · Aeropuerto Jauja (42 km), reporte 16:00",verde,1,Medio Alto,0,0
+2026-10-10,P002103301,FLB Exp Huaraz,Centro/Sur,29.0,12.0,,"CORPAC · Aeropuerto Huaraz (Anta) (22 km), reporte 16:00",amarillo,2,Medio Alto,0,0
+2026-10-10,P002103501,FLB Exp.Ayacucho,Centro/Sur,27.0,12.0,,"CORPAC · Aeropuerto Ayacucho (2 km), reporte 16:00",verde,1,Medio Alto,0,0
+2026-10-10,P002102701,FLB Arequipa (Cayma),Centro/Sur,23.0,8.0,,"CORPAC · Aeropuerto Arequipa (7 km), reporte 16:00",verde,1,Medio Alto,1,0
+2026-10-10,P002101001,FLB Porongoche,Centro/Sur,23.0,8.0,,"CORPAC · Aeropuerto Arequipa (11 km), reporte 16:00",verde,1,Medio Alto,1,0
+2026-10-10,P002103201,FLB Cusco,Centro/Sur,25.0,8.0,,"CORPAC · Aeropuerto Cusco (3 km), reporte 16:30",verde,1,Medio Alto,0,0
 2026-10-10,P002102901,FLB Merced,Centro/Sur,16.51,9.01,9.84,"NASA POWER, referencia regional (celda de ~50 km), dato del 07/10",verde,1,Sin clasificar,0,0
-2026-10-10,P004101702,FLB Iquitos,Oriente,33.0,23.0,,"CORPAC · Aeropuerto Iquitos (8 km), reporte 12:00",verde,1,Alto,0,0
-2026-10-10,P004101301,FLB Pucallpa,Oriente,34.0,25.0,,"CORPAC · Aeropuerto Pucallpa (1 km), reporte 12:00",verde,1,Alto,0,0
-2026-10-10,P004101601,FLB Huanuco Op,Oriente,31.0,18.0,,"CORPAC · Aeropuerto Huánuco (8 km), reporte 12:00",verde,1,Alto,1,0
-2026-10-10,P004103901,FLB Tarapoto,Oriente,36.0,23.0,,"CORPAC · Aeropuerto Tarapoto (3 km), reporte 12:00",verde,1,Alto,0,0
-2026-10-10,CD-LURIN,CD Lurín,Lima Metropolitana,28.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (23 km), parte OMM de las 12:00",verde,1,Alto,2,0
-2026-10-10,CD-VES,CD Villa El Salvador,Lima Metropolitana,28.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (15 km), parte OMM de las 12:00",verde,1,Alto,2,0
-2026-10-10,P002100501,FLB Santa Anita,Lima Metropolitana,28.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (4 km), parte OMM de las 12:00",verde,1,Medio Alto,2,0
-2026-10-10,P002103001,FLB Puruchuco,Lima Metropolitana,28.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (5 km), parte OMM de las 12:00",verde,1,Medio Alto,2,0
-2026-10-10,P002100401,FLB Mega Plaza,Lima Metropolitana,27.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (7 km), reporte 12:00",verde,1,Medio Alto,2,0
-2026-10-10,P002101101,FLB Lima Norte (Plaza Norte),Lima Metropolitana,27.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (6 km), reporte 12:00",verde,1,Medio Alto,2,0
-2026-10-10,P002102401,FLB Bellavista,Lima Metropolitana,27.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (4 km), reporte 12:00",verde,1,Medio,0,0
-2026-10-10,P002102801,FLB San Miguel,Lima Metropolitana,27.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (7 km), reporte 12:00",verde,1,Medio,2,0
-2026-10-10,P002101901,FLB Mall del Sur,Lima Metropolitana,28.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 12:00",verde,1,Medio,2,0
-2026-10-10,P002102501,FLB Atocongo,Lima Metropolitana,28.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 12:00",verde,1,Medio,2,0
-2026-10-10,P002103101,FLB Comas,Lima Metropolitana,27.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (11 km), reporte 12:00",verde,1,Medio,2,0
-2026-10-10,P002101801,FLB Centro Civico,Lima Metropolitana,27.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (9 km), reporte 12:00",verde,1,Medio,2,0
-2026-10-10,P002102001,FLB Lima Centro,Lima Metropolitana,27.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (9 km), reporte 12:00",verde,1,Medio,2,0
-2026-10-10,EXPO-LIMA-CENTRO,FLB Expo Lima Centro,Lima Metropolitana,27.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (9 km), reporte 12:00",verde,1,Medio,2,0
-2026-10-10,P002102601,FLB Angamos,Lima Metropolitana,28.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 12:00",verde,1,Medio,2,0
-2026-10-10,P002100301,FLB Miraflores,Lima Metropolitana,28.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (11 km), parte OMM de las 12:00",verde,1,Medio,2,0
-2026-10-10,P002101501,FLB Salaverry,Lima Metropolitana,27.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (10 km), reporte 12:00",verde,1,Medio,2,0
-2026-10-10,P002100201,FLB Jockey Plaza,Lima Metropolitana,28.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (4 km), parte OMM de las 12:00",verde,1,Medio,2,0
-2026-10-10,P002100101,FLB San Isidro,Lima Metropolitana,28.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 12:00",verde,1,Medio,2,0
-2026-10-10,CORP-SAN-ISIDRO,Oficinas SF San Isidro,Lima Metropolitana,28.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 12:00",verde,1,Medio,2,0
-2026-10-10,P002103801,FLB MOLINA,Lima Metropolitana,28.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (1 km), parte OMM de las 12:00",verde,1,Bajo,2,0
-2026-10-10,P002304029,FLB Exp Tacna,Sur,25.0,17.0,,"CORPAC · Aeropuerto Tacna (5 km), reporte 12:00",verde,1,Bajo,0,0
+2026-10-10,P004101702,FLB Iquitos,Oriente,33.0,23.0,,"CORPAC · Aeropuerto Iquitos (8 km), reporte 16:00",verde,1,Alto,0,0
+2026-10-10,P004101301,FLB Pucallpa,Oriente,35.0,25.0,,"CORPAC · Aeropuerto Pucallpa (1 km), reporte 16:00",verde,1,Alto,0,0
+2026-10-10,P004101601,FLB Huanuco Op,Oriente,31.0,18.0,,"CORPAC · Aeropuerto Huánuco (8 km), reporte 16:00",verde,1,Alto,1,0
+2026-10-10,P004103901,FLB Tarapoto,Oriente,37.0,23.0,,"CORPAC · Aeropuerto Tarapoto (3 km), reporte 16:00",verde,1,Alto,0,0
+2026-10-10,CD-LURIN,CD Lurín,Lima Metropolitana,27.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (23 km), parte OMM de las 16:00",verde,1,Alto,1,0
+2026-10-10,CD-VES,CD Villa El Salvador,Lima Metropolitana,27.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (15 km), parte OMM de las 16:00",verde,1,Alto,1,0
+2026-10-10,P002100501,FLB Santa Anita,Lima Metropolitana,27.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (4 km), parte OMM de las 16:00",verde,1,Medio Alto,1,0
+2026-10-10,P002103001,FLB Puruchuco,Lima Metropolitana,27.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (5 km), parte OMM de las 16:00",verde,1,Medio Alto,1,0
+2026-10-10,P002100401,FLB Mega Plaza,Lima Metropolitana,26.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (7 km), reporte 16:00",verde,1,Medio Alto,1,0
+2026-10-10,P002101101,FLB Lima Norte (Plaza Norte),Lima Metropolitana,26.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (6 km), reporte 16:00",verde,1,Medio Alto,1,0
+2026-10-10,P002102401,FLB Bellavista,Lima Metropolitana,26.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (4 km), reporte 16:00",verde,1,Medio,0,0
+2026-10-10,P002102801,FLB San Miguel,Lima Metropolitana,26.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (7 km), reporte 16:00",verde,1,Medio,1,0
+2026-10-10,P002101901,FLB Mall del Sur,Lima Metropolitana,27.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 16:00",verde,1,Medio,1,0
+2026-10-10,P002102501,FLB Atocongo,Lima Metropolitana,27.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 16:00",verde,1,Medio,1,0
+2026-10-10,P002103101,FLB Comas,Lima Metropolitana,26.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (11 km), reporte 16:00",verde,1,Medio,1,0
+2026-10-10,P002101801,FLB Centro Civico,Lima Metropolitana,26.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (9 km), reporte 16:00",verde,1,Medio,1,0
+2026-10-10,P002102001,FLB Lima Centro,Lima Metropolitana,26.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (9 km), reporte 16:00",verde,1,Medio,1,0
+2026-10-10,EXPO-LIMA-CENTRO,FLB Expo Lima Centro,Lima Metropolitana,26.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (9 km), reporte 16:00",verde,1,Medio,1,0
+2026-10-10,P002102601,FLB Angamos,Lima Metropolitana,27.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 16:00",verde,1,Medio,1,0
+2026-10-10,P002100301,FLB Miraflores,Lima Metropolitana,27.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (11 km), parte OMM de las 16:00",verde,1,Medio,1,0
+2026-10-10,P002101501,FLB Salaverry,Lima Metropolitana,26.0,23.0,,"CORPAC · Aeropuerto Lima – Jorge Chávez (10 km), reporte 16:00",verde,1,Medio,1,0
+2026-10-10,P002100201,FLB Jockey Plaza,Lima Metropolitana,27.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (4 km), parte OMM de las 16:00",verde,1,Medio,1,0
+2026-10-10,P002100101,FLB San Isidro,Lima Metropolitana,27.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 16:00",verde,1,Medio,1,0
+2026-10-10,CORP-SAN-ISIDRO,Oficinas SF San Isidro,Lima Metropolitana,27.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 16:00",verde,1,Medio,1,0
+2026-10-10,P002103801,FLB MOLINA,Lima Metropolitana,27.8,19.6,,"Estación SENAMHI Von Humboldt (La Molina) (1 km), parte OMM de las 16:00",verde,1,Bajo,1,0
+2026-10-10,P002304029,FLB Exp Tacna,Sur,25.0,17.0,,"CORPAC · Aeropuerto Tacna (5 km), reporte 16:00",verde,1,Bajo,0,0
