@@ -12,4 +12,7 @@ Instalaciones sobre Nivel 1 (3):
 Resto de instalaciones (38): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Exp Huaraz: 26.0° (+6.0°)
+• FLB Piura Centro: 30.0° (-3.0°)
+• FLB Piura Mall Open: 30.0° (-3.0°)
+• FLB Exp Huaraz: 28.0° (+8.0°)
+• FLB Exp Tacna: 21.0° (-3.0°)
