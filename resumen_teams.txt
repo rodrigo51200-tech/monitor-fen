@@ -6,7 +6,7 @@ Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
 Instalaciones sobre Nivel 1 (3):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 12/10 12:46: Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (Independencia).
+• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 12/10 18:48: Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (Independencia).
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Resto de instalaciones (38): Nivel 1 Alerta Verde – monitoreo preventivo.
