@@ -4,11 +4,8 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-🔔 Cambios desde la última actualización (1):
-▼ FLB Exp Huaraz: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-
 Instalaciones sobre Nivel 1 (4):
-• FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 13/10 06:40: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
+• FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 13/10 13:32: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
