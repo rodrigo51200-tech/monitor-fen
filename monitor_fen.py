@@ -1493,7 +1493,7 @@ body{font-size:15px}
 .vistas{margin:0 0 0 auto;width:auto;gap:2px;background:#f1f3f0;border-radius:10px;padding:4px;max-width:none}
 .vista{border:0;border-radius:8px;padding:7px 14px;color:var(--mut);font-size:14px}
 .vista.activo{background:#fff;color:var(--tx);box-shadow:0 1px 2px rgba(31,36,33,.12);border-bottom:0}
-.act{flex:0 0 auto} .act .small{display:none} .act .btn{padding:7px 14px}
+.act{flex:0 0 auto;display:flex;gap:6px} .act .small{display:none} .act .btn{padding:7px 14px}
 .wrap{padding:30px 16px 48px}
 h2{font-size:20px}
 .res-cab{display:flex;justify-content:space-between;align-items:flex-end;gap:16px 32px;flex-wrap:wrap;padding-bottom:22px;border-bottom:1px solid var(--bd)}
@@ -1877,10 +1877,13 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
         boton_actualizar = (f'<button class="btn" id="btn-act" data-url="{e(URL_ACTUALIZAR)}">Actualizar datos</button>'
                             f'<span class="muted small" id="msg-act">Automático: {HORAS_AUTOMATICAS}</span>')
     else:
-        enlace = (f' · <a href="https://github.com/{e(REPO_GITHUB)}/actions/workflows/monitor_fen.yml" target="_blank" '
-                  f'rel="noopener">forzar actualización</a>' if REPO_GITHUB else "")
-        boton_actualizar = (f'<button class="btn" onclick="location.reload()">Ver última versión</button>'
-                            f'<span class="muted small">Se actualiza solo {HORAS_AUTOMATICAS}{enlace}</span>')
+        # Enlace a "Run workflow" en GitHub: solo funciona para quien tenga permiso de escritura
+        # en el repo. Un botón que dispare directo desde la página expondría un token.
+        forzar = (f'<a class="btn sec" href="https://github.com/{e(REPO_GITHUB)}/actions/workflows/monitor_fen.yml" '
+                  f'target="_blank" rel="noopener" title="Abre GitHub: Run workflow">Forzar actualización</a>'
+                  if REPO_GITHUB else "")
+        boton_actualizar = (f'<button class="btn" onclick="location.reload()">Ver última versión</button>{forzar}'
+                            f'<span class="muted small">Se actualiza solo {HORAS_AUTOMATICAS}</span>')
     fuentes = " · ".join(f'<a href="{e(u)}" target="_blank" rel="noopener">{e(n)}</a>' for n, u in LINKS.items())
     extra = extra or {}
     mapa = extra.get("mapa") or {"puntos": [], "indeci": [], "aeropuertos": [], "capas": [], "wms": WMS_SENAMHI,

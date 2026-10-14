@@ -2,24 +2,29 @@ name: Monitor FEN
 
 on:
   schedule:
-        # Cada 15 minutos (GitHub suele saltarse corridas; asi la pagina queda al dia).
+        # Respaldo: GitHub se salta la mayoria de estas corridas (en la practica corre cada 3-7 h).
+        # La frecuencia real de 15 min la da el job "encadenar" (al final), que relanza el workflow.
+        # Si la cadena se corta, la proxima corrida programada que GitHub si ejecute la reinicia.
         # Los pronosticos solo se recalculan cada 4 h (pronostico.py).
        - cron: "7,22,37,52 * * * *"
   workflow_dispatch:         # permite ejecutarlo a mano ("Run workflow")
 
 permissions:
   contents: write            # guardar historial y HTML en el repositorio
+  actions: write             # el job "encadenar" relanza este mismo workflow
   pages: write               # publicar en GitHub Pages
   id-token: write
 
-concurrency:
-  group: monitor-fen
-  cancel-in-progress: false
+# La concurrencia va por job (no por workflow) para que la espera de "encadenar"
+# no deje en cola una corrida forzada a mano.
 
 jobs:
   # 1) Genera el HTML, guarda historial en el repo y deja listo el paquete para Pages.
   actualizar:
     runs-on: ubuntu-24.04      # fijo: ubuntu-latest pasa a Ubuntu 26 desde el 19/10/2026
+    concurrency:               # una sola a la vez: dos pushes al mismo tiempo chocan
+      group: monitor-fen-actualizar
+      cancel-in-progress: false
     timeout-minutes: 20
     env:
       TZ: America/Lima
@@ -66,6 +71,9 @@ jobs:
   publicar:
     needs: actualizar
     runs-on: ubuntu-24.04
+    concurrency:
+      group: monitor-fen-pages
+      cancel-in-progress: false
     timeout-minutes: 15
     environment:
       name: github-pages
@@ -86,3 +94,36 @@ jobs:
         name: Publicar en Pages (intento 2)
         if: steps.deploy.outcome == 'failure'
         uses: actions/deploy-pages@v4
+
+  # 3) Mantiene la frecuencia de 15 min: espera hasta completar 15 min desde que empezo
+  #    esta corrida y relanza el workflow ("Run workflow"). GitHub si respeta este disparo,
+  #    a diferencia del cron. No depende de "publicar": si Pages falla, la cadena sigue.
+  #    Para apagarla: Settings -> Secrets and variables -> Actions -> Variables ->
+  #    MONITOR_CADENA = off  (o cancelar a mano una corrida: una cancelada no se relanza).
+  #    Si hay otra corrida mas nueva en marcha (p. ej. una forzada a mano), esta no relanza:
+  #    la cadena sigue desde la mas nueva y nunca quedan dos cadenas a la vez.
+  encadenar:
+    needs: actualizar
+    if: ${{ !cancelled() && vars.MONITOR_CADENA != 'off' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      INTERVALO_SEG: 900
+    steps:
+      - name: Esperar hasta completar el intervalo
+        run: |
+          INICIO=$(gh api "repos/${{ github.repository }}/actions/runs/${{ github.run_id }}" --jq .run_started_at)
+          TRANSCURRIDO=$(( $(date +%s) - $(date -d "$INICIO" +%s) ))
+          ESPERA=$(( INTERVALO_SEG - TRANSCURRIDO ))
+          echo "Corrida iniciada $INICIO, van ${TRANSCURRIDO}s; espero ${ESPERA}s"
+          if [ "$ESPERA" -gt 0 ]; then sleep "$ESPERA"; fi
+
+      - name: Relanzar el monitor (si no hay una corrida mas nueva)
+        run: |
+          MAS_NUEVAS=$(gh api "repos/${{ github.repository }}/actions/workflows/monitor_fen.yml/runs?per_page=30"             --jq "[.workflow_runs[] | select(.status != \"completed\" and .run_number > ${{ github.run_number }})] | length")
+          if [ "$MAS_NUEVAS" -gt 0 ]; then
+            echo "Hay $MAS_NUEVAS corrida(s) mas nueva(s) en marcha: la cadena sigue desde ahi."
+            exit 0
+          fi
+          gh workflow run monitor_fen.yml --repo "${{ github.repository }}" --ref "${{ github.ref_name }}"
