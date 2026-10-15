@@ -6,8 +6,14 @@ con niveles y acciones según el *Plan Integral FEN 2026/2027*.
 Fuentes oficiales: ENFEN, SENAMHI (IDESEP), INDECI (COEN), CENEPRED (SIGRID) y NOAA.
 
 ## Cómo funciona
-- GitHub Actions ejecuta `monitor_fen.py` cada 3 horas, hora Lima (00, 03, 06, 09, 12, 15, 18 y 21 h), y publica `docs/index.html` en GitHub Pages.
-- Para actualizar a mano: pestaña **Actions → Monitor FEN → Run workflow**.
+- GitHub Actions ejecuta `monitor_fen.py` cada 15 minutos y publica `docs/index.html` en GitHub Pages.
+  El cron de GitHub no es confiable (se salta la mayoría de las corridas), así que cada corrida
+  termina con el job `encadenar`, que espera hasta completar 15 min y relanza el workflow. El cron
+  queda de respaldo: si la cadena se corta, la próxima corrida programada la reinicia.
+- Para apagar la cadena: variable de repositorio `MONITOR_CADENA` = `off`
+  (Settings → Secrets and variables → Actions → Variables), o cancelar una corrida a mano.
+- Para actualizar a mano: botón **Forzar actualización** de la página (abre **Actions → Monitor FEN → Run workflow**;
+  requiere permiso de escritura en el repo).
 - El historial diario se acumula en `historial/`.
 
 ## Archivos que se editan a mano
