@@ -88,7 +88,7 @@ AEROPUERTOS_PE = {"SPJC": "Lima – Jorge Chávez", "SPUR": "Piura", "SPHI": "Ch
                   "SPHO": "Ayacucho", "SPTN": "Tacna", "SPSO": "Pisco", "SPJJ": "Jauja", "SPJL": "Juliaca",
                   "SPTU": "Puerto Maldonado", "SPME": "Tumbes"}
 DIST_MAX_AEROPUERTO_KM = 60    # aeropuerto mas lejano aceptado para la temperatura de una tienda
-LLUVIA_METAR = ("RA", "DZ", "TS", "SH", "GR")   # codigos METAR de lluvia, llovizna, tormenta, chubasco, granizo
+LLUVIA_METAR = ("RA", "DZ", "TS", "SH", "GR", "GS")   # lluvia, llovizna, tormenta, chubasco, granizo, granizo menudo
 HORAS_BOLETIN_AVISO = 72       # boletines INDECI de aviso meteorologico a considerar
 ARCH_MANUALES = CARPETA / "alertas_manuales.csv"
 COSTA_ARIDA = ("ICA", "CANETE", "TACNA")   # ademas de Lima: costa desertica donde los modelos confunden garua con lluvia   # Nivel 4 u otros ajustes manuales
@@ -497,8 +497,7 @@ def fuente_corpac() -> dict:
         ts = datetime.fromisoformat(m["reportTime"].replace("Z", "+00:00")).astimezone()
         est = out.setdefault(icao, {"nombre": AEROPUERTOS_PE[icao], "lat": m.get("lat"), "lon": m.get("lon"), "obs": []})
         wx = str(m.get("wxString") or "")
-        tipo = ("tormenta" if "TS" in wx else "granizo" if "GR" in wx else "lluvia" if ("RA" in wx or "SH" in wx)
-                else "llovizna (garúa)" if "DZ" in wx else "")
+        tipo = tipo_metar(wx)
         vis = m.get("visib")
         try:
             vis = 6.21 if "+" in str(vis) else float(vis)           # millas; "6+" = 10 km o mas
@@ -575,10 +574,31 @@ def parse_synop(texto: str) -> dict:
     return out
 
 
+def tipo_metar(wx: str) -> str:
+    """Tipo de precipitacion de un METAR. El granizo (GR, o GS = granizo menudo) se mira antes que
+    la tormenta para no perderlo cuando vienen juntos (p. ej. TSGR)."""
+    granizo = "GR" in wx or "GS" in wx
+    if granizo:
+        return "tormenta con granizo" if "TS" in wx else "granizo"
+    return ("tormenta" if "TS" in wx else "lluvia" if ("RA" in wx or "SH" in wx)
+            else "llovizna (garúa)" if "DZ" in wx else "")
+
+
+# Tiempo presente SYNOP (tabla OMM 4677) con granizo: 27 granizo en la ultima hora; 87-88 chubasco de
+# granizo menudo; 89-90 chubasco de granizo; 96 y 99 tormenta con granizo. (93-94 no se usan: mezclan
+# nieve y granizo sin distinguirlos.)
+WW_GRANIZO = (27, 87, 88, 89, 90)
+WW_TORMENTA_GRANIZO = (96, 99)
+
+
 def tipo_ww(ww):
     if ww is None:
         return ""
-    return ("tormenta" if 91 <= ww <= 99 or ww in (17, 29) else "chubasco" if 80 <= ww <= 90 else
+    if ww in WW_TORMENTA_GRANIZO:
+        return "tormenta con granizo"
+    if ww in WW_GRANIZO:
+        return "granizo"
+    return ("tormenta" if 91 <= ww <= 99 or ww in (17, 29) else "chubasco" if 80 <= ww <= 86 else
             "lluvia" if 60 <= ww <= 69 else "llovizna (garúa)" if 50 <= ww <= 59 else "")
 
 
