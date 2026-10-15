@@ -1442,9 +1442,14 @@
  },
  "error_lluvia": "",
  "garua": {
-  "estado": "sin_dato",
-  "frase": "Sin suficientes reportes del aeropuerto para estimar la garúa."
+  "estado": "ok",
+  "objetivo": "2026-10-15",
+  "prob": 0.105,
+  "rango": "Poco probable",
+  "frecuencia": 0.09,
+  "cuando": "mañana temprano",
+  "frase": "Garúa mañana temprano: poco probable. En mañanas con condiciones así garuó 1 de cada 10 veces (registro 2023-2025 del aeropuerto Jorge Chávez)."
  },
- "franja": "2026-10-14 16:00",
- "calculado": "14/10 18:53"
+ "franja": "2026-10-14 20:00",
+ "calculado": "14/10 20:13"
 }
