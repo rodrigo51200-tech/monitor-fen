@@ -4,12 +4,15 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
+🔔 Cambios desde la última actualización (1):
+▼ FLB Exp Huaraz: Nivel 3 → Nivel 2 Alerta Amarilla – Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda (hace 48 h).
+
 Instalaciones sobre Nivel 1 (6):
-• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 16/10 17:28: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
+• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda (hace 48 h).
 • FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (35): Nivel 1 Alerta Verde – monitoreo preventivo.
@@ -20,4 +23,4 @@ Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Iquitos: 33.0° (-3.0°)
 • FLB Pucallpa: 32.0° (-4.0°)
 • FLB Huanuco Op: 23.0° (-8.0°)
-• FLB Tarapoto: 30.0° (-8.0°)
+• FLB Tarapoto: 34.0° (-4.0°)
