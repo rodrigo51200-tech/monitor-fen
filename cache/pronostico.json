@@ -1440,7 +1440,7 @@
   "ecmwf": "17/10 00 UTC",
   "gfs": "17/10 00 UTC"
  },
- "error_lluvia": "",
+ "error_lluvia": "https://data.ecmwf.int/forecasts/20261017/12z/ifs/0p25/enfo/20261017120000-240h-enfo-ep.index: HTTP 429",
  "garua": {
   "estado": "ok",
   "objetivo": "2026-10-17",
@@ -1450,6 +1450,6 @@
   "cuando": "hoy temprano",
   "frase": "Garúa hoy temprano: poco probable. En mañanas con condiciones así garuó 1 de cada 10 veces (registro 2023-2025 del aeropuerto Jorge Chávez)."
  },
- "franja": "2026-10-17 04:00",
- "calculado": "17/10 04:07"
+ "franja": "2026-10-17 08:00",
+ "calculado": "17/10 08:06"
 }
