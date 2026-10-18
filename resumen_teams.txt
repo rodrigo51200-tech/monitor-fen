@@ -6,13 +6,14 @@ Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
 Instalaciones sobre Nivel 1 (6):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-• FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 17/10 12:47: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
+• FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 17/10 13:02: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 17/10 12:47: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
+• FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 17/10 13:02: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (35): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Huanuco Op: 28.0° (+5.0°)
+• FLB Pucallpa: 30.0° (+3.0°)
+• FLB Huanuco Op: 29.0° (+6.0°)
