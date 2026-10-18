@@ -6,9 +6,9 @@ Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
 Instalaciones sobre Nivel 1 (6):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-• FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 17/10 13:17: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
+• FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 17/10 13:32: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 17/10 13:17: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
+• FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 17/10 13:32: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
@@ -17,3 +17,15 @@ Resto de instalaciones (35): Nivel 1 Alerta Verde – monitoreo preventivo.
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Pucallpa: 30.0° (+3.0°)
 • FLB Huanuco Op: 29.0° (+6.0°)
+• CD Lurín: 28.8° (+3.5°)
+• CD Villa El Salvador: 28.8° (+3.5°)
+• FLB Santa Anita: 28.8° (+3.5°)
+• FLB Puruchuco: 28.8° (+3.5°)
+• FLB Mall del Sur: 28.8° (+3.5°)
+• FLB Atocongo: 28.8° (+3.5°)
+• FLB Angamos: 28.8° (+3.5°)
+• FLB Miraflores: 28.8° (+3.5°)
+• FLB Jockey Plaza: 28.8° (+3.5°)
+• FLB San Isidro: 28.8° (+3.5°)
+• Oficinas SF San Isidro: 28.8° (+3.5°)
+• FLB MOLINA: 28.8° (+3.5°)
