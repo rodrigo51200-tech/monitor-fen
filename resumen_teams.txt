@@ -4,19 +4,18 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-🔔 Cambios desde la última actualización (1):
-▲ FLB Exp Tacna: Nivel 1 → Nivel 3 Alerta Roja – Informe de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
+🔔 Cambios desde la última actualización (2):
+▼ FLB Pucallpa: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+▼ FLB Tarapoto: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
 
-Instalaciones sobre Nivel 1 (7):
+Instalaciones sobre Nivel 1 (5):
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 3 Alerta Roja: Informe de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-• FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 17/10 23:45: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 17/10 23:45: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
-Resto de instalaciones (34): Nivel 1 Alerta Verde – monitoreo preventivo.
+Resto de instalaciones (36): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Exp Huaraz: 19.0° (-10.0°)
