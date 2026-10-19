@@ -1,6 +1,5 @@
 🌊 Monitor FEN · 19/10/2026
-Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 18-2026 · 16 Octubre, 2026)
-ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
+Estado ENFEN: s/d ( · )
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
@@ -12,3 +11,6 @@ Instalaciones sobre Nivel 1 (5):
 • FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (36): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Exp Huaraz: 22.0° (+3.0°)
