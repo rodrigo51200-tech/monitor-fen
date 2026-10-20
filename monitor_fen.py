@@ -34,6 +34,8 @@ from pathlib import Path
 import pandas as pd
 import requests
 
+import noticias
+
 # ----------------------------------------------------------------------------
 # Configuracion
 # ----------------------------------------------------------------------------
@@ -712,6 +714,17 @@ def fuente_indeci() -> list[dict]:
     return out
 
 
+def fuente_noticias(tiendas: pd.DataFrame) -> dict:
+    """Noticias de las ultimas horas por ciudad de tienda (ver noticias.py)."""
+    ub = pd.read_csv(ARCH_UBIGEO, dtype=str).fillna("")
+    filas_ub = [{"dep": norm(u.departamento), "dist": norm(u.distrito),
+                 "lat": float(u.lat) if u.lat else None, "lon": float(u.lon) if u.lon else None}
+                for u in ub.itertuples(index=False)]
+    lista = [{k: getattr(t, k) for k in ("cod_p", "departamento", "provincia", "distrito", "ciudad", "lat", "lon")}
+             for t in tiendas.itertuples(index=False)]
+    return noticias.obtener(lista, filas_ub, http_get, HEADERS_WEB, TIMEOUT, log)
+
+
 def fuente_sigrid() -> dict:
     """Escenarios de riesgo por lluvias CENEPRED/SIGRID vigentes (con base en avisos SENAMHI).
     Devuelve riesgo por movimientos en masa y exposicion a inundaciones por (dep, prov, distrito)."""
@@ -890,6 +903,15 @@ def interpretar(r, enfen):
                                      f"({', '.join(otros[:4])}{'…' if len(otros) > 4 else ''}), últimas {HORAS_INDECI} h."))
     else:
         lineas.append(("INDECI", f"Sin emergencias por lluvias en el departamento (últimas {HORAS_INDECI} h)."))
+    nt = r.get("noticias") or {}
+    if nt.get("noticias"):
+        enl = " · ".join(f'<a href="{e(x["link"])}" target="_blank" rel="noopener">{e(x["medio"])}</a>'
+                         for x in nt["noticias"][:4])
+        lineas.append(("Noticias", f"<b>{nt['n_medios']} medio(s) informan inundación o lluvias intensas en la zona</b> "
+                                   f"(últimas {noticias.HORAS_NOTICIAS} h; interpretación automática, verificar): "
+                                   f"«{e(nt['noticias'][0]['titulo'])}». {enl}"))
+    elif "noticias" in r:
+        lineas.append(("Noticias", f"Sin noticias de inundación o lluvias intensas en la zona (últimas {noticias.HORAS_NOTICIAS} h)."))
     if r.get("sigrid_mm") or r.get("sigrid_inund"):
         partes = []
         if r.get("sigrid_mm"):
@@ -1249,6 +1271,16 @@ def procesar(tiendas, datos):
                                       f"escenario de riesgo CENEPRED: distrito con exposición {EXPOSICION_TXT[r[clave]]} a inundaciones"),
                            "titulo": f"Riesgo {RIESGO_SIGRID_TXT[r[clave]]}", "fecha": "", "link": LINKS["CENEPRED SIGRID escenarios"],
                            "detalle": ""})
+
+        # Noticias de la zona (Google/Bing News, interpretadas por reglas): solo suben el nivel
+        ev = (datos.get("noticias") or {}).get(str(t.cod_p)) or {}
+        r["noticias"] = ev
+        if ev.get("nivel", 1) >= 2:
+            top = ev["noticias"][0]
+            av.append({"origen": f"Noticias · {ev['n_medios']} medio(s)", "fuente": "Noticias", "nivel": 0,
+                       "plan": ev["nivel"], "motivo": noticias.motivo(ev),
+                       "titulo": top["titulo"], "fecha": top["fecha"].strftime("%d/%m %H:%M"), "link": top["link"],
+                       "detalle": ""})
 
         r["avisos"] = av
         r["nivel_plan"], r["motivo_nivel"] = nivel_del_plan(av)
@@ -1965,6 +1997,7 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
         if "UMBRAL" in m: return "Lluvia sobre el umbral"
         if "QUEBRADA" in m: return "Quebrada cercana"
         if "INDECI" in m: return "Emergencia INDECI cercana"
+        if "MEDIO" in m and "INFORMA" in m: return "Noticias de inundación en la zona"
         if "AVISO" in m: return "Aviso SENAMHI"
         if "INUNDACION" in m: return "Riesgo de inundación"
         if "MOVIMIENTOS EN MASA" in m: return "Riesgo de huaico o deslizamiento"
@@ -1994,10 +2027,14 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
             f"Quebrada en posible activación a {DIST_QUEBRADA_KM} km o menos.",
             f"Emergencia o peligro inminente INDECI por lluvias a {DIST_INDECI_KM} km o menos (48 h).",
             "Distrito en riesgo Alto o Muy alto en un escenario CENEPRED vigente.",
-            f"Lluvia sobre el umbral en una estación a {DIST_UMBRAL_ROJA_KM}–{DIST_UMBRAL_AMARILLA_KM} km."],
+            f"Lluvia sobre el umbral en una estación a {DIST_UMBRAL_ROJA_KM}–{DIST_UMBRAL_AMARILLA_KM} km.",
+            f"Al menos 1 medio informa inundación, aniego, huaico o lluvias intensas en la zona de la tienda "
+            f"(últimas {noticias.HORAS_NOTICIAS} h)."],
         3: ["Aviso SENAMHI rojo sobre la tienda.",
             f"Lluvia sobre el umbral de riesgo en una estación a {DIST_UMBRAL_ROJA_KM} km o menos.",
-            f"Emergencia o peligro inminente INDECI por lluvias en el mismo distrito ({HORAS_INDECI_ROJA} h)."],
+            f"Emergencia o peligro inminente INDECI por lluvias en el mismo distrito ({HORAS_INDECI_ROJA} h).",
+            f"{noticias.MIN_MEDIOS_ROJA} o más medios distintos informan el evento en la zona de la tienda y alguno "
+            f"cita una fuente oficial (COEN, INDECI, SENAMHI, municipalidad…)."],
         4: ["Solo por registro manual del equipo (archivo alertas_manuales.csv) ante inundación o afectación directa."],
     }
     guia = "".join(
@@ -2012,6 +2049,8 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
         ("INDECI / COEN", "Defensa Civil: reporta emergencias y peligros inminentes por distrito y republica los avisos de SENAMHI."),
         ("CENEPRED", "Estima qué distritos están en riesgo (Muy alto, Alto, Medio) con base en cada aviso de SENAMHI."),
         ("Red OMM", "SENAMHI envía los partes de sus estaciones a la red mundial de la Organización Meteorológica Mundial; el monitor los lee desde ahí (OGIMET)."),
+        ("Noticias", "Titulares de Google News y Bing News sobre la ciudad de cada tienda, leídos por reglas automáticas: "
+                     "solo cuentan hechos actuales (no pronósticos ni simulacros) ubicados en el distrito de la tienda o vecinos."),
         ("CORPAC", "Reportes meteorológicos horarios de los aeropuertos: temperatura actual y lluvia observada."),
         ("Mar Niño 1+2 (NOAA)", "Temperatura del mar frente a la costa norte comparada con lo normal; sobre +1 °C favorece calor y lluvias."),
         ("Riesgo de la instalación", "Clasificación fija de la Matriz Nacional de Riesgo del plan (Crítico, Alto, Medio Alto, Medio, Bajo)."),
@@ -2397,6 +2436,10 @@ def main():
     datos["sigrid"], err = seguro("CENEPRED/SIGRID escenarios", fuente_sigrid, {"escenarios": [], "mm": {}, "inund": {}})
     if err: errores["CENEPRED/SIGRID"] = err
     log(f"     SIGRID: {len(datos['sigrid']['escenarios'])} escenario(s) vigente(s)")
+    datos["noticias"], err = seguro("Noticias de la zona (Google News, Bing News)", lambda: fuente_noticias(tiendas), {})
+    if err: errores["Noticias"] = err
+    elif datos["noticias"].get("_errores"):
+        errores["Noticias"] = "sin respuesta para: " + "; ".join(datos["noticias"]["_errores"])[:200]
     datos["avisos_indeci"], err = seguro("Avisos SENAMHI vía INDECI (boletines)", fuente_avisos_indeci, [])
     log(f"     Avisos vía INDECI: {', '.join('N° ' + a['numero'] + ' ' + '/'.join(a['departamentos']) for a in datos['avisos_indeci']) or 'ninguno'}")
     if senamhi_caido():

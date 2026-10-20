@@ -4,6 +4,7 @@ Página diaria con el estado del Fenómeno El Niño, avisos y clima por instalac
 con niveles y acciones según el *Plan Integral FEN 2026/2027*.
 
 Fuentes oficiales: ENFEN, SENAMHI (IDESEP), INDECI (COEN), CENEPRED (SIGRID) y NOAA.
+Además, noticias de la zona de cada tienda (Google News y Bing News, gratis), leídas por reglas (`noticias.py`).
 
 ## Cómo funciona
 - GitHub Actions ejecuta `monitor_fen.py` cada 15 minutos y publica `docs/index.html` en GitHub Pages.
@@ -28,8 +29,12 @@ Fuentes oficiales: ENFEN, SENAMHI (IDESEP), INDECI (COEN), CENEPRED (SIGRID) y N
 | Nivel | Se activa cuando |
 |---|---|
 | 1 · Verde | Base de temporada (monitoreo preventivo) |
-| 2 · Amarilla | Aviso SENAMHI amarillo/naranja sobre la tienda · quebrada en activación a ≤ 5 km · evento INDECI por lluvias a ≤ 10 km · lluvia sobre umbral en estación a 15–30 km · distrito en riesgo Alto/Muy alto en escenario CENEPRED |
-| 3 · Roja | Aviso SENAMHI rojo · lluvia sobre umbral en estación a ≤ 15 km · emergencia/peligro inminente INDECI en el distrito (últimas 24 h) |
+| 2 · Amarilla | Aviso SENAMHI amarillo/naranja sobre la tienda · quebrada en activación a ≤ 5 km · evento INDECI por lluvias a ≤ 10 km · lluvia sobre umbral en estación a 15–30 km · distrito en riesgo Alto/Muy alto en escenario CENEPRED · 1 medio informa inundación/aniego/huaico/lluvias intensas en la zona de la tienda (últimas 12 h) |
+| 3 · Roja | Aviso SENAMHI rojo · lluvia sobre umbral en estación a ≤ 15 km · emergencia/peligro inminente INDECI en el distrito (últimas 24 h) · 2 o más medios lo informan y alguno cita fuente oficial (COEN, INDECI, SENAMHI, municipalidad…) |
 | 4 · Negra | Solo manual (`alertas_manuales.csv`) |
 
-Un nivel alcanzado se mantiene 24 h. Las distancias se ajustan al inicio de `monitor_fen.py`.
+Un nivel alcanzado se mantiene 24 h. Las noticias solo suben el nivel (nunca lo bajan) y cada alerta muestra los enlaces para verificarla;
+no cuentan pronósticos, simulacros ni notas de años anteriores, ni eventos en otra zona del departamento.
+
+Nota: SENAMHI (IDESEP) no responde a conexiones desde GitHub (solo desde Perú, por HTTP); mientras tanto el monitor
+usa las demás fuentes y las noticias. Las distancias se ajustan al inicio de `monitor_fen.py`.
