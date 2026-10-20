@@ -906,7 +906,7 @@
 2026-10-20,P002100601,FLB Chiclayo Mall,Norte,28.0,25.0,,"CORPAC · Aeropuerto Chiclayo (1 km), reporte 15:00",verde,1,Crítico,0,0
 2026-10-20,P002100701,FLB Trujillo CC,Norte,27.0,24.0,,"CORPAC · Aeropuerto Trujillo (7 km), reporte 15:00",verde,1,Crítico,0,0
 2026-10-20,P002100801,FLB Chimbote,Norte,26.0,24.0,,"CORPAC · Aeropuerto Chimbote (6 km), reporte 15:00",verde,1,Alto,4,0
-2026-10-20,P002100901,FLB Cajamarca,Norte,22.0,10.0,,"CORPAC · Aeropuerto Cajamarca (3 km), reporte 15:30",amarillo,2,Alto,3,0
+2026-10-20,P002100901,FLB Cajamarca,Norte,22.0,10.0,,"CORPAC · Aeropuerto Cajamarca (3 km), reporte 15:30",amarillo,2,Alto,1,0
 2026-10-20,P002101401,FLB Canete MP,Centro/Sur,25.77,16.83,0.0,"NASA POWER, referencia regional (celda de ~50 km), dato del 17/10",verde,1,Alto,0,0
 2026-10-20,P002101201,FLB Ica Mall,Centro/Sur,27.5,14.97,0.0,"NASA POWER, referencia regional (celda de ~50 km), dato del 17/10",verde,1,Alto,0,0
 2026-10-20,P002102101,FLB Huancayo,Centro/Sur,18.0,8.0,,"CORPAC · Aeropuerto Jauja (42 km), reporte 15:00",verde,1,Medio Alto,0,0
