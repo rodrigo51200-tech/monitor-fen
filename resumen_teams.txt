@@ -1,17 +1,16 @@
 🌊 Monitor FEN · 20/10/2026
-Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 18-2026 · 16 Octubre, 2026)
-ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
+Estado ENFEN: s/d ( · )
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
 Instalaciones sobre Nivel 1 (8):
 • FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 25 medios informan inundación o lluvias intensas en la zona de la tienda, con mención de fuente oficial (noticias de las últimas 12 h).
 • FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 25 medios informan inundación o lluvias intensas en la zona de la tienda, con mención de fuente oficial (noticias de las últimas 12 h).
-• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 19/10 17:56: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
-• FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 19/10 17:56: Informe de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
+• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 19/10 18:11: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
+• FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 19/10 18:11: Informe de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-• FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 17:56: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 17:56: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
+• FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 18:11: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
+• FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 18:11: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Comas (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 20/10 11:22: 1 medio informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 12 h).
 
 Resto de instalaciones (33): Nivel 1 Alerta Verde – monitoreo preventivo.
