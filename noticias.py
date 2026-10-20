@@ -44,6 +44,11 @@ GRAVE = [r"INUNDA\w* (VIVIENDAS|CASAS|HOGARES)", r"DAMNIFICAD", r"DESBORD", r"\b
 FUTURO = [r"PRONOSTICO", r"COMO ESTARA", r"\bPODRIAN?\b", r"SE INTENSIFICARAN", r"\bAFRONTARIA", r"POSIBLE ACTIVACION",
           r"TAREAS PENDIENTES", r"\bSIMULACRO", r"\bPREVENCION\b", r"\bPREPARA", r"OBRAS DE MITIGACION",
           r"\bHACE \w+ (ANOS?|MESES)\b", r"\bRECUERDA", r"\bANIVERSARIO"]
+# El agua tiene que venir del clima: la noticia debe nombrar la lluvia o un fenomeno asociado...
+CLIMA = r"LLUVI|PRECIPITACI|TORMENTA|CHUBASCO|AGUACERO|TEMPORAL|EL NINO|HUA[IY]CO|QUEBRADA|\bRIOS?\b|GRANIZ|CRECIDA|CAUDAL"
+# ...y no debe atribuirlo a otra causa (tuberia rota, obra, sismo) sin mencionar lluvia
+OTRA_CAUSA = (r"\bFUGA|TUBERIA|MATRIZ|SEDAPAL|SEDALIB|EPS GRAU|DESAGUE|ALCANTARILLADO|BUZON|ROTURA|\bOBRAS?\b|"
+              r"MATERIAL DE CONSTRUCCION|DESMONTE|SISMO|TERREMOTO|TEMBLOR|INCENDIO|CISTERNA")
 OFICIAL = [r"\bCOEN\b", r"\bINDECI\b", r"\bSENAMHI\b", r"MUNICIPALIDAD", r"GOBIERNO REGIONAL", r"\bALCALDE",
            r"DEFENSA CIVIL", r"\bPREFECT", r"ESTADO DE EMERGENCIA", r"\bCOER\b", r"\bBOMBEROS\b"]
 CIUDAD_REGION = r"(REGION|DEPARTAMENTO( DE)?|NORTE DE|SIERRA DE)\s+$"
@@ -179,7 +184,10 @@ def clasificar(item: dict, ahora: datetime) -> dict:
     futuro = _hay(FUTURO, texto)
     viejo = any(int(a) < ahora.year for a in re.findall(r"\b(19[5-9]\d|20[0-4]\d)\b", texto))
     extranjero = bool(re.search(OTRO_PAIS, texto)) and not re.search(r"\bPERU", texto)
-    actual = evento and not futuro and not viejo and not extranjero and -1 <= horas <= HORAS_NOTICIAS
+    clima = bool(re.search(CLIMA, texto))
+    otra_causa = bool(re.search(OTRA_CAUSA, texto)) and "LLUVI" not in texto
+    actual = (evento and clima and not otra_causa and not futuro and not viejo and not extranjero
+              and -1 <= horas <= HORAS_NOTICIAS)
     return {"texto": texto, "horas": horas, "actual": actual,
             "grave": actual and _hay(GRAVE, texto), "oficial": actual and _hay(OFICIAL, texto)}
 
