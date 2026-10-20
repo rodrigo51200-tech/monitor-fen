@@ -2058,19 +2058,29 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
     glos = "".join(f"<dt>{e(a)}</dt><dd>{e(b)}</dd>" for a, b in glosario)
 
     # ---------------- LLUVIA O GARUA OBSERVADA AHORA ----------------
+    # Una tarjeta por aeropuerto con lluvia reciente: tipo (de mas a menos intenso), hora y tiendas cercanas
+    ORDEN_OBS = {"tormenta con granizo": 0, "granizo": 1, "tormenta": 2, "lluvia": 3, "chubasco": 3, "llovizna (garúa)": 4}
     obs_ahora = {}
     for f in filas:
         la = f.get("lluvia_ahora")
         if la:
-            obs_ahora.setdefault(la["lugar"], la)
+            obs_ahora.setdefault(la["lugar"], {**la, "tiendas": []})["tiendas"].append(f["tienda"].replace("FLB ", ""))
     if obs_ahora:
-        partes_obs = []
-        for lugar, la in sorted(obs_ahora.items(), key=lambda x: x[1]["hora"], reverse=True):
+        tarjetas = []
+        for lugar, la in sorted(obs_ahora.items(), key=lambda x: (ORDEN_OBS.get(x[1]["tipo"], 9), x[0])):
             ciudad, _, aerop = lugar.partition(" – ")
-            donde = f"{ciudad} (aeropuerto {aerop})" if aerop else f"{ciudad} (aeropuerto)"
-            partes_obs.append(f'<b>{e(la["tipo"].capitalize())}</b> en {e(donde)}, {e(la["hora"])}')
-        obs_html = (f'<p class="obs-ahora"><span class="gota" aria-hidden="true"></span><span>Observado en las últimas '
-                    f'{HORAS_LLUVIA_AHORA} horas: ' + " · ".join(partes_obs) + '.</span></p>')
+            ts = sorted(la["tiendas"])
+            cerca_txt = ", ".join(ts) if len(ts) <= 3 else f"{len(ts)} instalaciones de la zona"
+            clase = "fuerte" if ORDEN_OBS.get(la["tipo"], 9) <= 2 else "lluvia" if ORDEN_OBS.get(la["tipo"], 9) == 3 else "garua"
+            tarjetas.append(
+                f'<li class="obs-{clase}"><div class="obs-top"><b class="obs-ciudad">{e(ciudad)}</b>'
+                f'<span class="obs-hora">{e(la["hora"])}</span></div>'
+                f'<span class="obs-tipo">{e(la["tipo"].capitalize())}</span>'
+                f'<span class="obs-tiendas" title="{e(", ".join(ts))}">Cerca: {e(cerca_txt)}</span></li>')
+        obs_html = (f'<section class="obs-ahora" aria-label="Lluvia observada ahora">'
+                    f'<h3><span class="gota" aria-hidden="true"></span>Lluvia observada ahora'
+                    f'<small>últimas {HORAS_LLUVIA_AHORA} h · reportes de aeropuertos (CORPAC)</small></h3>'
+                    f'<ul>{"".join(tarjetas)}</ul></section>')
     else:
         obs_html = ""
 
@@ -2250,8 +2260,22 @@ details{{margin-top:6px;border-top:1px solid var(--bd);padding-top:6px}} summary
 {FILTROS_CSS}
 {MODERNO_CSS}
 {PRON_CSS}
-.obs-ahora{{margin:18px 0 0;padding:11px 14px;border-left:4px solid var(--azul);background:#eef4fb;border-radius:6px;font-size:14.5px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}}
-.gota{{width:10px;height:13px;background:var(--azul);border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;clip-path:polygon(50% 0,100% 62%,92% 85%,70% 100%,30% 100%,8% 85%,0 62%);flex:0 0 10px;align-self:center}}
+.obs-ahora{{margin:18px 0 0;padding:14px 16px;border:1px solid #cfe0f3;border-left:4px solid var(--azul);background:#f3f8fd;border-radius:8px}}
+.obs-ahora h3{{margin:0 0 10px;font-size:15px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}}
+.obs-ahora h3 small{{font-weight:400;color:#5b6573;font-size:12.5px}}
+.obs-ahora ul{{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;align-items:start}}
+.obs-ahora li{{background:#fff;border:1px solid #dbe5ef;border-left:4px solid #9bb7d4;border-radius:6px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}}
+.obs-ahora li.obs-fuerte{{border-left-color:var(--rojo)}}
+.obs-ahora li.obs-lluvia{{border-left-color:var(--azul)}}
+.obs-top{{display:flex;justify-content:space-between;align-items:baseline;gap:8px}}
+.obs-ciudad{{font-size:14.5px}}
+.obs-hora{{font-size:12.5px;color:#5b6573;font-variant-numeric:tabular-nums}}
+.obs-tipo{{font-size:13.5px;font-weight:700;color:var(--azul)}}
+.obs-fuerte .obs-tipo{{color:var(--rojo)}}
+.obs-garua .obs-tipo{{color:#4f6b88;font-weight:600}}
+.obs-tiendas{{font-size:12.5px;color:#5b6573;overflow-wrap:anywhere}}
+@media (max-width:520px){{.obs-ahora ul{{grid-template-columns:1fr 1fr}}.obs-ahora{{padding:12px}}}}
+.gota{{width:10px;height:13px;background:var(--azul);border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;clip-path:polygon(50% 0,100% 62%,92% 85%,70% 100%,30% 100%,8% 85%,0 62%);flex:0 0 10px}}
 .ico-aer.lluvia{{background:#0b6fd6;box-shadow:0 0 0 3px rgba(11,111,214,.35)}}
 footer{{margin-top:36px;font-size:12px;color:var(--mut);border-top:1px solid var(--bd);padding-top:12px}}
 @media (max-width:900px){{.estado,.tres{{grid-template-columns:1fr 1fr}}}}
