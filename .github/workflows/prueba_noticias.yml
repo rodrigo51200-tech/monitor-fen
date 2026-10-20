@@ -1,0 +1,41 @@
+name: Prueba noticias (temporal)
+
+# Corre el monitor con el codigo de esta rama sin publicar ni guardar nada.
+on:
+  push:
+    branches: [claude/beautiful-archimedes-k90jnz]
+    paths: [.github/workflows/prueba_noticias.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  prueba:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      TZ: America/Lima
+      MONITOR_HTML: /tmp/prueba/index.html
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Ejecutar monitor (sin publicar)
+        run: |
+          python -u monitor_fen.py > /tmp/salida.txt 2>&1 || echo "EL MONITOR TERMINO CON ERROR"
+          grep -E "Noticias|Instalaciones|\[OK\]|\[X\]" /tmp/salida.txt | grep -v "^ " | cut -c1-220
+          echo "=================== RESUMEN TEAMS ==================="
+          cat resumen_teams.txt
+          echo "=================== NOTICIAS EN LA PAGINA ==================="
+          python - <<'PY'
+          import re, html
+          t = open("/tmp/prueba/index.html", encoding="utf-8").read()
+          for m in re.finditer(r"<dt>Noticias</dt><dd>(.*?)</dd>", t):
+              txt = html.unescape(re.sub(r"<[^>]+>", "", m.group(1)))
+              if "Sin noticias" not in txt:
+                  print("-", txt[:300])
+          PY
