@@ -8,10 +8,10 @@ Instalaciones sobre Nivel 1 (8):
 • FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 19 medios informan inundación o lluvias intensas en la zona de la tienda, con mención de fuente oficial (noticias de las últimas 12 h).
 • FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 19 medios informan inundación o lluvias intensas en la zona de la tienda, con mención de fuente oficial (noticias de las últimas 12 h).
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
-• FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 19/10 15:10: Informe de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
+• FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 19/10 15:25: Informe de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-• FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 15:10: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 15:10: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
+• FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 15:25: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
+• FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 15:25: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Comas (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 20/10 11:22: 1 medio informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 12 h).
 
 Resto de instalaciones (33): Nivel 1 Alerta Verde – monitoreo preventivo.
@@ -20,3 +20,15 @@ Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Chiclayo Mall: 28.0° (-3.0°)
 • FLB Cajamarca: 22.0° (-3.0°)
 • FLB Huancayo: 19.0° (-3.0°)
+• CD Lurín: 28.3° (+3.3°)
+• CD Villa El Salvador: 28.3° (+3.3°)
+• FLB Santa Anita: 28.3° (+3.3°)
+• FLB Puruchuco: 28.3° (+3.3°)
+• FLB Mall del Sur: 28.3° (+3.3°)
+• FLB Atocongo: 28.3° (+3.3°)
+• FLB Angamos: 28.3° (+3.3°)
+• FLB Miraflores: 28.3° (+3.3°)
+• FLB Jockey Plaza: 28.3° (+3.3°)
+• FLB San Isidro: 28.3° (+3.3°)
+• Oficinas SF San Isidro: 28.3° (+3.3°)
+• FLB MOLINA: 28.3° (+3.3°)
