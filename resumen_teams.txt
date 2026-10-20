@@ -1,4 +1,4 @@
-🌊 Monitor FEN · 19/10/2026
+🌊 Monitor FEN · 20/10/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 18-2026 · 16 Octubre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
@@ -6,24 +6,9 @@ Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
 Instalaciones sobre Nivel 1 (5):
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
-• FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 3 Alerta Roja: Informe de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
+• FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 19/10 00:21: Informe de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-• FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
+• FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 00:21: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
+• FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 00:21: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (36): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Exp Huaraz: 28.0° (+9.0°)
-• CD Lurín: 25.0° (-3.8°)
-• CD Villa El Salvador: 25.0° (-3.8°)
-• FLB Santa Anita: 25.0° (-3.8°)
-• FLB Puruchuco: 25.0° (-3.8°)
-• FLB Mall del Sur: 25.0° (-3.8°)
-• FLB Atocongo: 25.0° (-3.8°)
-• FLB Angamos: 25.0° (-3.8°)
-• FLB Miraflores: 25.0° (-3.8°)
-• FLB Jockey Plaza: 25.0° (-3.8°)
-• FLB San Isidro: 25.0° (-3.8°)
-• Oficinas SF San Isidro: 25.0° (-3.8°)
-• FLB MOLINA: 25.0° (-3.8°)
