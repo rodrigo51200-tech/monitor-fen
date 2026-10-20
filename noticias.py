@@ -47,6 +47,8 @@ FUTURO = [r"PRONOSTICO", r"COMO ESTARA", r"\bPODRIAN?\b", r"SE INTENSIFICARAN", 
 OFICIAL = [r"\bCOEN\b", r"\bINDECI\b", r"\bSENAMHI\b", r"MUNICIPALIDAD", r"GOBIERNO REGIONAL", r"\bALCALDE",
            r"DEFENSA CIVIL", r"\bPREFECT", r"ESTADO DE EMERGENCIA", r"\bCOER\b", r"\bBOMBEROS\b"]
 CIUDAD_REGION = r"(REGION|DEPARTAMENTO( DE)?|NORTE DE|SIERRA DE)\s+$"
+# Eventos en otro pais no cuentan aunque coincida un nombre (p. ej. "Miraflores")
+OTRO_PAIS = r"\b(ECUADOR|COLOMBIA|BOLIVIA|CHILE|BRASIL|ARGENTINA|VENEZUELA|MEXICO|ESPANA|ESTADOS UNIDOS|EE\.? ?UU|GUATEMALA|HONDURAS|PANAMA|URUGUAY|PARAGUAY|CUBA|HAITI|FILIPINAS|INDIA|CHINA|PAKISTAN|ITALIA|FRANCIA|ALEMANIA)\b"
 
 
 def _norm(txt) -> str:
@@ -86,6 +88,8 @@ def leer_rss(xml: str, origen: str) -> list[dict]:
             titulo, medio2 = titulo.rsplit(" - ", 1)
             medio = medio or medio2
         resumen = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", campo("description"))).strip()
+        if medio:       # Google repite el medio en el resumen ("... Radio Miraflores")
+            resumen = resumen.replace(medio.strip(), " ")
         if titulo and link:
             out.append({"titulo": titulo.strip(), "link": link, "fecha": fecha, "medio": medio.strip() or "?",
                         "resumen": resumen[:400], "origen": origen})
@@ -174,7 +178,8 @@ def clasificar(item: dict, ahora: datetime) -> dict:
     evento = _hay(EVENTO, texto)
     futuro = _hay(FUTURO, texto)
     viejo = any(int(a) < ahora.year for a in re.findall(r"\b(19[5-9]\d|20[0-4]\d)\b", texto))
-    actual = evento and not futuro and not viejo and -1 <= horas <= HORAS_NOTICIAS
+    extranjero = bool(re.search(OTRO_PAIS, texto)) and not re.search(r"\bPERU", texto)
+    actual = evento and not futuro and not viejo and not extranjero and -1 <= horas <= HORAS_NOTICIAS
     return {"texto": texto, "horas": horas, "actual": actual,
             "grave": actual and _hay(GRAVE, texto), "oficial": actual and _hay(OFICIAL, texto)}
 

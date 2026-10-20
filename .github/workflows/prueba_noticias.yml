@@ -1,6 +1,6 @@
 name: Prueba noticias (temporal)
 
-# Corre el monitor con el codigo de esta rama sin publicar ni guardar nada.
+# Corre el monitor con el codigo de esta rama sin publicar ni guardar nada (2a prueba).
 on:
   push:
     branches: [claude/beautiful-archimedes-k90jnz]
