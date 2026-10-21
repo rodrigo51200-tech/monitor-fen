@@ -1,0 +1,4 @@
+# Si dos corridas del monitor guardan a la vez, el historial se junta en vez de chocar:
+# son archivos que solo agregan filas (o que se deduplican por clave al volver a leerse).
+historial/*.csv merge=union
+historial/log_monitor.txt merge=union
