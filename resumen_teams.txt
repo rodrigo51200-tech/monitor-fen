@@ -4,18 +4,24 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (9):
-• FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 23 medios informan inundación o lluvias intensas en la zona de la tienda, con mención de fuente oficial (noticias de las últimas 12 h).
-• FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 23 medios informan inundación o lluvias intensas en la zona de la tienda, con mención de fuente oficial (noticias de las últimas 12 h).
-• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 19/10 22:40: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
-• FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 19/10 22:40: Informe de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
+🔔 Cambios desde la última actualización (2):
+▲ FLB Arequipa (Cayma): Nivel 1 → Nivel 2 Alerta Amarilla – 1 medio informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 12 h).
+▲ FLB Porongoche: Nivel 1 → Nivel 2 Alerta Amarilla – 1 medio informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 12 h).
+
+Instalaciones sobre Nivel 1 (11):
+• FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 24 medios informan inundación o lluvias intensas en la zona de la tienda, con mención de fuente oficial (noticias de las últimas 12 h).
+• FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 24 medios informan inundación o lluvias intensas en la zona de la tienda, con mención de fuente oficial (noticias de las últimas 12 h).
+• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 19/10 22:56: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
+• FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 3 Alerta Roja: Se mantiene por 24 h desde el 19/10 22:56: Informe de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-• FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 22:40: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 22:40: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
+• FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 22:56: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
+• FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 19/10 22:56: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
+• FLB Arequipa (Cayma) (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: 1 medio informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 12 h).
+• FLB Porongoche (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: 1 medio informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 12 h).
 • FLB Comas (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene por 24 h desde el 20/10 11:22: 1 medio informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 12 h).
 • FLB Miraflores (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: 1 medio informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 12 h).
 
-Resto de instalaciones (32): Nivel 1 Alerta Verde – monitoreo preventivo.
+Resto de instalaciones (30): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Piura Centro: 30.0° (-4.0°)
