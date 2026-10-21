@@ -1352,10 +1352,12 @@ def persistencia_y_cambios(filas):
             f["nivel_anterior"] = int(hf.sort_values("ts").iloc[-1]["nivel_final"])
             rec = hf[hf["ts"] >= ahora - pd.Timedelta(hours=PERSISTENCIA_HORAS)]
             if not rec.empty and not f.get("manual"):
-                fila = rec.loc[rec["nivel_calculado"].astype(int).idxmax()]
+                niv = rec["nivel_calculado"].astype(int)
+                fila = rec[niv == niv.max()].sort_values("ts").iloc[-1]     # ultima vez que se calculo ese nivel
                 if int(fila["nivel_calculado"]) > f["nivel_plan"]:
                     f["nivel_plan"] = int(fila["nivel_calculado"])
-                    f["motivo_nivel"] = (f"Se mantiene por {PERSISTENCIA_HORAS} h desde el {fila['ts']:%d/%m %H:%M}: "
+                    hasta = fila["ts"] + pd.Timedelta(hours=PERSISTENCIA_HORAS)
+                    f["motivo_nivel"] = (f"Se mantiene hasta el {hasta:%d/%m %H:%M} (último reporte: {fila['ts']:%d/%m %H:%M}): "
                                          f"{str(fila['motivo']).rstrip('.')}.")
                     f["semaforo"] = NIVELES_PLAN[f["nivel_plan"]]["clase"]
             if f["nivel_anterior"] is not None and f["nivel_plan"] != f["nivel_anterior"]:

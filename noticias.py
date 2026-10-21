@@ -42,11 +42,21 @@ EVENTO = [r"INUNDA(N|RON|DO|DA|DOS|DAS)\b",
           r"\bANIEG", r"\bANEG(A|AN|ARON|ADO|ADA|ADOS|ADAS)\b",
           r"DESBORD(A|AN|O|ARON|E|ES|AMIENTO)\b", r"\bHUA[IY]COS?\b", r"BAJO EL AGUA", r"\bEN RIOS\b",
           r"COLAPS[OA]", r"DAMNIFICAD", r"\bATRAPAD[OA]S\b", r"EVACUA(N|RON|DOS|DAS|CION)\b",
-          r"LLUVIAS? (DE FUERTE INTENSIDAD|INTENSAS?|FUERTES?|TORRENCIALES?)",
-          r"(FUERTES?|INTENSAS?|TORRENCIALES?) LLUVIAS?", r"ACTIVACION DE (LA )?QUEBRADA", r"DESLIZAMIENTO"]
+          r"ACTIVACION DE (LA )?QUEBRADA", r"DESLIZAMIENTO"]
+# "lluvias intensas" solo cuenta si la nota dice que ocurrieron (no en notas de riesgo o pronostico)
+LLUVIA_INTENSA = [r"LLUVIAS? (DE FUERTE INTENSIDAD|INTENSAS?|FUERTES?|TORRENCIALES?)",
+                  r"(FUERTES?|INTENSAS?|TORRENCIALES?) LLUVIAS?"]
+OCURRIDO = [r"INUNDA(N|RON|DO|DA|DOS|DAS)\b", r"\bANEG(A|AN|ARON|ADO|ADA|ADOS|ADAS)\b",
+            r"(PROVOCA|CAUSA|DEJA|GENERA|OCASIONA)\w* (\w+ )?(ANIEGOS?|INUNDACION|DAMNIFICADOS|DESBORDE|TORRENTES?)",
+            r"SE DESBORD", r"DESBORDO", r"\bATRAPAD", r"BAJO EL AGUA", r"\bEN RIOS\b", r"(SE )?REGISTRA\w* (\w+ ){0,3}LLUVIA",
+            r"LLUVIAS? (\w+ ){0,4}(SE REGISTRA|CAE|CAEN|CAYO|CAYERON|AZOTA|SORPRENDE)", r"\bSOPORTA", r"\bAZOT",
+            r"DESDE LA MADRUGADA", r"ESTA MANANA", r"\bANOCHE\b"]
 GRAVE = [r"INUNDA\w* (VIVIENDAS|CASAS|HOGARES)", r"DAMNIFICAD", r"DESBORD", r"\bHUA[IY]CO", r"COLAPS",
          r"EVACUA", r"FALLECID", r"ATRAPAD", r"ESTADO DE EMERGENCIA", r"BAJO EL AGUA", r"EN RIOS\b"]
 FUTURO = [r"PRONOSTICO", r"COMO ESTARA", r"\bPODRIAN?\b", r"SE INTENSIFICARAN", r"\bAFRONTARIA", r"POSIBLE ACTIVACION",
+          r"\b(INUNDA|DESBORDA|AFECTA|ACTIVA|ANEGA)RIAN?\b", r"YA NO SE", r"ENFRENTAN? (\w+ )?RIESGOS?",
+          r"\bANTE (EL )?(FENOMENO )?(EL )?NINO\b", r"\bVULNERAB", r"\bAMENAZA", r"\bEN RIESGO\b",
+          r"RIESGOS? (DE|POR) (\w+ ){0,2}(DESBORDE|INUNDACION|HUAICO|ACTIVACION)",
           r"TAREAS PENDIENTES", r"\bSIMULACRO", r"\bPREVENCION\b", r"\bPREPARA", r"OBRAS DE MITIGACION",
           r"\bHACE \w+ (ANOS?|MESES)\b", r"\bRECUERDA", r"\bANIVERSARIO"]
 # El agua tiene que venir del clima: la noticia debe nombrar la lluvia o un fenomeno asociado...
@@ -58,7 +68,7 @@ OFICIAL = [r"\bCOEN\b", r"\bINDECI\b", r"\bSENAMHI\b", r"MUNICIPALIDAD", r"GOBIE
            r"DEFENSA CIVIL", r"\bPREFECT", r"ESTADO DE EMERGENCIA", r"\bCOER\b", r"\bBOMBEROS\b"]
 CIUDAD_REGION = r"(REGION|DEPARTAMENTO( DE)?|NORTE DE|SIERRA DE)\s+$"
 # Eventos en otro pais no cuentan aunque coincida un nombre (p. ej. "Miraflores")
-OTRO_PAIS = r"\b(ECUADOR|COLOMBIA|BOLIVIA|CHILE|BRASIL|ARGENTINA|VENEZUELA|MEXICO|ESPANA|ESTADOS UNIDOS|EE\.? ?UU|GUATEMALA|HONDURAS|PANAMA|URUGUAY|PARAGUAY|CUBA|HAITI|FILIPINAS|INDIA|CHINA|PAKISTAN|ITALIA|FRANCIA|ALEMANIA)\b"
+OTRO_PAIS = r"\b(QUITO|GUAYAQUIL|BOGOTA|MEDELLIN|CARACAS|SANTIAGO DE CHILE|BUENOS AIRES|SAO PAULO|RIO DE JANEIRO|MONTEVIDEO|COCHABAMBA|SANTA CRUZ DE LA SIERRA|CIUDAD DE MEXICO|ECUADOR|COLOMBIA|BOLIVIA|CHILE|BRASIL|ARGENTINA|VENEZUELA|MEXICO|ESPANA|ESTADOS UNIDOS|EE\.? ?UU|GUATEMALA|HONDURAS|PANAMA|URUGUAY|PARAGUAY|CUBA|HAITI|FILIPINAS|INDIA|CHINA|PAKISTAN|ITALIA|FRANCIA|ALEMANIA)\b"
 
 
 def _norm(txt) -> str:
@@ -208,7 +218,7 @@ def ubicar(texto: str, lug: dict) -> str:
 def clasificar(item: dict, ahora: datetime) -> dict:
     texto = _norm(item["titulo"] + " . " + item["resumen"])
     horas = (ahora - item["fecha"]).total_seconds() / 3600
-    evento = _hay(EVENTO, texto)
+    evento = _hay(EVENTO, texto) or (_hay(LLUVIA_INTENSA, texto) and _hay(OCURRIDO, texto))
     futuro = _hay(FUTURO, texto)
     viejo = any(int(a) < ahora.year for a in re.findall(r"\b(19[5-9]\d|20[0-4]\d)\b", texto))
     extranjero = bool(re.search(OTRO_PAIS, texto)) and not re.search(r"\bPERU", texto)
