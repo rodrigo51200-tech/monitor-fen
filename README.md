@@ -4,7 +4,8 @@ Página diaria con el estado del Fenómeno El Niño, avisos y clima por instalac
 con niveles y acciones según el *Plan Integral FEN 2026/2027*.
 
 Fuentes oficiales: ENFEN, SENAMHI (IDESEP), INDECI (COEN), CENEPRED (SIGRID) y NOAA.
-Además, noticias de la zona de cada tienda (Google News y Bing News, gratis), leídas por reglas (`noticias.py`).
+Además, noticias de la zona de cada tienda (Google News y Bing News, gratis), leídas por reglas (`noticias.py`);
+solo cuentan los medios de `medios_confiables.csv`.
 
 ## Cómo funciona
 - GitHub Actions ejecuta `monitor_fen.py` cada 15 minutos y publica `docs/index.html` en GitHub Pages.
@@ -21,6 +22,7 @@ Además, noticias de la zona de cada tienda (Google News y Bing News, gratis), l
 | Archivo | Para qué |
 |---|---|
 | `zonas_tiendas.csv` | Instalaciones, zona, riesgo del plan, ubicación |
+| `medios_confiables.csv` | Medios cuyas noticias pueden subir el nivel: `nombre, dominio, tipo` (las demás se muestran sin efecto) |
 | `alertas_manuales.csv` | Nivel 4 (Alerta Negra) u otros ajustes: `cod_p, tienda, nivel, motivo, vigente_hasta` |
 
 `ubigeo_distritos.csv` (INEI) se usa para ubicar la provincia de los reportes de INDECI.
@@ -29,8 +31,8 @@ Además, noticias de la zona de cada tienda (Google News y Bing News, gratis), l
 | Nivel | Se activa cuando |
 |---|---|
 | 1 · Verde | Base de temporada (monitoreo preventivo) |
-| 2 · Amarilla | Aviso SENAMHI amarillo/naranja sobre la tienda · quebrada en activación a ≤ 5 km · evento INDECI por lluvias a ≤ 10 km · lluvia sobre umbral en estación a 15–30 km · distrito en riesgo Alto/Muy alto en escenario CENEPRED · 1 medio informa inundación/aniego/huaico/lluvias intensas en la zona de la tienda (últimas 12 h) |
-| 3 · Roja | Aviso SENAMHI rojo · lluvia sobre umbral en estación a ≤ 15 km · emergencia/peligro inminente INDECI en el distrito (últimas 24 h) · 2 o más medios lo informan y alguno cita fuente oficial (COEN, INDECI, SENAMHI, municipalidad…) |
+| 2 · Amarilla | Aviso SENAMHI amarillo/naranja sobre la tienda · quebrada en activación a ≤ 5 km · evento INDECI por lluvias a ≤ 10 km · lluvia sobre umbral en estación a 15–30 km · distrito en riesgo Alto/Muy alto en escenario CENEPRED · 1 medio confiable informa inundación/aniego/huaico/lluvias intensas en la zona de la tienda (últimas 12 h) |
+| 3 · Roja | Aviso SENAMHI rojo · lluvia sobre umbral en estación a ≤ 15 km · emergencia/peligro inminente INDECI en el distrito (últimas 24 h) · 2 o más medios confiables lo informan y es grave (viviendas inundadas, damnificados, desborde, huaico) o citan fuente oficial |
 | 4 · Negra | Solo manual (`alertas_manuales.csv`) |
 
 Un nivel alcanzado se mantiene 24 h. Las noticias solo suben el nivel (nunca lo bajan) y cada alerta muestra los enlaces para verificarla;
