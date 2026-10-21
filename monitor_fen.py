@@ -722,7 +722,8 @@ def fuente_noticias(tiendas: pd.DataFrame) -> dict:
                 for u in ub.itertuples(index=False)]
     lista = [{k: getattr(t, k) for k in ("cod_p", "departamento", "provincia", "distrito", "ciudad", "lat", "lon")}
              for t in tiendas.itertuples(index=False)]
-    return noticias.obtener(lista, filas_ub, http_get, HEADERS_WEB, TIMEOUT, log)
+    # requests directo: el "corte rapido" de http_get descartaba todas las busquedas tras un solo timeout
+    return noticias.obtener(lista, filas_ub, lambda url, **kw: requests.get(url, **kw), HEADERS_WEB, (10, 20), log)
 
 
 def fuente_sigrid() -> dict:
@@ -904,21 +905,27 @@ def interpretar(r, enfen):
     else:
         lineas.append(("INDECI", f"Sin emergencias por lluvias en el departamento (últimas {HORAS_INDECI} h)."))
     nt = r.get("noticias") or {}
-    if nt.get("noticias"):
+    cache_txt = f" (búsqueda sin respuesta; se usan las noticias de las {nt['desde_cache']})" if nt.get("desde_cache") else ""
+    if nt.get("sin_revisar"):
+        lineas.append(("Noticias", "<b>No se pudo revisar</b>: Google News y Bing News no respondieron. "
+                                   "El nivel no considera noticias para esta tienda en esta actualización."))
+    elif nt.get("noticias"):
         enl = " · ".join(f'<a href="{e(x["link"])}" target="_blank" rel="noopener">{e(x["medio"])}</a>'
                          for x in nt["noticias"][:4])
         otras = len(nt.get("otras") or [])
         lineas.append(("Noticias", f"<b>{nt['n_medios']} medio(s) confiable(s) informan inundación o lluvias intensas en la zona</b> "
                                    f"(últimas {noticias.HORAS_NOTICIAS} h; interpretación automática, verificar): "
                                    f"«{e(nt['noticias'][0]['titulo'])}». {enl}"
-                                   + (f" <span class=\"muted\">· {otras} nota(s) más de otras fuentes, no cuentan.</span>" if otras else "")))
+                                   + (f" <span class=\"muted\">· {otras} nota(s) más de otras fuentes, no cuentan.</span>" if otras else "")
+                                   + cache_txt))
     elif (nt.get("otras") or []):
         o = nt["otras"][0]
         lineas.append(("Noticias", f"Sin reportes de medios confiables. Otras fuentes ({len(nt['otras'])}), no verificadas y "
                                    f"sin efecto en el nivel: <a href=\"{e(o['link'])}\" target=\"_blank\" rel=\"noopener\">"
                                    f"«{e(o['titulo'])}»</a> ({e(o['medio'])})."))
     elif "noticias" in r:
-        lineas.append(("Noticias", f"Sin noticias de inundación o lluvias intensas en la zona (últimas {noticias.HORAS_NOTICIAS} h)."))
+        lineas.append(("Noticias", f"Sin noticias de inundación o lluvias intensas en la zona (últimas {noticias.HORAS_NOTICIAS} h)."
+                                   + cache_txt))
     if r.get("sigrid_mm") or r.get("sigrid_inund"):
         partes = []
         if r.get("sigrid_mm"):
@@ -1351,12 +1358,17 @@ def persistencia_y_cambios(filas):
         if not hf.empty:
             f["nivel_anterior"] = int(hf.sort_values("ts").iloc[-1]["nivel_final"])
             rec = hf[hf["ts"] >= ahora - pd.Timedelta(hours=PERSISTENCIA_HORAS)]
+            por_noticias = rec["motivo"].astype(str).str.contains("informa", na=False) & \
+                rec["motivo"].astype(str).str.contains("medio", na=False)
+            rec = rec[~por_noticias | (rec["ts"] >= ahora - pd.Timedelta(hours=noticias.PERSISTENCIA_NOTICIAS_HORAS))]
             if not rec.empty and not f.get("manual"):
                 niv = rec["nivel_calculado"].astype(int)
                 fila = rec[niv == niv.max()].sort_values("ts").iloc[-1]     # ultima vez que se calculo ese nivel
                 if int(fila["nivel_calculado"]) > f["nivel_plan"]:
                     f["nivel_plan"] = int(fila["nivel_calculado"])
-                    hasta = fila["ts"] + pd.Timedelta(hours=PERSISTENCIA_HORAS)
+                    es_noticia = "informa" in str(fila["motivo"]) and "medio" in str(fila["motivo"])
+                    hasta = fila["ts"] + pd.Timedelta(hours=noticias.PERSISTENCIA_NOTICIAS_HORAS if es_noticia
+                                                      else PERSISTENCIA_HORAS)
                     f["motivo_nivel"] = (f"Se mantiene hasta el {hasta:%d/%m %H:%M} (último reporte: {fila['ts']:%d/%m %H:%M}): "
                                          f"{str(fila['motivo']).rstrip('.')}.")
                     f["semaforo"] = NIVELES_PLAN[f["nivel_plan"]]["clase"]

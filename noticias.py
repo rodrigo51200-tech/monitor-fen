@@ -18,18 +18,24 @@ from __future__ import annotations
 
 import csv
 import html
+import json
 import re
+import time
 from datetime import datetime, timedelta
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from urllib.parse import parse_qs, quote, urlparse
 
-HORAS_NOTICIAS = 12          # antiguedad maxima de una noticia para contar
+HORAS_NOTICIAS = 6           # antiguedad maxima de una noticia para contar
+PERSISTENCIA_NOTICIAS_HORAS = 6   # un nivel por noticias se mantiene menos que uno por SENAMHI/INDECI (24 h)
+HORAS_CACHE = 2              # si una busqueda falla, se usan sus noticias guardadas de hasta 2 h
+REINTENTOS = 2
 NOTICIAS_RADIO_KM = 8        # distritos vecinos que cuentan como "la zona de la tienda"
 NOTICIAS_RADIO_LIMA_KM = 4   # en Lima y Callao los distritos son chicos y estan pegados
 DIST_LEJOS_KM = 20           # distrito del mismo departamento que se considera "otra zona"
 MIN_MEDIOS_ROJA = 2
 ARCH_MEDIOS = Path(__file__).resolve().parent / "medios_confiables.csv"
+ARCH_CACHE = Path(__file__).resolve().parent / "cache" / "noticias.json"
 
 GOOGLE_RSS = "https://news.google.com/rss/search?q={q}&hl=es-419&gl=PE&ceid=PE:es-419"
 BING_RSS = "https://www.bing.com/news/search?format=rss&q={q}"
@@ -140,16 +146,22 @@ def es_confiable(dom: str, medios: dict) -> str:
 
 
 def buscar(lugar: str, http_get, headers, timeout) -> list[dict]:
-    """Noticias de las ultimas 24 h sobre lluvias/inundaciones en un lugar (Google + Bing)."""
+    """Noticias de las ultimas 24 h sobre lluvias/inundaciones en un lugar (Google + Bing), con reintentos.
+    Falla solo si ninguno de los dos buscadores responde."""
     q = CONSULTA.format(lugar=lugar)
     items, errores = [], []
     for origen, url in (("google", GOOGLE_RSS.format(q=quote(q + " when:1d"))), ("bing", BING_RSS.format(q=quote(q)))):
-        try:
-            r = http_get(url, headers=headers, timeout=timeout)
-            r.raise_for_status()
-            items += leer_rss(r.text, origen)
-        except Exception as err:  # noqa: BLE001
-            errores.append(f"{origen}: {err}")
+        for intento in range(REINTENTOS + 1):
+            try:
+                r = http_get(url, headers=headers, timeout=timeout)
+                r.raise_for_status()
+                items += leer_rss(r.text, origen)
+                break
+            except Exception as err:  # noqa: BLE001
+                if intento == REINTENTOS:
+                    errores.append(f"{origen}: {str(err)[:80]}")
+                else:
+                    time.sleep(3 * (intento + 1))
     if errores and not items:
         raise ConnectionError("; ".join(errores))
     return items
@@ -230,7 +242,7 @@ def clasificar(item: dict, ahora: datetime) -> dict:
             "grave": actual and _hay(GRAVE, texto), "oficial": actual and _hay(OFICIAL, texto)}
 
 
-def evaluar_tienda(items: list[dict], lug: dict, ahora: datetime, medios: dict) -> dict:
+def evaluar_tienda(items: list[dict], lug: dict, ahora: datetime, medios: dict, estado: dict | None = None) -> dict:
     """Noticias relevantes para una tienda y el nivel que justifican (1 = ninguno).
     Solo los medios confiables cuentan para el nivel; los demas quedan en 'otras'."""
     rel, otras, vistos = [], [], set()
@@ -252,30 +264,65 @@ def evaluar_tienda(items: list[dict], lug: dict, ahora: datetime, medios: dict) 
     if rel:
         nivel = 3 if n_medios >= MIN_MEDIOS_ROJA and (grave or oficial) else 2
     return {"nivel": nivel, "noticias": rel, "otras": otras, "n_medios": n_medios, "oficial": oficial,
-            "grave": grave}
+            "grave": grave, **(estado or {})}
 
 
-def obtener(tiendas, ubigeo_filas, http_get, headers, timeout, log=print, ahora=None) -> dict:
-    """Busca una vez por lugar y evalua cada tienda.  Devuelve {cod_p: evaluacion, '_errores': [...]}."""
+def _a_json(it: dict) -> dict:
+    return {**{k: v for k, v in it.items() if k != "fecha"}, "fecha": it["fecha"].isoformat()}
+
+
+def _de_json(it: dict) -> dict:
+    return {**it, "fecha": datetime.fromisoformat(it["fecha"])}
+
+
+def obtener(tiendas, ubigeo_filas, http_get, headers, timeout, log=print, ahora=None, arch_cache=ARCH_CACHE) -> dict:
+    """Busca una vez por ciudad (Lima y Callao en una sola busqueda) y evalua cada tienda.
+    Si una busqueda falla usa sus noticias guardadas (hasta HORAS_CACHE h); si no hay, la tienda queda
+    'sin revisar' (nunca se muestra como 'sin noticias').  Devuelve {cod_p: evaluacion, '_errores': [...]}."""
     ahora = ahora or datetime.now().astimezone()
     lugares = {str(t["cod_p"]): lugares_tienda(t, ubigeo_filas) for t in tiendas}
-    cache, errores = {}, []
-    for lug in lugares.values():
-        q = lug["consulta"]
-        if q not in cache:
-            try:
-                cache[q] = buscar(q, http_get, headers, timeout)
-            except Exception as err:  # noqa: BLE001
-                cache[q] = []
-                errores.append(f"{q}: {err}")
-    log(f"     Noticias: {sum(len(v) for v in cache.values())} leídas en {len(cache)} búsquedas"
-        + (f"; {len(errores)} búsqueda(s) con error" if errores else ""))
-    if errores and len(errores) == len(cache):
-        raise ConnectionError("ninguna búsqueda de noticias respondió: " + errores[0])
+    distritos_lima = sorted({lug["consulta"] for lug in lugares.values() if lug["ciudad"] is None})
+    if distritos_lima:                       # una sola busqueda para los distritos de Lima y Callao
+        q_lima = "(" + " OR ".join(f'"{"Cercado de Lima" if d == "Lima" else d}"' for d in distritos_lima) + ")"
+        for lug in lugares.values():
+            if lug["ciudad"] is None:
+                lug["consulta"] = q_lima
+    try:
+        guardado = json.loads(arch_cache.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        guardado = {}
+    resultados, estado, nuevo, errores = {}, {}, {}, []
+    for q in dict.fromkeys(lug["consulta"] for lug in lugares.values()):
+        try:
+            items = buscar(q, http_get, headers, timeout)
+            resultados[q], estado[q] = items, {}
+            # se guardan solo las notas que podrian contar (son pocas) para usarlas si la busqueda falla
+            nuevo[q] = {"ts": ahora.isoformat(), "items": [_a_json(i) for i in items if clasificar(i, ahora)["actual"]]}
+        except Exception as err:  # noqa: BLE001
+            nombre = "Lima/Callao" if q.startswith("(") else q
+            prev = guardado.get(q)
+            ts = datetime.fromisoformat(prev["ts"]) if prev else None
+            if ts and (ahora - ts).total_seconds() <= HORAS_CACHE * 3600:
+                resultados[q] = [_de_json(i) for i in prev["items"]]
+                estado[q] = {"desde_cache": ts.strftime("%H:%M")}
+                nuevo[q] = prev
+                errores.append(f"{nombre}: sin respuesta, se usan noticias de las {ts:%H:%M}")
+            else:
+                resultados[q], estado[q] = [], {"sin_revisar": True}
+                errores.append(f"{nombre}: sin respuesta ({str(err)[:80]})")
+    sin_revisar = sum(1 for e in estado.values() if e.get("sin_revisar"))
+    log(f"     Noticias: {sum(len(v) for v in resultados.values())} leídas en {len(resultados)} búsquedas"
+        + (f"; {len(errores)} con error ({sin_revisar} sin revisar)" if errores else ""))
+    try:
+        arch_cache.parent.mkdir(exist_ok=True)
+        arch_cache.write_text(json.dumps(nuevo, ensure_ascii=False), encoding="utf-8")
+    except Exception as err:  # noqa: BLE001
+        log(f"     Noticias: no se pudo guardar el caché ({err})")
     medios = leer_medios()
     if not medios:
         raise ValueError("medios_confiables.csv no existe o está vacío: no se puede evaluar noticias")
-    out = {cod: evaluar_tienda(cache[lug["consulta"]], lug, ahora, medios) for cod, lug in lugares.items()}
+    out = {cod: evaluar_tienda(resultados[lug["consulta"]], lug, ahora, medios, estado[lug["consulta"]])
+           for cod, lug in lugares.items()}
     out["_errores"] = errores
     return out
 

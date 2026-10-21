@@ -31,11 +31,11 @@ solo cuentan los medios de `medios_confiables.csv`.
 | Nivel | Se activa cuando |
 |---|---|
 | 1 · Verde | Base de temporada (monitoreo preventivo) |
-| 2 · Amarilla | Aviso SENAMHI amarillo/naranja sobre la tienda · quebrada en activación a ≤ 5 km · evento INDECI por lluvias a ≤ 10 km · lluvia sobre umbral en estación a 15–30 km · distrito en riesgo Alto/Muy alto en escenario CENEPRED · 1 medio confiable informa inundación/aniego/huaico/lluvias intensas en la zona de la tienda (últimas 12 h) |
+| 2 · Amarilla | Aviso SENAMHI amarillo/naranja sobre la tienda · quebrada en activación a ≤ 5 km · evento INDECI por lluvias a ≤ 10 km · lluvia sobre umbral en estación a 15–30 km · distrito en riesgo Alto/Muy alto en escenario CENEPRED · 1 medio confiable informa inundación/aniego/huaico/lluvias intensas en la zona de la tienda (últimas 6 h) |
 | 3 · Roja | Aviso SENAMHI rojo · lluvia sobre umbral en estación a ≤ 15 km · emergencia/peligro inminente INDECI en el distrito (últimas 24 h) · 2 o más medios confiables lo informan y es grave (viviendas inundadas, damnificados, desborde, huaico) o citan fuente oficial |
 | 4 · Negra | Solo manual (`alertas_manuales.csv`) |
 
-Un nivel alcanzado se mantiene 24 h. Las noticias solo suben el nivel (nunca lo bajan) y cada alerta muestra los enlaces para verificarla;
+Un nivel alcanzado se mantiene 24 h (6 h si vino de noticias). Las noticias solo suben el nivel (nunca lo bajan) y cada alerta muestra los enlaces para verificarla;
 no cuentan pronósticos, simulacros ni notas de años anteriores, ni eventos en otra zona del departamento.
 
 Nota: SENAMHI (IDESEP) no responde a conexiones desde GitHub (solo desde Perú, por HTTP); mientras tanto el monitor
