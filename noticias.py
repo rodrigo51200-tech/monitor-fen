@@ -4,27 +4,32 @@ noticias.py  -  Alertas por noticias de la zona de cada instalacion (fuentes gra
 Fuentes:  Google News RSS y Bing News RSS (sin clave, sin costo).
 Interprete: reglas en espanol (evento actual + lugar + medios distintos + fuente oficial).
 
-Solo puede SUBIR el nivel de una instalacion (nunca bajarlo):
-  - Nivel 2: al menos 1 medio informa un evento actual (inundacion, aniego, huaico, desborde...)
-             en el distrito de la tienda o a NOTICIAS_RADIO_KM, en las ultimas HORAS_NOTICIAS h.
-  - Nivel 3: al menos 2 medios distintos y alguno cita una fuente oficial (COEN, INDECI,
-             SENAMHI, municipalidad, gobierno regional...).
+Solo cuentan los medios de medios_confiables.csv (por dominio); el resto se muestra aparte
+como "otras fuentes" sin subir el nivel. Solo puede SUBIR el nivel de una instalacion:
+  - Nivel 2: al menos 1 medio confiable informa un evento actual por lluvias (inundacion, aniego,
+             huaico, desborde...) en el distrito de la tienda o a NOTICIAS_RADIO_KM, en las
+             ultimas HORAS_NOTICIAS h.
+  - Nivel 3: al menos 2 medios confiables distintos, y el hecho es grave (viviendas inundadas,
+             damnificados, desborde, huaico...) o alguno cita una fuente oficial (COEN, INDECI...).
 Cada alerta lleva los enlaces a las noticias para verificarla en un clic.
 """
 
 from __future__ import annotations
 
+import csv
 import html
 import re
 from datetime import datetime, timedelta
 from email.utils import parsedate_to_datetime
-from urllib.parse import quote
+from pathlib import Path
+from urllib.parse import parse_qs, quote, urlparse
 
 HORAS_NOTICIAS = 12          # antiguedad maxima de una noticia para contar
 NOTICIAS_RADIO_KM = 8        # distritos vecinos que cuentan como "la zona de la tienda"
 NOTICIAS_RADIO_LIMA_KM = 4   # en Lima y Callao los distritos son chicos y estan pegados
 DIST_LEJOS_KM = 20           # distrito del mismo departamento que se considera "otra zona"
 MIN_MEDIOS_ROJA = 2
+ARCH_MEDIOS = Path(__file__).resolve().parent / "medios_confiables.csv"
 
 GOOGLE_RSS = "https://news.google.com/rss/search?q={q}&hl=es-419&gl=PE&ceid=PE:es-419"
 BING_RSS = "https://www.bing.com/news/search?format=rss&q={q}"
@@ -89,6 +94,11 @@ def leer_rss(xml: str, origen: str) -> list[dict]:
         except (TypeError, ValueError):
             continue
         medio = campo("source") or campo("News:Source")
+        m_src = re.search(r'<source url="([^"]+)"', it)
+        if m_src:                                     # Google: dominio del medio
+            url_medio = m_src.group(1)
+        else:                                         # Bing: enlace de redireccion con url=<original>
+            url_medio = (parse_qs(urlparse(html.unescape(link)).query).get("url") or [link])[0]
         if origen == "google" and " - " in titulo:      # Google: "Titular - Medio"
             titulo, medio2 = titulo.rsplit(" - ", 1)
             medio = medio or medio2
@@ -97,8 +107,26 @@ def leer_rss(xml: str, origen: str) -> list[dict]:
             resumen = resumen.replace(medio.strip(), " ")
         if titulo and link:
             out.append({"titulo": titulo.strip(), "link": link, "fecha": fecha, "medio": medio.strip() or "?",
-                        "resumen": resumen[:400], "origen": origen})
+                        "dominio": dominio(url_medio), "resumen": resumen[:400], "origen": origen})
     return out
+
+
+def dominio(url: str) -> str:
+    d = urlparse(url if "//" in url else "//" + url).netloc.lower().split(":")[0]
+    return d[4:] if d.startswith("www.") else d
+
+
+def leer_medios(ruta: Path = ARCH_MEDIOS) -> dict:
+    """dominio -> nombre de los medios confiables (medios_confiables.csv)."""
+    if not ruta.exists():
+        return {}
+    with open(ruta, encoding="utf-8-sig") as fh:
+        return {dominio(f["dominio"].strip()): f["nombre"].strip() for f in csv.DictReader(fh) if f.get("dominio")}
+
+
+def es_confiable(dom: str, medios: dict) -> str:
+    """Dominio de la lista que corresponde (acepta subdominios: noticias.rpp.pe -> rpp.pe); '' si no esta."""
+    return next((d for d in medios if dom == d or dom.endswith("." + d)), "")
 
 
 def buscar(lugar: str, http_get, headers, timeout) -> list[dict]:
@@ -192,29 +220,29 @@ def clasificar(item: dict, ahora: datetime) -> dict:
             "grave": actual and _hay(GRAVE, texto), "oficial": actual and _hay(OFICIAL, texto)}
 
 
-def _medio_clave(medio: str) -> str:
-    m = _norm(medio)
-    m = re.sub(r"\b(NOTICIAS|DIARIO|PERU|TV|RADIO|FM|AGENCIA|\.COM|\.PE)\b", " ", m)
-    return re.sub(r"[^A-Z0-9]", "", m) or _norm(medio)
-
-
-def evaluar_tienda(items: list[dict], lug: dict, ahora: datetime) -> dict:
-    """Noticias relevantes para una tienda y el nivel que justifican (1 = ninguno)."""
-    rel, vistos = [], set()
+def evaluar_tienda(items: list[dict], lug: dict, ahora: datetime, medios: dict) -> dict:
+    """Noticias relevantes para una tienda y el nivel que justifican (1 = ninguno).
+    Solo los medios confiables cuentan para el nivel; los demas quedan en 'otras'."""
+    rel, otras, vistos = [], [], set()
     for it in sorted(items, key=lambda x: x["fecha"], reverse=True):
         if it["link"] in vistos:
             continue
         vistos.add(it["link"])
         c = clasificar(it, ahora)
         if c["actual"] and ubicar(c["texto"], lug) == "cerca":
-            rel.append({**it, "grave": c["grave"], "oficial": c["oficial"], "horas": round(c["horas"], 1)})
-    medios = sorted({_medio_clave(x["medio"]) for x in rel})
-    oficial = any(x["oficial"] for x in rel)
+            fila = {**it, "grave": c["grave"], "oficial": c["oficial"], "horas": round(c["horas"], 1)}
+            conf = es_confiable(it.get("dominio", ""), medios)
+            if conf:
+                rel.append({**fila, "medio": medios[conf], "clave_medio": conf})
+            else:
+                otras.append(fila)
+    n_medios = len({x["clave_medio"] for x in rel})
+    oficial, grave = any(x["oficial"] for x in rel), any(x["grave"] for x in rel)
     nivel = 1
     if rel:
-        nivel = 3 if len(medios) >= MIN_MEDIOS_ROJA and oficial else 2
-    return {"nivel": nivel, "noticias": rel, "n_medios": len(medios), "oficial": oficial,
-            "grave": any(x["grave"] for x in rel)}
+        nivel = 3 if n_medios >= MIN_MEDIOS_ROJA and (grave or oficial) else 2
+    return {"nivel": nivel, "noticias": rel, "otras": otras, "n_medios": n_medios, "oficial": oficial,
+            "grave": grave}
 
 
 def obtener(tiendas, ubigeo_filas, http_get, headers, timeout, log=print, ahora=None) -> dict:
@@ -234,14 +262,18 @@ def obtener(tiendas, ubigeo_filas, http_get, headers, timeout, log=print, ahora=
         + (f"; {len(errores)} búsqueda(s) con error" if errores else ""))
     if errores and len(errores) == len(cache):
         raise ConnectionError("ninguna búsqueda de noticias respondió: " + errores[0])
-    out = {cod: evaluar_tienda(cache[lug["consulta"]], lug, ahora) for cod, lug in lugares.items()}
+    medios = leer_medios()
+    if not medios:
+        raise ValueError("medios_confiables.csv no existe o está vacío: no se puede evaluar noticias")
+    out = {cod: evaluar_tienda(cache[lug["consulta"]], lug, ahora, medios) for cod, lug in lugares.items()}
     out["_errores"] = errores
     return out
 
 
 def motivo(ev: dict) -> str:
     n = ev["n_medios"]
-    base = f"{n} medio{'s' if n != 1 else ''} informa{'n' if n != 1 else ''} inundación o lluvias intensas en la zona de la tienda"
+    base = (f"{n} medio{'s' if n != 1 else ''} confiable{'s' if n != 1 else ''} informa{'n' if n != 1 else ''} "
+            f"inundación o lluvias intensas en la zona de la tienda")
     if ev["nivel"] >= 3:
-        base += ", con mención de fuente oficial"
+        base += ", " + " y ".join(x for x, si in (("hecho grave", ev["grave"]), ("con mención de fuente oficial", ev["oficial"])) if si)
     return base + f" (noticias de las últimas {HORAS_NOTICIAS} h)"

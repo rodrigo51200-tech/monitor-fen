@@ -907,9 +907,16 @@ def interpretar(r, enfen):
     if nt.get("noticias"):
         enl = " · ".join(f'<a href="{e(x["link"])}" target="_blank" rel="noopener">{e(x["medio"])}</a>'
                          for x in nt["noticias"][:4])
-        lineas.append(("Noticias", f"<b>{nt['n_medios']} medio(s) informan inundación o lluvias intensas en la zona</b> "
+        otras = len(nt.get("otras") or [])
+        lineas.append(("Noticias", f"<b>{nt['n_medios']} medio(s) confiable(s) informan inundación o lluvias intensas en la zona</b> "
                                    f"(últimas {noticias.HORAS_NOTICIAS} h; interpretación automática, verificar): "
-                                   f"«{e(nt['noticias'][0]['titulo'])}». {enl}"))
+                                   f"«{e(nt['noticias'][0]['titulo'])}». {enl}"
+                                   + (f" <span class=\"muted\">· {otras} nota(s) más de otras fuentes, no cuentan.</span>" if otras else "")))
+    elif (nt.get("otras") or []):
+        o = nt["otras"][0]
+        lineas.append(("Noticias", f"Sin reportes de medios confiables. Otras fuentes ({len(nt['otras'])}), no verificadas y "
+                                   f"sin efecto en el nivel: <a href=\"{e(o['link'])}\" target=\"_blank\" rel=\"noopener\">"
+                                   f"«{e(o['titulo'])}»</a> ({e(o['medio'])})."))
     elif "noticias" in r:
         lineas.append(("Noticias", f"Sin noticias de inundación o lluvias intensas en la zona (últimas {noticias.HORAS_NOTICIAS} h)."))
     if r.get("sigrid_mm") or r.get("sigrid_inund"):
@@ -2028,13 +2035,13 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
             f"Emergencia o peligro inminente INDECI por lluvias a {DIST_INDECI_KM} km o menos (48 h).",
             "Distrito en riesgo Alto o Muy alto en un escenario CENEPRED vigente.",
             f"Lluvia sobre el umbral en una estación a {DIST_UMBRAL_ROJA_KM}–{DIST_UMBRAL_AMARILLA_KM} km.",
-            f"Al menos 1 medio informa inundación, aniego, huaico o lluvias intensas en la zona de la tienda "
+            f"Al menos 1 medio confiable informa inundación, aniego, huaico o lluvias intensas en la zona de la tienda "
             f"(últimas {noticias.HORAS_NOTICIAS} h)."],
         3: ["Aviso SENAMHI rojo sobre la tienda.",
             f"Lluvia sobre el umbral de riesgo en una estación a {DIST_UMBRAL_ROJA_KM} km o menos.",
             f"Emergencia o peligro inminente INDECI por lluvias en el mismo distrito ({HORAS_INDECI_ROJA} h).",
-            f"{noticias.MIN_MEDIOS_ROJA} o más medios distintos informan el evento en la zona de la tienda y alguno "
-            f"cita una fuente oficial (COEN, INDECI, SENAMHI, municipalidad…)."],
+            f"{noticias.MIN_MEDIOS_ROJA} o más medios confiables informan el evento en la zona de la tienda y es grave "
+            f"(viviendas inundadas, damnificados, desborde, huaico) o citan una fuente oficial (COEN, INDECI, SENAMHI…)."],
         4: ["Solo por registro manual del equipo (archivo alertas_manuales.csv) ante inundación o afectación directa."],
     }
     guia = "".join(
@@ -2049,8 +2056,10 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
         ("INDECI / COEN", "Defensa Civil: reporta emergencias y peligros inminentes por distrito y republica los avisos de SENAMHI."),
         ("CENEPRED", "Estima qué distritos están en riesgo (Muy alto, Alto, Medio) con base en cada aviso de SENAMHI."),
         ("Red OMM", "SENAMHI envía los partes de sus estaciones a la red mundial de la Organización Meteorológica Mundial; el monitor los lee desde ahí (OGIMET)."),
-        ("Noticias", "Titulares de Google News y Bing News sobre la ciudad de cada tienda, leídos por reglas automáticas: "
-                     "solo cuentan hechos actuales (no pronósticos ni simulacros) ubicados en el distrito de la tienda o vecinos."),
+        ("Noticias", "Titulares de Google News y Bing News sobre la ciudad de cada tienda, leídos por reglas automáticas. "
+                     "Solo cuentan los medios confiables (RPP, Andina, El Comercio, La República, Canal N, América TV, Latina, "
+                     "ATV, TV Perú y otros de la lista medios_confiables.csv) y solo hechos actuales por lluvias ubicados en el "
+                     "distrito de la tienda o vecinos."),
         ("CORPAC", "Reportes meteorológicos horarios de los aeropuertos: temperatura actual y lluvia observada."),
         ("Mar Niño 1+2 (NOAA)", "Temperatura del mar frente a la costa norte comparada con lo normal; sobre +1 °C favorece calor y lluvias."),
         ("Riesgo de la instalación", "Clasificación fija de la Matriz Nacional de Riesgo del plan (Crítico, Alto, Medio Alto, Medio, Bajo)."),
