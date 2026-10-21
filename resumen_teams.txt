@@ -16,3 +16,4 @@ Resto de instalaciones (35): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Cajamarca: 19.0° (-3.0°)
+• FLB Cusco: 18.0° (-4.0°)
