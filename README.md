@@ -16,7 +16,7 @@ solo cuentan los medios de `medios_confiables.csv`.
   (Settings → Secrets and variables → Actions → Variables), o cancelar una corrida a mano.
 - Para actualizar a mano: botón **Forzar actualización** de la página (abre **Actions → Monitor FEN → Run workflow**;
   requiere permiso de escritura en el repo).
-- El historial diario se acumula en `historial/`.
+- El historial diario se acumula en `historial/`; `log_monitor.txt` guarda solo los últimos 3 días (`DIAS_LOG` en `monitor_fen.py`).
 
 ## Archivos que se editan a mano
 | Archivo | Para qué |
