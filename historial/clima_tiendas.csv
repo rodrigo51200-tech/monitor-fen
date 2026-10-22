@@ -983,25 +983,25 @@
 2026-10-21,CORP-SAN-ISIDRO,Oficinas SF San Isidro,Lima Metropolitana,29.5,20.8,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 23:00",verde,1,Medio,0,0
 2026-10-21,P002103801,FLB MOLINA,Lima Metropolitana,29.5,20.8,,"Estación SENAMHI Von Humboldt (La Molina) (1 km), parte OMM de las 23:00",verde,1,Bajo,0,0
 2026-10-21,P002304029,FLB Exp Tacna,Sur,26.0,18.0,,"CORPAC · Aeropuerto Tacna (5 km), reporte 00:00",amarillo,2,Bajo,1,0
-2026-10-22,P002102201,FLB Piura Centro,Norte,33.0,24.0,,"CORPAC · Aeropuerto Piura (2 km), reporte 15:00",amarillo,2,Crítico,2,0
-2026-10-22,P002102301,FLB Piura Mall Open,Norte,33.0,24.0,,"CORPAC · Aeropuerto Piura (3 km), reporte 15:00",amarillo,2,Crítico,2,0
-2026-10-22,P002100601,FLB Chiclayo Mall,Norte,32.0,24.0,,"CORPAC · Aeropuerto Chiclayo (1 km), reporte 15:00",verde,1,Crítico,0,0
-2026-10-22,P002100701,FLB Trujillo CC,Norte,27.0,24.0,,"CORPAC · Aeropuerto Trujillo (7 km), reporte 15:00",verde,1,Crítico,0,0
-2026-10-22,P002100801,FLB Chimbote,Norte,27.0,25.0,,"CORPAC · Aeropuerto Chimbote (6 km), reporte 15:00",verde,1,Alto,7,0
-2026-10-22,P002100901,FLB Cajamarca,Norte,24.0,9.0,,"CORPAC · Aeropuerto Cajamarca (3 km), reporte 15:30",amarillo,2,Alto,6,0
+2026-10-22,P002102201,FLB Piura Centro,Norte,33.0,24.0,,"CORPAC · Aeropuerto Piura (2 km), reporte 16:00",amarillo,2,Crítico,2,0
+2026-10-22,P002102301,FLB Piura Mall Open,Norte,33.0,24.0,,"CORPAC · Aeropuerto Piura (3 km), reporte 16:00",amarillo,2,Crítico,2,0
+2026-10-22,P002100601,FLB Chiclayo Mall,Norte,32.0,24.0,,"CORPAC · Aeropuerto Chiclayo (1 km), reporte 16:00",verde,1,Crítico,0,0
+2026-10-22,P002100701,FLB Trujillo CC,Norte,27.0,24.0,,"CORPAC · Aeropuerto Trujillo (7 km), reporte 16:00",verde,1,Crítico,0,0
+2026-10-22,P002100801,FLB Chimbote,Norte,27.0,25.0,,"CORPAC · Aeropuerto Chimbote (6 km), reporte 16:00",verde,1,Alto,7,0
+2026-10-22,P002100901,FLB Cajamarca,Norte,24.0,9.0,,"CORPAC · Aeropuerto Cajamarca (3 km), reporte 16:00",amarillo,2,Alto,6,0
 2026-10-22,P002101401,FLB Canete MP,Centro/Sur,24.83,16.78,1.2,"NASA POWER, referencia regional (celda de ~50 km), dato del 19/10",verde,1,Alto,0,0
 2026-10-22,P002101201,FLB Ica Mall,Centro/Sur,27.55,16.29,0.0,"NASA POWER, referencia regional (celda de ~50 km), dato del 19/10",verde,1,Alto,0,0
-2026-10-22,P002102101,FLB Huancayo,Centro/Sur,19.0,4.0,,"CORPAC · Aeropuerto Jauja (42 km), reporte 15:00",verde,1,Medio Alto,0,0
-2026-10-22,P002103301,FLB Exp Huaraz,Centro/Sur,27.0,10.0,,"CORPAC · Aeropuerto Huaraz (Anta) (22 km), reporte 15:00",rojo,3,Medio Alto,7,0
-2026-10-22,P002103501,FLB Exp.Ayacucho,Centro/Sur,23.0,14.0,,"CORPAC · Aeropuerto Ayacucho (2 km), reporte 15:00",verde,1,Medio Alto,0,0
-2026-10-22,P002102701,FLB Arequipa (Cayma),Centro/Sur,21.0,14.0,,"CORPAC · Aeropuerto Arequipa (7 km), reporte 15:00",verde,1,Medio Alto,0,0
-2026-10-22,P002101001,FLB Porongoche,Centro/Sur,21.0,14.0,,"CORPAC · Aeropuerto Arequipa (11 km), reporte 15:00",verde,1,Medio Alto,0,0
-2026-10-22,P002103201,FLB Cusco,Centro/Sur,20.0,7.0,,"CORPAC · Aeropuerto Cusco (3 km), reporte 15:30",verde,1,Medio Alto,1,0
+2026-10-22,P002102101,FLB Huancayo,Centro/Sur,19.0,4.0,,"CORPAC · Aeropuerto Jauja (42 km), reporte 16:00",verde,1,Medio Alto,0,0
+2026-10-22,P002103301,FLB Exp Huaraz,Centro/Sur,27.0,10.0,,"CORPAC · Aeropuerto Huaraz (Anta) (22 km), reporte 16:00",rojo,3,Medio Alto,7,0
+2026-10-22,P002103501,FLB Exp.Ayacucho,Centro/Sur,23.0,14.0,,"CORPAC · Aeropuerto Ayacucho (2 km), reporte 16:00",verde,1,Medio Alto,0,0
+2026-10-22,P002102701,FLB Arequipa (Cayma),Centro/Sur,21.0,14.0,,"CORPAC · Aeropuerto Arequipa (7 km), reporte 16:00",verde,1,Medio Alto,0,0
+2026-10-22,P002101001,FLB Porongoche,Centro/Sur,21.0,14.0,,"CORPAC · Aeropuerto Arequipa (11 km), reporte 16:00",verde,1,Medio Alto,0,0
+2026-10-22,P002103201,FLB Cusco,Centro/Sur,20.0,7.0,,"CORPAC · Aeropuerto Cusco (3 km), reporte 16:00",verde,1,Medio Alto,1,0
 2026-10-22,P002102901,FLB Merced,Centro/Sur,15.81,8.75,114.48,"NASA POWER, referencia regional (celda de ~50 km), dato del 19/10",verde,1,Sin clasificar,0,0
-2026-10-22,P004101702,FLB Iquitos,Oriente,28.0,23.0,,"CORPAC · Aeropuerto Iquitos (8 km), reporte 15:00",verde,1,Alto,1,0
-2026-10-22,P004101301,FLB Pucallpa,Oriente,30.0,24.0,,"CORPAC · Aeropuerto Pucallpa (1 km), reporte 15:00",verde,1,Alto,0,0
-2026-10-22,P004101601,FLB Huanuco Op,Oriente,28.0,14.0,,"CORPAC · Aeropuerto Huánuco (8 km), reporte 15:00",verde,1,Alto,0,0
-2026-10-22,P004103901,FLB Tarapoto,Oriente,33.0,23.0,,"CORPAC · Aeropuerto Tarapoto (3 km), reporte 15:00",verde,1,Alto,0,0
+2026-10-22,P004101702,FLB Iquitos,Oriente,27.0,23.0,,"CORPAC · Aeropuerto Iquitos (8 km), reporte 16:00",verde,1,Alto,1,0
+2026-10-22,P004101301,FLB Pucallpa,Oriente,28.0,24.0,,"CORPAC · Aeropuerto Pucallpa (1 km), reporte 16:00",verde,1,Alto,0,0
+2026-10-22,P004101601,FLB Huanuco Op,Oriente,28.0,14.0,,"CORPAC · Aeropuerto Huánuco (8 km), reporte 16:00",verde,1,Alto,0,0
+2026-10-22,P004103901,FLB Tarapoto,Oriente,33.0,23.0,,"CORPAC · Aeropuerto Tarapoto (3 km), reporte 16:00",verde,1,Alto,0,0
 2026-10-22,CD-LURIN,CD Lurín,Lima Metropolitana,26.8,21.2,,"Estación SENAMHI Von Humboldt (La Molina) (23 km), parte OMM de las 15:00",amarillo,2,Alto,1,0
 2026-10-22,CD-VES,CD Villa El Salvador,Lima Metropolitana,26.8,21.2,,"Estación SENAMHI Von Humboldt (La Molina) (15 km), parte OMM de las 15:00",verde,1,Alto,0,0
 2026-10-22,P002100501,FLB Santa Anita,Lima Metropolitana,26.8,21.2,,"Estación SENAMHI Von Humboldt (La Molina) (4 km), parte OMM de las 15:00",verde,1,Medio Alto,0,0
@@ -1023,4 +1023,4 @@
 2026-10-22,P002100101,FLB San Isidro,Lima Metropolitana,26.8,21.2,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 15:00",verde,1,Medio,0,0
 2026-10-22,CORP-SAN-ISIDRO,Oficinas SF San Isidro,Lima Metropolitana,26.8,21.2,,"Estación SENAMHI Von Humboldt (La Molina) (9 km), parte OMM de las 15:00",verde,1,Medio,0,0
 2026-10-22,P002103801,FLB MOLINA,Lima Metropolitana,26.8,21.2,,"Estación SENAMHI Von Humboldt (La Molina) (1 km), parte OMM de las 15:00",verde,1,Bajo,0,0
-2026-10-22,P002304029,FLB Exp Tacna,Sur,25.0,18.0,,"CORPAC · Aeropuerto Tacna (5 km), reporte 15:00",amarillo,2,Bajo,1,0
+2026-10-22,P002304029,FLB Exp Tacna,Sur,25.0,18.0,,"CORPAC · Aeropuerto Tacna (5 km), reporte 16:00",amarillo,2,Bajo,1,0
