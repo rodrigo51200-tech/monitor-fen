@@ -16,4 +16,4 @@ Resto de instalaciones (35): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Chiclayo Mall: 30.0° (+3.0°)
-• FLB Cajamarca: 22.0° (+3.0°)
+• FLB Cajamarca: 23.0° (+4.0°)
