@@ -18,5 +18,5 @@ Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Chiclayo Mall: 32.0° (+5.0°)
 • FLB Cajamarca: 24.0° (+5.0°)
 • FLB Cusco: 20.0° (+3.0°)
-• FLB Iquitos: 26.0° (-6.0°)
+• FLB Iquitos: 27.0° (-5.0°)
 • FLB Pucallpa: 28.0° (-6.0°)
