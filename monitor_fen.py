@@ -28,7 +28,7 @@ import math
 import os
 import re
 import traceback
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import pandas as pd
@@ -92,6 +92,7 @@ AEROPUERTOS_PE = {"SPJC": "Lima – Jorge Chávez", "SPUR": "Piura", "SPHI": "Ch
 DIST_MAX_AEROPUERTO_KM = 60    # aeropuerto mas lejano aceptado para la temperatura de una tienda
 LLUVIA_METAR = ("RA", "DZ", "TS", "SH", "GR", "GS")   # lluvia, llovizna, tormenta, chubasco, granizo, granizo menudo
 HORAS_BOLETIN_AVISO = 72       # boletines INDECI de aviso meteorologico a considerar
+DIAS_LOG = 3                   # historial/log_monitor.txt guarda solo las corridas de los ultimos dias
 ARCH_MANUALES = CARPETA / "alertas_manuales.csv"
 COSTA_ARIDA = ("ICA", "CANETE", "TACNA")   # ademas de Lima: costa desertica donde los modelos confunden garua con lluvia   # Nivel 4 u otros ajustes manuales
 # Estaciones SENAMHI que SENAMHI envia a la red mundial de la OMM (partes SYNOP), republicadas por OGIMET.
@@ -244,6 +245,17 @@ def log(msg: str):
     linea = f"{datetime.now():%Y-%m-%d %H:%M:%S} | {msg}"
     print(linea, flush=True)
     LOG.append(linea)
+
+
+def guardar_log(archivo: Path):
+    """Agrega la corrida al log y borra las de hace mas de DIAS_LOG dias.
+    El log va en orden de fecha: se corta desde el inicio de la primera corrida reciente,
+    asi cada corrida queda completa (con sus tracebacks)."""
+    previas = archivo.read_text(encoding="utf-8").splitlines() if archivo.exists() else []
+    limite = f"{datetime.now() - timedelta(days=DIAS_LOG):%Y-%m-%d %H:%M:%S}"
+    desde = next((i for i, l in enumerate(previas)
+                  if l.endswith("=== Inicio monitor FEN ===") and l[:19] >= limite), len(previas))
+    archivo.write_text("\n".join(previas[desde:] + LOG) + "\n", encoding="utf-8")
 
 
 # ----------------------------------------------------------------------------
@@ -2553,8 +2565,7 @@ def main():
         + f" | fuentes con error: {len(errores)}")
 
     CARPETA_HIST.mkdir(exist_ok=True)
-    with open(CARPETA_HIST / "log_monitor.txt", "a", encoding="utf-8") as fh:
-        fh.write("\n".join(LOG) + "\n")
+    guardar_log(CARPETA_HIST / "log_monitor.txt")
     if os.environ.get("GITHUB_STEP_SUMMARY"):          # resumen visible en la pagina de GitHub Actions
         with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as fh:
             fh.write("## Monitor FEN\n\n```\n" + "\n".join(l for l in LOG if "|" in l) + "\n```\n")
