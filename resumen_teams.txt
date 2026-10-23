@@ -4,16 +4,18 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (7):
+🔔 Cambios desde la última actualización (2):
+▼ FLB Piura Centro: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+▼ FLB Piura Mall Open: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+
+Instalaciones sobre Nivel 1 (5):
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
-• FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 22/10 21:14 (último reporte: 21/10 21:14): Reporte de emergencia de INDECI por lluvias intensas a 1 km de la tienda (Castilla).
-• FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 22/10 21:14 (último reporte: 21/10 21:14): Reporte de emergencia de INDECI por lluvias intensas a 3 km de la tienda (Castilla).
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Huanuco Op (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
 • CD Lurín (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
-Resto de instalaciones (34): Nivel 1 Alerta Verde – monitoreo preventivo.
+Resto de instalaciones (36): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Chiclayo Mall: 32.0° (+5.0°)
