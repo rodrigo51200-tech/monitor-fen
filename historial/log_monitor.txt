@@ -1,111 +1,3 @@
-2026-10-20 12:07:56 | === Inicio monitor FEN ===
-2026-10-20 12:08:36 |      ! enfen.imarpe.gob.pe no responde (ConnectionError); se omiten sus demás consultas
-2026-10-20 12:08:36 | [X]  ENFEN: HTTPSConnectionPool(host='enfen.imarpe.gob.pe', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='enfen.imarpe.gob.pe', port=443): Failed to resolve 'enfen.imarpe.gob.pe' ([Errno -3] Temporary failure in name resolution)"))
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/connection.py", line 239, in _new_conn
-    sock = connection.create_connection(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/util/connection.py", line 60, in create_connection
-    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-socket.gaierror: [Errno -3] Temporary failure in name resolution
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
-    response = self._make_request(
-               ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 494, in _make_request
-    raise new_e
-urllib3.exceptions.NameResolutionError: HTTPSConnection(host='enfen.imarpe.gob.pe', port=443): Failed to resolve 'enfen.imarpe.gob.pe' ([Errno -3] Temporary failure in name resolution)
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
-    resp = conn.urlopen(
-           ^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
-    retries = retries.increment(
-              ^^^^^^^^^^^^^^^^^^
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='enfen.imarpe.gob.pe', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='enfen.imarpe.gob.pe', port=443): Failed to resolve 'enfen.imarpe.gob.pe' ([Errno -3] Temporary failure in name resolution)"))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 336, in seguro
-    res = funcion()
-          ^^^^^^^^^
-  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 349, in fuente_enfen
-    r = http_get(ENFEN_HOME, headers=HEADERS, timeout=TIMEOUT)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-requests.exceptions.ConnectionError: HTTPSConnectionPool(host='enfen.imarpe.gob.pe', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='enfen.imarpe.gob.pe', port=443): Failed to resolve 'enfen.imarpe.gob.pe' ([Errno -3] Temporary failure in name resolution)"))
-
-2026-10-20 12:08:37 | [OK] NOAA Niño 1+2
-2026-10-20 12:08:48 |      ! idesep.senamhi.gob.pe no responde (ConnectTimeout); se omiten sus demás consultas
-2026-10-20 12:08:48 | [X]  SENAMHI estaciones tmax_1: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7f78eaff77a0>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/connection.py", line 239, in _new_conn
-    sock = connection.create_connection(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/util/connection.py", line 85, in create_connection
-    raise err
-TimeoutError: timed out
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
-    response = self._make_request(
-               ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 494, in _make_request
-    raise new_e
-urllib3.exceptions.ConnectTimeoutError: (<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7f78eaff77a0>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)')
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
-    resp = conn.urlopen(
-           ^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
-    retries = retries.increment(
-              ^^^^^^^^^^^^^^^^^^
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7f78eaff77a0>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 336, in seguro
-    res = funcion()
-          ^^^^^^^^^
-  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 2414, in <lambda>
-    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
-                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
-requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7f78eaff77a0>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
-
-2026-10-20 12:08:48 | [OK] Ubigeos INEI
-2026-10-20 12:09:05 | [OK] INDECI emergencias por lluvias
-2026-10-20 12:09:05 |      INDECI: 12 reportes por lluvias en las últimas 48 h
-2026-10-20 12:09:13 | [OK] CENEPRED/SIGRID escenarios
-2026-10-20 12:09:13 |      SIGRID: 2 escenario(s) vigente(s)
-2026-10-20 12:09:37 |      Noticias: 326 leídas en 34 búsquedas
-2026-10-20 12:09:37 | [OK] Noticias de la zona (Google News, Bing News)
-2026-10-20 12:09:50 | [OK] Avisos SENAMHI vía INDECI (boletines)
-2026-10-20 12:09:50 |      Avisos vía INDECI: N° 425 AMAZONAS/ANCASH/APURIMAC/AREQUIPA/AYACUCHO/CAJAMARCA/CUSCO/HUANCAVELICA/HUANUCO/ICA/JUNIN/LA LIBERTAD/LAMBAYEQUE/LIMA/PASCO/PIURA/PUNO/TUMBES, N° 427 , N° 426 AMAZONAS/ANCASH/APURIMAC/AREQUIPA/AYACUCHO/CAJAMARCA/CUSCO/HUANCAVELICA/HUANUCO/ICA/JUNIN/LA LIBERTAD/LAMBAYEQUE/LIMA/MOQUEGUA/PASCO/PIURA/PUNO/TACNA/TUMBES, N° 424 
-2026-10-20 12:09:50 |      SENAMHI no accesible: se omiten sus capas y se usan fuentes alternativas
-2026-10-20 12:09:50 | [OK] SENAMHI vía red OMM (OGIMET, partes SYNOP)
-2026-10-20 12:09:50 |      SENAMHI vía OMM: 28 estaciones con parte
-2026-10-20 12:09:51 | [OK] CORPAC aeropuertos (temperatura horaria)
-2026-10-20 12:09:51 |      CORPAC: 20 aeropuertos con reporte
-2026-10-20 12:09:52 | [OK] NASA POWER (respaldo para 3 instalaciones lejos de aeropuertos)
-2026-10-20 12:09:52 |      Pronóstico: nueva franja 2026-10-20 12:00, se consultan ECMWF y GFS
-2026-10-20 12:10:51 | [OK] Pronóstico de lluvia y garúa (ECMWF, NOAA GFS)
-2026-10-20 12:10:51 | [OK] Alertas manuales
-2026-10-20 12:10:51 | HTML: docs/index.html
-2026-10-20 12:10:51 | Resumen: /home/runner/work/monitor-fen/monitor-fen/resumen_teams.txt
-2026-10-20 12:10:51 | Instalaciones: 41 | Nivel 1: 32 | Nivel 2: 5 | Nivel 3: 4 | Nivel 4: 0 | fuentes con error: 2
 2026-10-20 12:22:49 | === Inicio monitor FEN ===
 2026-10-20 12:22:51 | [OK] ENFEN
 2026-10-20 12:22:52 | [OK] NOAA Niño 1+2
@@ -20035,3 +19927,69 @@ requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='idesep.senamhi.gob
 2026-10-23 11:54:51 | HTML: docs/index.html
 2026-10-23 11:54:51 | Resumen: /home/runner/work/monitor-fen/monitor-fen/resumen_teams.txt
 2026-10-23 11:54:51 | Instalaciones: 41 | Nivel 1: 36 | Nivel 2: 4 | Nivel 3: 1 | Nivel 4: 0 | fuentes con error: 1
+2026-10-23 12:08:51 | === Inicio monitor FEN ===
+2026-10-23 12:08:56 | [OK] ENFEN
+2026-10-23 12:08:56 | [OK] NOAA Niño 1+2
+2026-10-23 12:09:07 |      ! idesep.senamhi.gob.pe no responde (ConnectTimeout); se omiten sus demás consultas
+2026-10-23 12:09:07 | [X]  SENAMHI estaciones tmax_1: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7f0f74e84170>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/connection.py", line 239, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 494, in _make_request
+    raise new_e
+urllib3.exceptions.ConnectTimeoutError: (<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7f0f74e84170>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7f0f74e84170>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 348, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 2473, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7f0f74e84170>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
+
+2026-10-23 12:09:07 | [OK] Ubigeos INEI
+2026-10-23 12:09:23 | [OK] INDECI emergencias por lluvias
+2026-10-23 12:09:23 |      INDECI: 19 reportes por lluvias en las últimas 48 h
+2026-10-23 12:09:33 | [OK] CENEPRED/SIGRID escenarios
+2026-10-23 12:09:33 |      SIGRID: 3 escenario(s) vigente(s)
+2026-10-23 12:09:44 |      Noticias: 248 leídas en 19 búsquedas
+2026-10-23 12:09:44 | [OK] Noticias de la zona (Google News, Bing News)
+2026-10-23 12:10:01 | [OK] Avisos SENAMHI vía INDECI (boletines)
+2026-10-23 12:10:01 |      Avisos vía INDECI: N° 432 AMAZONAS/ANCASH/APURIMAC/AREQUIPA/AYACUCHO/CAJAMARCA/CUSCO/HUANCAVELICA/HUANUCO/ICA/JUNIN/LA LIBERTAD/LAMBAYEQUE/LIMA/MOQUEGUA/PASCO/PIURA/PUNO/TACNA/TUMBES, N° 430 AMAZONAS/ANCASH/APURIMAC/AREQUIPA/AYACUCHO/CAJAMARCA/CUSCO/HUANCAVELICA/HUANUCO/ICA/JUNIN/LA LIBERTAD/LAMBAYEQUE/LIMA/MOQUEGUA/PASCO/PIURA/PUNO/TACNA/TUMBES, N° 433 , N° 431 
+2026-10-23 12:10:02 |      SENAMHI no accesible: se omiten sus capas y se usan fuentes alternativas
+2026-10-23 12:10:03 | [OK] SENAMHI vía red OMM (OGIMET, partes SYNOP)
+2026-10-23 12:10:03 |      SENAMHI vía OMM: 28 estaciones con parte
+2026-10-23 12:10:08 | [OK] CORPAC aeropuertos (temperatura horaria)
+2026-10-23 12:10:08 |      CORPAC: 20 aeropuertos con reporte
+2026-10-23 12:10:09 | [OK] NASA POWER (respaldo para 3 instalaciones lejos de aeropuertos)
+2026-10-23 12:10:09 |      Pronóstico: nueva franja 2026-10-23 12:00, se consultan ECMWF y GFS
+2026-10-23 12:11:23 | [OK] Pronóstico de lluvia y garúa (ECMWF, NOAA GFS)
+2026-10-23 12:11:23 | [OK] Alertas manuales
+2026-10-23 12:11:23 | HTML: docs/index.html
+2026-10-23 12:11:23 | Resumen: /home/runner/work/monitor-fen/monitor-fen/resumen_teams.txt
+2026-10-23 12:11:23 | Instalaciones: 41 | Nivel 1: 36 | Nivel 2: 4 | Nivel 3: 1 | Nivel 4: 0 | fuentes con error: 1
