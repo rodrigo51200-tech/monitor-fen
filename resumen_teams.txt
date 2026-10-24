@@ -15,6 +15,7 @@ Resto de instalaciones (37): Nivel 1 Alerta Verde – monitoreo preventivo.
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Chiclayo Mall: 29.0° (-3.0°)
 • FLB Cajamarca: 24.0° (+3.0°)
+• FLB Exp.Ayacucho: 25.0° (+3.0°)
 • FLB Iquitos: 34.0° (+3.0°)
 • FLB Huanuco Op: 31.0° (+4.0°)
 • FLB Tarapoto: 37.0° (+7.0°)
