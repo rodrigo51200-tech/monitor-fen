@@ -11,3 +11,7 @@ Instalaciones sobre Nivel 1 (4):
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Resto de instalaciones (37): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Huanuco Op: 31.0° (+4.0°)
+• FLB Tarapoto: 34.0° (+4.0°)
