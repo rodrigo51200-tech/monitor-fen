@@ -1,20 +1,16 @@
-🌊 Monitor FEN · 23/10/2026
+🌊 Monitor FEN · 24/10/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 18-2026 · 16 Octubre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (5):
+🔔 Cambios desde la última actualización (1):
+▼ FLB Cajamarca: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+
+Instalaciones sobre Nivel 1 (4):
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Se mantiene hasta el 24/10 00:17 (último reporte: 23/10 00:17): Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
-• FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 23/10 23:47 (último reporte: 22/10 23:47): Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • CD Lurín (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Huancayo (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (El Tambo).
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
-Resto de instalaciones (36): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Cajamarca: 21.0° (-3.0°)
-• FLB Iquitos: 31.0° (+5.0°)
-• FLB Pucallpa: 33.0° (+5.0°)
-• FLB Tarapoto: 30.0° (-3.0°)
+Resto de instalaciones (37): Nivel 1 Alerta Verde – monitoreo preventivo.
