@@ -1111,7 +1111,7 @@
 2026-10-25,P002100601,FLB Chiclayo Mall,Norte,28.0,25.0,,"CORPAC · Aeropuerto Chiclayo (1 km), reporte 17:00",verde,1,Crítico,0,0
 2026-10-25,P002100701,FLB Trujillo CC,Norte,27.0,23.0,,"CORPAC · Aeropuerto Trujillo (7 km), reporte 17:00",verde,1,Crítico,0,0
 2026-10-25,P002100801,FLB Chimbote,Norte,25.19,22.23,24.96,"NASA POWER, referencia regional (celda de ~50 km), dato del 21/10",verde,1,Alto,4,0
-2026-10-25,P002100901,FLB Cajamarca,Norte,23.0,14.0,,"CORPAC · Aeropuerto Cajamarca (3 km), reporte 17:00",verde,1,Alto,0,0
+2026-10-25,P002100901,FLB Cajamarca,Norte,23.0,14.0,,"CORPAC · Aeropuerto Cajamarca (3 km), reporte 17:30",verde,1,Alto,0,0
 2026-10-25,P002101401,FLB Canete MP,Centro/Sur,25.9,18.36,16.8,"NASA POWER, referencia regional (celda de ~50 km), dato del 21/10",verde,1,Alto,1,0
 2026-10-25,P002101201,FLB Ica Mall,Centro/Sur,27.4,17.54,0.0,"NASA POWER, referencia regional (celda de ~50 km), dato del 21/10",verde,1,Alto,0,0
 2026-10-25,P002102101,FLB Huancayo,Centro/Sur,20.0,5.0,,"CORPAC · Aeropuerto Jauja (42 km), reporte 17:00",amarillo,2,Medio Alto,0,0
@@ -1119,7 +1119,7 @@
 2026-10-25,P002103501,FLB Exp.Ayacucho,Centro/Sur,26.0,12.0,,"CORPAC · Aeropuerto Ayacucho (2 km), reporte 17:00",verde,1,Medio Alto,0,0
 2026-10-25,P002102701,FLB Arequipa (Cayma),Centro/Sur,23.0,14.0,,"CORPAC · Aeropuerto Arequipa (7 km), reporte 17:00",verde,1,Medio Alto,0,0
 2026-10-25,P002101001,FLB Porongoche,Centro/Sur,23.0,14.0,,"CORPAC · Aeropuerto Arequipa (11 km), reporte 17:00",verde,1,Medio Alto,0,0
-2026-10-25,P002103201,FLB Cusco,Centro/Sur,23.0,8.0,,"CORPAC · Aeropuerto Cusco (3 km), reporte 17:00",verde,1,Medio Alto,0,0
+2026-10-25,P002103201,FLB Cusco,Centro/Sur,23.0,8.0,,"CORPAC · Aeropuerto Cusco (3 km), reporte 17:30",verde,1,Medio Alto,0,0
 2026-10-25,P002102901,FLB Merced,Centro/Sur,13.9,7.26,92.4,"NASA POWER, referencia regional (celda de ~50 km), dato del 21/10",amarillo,2,Sin clasificar,2,0
 2026-10-25,P004101702,FLB Iquitos,Oriente,35.0,23.0,,"CORPAC · Aeropuerto Iquitos (8 km), reporte 17:00",verde,1,Alto,0,0
 2026-10-25,P004101301,FLB Pucallpa,Oriente,35.0,25.0,,"CORPAC · Aeropuerto Pucallpa (1 km), reporte 17:00",verde,1,Alto,0,0
