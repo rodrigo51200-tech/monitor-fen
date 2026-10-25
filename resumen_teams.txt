@@ -7,7 +7,7 @@ Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 Instalaciones sobre Nivel 1 (5):
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • CD Lurín (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 25/10 23:55 (último reporte: 24/10 23:55): Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-• FLB Huancayo (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (El Tambo).
+• FLB Huancayo (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 26/10 00:10 (último reporte: 25/10 00:10): Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (El Tambo).
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 25/10 23:55 (último reporte: 24/10 23:55): Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Merced (Zona Centro/Sur, riesgo Sin clasificar) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
