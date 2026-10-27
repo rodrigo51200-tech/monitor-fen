@@ -4,9 +4,15 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (3):
+🔔 Cambios desde la última actualización (2):
+▲ FLB Arequipa (Cayma): Nivel 1 → Nivel 2 Alerta Amarilla – Peligro inminente de INDECI por lluvias intensas a 9 km de la tienda (Socabaya).
+▲ FLB Porongoche: Nivel 1 → Nivel 2 Alerta Amarilla – Peligro inminente de INDECI por lluvias intensas a 6 km de la tienda (Socabaya).
+
+Instalaciones sobre Nivel 1 (5):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 3 Alerta Roja: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (Independencia).
+• FLB Arequipa (Cayma) (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Peligro inminente de INDECI por lluvias intensas a 9 km de la tienda (Socabaya).
+• FLB Porongoche (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Peligro inminente de INDECI por lluvias intensas a 6 km de la tienda (Socabaya).
 • FLB Merced (Zona Centro/Sur, riesgo Sin clasificar) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 27/10 23:58 (último reporte: 26/10 23:58): Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
-Resto de instalaciones (38): Nivel 1 Alerta Verde – monitoreo preventivo.
+Resto de instalaciones (36): Nivel 1 Alerta Verde – monitoreo preventivo.
