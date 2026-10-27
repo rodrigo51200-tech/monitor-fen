@@ -18,6 +18,7 @@ Instalaciones sobre Nivel 1 (9):
 Resto de instalaciones (32): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Tarapoto: 34.0° (-3.0°)
 • CD Lurín: 29.6° (+4.4°)
 • CD Villa El Salvador: 29.6° (+4.4°)
 • FLB Santa Anita: 29.6° (+4.4°)
