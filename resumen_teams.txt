@@ -1,14 +1,21 @@
 🌊 Monitor FEN · 28/10/2026
-Estado ENFEN: s/d ( · )
+Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 18-2026 · 16 Octubre, 2026)
+ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (6):
+🔔 Cambios desde la última actualización (2):
+▲ FLB Piura Centro: Nivel 1 → Nivel 2 Alerta Amarilla – 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
+▲ FLB Piura Mall Open: Nivel 1 → Nivel 2 Alerta Amarilla – 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
+
+Instalaciones sobre Nivel 1 (8):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 3 Alerta Roja: Se mantiene hasta el 28/10 16:58 (último reporte: 27/10 16:58): Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
+• FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
+• FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
 • FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (Independencia).
 • FLB Arequipa (Cayma) (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Peligro inminente de INDECI por lluvias intensas a 9 km de la tienda (Socabaya).
 • FLB Porongoche (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Peligro inminente de INDECI por lluvias intensas a 6 km de la tienda (Socabaya).
 
-Resto de instalaciones (35): Nivel 1 Alerta Verde – monitoreo preventivo.
+Resto de instalaciones (33): Nivel 1 Alerta Verde – monitoreo preventivo.
