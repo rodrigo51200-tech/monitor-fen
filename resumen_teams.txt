@@ -4,11 +4,8 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-🔔 Cambios desde la última actualización (1):
-▼ FLB Cajamarca: Nivel 3 → Nivel 2 Alerta Amarilla – Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda (hace 48 h).
-
 Instalaciones sobre Nivel 1 (6):
-• FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda (hace 48 h).
+• FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 29/10 17:05 (último reporte: 28/10 17:05): Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda (hace 48 h).
 • FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (Independencia).
