@@ -17,4 +17,5 @@ Instalaciones sobre Nivel 1 (8):
 Resto de instalaciones (33): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Cajamarca: 23.0° (-3.0°)
 • FLB Exp Tacna: 28.0° (+5.0°)
