@@ -1,10 +1,13 @@
-🌊 Monitor FEN · 27/10/2026
+🌊 Monitor FEN · 28/10/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 18-2026 · 16 Octubre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (8):
+🔔 Cambios desde la última actualización (1):
+▼ FLB Merced: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+
+Instalaciones sobre Nivel 1 (7):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 3 Alerta Roja: Se mantiene hasta el 28/10 16:58 (último reporte: 27/10 16:58): Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Ica Mall (Zona Centro/Sur, riesgo Alto) – Nivel 2 Alerta Amarilla: 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
 • FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
@@ -12,22 +15,5 @@ Instalaciones sobre Nivel 1 (8):
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (Independencia).
 • FLB Arequipa (Cayma) (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Peligro inminente de INDECI por lluvias intensas a 9 km de la tienda (Socabaya).
 • FLB Porongoche (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Peligro inminente de INDECI por lluvias intensas a 6 km de la tienda (Socabaya).
-• FLB Merced (Zona Centro/Sur, riesgo Sin clasificar) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 27/10 23:58 (último reporte: 26/10 23:58): Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
-Resto de instalaciones (33): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Pucallpa: 28.0° (-8.0°)
-• FLB Tarapoto: 33.0° (-4.0°)
-• CD Lurín: 29.6° (+4.4°)
-• CD Villa El Salvador: 29.6° (+4.4°)
-• FLB Santa Anita: 29.6° (+4.4°)
-• FLB Puruchuco: 29.6° (+4.4°)
-• FLB Mall del Sur: 29.6° (+4.4°)
-• FLB Atocongo: 29.6° (+4.4°)
-• FLB Angamos: 29.6° (+4.4°)
-• FLB Miraflores: 29.6° (+4.4°)
-• FLB Jockey Plaza: 29.6° (+4.4°)
-• FLB San Isidro: 29.6° (+4.4°)
-• Oficinas SF San Isidro: 29.6° (+4.4°)
-• FLB MOLINA: 29.6° (+4.4°)
+Resto de instalaciones (34): Nivel 1 Alerta Verde – monitoreo preventivo.
