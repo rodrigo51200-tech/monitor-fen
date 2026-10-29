@@ -15,11 +15,6 @@ Instalaciones sobre Nivel 1 (6):
 Resto de instalaciones (35): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Chiclayo Mall: 26.6° (-4.4°)
-• FLB Huancayo: 13.3° (-10.7°)
-• FLB Exp Huaraz: 16.7° (-10.3°)
-• FLB Exp.Ayacucho: 11.9° (-14.1°)
-• FLB Arequipa (Cayma): 23.1° (+4.1°)
-• FLB Porongoche: 23.1° (+4.1°)
-• FLB Huanuco Op: 13.2° (-12.8°)
-• FLB Tarapoto: 27.0° (-7.0°)
+• FLB Cusco: 21.0° (+3.0°)
+• FLB Iquitos: 31.0° (+4.0°)
+• FLB Exp Tacna: 25.0° (-3.0°)
