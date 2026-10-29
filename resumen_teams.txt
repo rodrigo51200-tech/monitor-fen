@@ -16,3 +16,4 @@ Resto de instalaciones (35): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Iquitos: 31.0° (+4.0°)
+• FLB Exp Tacna: 25.0° (-3.0°)
