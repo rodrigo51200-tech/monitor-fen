@@ -16,3 +16,12 @@ Instalaciones sobre Nivel 1 (10):
 • FLB MOLINA (Zona Lima Metropolitana, riesgo Bajo) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (fluvial) a 10 km de la tienda (Villa Maria Del Triunfo).
 
 Resto de instalaciones (31): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Chiclayo Mall: 26.3° (-3.7°)
+• FLB Huancayo: 15.3° (-7.7°)
+• FLB Exp Huaraz: 19.4° (-8.6°)
+• FLB Exp.Ayacucho: 15.5° (-11.5°)
+• FLB Pucallpa: 28.5° (-4.5°)
+• FLB Huanuco Op: 16.2° (-9.8°)
+• FLB Tarapoto: 26.7° (-6.3°)
