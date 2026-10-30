@@ -1,4 +1,4 @@
-🌊 Monitor FEN · 29/10/2026
+🌊 Monitor FEN · 30/10/2026
 Estado ENFEN: s/d ( · )
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
@@ -11,8 +11,3 @@ Instalaciones sobre Nivel 1 (5):
 • FLB Porongoche (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 30/10 07:04 (último reporte: 29/10 07:04): Peligro inminente de INDECI por lluvias intensas a 6 km de la tienda (Socabaya).
 
 Resto de instalaciones (36): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Cusco: 21.0° (+3.0°)
-• FLB Iquitos: 31.0° (+4.0°)
-• FLB Exp Tacna: 25.0° (-3.0°)
