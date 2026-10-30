@@ -18,5 +18,5 @@ Instalaciones sobre Nivel 1 (10):
 Resto de instalaciones (31): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Pucallpa: 28.0° (-5.0°)
+• FLB Pucallpa: 29.0° (-4.0°)
 • FLB Tarapoto: 36.0° (+3.0°)
