@@ -16,3 +16,18 @@ Instalaciones sobre Nivel 1 (10):
 • FLB MOLINA (Zona Lima Metropolitana, riesgo Bajo) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (fluvial) a 10 km de la tienda (Villa Maria Del Triunfo).
 
 Resto de instalaciones (31): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Tarapoto: 36.0° (+3.0°)
+• CD Lurín: 25.6° (-3.4°)
+• CD Villa El Salvador: 25.6° (-3.4°)
+• FLB Santa Anita: 25.6° (-3.4°)
+• FLB Puruchuco: 25.6° (-3.4°)
+• FLB Mall del Sur: 25.6° (-3.4°)
+• FLB Atocongo: 25.6° (-3.4°)
+• FLB Angamos: 25.6° (-3.4°)
+• FLB Miraflores: 25.6° (-3.4°)
+• FLB Jockey Plaza: 25.6° (-3.4°)
+• FLB San Isidro: 25.6° (-3.4°)
+• Oficinas SF San Isidro: 25.6° (-3.4°)
+• FLB MOLINA: 25.6° (-3.4°)
