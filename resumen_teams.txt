@@ -3,14 +3,16 @@ Estado ENFEN: s/d ( · )
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (5):
+🔔 Cambios desde la última actualización (1):
+▼ FLB Exp Huaraz: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+
+Instalaciones sobre Nivel 1 (4):
 • FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 29/10 20:09 (último reporte: 28/10 20:09): Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (Independencia).
 • FLB Arequipa (Cayma) (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 30/10 07:04 (último reporte: 29/10 07:04): Peligro inminente de INDECI por lluvias intensas a 9 km de la tienda (Socabaya).
 • FLB Porongoche (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 30/10 07:04 (último reporte: 29/10 07:04): Peligro inminente de INDECI por lluvias intensas a 6 km de la tienda (Socabaya).
 
-Resto de instalaciones (36): Nivel 1 Alerta Verde – monitoreo preventivo.
+Resto de instalaciones (37): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Cusco: 21.0° (+3.0°)
