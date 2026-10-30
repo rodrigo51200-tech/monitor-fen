@@ -3,12 +3,14 @@ Estado ENFEN: s/d ( · )
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (6):
+🔔 Cambios desde la última actualización (2):
+▼ FLB Arequipa (Cayma): Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+▼ FLB Porongoche: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+
+Instalaciones sobre Nivel 1 (4):
 • CD Lurín (Zona Lima Metropolitana, riesgo Alto) – Nivel 3 Alerta Roja: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 30/10 22:49 (último reporte: 29/10 22:49): Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 30/10 22:49 (último reporte: 29/10 22:49): Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Huancayo (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (El Tambo).
-• FLB Arequipa (Cayma) (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 30/10 07:04 (último reporte: 29/10 07:04): Peligro inminente de INDECI por lluvias intensas a 9 km de la tienda (Socabaya).
-• FLB Porongoche (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 30/10 07:04 (último reporte: 29/10 07:04): Peligro inminente de INDECI por lluvias intensas a 6 km de la tienda (Socabaya).
 
-Resto de instalaciones (35): Nivel 1 Alerta Verde – monitoreo preventivo.
+Resto de instalaciones (37): Nivel 1 Alerta Verde – monitoreo preventivo.
