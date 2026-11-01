@@ -1,4 +1,4 @@
-🌊 Monitor FEN · 31/10/2026
+🌊 Monitor FEN · 01/11/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 19-2026 · 30 Octubre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
@@ -21,10 +21,3 @@ Instalaciones sobre Nivel 1 (14):
 • FLB MOLINA (Zona Lima Metropolitana, riesgo Bajo) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (fluvial) a 10 km de la tienda (Villa Maria Del Triunfo).
 
 Resto de instalaciones (27): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Piura Centro: 35.0° (+3.0°)
-• FLB Piura Mall Open: 35.0° (+3.0°)
-• FLB Exp Huaraz: 25.0° (-3.0°)
-• FLB Pucallpa: 32.0° (+3.0°)
-• FLB Exp Tacna: 23.0° (-3.0°)
