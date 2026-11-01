@@ -24,3 +24,4 @@ Resto de instalaciones (27): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Huanuco Op: 30.0° (+3.0°)
+• FLB Exp Tacna: 26.0° (+3.0°)
