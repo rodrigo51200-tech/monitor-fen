@@ -1,5 +1,6 @@
 🌊 Monitor FEN · 31/10/2026
-Estado ENFEN: s/d ( · )
+Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 19-2026 · 30 Octubre, 2026)
+ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.2 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
@@ -8,7 +9,7 @@ Instalaciones sobre Nivel 1 (14):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Canete MP (Zona Centro/Sur, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • CD Villa El Salvador (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (fluvial) a 6 km de la tienda (Villa Maria Del Triunfo).
-• FLB Huancayo (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (El Tambo).
+• FLB Huancayo (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 01/11 22:40 (último reporte: 31/10 22:40): Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (El Tambo).
 • FLB Bellavista (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB San Miguel (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Mall del Sur (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (fluvial) a 4 km de la tienda (Villa Maria Del Triunfo).
