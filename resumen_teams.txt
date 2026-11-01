@@ -23,6 +23,6 @@ Instalaciones sobre Nivel 1 (14):
 Resto de instalaciones (27): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Exp Huaraz: 22.0° (-3.0°)
+• FLB Exp Huaraz: 21.0° (-4.0°)
 • FLB Huanuco Op: 30.0° (+3.0°)
 • FLB Exp Tacna: 26.0° (+3.0°)
