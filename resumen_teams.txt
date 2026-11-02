@@ -1,23 +1,26 @@
 🌊 Monitor FEN · 02/11/2026
-Estado ENFEN: s/d ( · )
+Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 19-2026 · 30 Octubre, 2026)
+ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.4 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (15):
+🔔 Cambios desde la última actualización (5):
+▼ CD Villa El Salvador: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+▼ FLB Mall del Sur: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+▼ FLB Atocongo: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+▼ FLB Jockey Plaza: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+▼ FLB MOLINA: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+
+Instalaciones sobre Nivel 1 (10):
 • FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: 2 medios confiables informan inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
 • FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: 2 medios confiables informan inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Canete MP (Zona Centro/Sur, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • CD Lurín (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-• CD Villa El Salvador (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 02/11 03:04 (último reporte: 01/11 03:04): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (fluvial) a 6 km de la tienda (Villa Maria Del Triunfo).
 • FLB Bellavista (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB San Miguel (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-• FLB Mall del Sur (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 02/11 03:04 (último reporte: 01/11 03:04): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (fluvial) a 4 km de la tienda (Villa Maria Del Triunfo).
-• FLB Atocongo (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 02/11 03:04 (último reporte: 01/11 03:04): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (fluvial) a 4 km de la tienda (Villa Maria Del Triunfo).
 • FLB Angamos (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-• FLB Jockey Plaza (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 02/11 03:04 (último reporte: 01/11 03:04): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (fluvial) a 9 km de la tienda (Villa Maria Del Triunfo).
 • FLB San Isidro (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • Oficinas SF San Isidro (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-• FLB MOLINA (Zona Lima Metropolitana, riesgo Bajo) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 02/11 03:04 (último reporte: 01/11 03:04): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (fluvial) a 10 km de la tienda (Villa Maria Del Triunfo).
 
-Resto de instalaciones (26): Nivel 1 Alerta Verde – monitoreo preventivo.
+Resto de instalaciones (31): Nivel 1 Alerta Verde – monitoreo preventivo.
