@@ -17,3 +17,12 @@ Instalaciones sobre Nivel 1 (10):
 • Oficinas SF San Isidro (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Resto de instalaciones (31): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Chiclayo Mall: 26.9° (-4.1°)
+• FLB Huancayo: 17.1° (-4.9°)
+• FLB Exp.Ayacucho: 17.0° (-11.0°)
+• FLB Iquitos: 28.4° (-3.6°)
+• FLB Pucallpa: 27.1° (-5.9°)
+• FLB Huanuco Op: 15.0° (-15.0°)
+• FLB Tarapoto: 28.1° (-6.9°)
