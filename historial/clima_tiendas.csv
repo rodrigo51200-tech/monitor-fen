@@ -1483,9 +1483,9 @@
 2026-11-03,P002100901,FLB Cajamarca,Norte,21.0,11.0,,"CORPAC · Aeropuerto Cajamarca (3 km), reporte 05:30",amarillo,2,Alto,6,0
 2026-11-03,P002101401,FLB Canete MP,Centro/Sur,25.11,16.39,0.05,"NASA POWER, referencia regional (celda de ~50 km), dato del 31/10",amarillo,2,Alto,1,0
 2026-11-03,P002101201,FLB Ica Mall,Centro/Sur,26.53,15.59,0.08,"NASA POWER, referencia regional (celda de ~50 km), dato del 31/10",verde,1,Alto,0,0
-2026-11-03,P002102101,FLB Huancayo,Centro/Sur,23.0,9.0,,"CORPAC · Aeropuerto Jauja (42 km), reporte 18:00",verde,1,Medio Alto,0,0
-2026-11-03,P002103301,FLB Exp Huaraz,Centro/Sur,26.0,12.0,,"CORPAC · Aeropuerto Huaraz (Anta) (22 km), reporte 16:00",amarillo,2,Medio Alto,4,0
-2026-11-03,P002103501,FLB Exp.Ayacucho,Centro/Sur,28.0,16.0,,"CORPAC · Aeropuerto Ayacucho (2 km), reporte 05:00",verde,1,Medio Alto,0,0
+2026-11-03,P002102101,FLB Huancayo,Centro/Sur,23.0,4.0,,"CORPAC · Aeropuerto Jauja (42 km), reporte 18:00",verde,1,Medio Alto,0,0
+2026-11-03,P002103301,FLB Exp Huaraz,Centro/Sur,26.0,13.0,,"CORPAC · Aeropuerto Huaraz (Anta) (22 km), reporte 16:00",amarillo,2,Medio Alto,4,0
+2026-11-03,P002103501,FLB Exp.Ayacucho,Centro/Sur,28.0,15.0,,"CORPAC · Aeropuerto Ayacucho (2 km), reporte 05:00",verde,1,Medio Alto,0,0
 2026-11-03,P002102701,FLB Arequipa (Cayma),Centro/Sur,21.0,11.0,,"CORPAC · Aeropuerto Arequipa (7 km), reporte 05:00",verde,1,Medio Alto,2,0
 2026-11-03,P002101001,FLB Porongoche,Centro/Sur,21.0,11.0,,"CORPAC · Aeropuerto Arequipa (11 km), reporte 05:00",verde,1,Medio Alto,2,0
 2026-11-03,P002103201,FLB Cusco,Centro/Sur,24.0,7.0,,"CORPAC · Aeropuerto Cusco (3 km), reporte 05:30",verde,1,Medio Alto,1,0
@@ -1493,7 +1493,7 @@
 2026-11-03,P004101702,FLB Iquitos,Oriente,33.0,23.0,,"CORPAC · Aeropuerto Iquitos (8 km), reporte 05:00",verde,1,Alto,0,0
 2026-11-03,P004101301,FLB Pucallpa,Oriente,32.0,25.0,,"CORPAC · Aeropuerto Pucallpa (1 km), reporte 05:00",verde,1,Alto,1,0
 2026-11-03,P004101601,FLB Huanuco Op,Oriente,30.0,15.0,,"CORPAC · Aeropuerto Huánuco (8 km), reporte 17:00",verde,1,Alto,0,0
-2026-11-03,P004103901,FLB Tarapoto,Oriente,34.0,23.0,,"CORPAC · Aeropuerto Tarapoto (3 km), reporte 18:00",verde,1,Alto,0,0
+2026-11-03,P004103901,FLB Tarapoto,Oriente,34.0,25.0,,"CORPAC · Aeropuerto Tarapoto (3 km), reporte 18:00",verde,1,Alto,0,0
 2026-11-03,CD-LURIN,CD Lurín,Lima Metropolitana,29.7,22.1,,"Estación SENAMHI Von Humboldt (La Molina) (23 km), parte OMM de las 05:00",amarillo,2,Alto,1,0
 2026-11-03,CD-VES,CD Villa El Salvador,Lima Metropolitana,29.7,22.1,,"Estación SENAMHI Von Humboldt (La Molina) (15 km), parte OMM de las 05:00",verde,1,Alto,0,0
 2026-11-03,P002100501,FLB Santa Anita,Lima Metropolitana,29.7,22.1,,"Estación SENAMHI Von Humboldt (La Molina) (4 km), parte OMM de las 05:00",verde,1,Medio Alto,0,0
