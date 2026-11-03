@@ -21,7 +21,7 @@ Resto de instalaciones (30): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Chiclayo Mall: 28.0° (-3.0°)
-• FLB Huanuco Op: 26.0° (-4.0°)
+• FLB Huanuco Op: 27.0° (-3.0°)
 • CD Lurín: 26.2° (-3.5°)
 • CD Villa El Salvador: 26.2° (-3.5°)
 • FLB Santa Anita: 26.2° (-3.5°)
