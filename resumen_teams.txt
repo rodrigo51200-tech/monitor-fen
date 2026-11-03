@@ -18,3 +18,6 @@ Instalaciones sobre Nivel 1 (11):
 • Oficinas SF San Isidro (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Resto de instalaciones (30): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Huanuco Op: 26.0° (-4.0°)
