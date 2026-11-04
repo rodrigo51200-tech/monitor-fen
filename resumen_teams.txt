@@ -26,6 +26,13 @@ Instalaciones sobre Nivel 1 (17):
 Resto de instalaciones (24): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Huancayo: 20.0° (+3.0°)
-• FLB Arequipa (Cayma): 23.0° (+3.0°)
-• FLB Porongoche: 23.0° (+3.0°)
+• FLB Chimbote: 24.0° (-3.0°)
+• FLB Exp Huaraz: 17.1° (-7.9°)
+• FLB Exp.Ayacucho: 14.9° (-11.1°)
+• FLB Arequipa (Cayma): 23.1° (+3.1°)
+• FLB Porongoche: 23.1° (+3.1°)
+• FLB Cusco: 28.0° (+3.0°)
+• FLB Iquitos: 27.7° (-4.3°)
+• FLB Pucallpa: 28.3° (-5.7°)
+• FLB Huanuco Op: 13.5° (-13.5°)
+• FLB Tarapoto: 26.2° (-9.8°)
