@@ -30,9 +30,11 @@ Instalaciones sobre Nivel 1 (21):
 Resto de instalaciones (20): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Exp.Ayacucho: 26.0° (+3.0°)
+• FLB Huancayo: 17.0° (-3.0°)
+• FLB Exp.Ayacucho: 27.0° (+4.0°)
 • FLB Cusco: 23.0° (+4.0°)
-• FLB Huanuco Op: 28.0° (-4.0°)
+• FLB Huanuco Op: 26.0° (-6.0°)
+• FLB Tarapoto: 35.0° (-3.0°)
 • CD Lurín: 30.9° (+6.4°)
 • CD Villa El Salvador: 30.9° (+6.4°)
 • FLB Santa Anita: 30.9° (+6.4°)
