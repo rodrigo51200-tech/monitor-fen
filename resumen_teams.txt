@@ -30,7 +30,6 @@ Instalaciones sobre Nivel 1 (21):
 Resto de instalaciones (20): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Huancayo: 17.0° (-3.0°)
 • FLB Exp.Ayacucho: 26.0° (+3.0°)
 • FLB Cusco: 23.0° (+4.0°)
 • FLB Huanuco Op: 28.0° (-4.0°)
