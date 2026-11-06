@@ -33,6 +33,7 @@ Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Huancayo: 17.0° (-3.0°)
 • FLB Exp.Ayacucho: 26.0° (+3.0°)
 • FLB Cusco: 23.0° (+4.0°)
+• FLB Huanuco Op: 28.0° (-4.0°)
 • CD Lurín: 30.9° (+6.4°)
 • CD Villa El Salvador: 30.9° (+6.4°)
 • FLB Santa Anita: 30.9° (+6.4°)
