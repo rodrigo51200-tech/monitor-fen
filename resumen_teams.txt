@@ -35,7 +35,7 @@ Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Cusco: 23.0° (+4.0°)
 • FLB Pucallpa: 31.0° (-4.0°)
 • FLB Huanuco Op: 26.0° (-6.0°)
-• FLB Tarapoto: 33.0° (-5.0°)
+• FLB Tarapoto: 28.0° (-10.0°)
 • CD Lurín: 30.9° (+6.4°)
 • CD Villa El Salvador: 30.9° (+6.4°)
 • FLB Santa Anita: 30.9° (+6.4°)
