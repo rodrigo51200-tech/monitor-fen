@@ -30,4 +30,16 @@ Instalaciones sobre Nivel 1 (21):
 Resto de instalaciones (20): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
+• CD Lurín: 28.9° (+4.4°)
+• CD Villa El Salvador: 28.9° (+4.4°)
+• FLB Santa Anita: 28.9° (+4.4°)
+• FLB Puruchuco: 28.9° (+4.4°)
+• FLB Mall del Sur: 28.9° (+4.4°)
+• FLB Atocongo: 28.9° (+4.4°)
+• FLB Angamos: 28.9° (+4.4°)
+• FLB Miraflores: 28.9° (+4.4°)
+• FLB Jockey Plaza: 28.9° (+4.4°)
+• FLB San Isidro: 28.9° (+4.4°)
+• Oficinas SF San Isidro: 28.9° (+4.4°)
+• FLB MOLINA: 28.9° (+4.4°)
 • FLB Exp Tacna: 25.0° (+3.0°)
