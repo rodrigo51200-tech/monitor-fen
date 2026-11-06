@@ -13,7 +13,7 @@ Instalaciones sobre Nivel 1 (18):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Canete MP (Zona Centro/Sur, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • CD Lurín (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (Independencia).
+• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 06/11 19:53 (último reporte: 05/11 19:53): Reporte de emergencia de INDECI por lluvias intensas a 2 km de la tienda (Independencia).
 • FLB Bellavista (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB San Miguel (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Angamos (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 9 km de la tienda (Villa Maria Del Triunfo).
