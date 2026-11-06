@@ -30,7 +30,7 @@ Instalaciones sobre Nivel 1 (21):
 Resto de instalaciones (20): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Cusco: 22.0° (+3.0°)
+• FLB Cusco: 23.0° (+4.0°)
 • CD Lurín: 29.8° (+5.3°)
 • CD Villa El Salvador: 29.8° (+5.3°)
 • FLB Santa Anita: 29.8° (+5.3°)
