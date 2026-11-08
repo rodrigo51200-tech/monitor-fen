@@ -22,16 +22,3 @@ Instalaciones sobre Nivel 1 (15):
 • FLB Merced (Zona Centro/Sur, riesgo Sin clasificar) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (26): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Chiclayo Mall: 26.6° (-5.4°)
-• FLB Chimbote: 25.0° (-3.0°)
-• FLB Huancayo: 15.3° (-3.7°)
-• FLB Exp Huaraz: 19.5° (-4.5°)
-• FLB Exp.Ayacucho: 14.3° (-11.7°)
-• FLB Arequipa (Cayma): 24.3° (+3.3°)
-• FLB Porongoche: 24.3° (+3.3°)
-• FLB Cusco: 26.3° (+3.3°)
-• FLB Iquitos: 29.3° (-3.7°)
-• FLB Huanuco Op: 17.5° (-13.5°)
-• FLB Tarapoto: 28.7° (-5.3°)
