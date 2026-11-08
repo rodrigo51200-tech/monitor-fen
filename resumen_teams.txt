@@ -4,15 +4,6 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +5.4 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-🔔 Cambios desde la última actualización (7):
-▼ FLB Canete MP: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-▼ CD Lurín: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-▼ FLB Bellavista: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-▼ FLB San Miguel: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-▼ FLB San Isidro: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-▼ Oficinas SF San Isidro: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-▼ FLB Exp Tacna: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-
 Instalaciones sobre Nivel 1 (15):
 • CD Villa El Salvador (Zona Lima Metropolitana, riesgo Alto) – Nivel 3 Alerta Roja: Se mantiene hasta el 08/11 06:16 (último reporte: 07/11 06:16): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) en el distrito de la tienda.
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Se mantiene hasta el 08/11 23:34 (último reporte: 07/11 23:34): Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
