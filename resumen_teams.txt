@@ -24,5 +24,6 @@ Instalaciones sobre Nivel 1 (15):
 Resto de instalaciones (26): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Exp Huaraz: 19.5° (-4.5°)
+• FLB Chimbote: 25.0° (-3.0°)
 • FLB Exp.Ayacucho: 23.0° (-3.0°)
+• FLB Cusco: 20.0° (-3.0°)
