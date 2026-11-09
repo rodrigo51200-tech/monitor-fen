@@ -10,14 +10,14 @@ Instalaciones sobre Nivel 1 (14):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-• CD Villa El Salvador (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 6 km de la tienda (Villa Maria Del Triunfo).
+• CD Villa El Salvador (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 17:12 (último reporte: 09/11 17:12): Reporte de emergencia de INDECI por lluvias intensas a 6 km de la tienda (Villa Maria Del Triunfo).
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-• FLB Mall del Sur (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 4 km de la tienda (Villa Maria Del Triunfo).
-• FLB Atocongo (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 4 km de la tienda (Villa Maria Del Triunfo).
-• FLB Angamos (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 9 km de la tienda (Villa Maria Del Triunfo).
-• FLB Jockey Plaza (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 9 km de la tienda (Villa Maria Del Triunfo).
-• FLB MOLINA (Zona Lima Metropolitana, riesgo Bajo) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 10 km de la tienda (Villa Maria Del Triunfo).
+• FLB Mall del Sur (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 17:12 (último reporte: 09/11 17:12): Reporte de emergencia de INDECI por lluvias intensas a 4 km de la tienda (Villa Maria Del Triunfo).
+• FLB Atocongo (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 17:12 (último reporte: 09/11 17:12): Reporte de emergencia de INDECI por lluvias intensas a 4 km de la tienda (Villa Maria Del Triunfo).
+• FLB Angamos (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 17:12 (último reporte: 09/11 17:12): Reporte de emergencia de INDECI por lluvias intensas a 9 km de la tienda (Villa Maria Del Triunfo).
+• FLB Jockey Plaza (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 17:12 (último reporte: 09/11 17:12): Reporte de emergencia de INDECI por lluvias intensas a 9 km de la tienda (Villa Maria Del Triunfo).
+• FLB MOLINA (Zona Lima Metropolitana, riesgo Bajo) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 17:12 (último reporte: 09/11 17:12): Reporte de emergencia de INDECI por lluvias intensas a 10 km de la tienda (Villa Maria Del Triunfo).
 • FLB Merced (Zona Centro/Sur, riesgo Sin clasificar) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (27): Nivel 1 Alerta Verde – monitoreo preventivo.
