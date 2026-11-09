@@ -24,4 +24,4 @@ Instalaciones sobre Nivel 1 (15):
 Resto de instalaciones (26): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Exp Huaraz: 13.0° (-6.5°)
+• FLB Exp Huaraz: 14.0° (-5.5°)
