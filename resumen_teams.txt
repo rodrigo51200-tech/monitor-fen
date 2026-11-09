@@ -4,9 +4,6 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +5.6 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-🔔 Cambios desde la última actualización (1):
-▼ FLB Miraflores: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-
 Instalaciones sobre Nivel 1 (14):
 • FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 09/11 23:51 (último reporte: 08/11 23:51): Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 09/11 23:51 (último reporte: 08/11 23:51): Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
@@ -26,4 +23,4 @@ Instalaciones sobre Nivel 1 (14):
 Resto de instalaciones (27): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Exp Huaraz: 14.0° (-5.5°)
+• FLB Exp Huaraz: 16.0° (-3.5°)
