@@ -25,5 +25,5 @@ Resto de instalaciones (27): Nivel 1 Alerta Verde – monitoreo preventivo.
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Exp Huaraz: 25.0° (+5.5°)
 • FLB Pucallpa: 28.0° (-7.0°)
-• FLB Huanuco Op: 24.0° (-7.0°)
+• FLB Huanuco Op: 27.0° (-4.0°)
 • FLB Tarapoto: 32.0° (-3.0°)
