@@ -1,12 +1,12 @@
-🌊 Monitor FEN · 08/11/2026
+🌊 Monitor FEN · 09/11/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 19-2026 · 30 Octubre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.4 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
 Instalaciones sobre Nivel 1 (15):
-• FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
+• FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 09/11 23:51 (último reporte: 08/11 23:51): Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
+• FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 09/11 23:51 (último reporte: 08/11 23:51): Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
@@ -22,9 +22,3 @@ Instalaciones sobre Nivel 1 (15):
 • FLB Merced (Zona Centro/Sur, riesgo Sin clasificar) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (26): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Chimbote: 25.0° (-3.0°)
-• FLB Exp Huaraz: 19.5° (-4.5°)
-• FLB Exp.Ayacucho: 22.0° (-4.0°)
-• FLB Cusco: 20.0° (-3.0°)
