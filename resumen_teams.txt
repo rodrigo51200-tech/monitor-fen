@@ -19,3 +19,7 @@ Instalaciones sobre Nivel 1 (12):
 • FLB Merced (Zona Centro/Sur, riesgo Sin clasificar) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 23:48 (último reporte: 09/11 23:48): Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (29): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Pucallpa: 31.0° (+3.0°)
+• FLB Huanuco Op: 27.0° (+3.0°)
