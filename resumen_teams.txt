@@ -1,15 +1,17 @@
-🌊 Monitor FEN · 09/11/2026
+🌊 Monitor FEN · 10/11/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 19-2026 · 30 Octubre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.6 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (14):
-• FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 09/11 23:51 (último reporte: 08/11 23:51): Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 09/11 23:51 (último reporte: 08/11 23:51): Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
+🔔 Cambios desde la última actualización (2):
+▼ FLB Piura Centro: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+▼ FLB Piura Mall Open: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+
+Instalaciones sobre Nivel 1 (12):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-• FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-• FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
+• FLB Pucallpa (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 23:48 (último reporte: 09/11 23:48): Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
+• FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 23:48 (último reporte: 09/11 23:48): Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • CD Villa El Salvador (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 17:12 (último reporte: 09/11 17:12): Reporte de emergencia de INDECI por lluvias intensas a 6 km de la tienda (Villa Maria Del Triunfo).
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
@@ -18,24 +20,6 @@ Instalaciones sobre Nivel 1 (14):
 • FLB Angamos (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 17:12 (último reporte: 09/11 17:12): Reporte de emergencia de INDECI por lluvias intensas a 9 km de la tienda (Villa Maria Del Triunfo).
 • FLB Jockey Plaza (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 17:12 (último reporte: 09/11 17:12): Reporte de emergencia de INDECI por lluvias intensas a 9 km de la tienda (Villa Maria Del Triunfo).
 • FLB MOLINA (Zona Lima Metropolitana, riesgo Bajo) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 17:12 (último reporte: 09/11 17:12): Reporte de emergencia de INDECI por lluvias intensas a 10 km de la tienda (Villa Maria Del Triunfo).
-• FLB Merced (Zona Centro/Sur, riesgo Sin clasificar) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
+• FLB Merced (Zona Centro/Sur, riesgo Sin clasificar) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 10/11 23:48 (último reporte: 09/11 23:48): Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
-Resto de instalaciones (27): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Exp Huaraz: 25.0° (+5.5°)
-• FLB Pucallpa: 28.0° (-7.0°)
-• FLB Huanuco Op: 24.0° (-7.0°)
-• FLB Tarapoto: 28.0° (-7.0°)
-• CD Lurín: 24.9° (-4.2°)
-• CD Villa El Salvador: 24.9° (-4.2°)
-• FLB Santa Anita: 24.9° (-4.2°)
-• FLB Puruchuco: 24.9° (-4.2°)
-• FLB Mall del Sur: 24.9° (-4.2°)
-• FLB Atocongo: 24.9° (-4.2°)
-• FLB Angamos: 24.9° (-4.2°)
-• FLB Miraflores: 24.9° (-4.2°)
-• FLB Jockey Plaza: 24.9° (-4.2°)
-• FLB San Isidro: 24.9° (-4.2°)
-• Oficinas SF San Isidro: 24.9° (-4.2°)
-• FLB MOLINA: 24.9° (-4.2°)
+Resto de instalaciones (29): Nivel 1 Alerta Verde – monitoreo preventivo.
