@@ -1,13 +1,8 @@
-🌊 Monitor FEN · 10/11/2026
+🌊 Monitor FEN · 11/11/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 19-2026 · 30 Octubre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.6 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
-
-🔔 Cambios desde la última actualización (3):
-▼ FLB Merced: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-▼ FLB Pucallpa: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-▼ FLB Tarapoto: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
 
 Instalaciones sobre Nivel 1 (10):
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
@@ -22,10 +17,3 @@ Instalaciones sobre Nivel 1 (10):
 • FLB MOLINA (Zona Lima Metropolitana, riesgo Bajo) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 10 km de la tienda (Villa Maria Del Triunfo).
 
 Resto de instalaciones (31): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Huancayo: 21.0° (+3.0°)
-• FLB Exp Huaraz: 28.0° (+3.0°)
-• FLB Pucallpa: 32.0° (+4.0°)
-• FLB Huanuco Op: 29.0° (+5.0°)
-• FLB Tarapoto: 33.0° (+5.0°)
