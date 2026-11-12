@@ -4,17 +4,20 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +5.6 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
+🔔 Cambios desde la última actualización (1):
+▼ FLB Exp Huaraz: Nivel 3 → Nivel 2 Alerta Amarilla – Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda (hace 46 h).
+
 Instalaciones sobre Nivel 1 (4):
-• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Se mantiene hasta el 12/11 15:08 (último reporte: 11/11 15:08): Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Peligro inminente de INDECI por lluvias intensas a 5 km de la tienda (Los Baños Del Inca).
+• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda (hace 46 h).
 • FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
 • FLB Arequipa (Cayma) (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (37): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Cusco: 21.0° (-3.0°)
 • FLB Merced: 11.6° (-4.6°)
+• FLB Iquitos: 32.0° (+3.0°)
 • CD Lurín: 28.6° (+3.6°)
 • CD Villa El Salvador: 28.6° (+3.6°)
 • FLB Santa Anita: 28.6° (+3.6°)
