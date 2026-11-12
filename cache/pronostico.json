@@ -1444,12 +1444,12 @@
  "garua": {
   "estado": "ok",
   "objetivo": "2026-11-12",
-  "prob": 0.181,
+  "prob": 0.18,
   "rango": "Poco probable",
   "frecuencia": 0.09,
   "cuando": "mañana temprano",
   "frase": "Garúa mañana temprano: poco probable. En mañanas con condiciones así garuó 1 de cada 10 veces (registro 2023-2025 del aeropuerto Jorge Chávez)."
  },
- "franja": "2026-11-11 16:00",
- "calculado": "11/11 19:51"
+ "franja": "2026-11-11 20:00",
+ "calculado": "11/11 20:06"
 }
