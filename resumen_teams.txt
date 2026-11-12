@@ -1,13 +1,16 @@
-🌊 Monitor FEN · 11/11/2026
+🌊 Monitor FEN · 12/11/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 19-2026 · 30 Octubre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.6 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
+🔔 Cambios desde la última actualización (1):
+▼ FLB Iquitos: Nivel 3 → Nivel 2 Alerta Amarilla – 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
+
 Instalaciones sobre Nivel 1 (12):
-• FLB Iquitos (Zona Oriente, riesgo Alto) – Nivel 3 Alerta Roja: 2 medios confiables informan inundación o lluvias intensas en la zona de la tienda, hecho grave (noticias de las últimas 6 h).
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Se mantiene hasta el 12/11 15:08 (último reporte: 11/11 15:08): Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 12/11 15:08 (último reporte: 11/11 15:08): Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
+• FLB Iquitos (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
 • FLB Tarapoto (Zona Oriente, riesgo Alto) – Nivel 2 Alerta Amarilla: 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
 • CD Villa El Salvador (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 12/11 08:14 (último reporte: 11/11 08:14): Reporte de emergencia de INDECI por lluvias intensas a 6 km de la tienda (Villa Maria Del Triunfo).
 • FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 12/11 15:08 (último reporte: 11/11 15:08): Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
@@ -19,8 +22,3 @@ Instalaciones sobre Nivel 1 (12):
 • FLB MOLINA (Zona Lima Metropolitana, riesgo Bajo) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 12/11 08:14 (último reporte: 11/11 08:14): Reporte de emergencia de INDECI por lluvias intensas a 10 km de la tienda (Villa Maria Del Triunfo).
 
 Resto de instalaciones (29): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Piura Centro: 32.0° (-3.0°)
-• FLB Piura Mall Open: 32.0° (-3.0°)
-• FLB Pucallpa: 35.0° (+3.0°)
