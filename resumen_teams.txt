@@ -14,3 +14,15 @@ Resto de instalaciones (37): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Merced: 11.6° (-4.6°)
+• CD Lurín: 28.6° (+3.6°)
+• CD Villa El Salvador: 28.6° (+3.6°)
+• FLB Santa Anita: 28.6° (+3.6°)
+• FLB Puruchuco: 28.6° (+3.6°)
+• FLB Mall del Sur: 28.6° (+3.6°)
+• FLB Atocongo: 28.6° (+3.6°)
+• FLB Angamos: 28.6° (+3.6°)
+• FLB Miraflores: 28.6° (+3.6°)
+• FLB Jockey Plaza: 28.6° (+3.6°)
+• FLB San Isidro: 28.6° (+3.6°)
+• Oficinas SF San Isidro: 28.6° (+3.6°)
+• FLB MOLINA: 28.6° (+3.6°)
