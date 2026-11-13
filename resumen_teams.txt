@@ -20,3 +20,4 @@ Resto de instalaciones (31): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Merced: 15.5° (+3.9°)
+• FLB Huanuco Op: 31.0° (+3.0°)
