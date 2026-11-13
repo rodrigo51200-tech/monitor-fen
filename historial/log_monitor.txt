@@ -1,219 +1,3 @@
-2026-11-10 11:16:13 | === Inicio monitor FEN ===
-2026-11-10 11:16:16 | [OK] ENFEN
-2026-11-10 11:16:17 | [OK] NOAA Niño 1+2
-2026-11-10 11:16:27 |      ! idesep.senamhi.gob.pe no responde (ConnectTimeout); se omiten sus demás consultas
-2026-11-10 11:16:27 | [X]  SENAMHI estaciones tmax_1: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7fb309ccaff0>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connection.py", line 239, in _new_conn
-    sock = connection.create_connection(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/util/connection.py", line 85, in create_connection
-    raise err
-TimeoutError: timed out
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
-    response = self._make_request(
-               ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 494, in _make_request
-    raise new_e
-urllib3.exceptions.ConnectTimeoutError: (<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7fb309ccaff0>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)')
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
-    resp = conn.urlopen(
-           ^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
-    retries = retries.increment(
-              ^^^^^^^^^^^^^^^^^^
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7fb309ccaff0>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 348, in seguro
-    res = funcion()
-          ^^^^^^^^^
-  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 2473, in <lambda>
-    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
-                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
-requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7fb309ccaff0>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
-
-2026-11-10 11:16:27 | [OK] Ubigeos INEI
-2026-11-10 11:16:38 |      ! portal.indeci.gob.pe no responde (ConnectionError); se omiten sus demás consultas
-2026-11-10 11:16:38 | [X]  INDECI emergencias por lluvias: HTTPSConnectionPool(host='portal.indeci.gob.pe', port=443): Max retries exceeded with url: /emergencias/feed/?paged=1 (Caused by NameResolutionError("HTTPSConnection(host='portal.indeci.gob.pe', port=443): Failed to resolve 'portal.indeci.gob.pe' ([Errno -2] Name or service not known)"))
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connection.py", line 239, in _new_conn
-    sock = connection.create_connection(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/util/connection.py", line 60, in create_connection
-    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-socket.gaierror: [Errno -2] Name or service not known
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
-    response = self._make_request(
-               ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 494, in _make_request
-    raise new_e
-urllib3.exceptions.NameResolutionError: HTTPSConnection(host='portal.indeci.gob.pe', port=443): Failed to resolve 'portal.indeci.gob.pe' ([Errno -2] Name or service not known)
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
-    resp = conn.urlopen(
-           ^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
-    retries = retries.increment(
-              ^^^^^^^^^^^^^^^^^^
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='portal.indeci.gob.pe', port=443): Max retries exceeded with url: /emergencias/feed/?paged=1 (Caused by NameResolutionError("HTTPSConnection(host='portal.indeci.gob.pe', port=443): Failed to resolve 'portal.indeci.gob.pe' ([Errno -2] Name or service not known)"))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 348, in seguro
-    res = funcion()
-          ^^^^^^^^^
-  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 686, in fuente_indeci
-    r = http_get(INDECI_FEED.format(pagina=pagina), headers=HEADERS_WEB, timeout=TIMEOUT)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-requests.exceptions.ConnectionError: HTTPSConnectionPool(host='portal.indeci.gob.pe', port=443): Max retries exceeded with url: /emergencias/feed/?paged=1 (Caused by NameResolutionError("HTTPSConnection(host='portal.indeci.gob.pe', port=443): Failed to resolve 'portal.indeci.gob.pe' ([Errno -2] Name or service not known)"))
-
-2026-11-10 11:16:38 |      INDECI: 0 reportes por lluvias en las últimas 48 h
-2026-11-10 11:16:44 | [OK] CENEPRED/SIGRID escenarios
-2026-11-10 11:16:44 |      SIGRID: 1 escenario(s) vigente(s)
-2026-11-10 11:16:56 |      Noticias: 185 leídas en 19 búsquedas
-2026-11-10 11:16:56 | [OK] Noticias de la zona (Google News, Bing News)
-2026-11-10 11:16:56 | [OK] Avisos SENAMHI vía INDECI (boletines)
-2026-11-10 11:16:56 |      Avisos vía INDECI: ninguno
-2026-11-10 11:16:56 |      SENAMHI no accesible: se omiten sus capas y se usan fuentes alternativas
-2026-11-10 11:16:57 | [OK] SENAMHI vía red OMM (OGIMET, partes SYNOP)
-2026-11-10 11:16:57 |      SENAMHI vía OMM: 29 estaciones con parte
-2026-11-10 11:16:57 | [OK] CORPAC aeropuertos (temperatura horaria)
-2026-11-10 11:16:57 |      CORPAC: 20 aeropuertos con reporte
-2026-11-10 11:16:58 | [OK] NASA POWER (respaldo para 3 instalaciones lejos de aeropuertos)
-2026-11-10 11:16:59 |      Pronóstico: se reutiliza el de la franja 2026-11-10 08:00 (calculado 10/11 08:01)
-2026-11-10 11:16:59 | [OK] Pronóstico de lluvia y garúa (ECMWF, NOAA GFS)
-2026-11-10 11:16:59 | [OK] Alertas manuales
-2026-11-10 11:16:59 | HTML: docs/index.html
-2026-11-10 11:16:59 | Resumen: /home/runner/work/monitor-fen/monitor-fen/resumen_teams.txt
-2026-11-10 11:16:59 | Instalaciones: 41 | Nivel 1: 29 | Nivel 2: 12 | Nivel 3: 0 | Nivel 4: 0 | fuentes con error: 2
-2026-11-10 11:31:20 | === Inicio monitor FEN ===
-2026-11-10 11:31:24 | [OK] ENFEN
-2026-11-10 11:31:24 | [OK] NOAA Niño 1+2
-2026-11-10 11:31:35 |      ! idesep.senamhi.gob.pe no responde (ConnectTimeout); se omiten sus demás consultas
-2026-11-10 11:31:35 | [X]  SENAMHI estaciones tmax_1: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7fa05d124e90>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connection.py", line 239, in _new_conn
-    sock = connection.create_connection(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/util/connection.py", line 85, in create_connection
-    raise err
-TimeoutError: timed out
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
-    response = self._make_request(
-               ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 494, in _make_request
-    raise new_e
-urllib3.exceptions.ConnectTimeoutError: (<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7fa05d124e90>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)')
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
-    resp = conn.urlopen(
-           ^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
-    retries = retries.increment(
-              ^^^^^^^^^^^^^^^^^^
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7fa05d124e90>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 348, in seguro
-    res = funcion()
-          ^^^^^^^^^
-  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 2473, in <lambda>
-    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
-                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
-requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7fa05d124e90>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
-
-2026-11-10 11:31:35 | [OK] Ubigeos INEI
-2026-11-10 11:31:46 |      ! portal.indeci.gob.pe no responde (ConnectionError); se omiten sus demás consultas
-2026-11-10 11:31:46 | [X]  INDECI emergencias por lluvias: HTTPSConnectionPool(host='portal.indeci.gob.pe', port=443): Max retries exceeded with url: /emergencias/feed/?paged=1 (Caused by NameResolutionError("HTTPSConnection(host='portal.indeci.gob.pe', port=443): Failed to resolve 'portal.indeci.gob.pe' ([Errno -2] Name or service not known)"))
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connection.py", line 239, in _new_conn
-    sock = connection.create_connection(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/util/connection.py", line 60, in create_connection
-    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-socket.gaierror: [Errno -2] Name or service not known
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
-    response = self._make_request(
-               ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 494, in _make_request
-    raise new_e
-urllib3.exceptions.NameResolutionError: HTTPSConnection(host='portal.indeci.gob.pe', port=443): Failed to resolve 'portal.indeci.gob.pe' ([Errno -2] Name or service not known)
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
-    resp = conn.urlopen(
-           ^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
-    retries = retries.increment(
-              ^^^^^^^^^^^^^^^^^^
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='portal.indeci.gob.pe', port=443): Max retries exceeded with url: /emergencias/feed/?paged=1 (Caused by NameResolutionError("HTTPSConnection(host='portal.indeci.gob.pe', port=443): Failed to resolve 'portal.indeci.gob.pe' ([Errno -2] Name or service not known)"))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 348, in seguro
-    res = funcion()
-          ^^^^^^^^^
-  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 686, in fuente_indeci
-    r = http_get(INDECI_FEED.format(pagina=pagina), headers=HEADERS_WEB, timeout=TIMEOUT)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-requests.exceptions.ConnectionError: HTTPSConnectionPool(host='portal.indeci.gob.pe', port=443): Max retries exceeded with url: /emergencias/feed/?paged=1 (Caused by NameResolutionError("HTTPSConnection(host='portal.indeci.gob.pe', port=443): Failed to resolve 'portal.indeci.gob.pe' ([Errno -2] Name or service not known)"))
-
-2026-11-10 11:31:46 |      INDECI: 0 reportes por lluvias en las últimas 48 h
-2026-11-10 11:31:54 | [OK] CENEPRED/SIGRID escenarios
-2026-11-10 11:31:54 |      SIGRID: 1 escenario(s) vigente(s)
-2026-11-10 11:32:05 |      Noticias: 182 leídas en 19 búsquedas
-2026-11-10 11:32:05 | [OK] Noticias de la zona (Google News, Bing News)
-2026-11-10 11:32:05 | [OK] Avisos SENAMHI vía INDECI (boletines)
-2026-11-10 11:32:05 |      Avisos vía INDECI: ninguno
-2026-11-10 11:32:05 |      SENAMHI no accesible: se omiten sus capas y se usan fuentes alternativas
-2026-11-10 11:32:06 | [OK] SENAMHI vía red OMM (OGIMET, partes SYNOP)
-2026-11-10 11:32:06 |      SENAMHI vía OMM: 29 estaciones con parte
-2026-11-10 11:32:07 | [OK] CORPAC aeropuertos (temperatura horaria)
-2026-11-10 11:32:07 |      CORPAC: 20 aeropuertos con reporte
-2026-11-10 11:32:07 | [OK] NASA POWER (respaldo para 3 instalaciones lejos de aeropuertos)
-2026-11-10 11:32:08 |      Pronóstico: se reutiliza el de la franja 2026-11-10 08:00 (calculado 10/11 08:01)
-2026-11-10 11:32:08 | [OK] Pronóstico de lluvia y garúa (ECMWF, NOAA GFS)
-2026-11-10 11:32:08 | [OK] Alertas manuales
-2026-11-10 11:32:08 | HTML: docs/index.html
-2026-11-10 11:32:08 | Resumen: /home/runner/work/monitor-fen/monitor-fen/resumen_teams.txt
-2026-11-10 11:32:08 | Instalaciones: 41 | Nivel 1: 29 | Nivel 2: 12 | Nivel 3: 0 | Nivel 4: 0 | fuentes con error: 2
 2026-11-10 11:46:28 | === Inicio monitor FEN ===
 2026-11-10 11:46:32 | [OK] ENFEN
 2026-11-10 11:46:33 | [OK] NOAA Niño 1+2
@@ -20724,3 +20508,69 @@ requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='idesep.senamhi.gob
 2026-11-13 11:07:58 | HTML: docs/index.html
 2026-11-13 11:07:58 | Resumen: /home/runner/work/monitor-fen/monitor-fen/resumen_teams.txt
 2026-11-13 11:07:58 | Instalaciones: 41 | Nivel 1: 31 | Nivel 2: 8 | Nivel 3: 2 | Nivel 4: 0 | fuentes con error: 1
+2026-11-13 11:21:46 | === Inicio monitor FEN ===
+2026-11-13 11:21:49 | [OK] ENFEN
+2026-11-13 11:21:50 | [OK] NOAA Niño 1+2
+2026-11-13 11:22:01 |      ! idesep.senamhi.gob.pe no responde (ConnectTimeout); se omiten sus demás consultas
+2026-11-13 11:22:01 | [X]  SENAMHI estaciones tmax_1: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7fed61df6120>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connection.py", line 239, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 494, in _make_request
+    raise new_e
+urllib3.exceptions.ConnectTimeoutError: (<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7fed61df6120>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7fed61df6120>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 348, in seguro
+    res = funcion()
+          ^^^^^^^^^
+  File "/home/runner/work/monitor-fen/monitor-fen/monitor_fen.py", line 2473, in <lambda>
+    df, err = seguro(f"SENAMHI estaciones {var}_{n}", lambda v=var, k=n: fuente_estaciones(v, k), pd.DataFrame())
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='idesep.senamhi.gob.pe', port=443): Max retries exceeded with url: /geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=monitoreo_meteorologico%3Atmax_1_all_points&outputFormat=application%2Fjson (Caused by ConnectTimeoutError(<HTTPSConnection(host='idesep.senamhi.gob.pe', port=443) at 0x7fed61df6120>, 'Connection to idesep.senamhi.gob.pe timed out. (connect timeout=10)'))
+
+2026-11-13 11:22:01 | [OK] Ubigeos INEI
+2026-11-13 11:22:15 | [OK] INDECI emergencias por lluvias
+2026-11-13 11:22:15 |      INDECI: 47 reportes por lluvias en las últimas 48 h
+2026-11-13 11:22:21 | [OK] CENEPRED/SIGRID escenarios
+2026-11-13 11:22:21 |      SIGRID: 1 escenario(s) vigente(s)
+2026-11-13 11:32:11 |      Noticias: 14 leídas en 19 búsquedas; 14 con error (0 sin revisar)
+2026-11-13 11:32:11 | [OK] Noticias de la zona (Google News, Bing News)
+2026-11-13 11:32:18 | [OK] Avisos SENAMHI vía INDECI (boletines)
+2026-11-13 11:32:18 |      Avisos vía INDECI: N° 466 , N° 465 
+2026-11-13 11:32:18 |      SENAMHI no accesible: se omiten sus capas y se usan fuentes alternativas
+2026-11-13 11:32:19 | [OK] SENAMHI vía red OMM (OGIMET, partes SYNOP)
+2026-11-13 11:32:19 |      SENAMHI vía OMM: 29 estaciones con parte
+2026-11-13 11:32:19 | [OK] CORPAC aeropuertos (temperatura horaria)
+2026-11-13 11:32:19 |      CORPAC: 20 aeropuertos con reporte
+2026-11-13 11:32:20 | [OK] NASA POWER (respaldo para 3 instalaciones lejos de aeropuertos)
+2026-11-13 11:32:20 |      Pronóstico: se reutiliza el de la franja 2026-11-13 08:00 (calculado 13/11 08:07)
+2026-11-13 11:32:20 | [OK] Pronóstico de lluvia y garúa (ECMWF, NOAA GFS)
+2026-11-13 11:32:20 | [OK] Alertas manuales
+2026-11-13 11:32:21 | HTML: docs/index.html
+2026-11-13 11:32:21 | Resumen: /home/runner/work/monitor-fen/monitor-fen/resumen_teams.txt
+2026-11-13 11:32:21 | Instalaciones: 41 | Nivel 1: 31 | Nivel 2: 8 | Nivel 3: 2 | Nivel 4: 0 | fuentes con error: 2
