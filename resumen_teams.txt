@@ -1,4 +1,4 @@
-🌊 Monitor FEN · 12/11/2026
+🌊 Monitor FEN · 13/11/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 19-2026 · 30 Octubre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.6 °C sobre lo normal
@@ -17,19 +17,3 @@ Instalaciones sobre Nivel 1 (10):
 • FLB Jockey Plaza (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 9 km de la tienda (San Juan De Miraflores).
 
 Resto de instalaciones (31): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Merced: 11.6° (-4.6°)
-• FLB Iquitos: 32.0° (+3.0°)
-• CD Lurín: 28.6° (+3.6°)
-• CD Villa El Salvador: 28.6° (+3.6°)
-• FLB Santa Anita: 28.6° (+3.6°)
-• FLB Puruchuco: 28.6° (+3.6°)
-• FLB Mall del Sur: 28.6° (+3.6°)
-• FLB Atocongo: 28.6° (+3.6°)
-• FLB Angamos: 28.6° (+3.6°)
-• FLB Miraflores: 28.6° (+3.6°)
-• FLB Jockey Plaza: 28.6° (+3.6°)
-• FLB San Isidro: 28.6° (+3.6°)
-• Oficinas SF San Isidro: 28.6° (+3.6°)
-• FLB MOLINA: 28.6° (+3.6°)
