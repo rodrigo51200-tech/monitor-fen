@@ -21,5 +21,6 @@ Resto de instalaciones (30): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Cajamarca: 20.0° (-3.0°)
+• FLB Exp Huaraz: 23.0° (-4.0°)
 • FLB Iquitos: 35.0° (+3.0°)
 • FLB Huanuco Op: 28.0° (-3.0°)
