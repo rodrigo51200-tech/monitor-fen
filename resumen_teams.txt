@@ -18,3 +18,12 @@ Instalaciones sobre Nivel 1 (11):
 • FLB Jockey Plaza (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 15/11 21:58 (último reporte: 14/11 21:58): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 9 km de la tienda (San Juan De Miraflores).
 
 Resto de instalaciones (30): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Chiclayo Mall: 26.9° (-5.1°)
+• FLB Trujillo CC: 25.8° (-3.2°)
+• FLB Huancayo: 13.9° (-7.1°)
+• FLB Exp Huaraz: 20.4° (-6.6°)
+• FLB Exp.Ayacucho: 13.9° (-13.1°)
+• FLB Huanuco Op: 15.5° (-15.5°)
+• FLB Tarapoto: 27.8° (-8.2°)
