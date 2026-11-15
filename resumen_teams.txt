@@ -4,18 +4,22 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +5.6 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
+🔔 Cambios desde la última actualización (2):
+▼ FLB Mall del Sur: Nivel 3 → Nivel 2 Alerta Amarilla – Se mantiene hasta el 15/11 21:58 (último reporte: 14/11 21:58): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) en el distrito de la tienda (hace 48 h).
+▼ FLB Atocongo: Nivel 3 → Nivel 2 Alerta Amarilla – Se mantiene hasta el 15/11 21:58 (último reporte: 14/11 21:58): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) en el distrito de la tienda (hace 48 h).
+
 Instalaciones sobre Nivel 1 (11):
 • FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 3 Alerta Roja: Se mantiene hasta el 15/11 15:39 (último reporte: 14/11 15:39): Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
-• FLB Mall del Sur (Zona Lima Metropolitana, riesgo Medio) – Nivel 3 Alerta Roja: Se mantiene hasta el 14/11 22:04 (último reporte: 13/11 22:04): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) en el distrito de la tienda.
-• FLB Atocongo (Zona Lima Metropolitana, riesgo Medio) – Nivel 3 Alerta Roja: Se mantiene hasta el 14/11 22:04 (último reporte: 13/11 22:04): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) en el distrito de la tienda.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-• CD Villa El Salvador (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 5 km de la tienda (San Juan De Miraflores).
+• CD Villa El Salvador (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 15/11 21:58 (último reporte: 14/11 21:58): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 5 km de la tienda (San Juan De Miraflores).
 • FLB Huancayo (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 5 km de la tienda (Pilcomayo).
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Arequipa (Cayma) (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
-• FLB Angamos (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 8 km de la tienda (San Juan De Miraflores).
-• FLB Miraflores (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 9 km de la tienda (San Juan De Miraflores).
-• FLB Jockey Plaza (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 9 km de la tienda (San Juan De Miraflores).
+• FLB Mall del Sur (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 15/11 21:58 (último reporte: 14/11 21:58): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) en el distrito de la tienda (hace 48 h).
+• FLB Atocongo (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 15/11 21:58 (último reporte: 14/11 21:58): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) en el distrito de la tienda (hace 48 h).
+• FLB Angamos (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 15/11 21:58 (último reporte: 14/11 21:58): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 8 km de la tienda (San Juan De Miraflores).
+• FLB Miraflores (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 15/11 21:58 (último reporte: 14/11 21:58): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 9 km de la tienda (San Juan De Miraflores).
+• FLB Jockey Plaza (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 15/11 21:58 (último reporte: 14/11 21:58): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 9 km de la tienda (San Juan De Miraflores).
 
 Resto de instalaciones (30): Nivel 1 Alerta Verde – monitoreo preventivo.
 
