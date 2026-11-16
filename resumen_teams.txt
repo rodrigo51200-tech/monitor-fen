@@ -4,13 +4,17 @@ ENFEN confirma que el mar frente a la costa norte está más caliente de lo norm
 Mar frente a la costa norte (NOAA Niño 1+2): +5.4 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (4):
+🔔 Cambios desde la última actualización (1):
+▲ FLB Cusco: Nivel 1 → Nivel 2 Alerta Amarilla – 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
+
+Instalaciones sobre Nivel 1 (5):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 3 Alerta Roja: Se mantiene hasta el 17/11 07:43 (último reporte: 16/11 07:43): Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Huancayo (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 16/11 21:32 (último reporte: 15/11 21:32): Reporte de emergencia de INDECI por lluvias intensas a 5 km de la tienda (Pilcomayo).
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 16/11 15:34 (último reporte: 15/11 15:34): Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda (hace 48 h).
+• FLB Cusco (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
 
-Resto de instalaciones (37): Nivel 1 Alerta Verde – monitoreo preventivo.
+Resto de instalaciones (36): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Chimbote: 29.0° (+3.0°)
