@@ -7,7 +7,7 @@ Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 Instalaciones sobre Nivel 1 (11):
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 3 Alerta Roja: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • CD Villa El Salvador (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 15/11 21:58 (último reporte: 14/11 21:58): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 5 km de la tienda (San Juan De Miraflores).
-• FLB Huancayo (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 5 km de la tienda (Pilcomayo).
+• FLB Huancayo (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 16/11 21:32 (último reporte: 15/11 21:32): Reporte de emergencia de INDECI por lluvias intensas a 5 km de la tienda (Pilcomayo).
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Exp.Ayacucho (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 16/11 15:34 (último reporte: 15/11 15:34): Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda (hace 48 h).
 • FLB Arequipa (Cayma) (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 15/11 23:59 (último reporte: 14/11 23:59): Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
