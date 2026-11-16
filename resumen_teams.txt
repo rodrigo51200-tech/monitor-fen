@@ -13,4 +13,4 @@ Instalaciones sobre Nivel 1 (4):
 Resto de instalaciones (37): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Chimbote: 29.0° (+3.0°)
+• FLB Exp Huaraz: 13.0° (-7.4°)
