@@ -1,17 +1,8 @@
 🌊 Monitor FEN · 17/11/2026
-Estado ENFEN: s/d ( · )
+Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 20-2026 · 13 Noviembre, 2026)
+ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.4 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
-
-🔔 Cambios desde la última actualización (8):
-▲ FLB Canete MP: Nivel 1 → Nivel 2 Alerta Amarilla – Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
-▲ CD Lurín: Nivel 1 → Nivel 2 Alerta Amarilla – Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-▲ FLB Bellavista: Nivel 1 → Nivel 2 Alerta Amarilla – Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-▲ FLB San Miguel: Nivel 1 → Nivel 2 Alerta Amarilla – Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-▲ FLB Angamos: Nivel 1 → Nivel 2 Alerta Amarilla – Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-▲ FLB San Isidro: Nivel 1 → Nivel 2 Alerta Amarilla – Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-▲ Oficinas SF San Isidro: Nivel 1 → Nivel 2 Alerta Amarilla – Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
-▲ FLB Exp Tacna: Nivel 1 → Nivel 2 Alerta Amarilla – Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Instalaciones sobre Nivel 1 (12):
 • FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: 1 medio confiable informa inundación o lluvias intensas en la zona de la tienda (noticias de las últimas 6 h).
