@@ -1,4 +1,4 @@
-🌊 Monitor FEN · 16/11/2026
+🌊 Monitor FEN · 17/11/2026
 Estado ENFEN: Alerta de El Niño Costero (Comunicado Oficial Enfen N° 20-2026 · 13 Noviembre, 2026)
 ENFEN confirma que el mar frente a la costa norte está más caliente de lo normal y que esta condición continuaría en los próximos meses. Suele traer más calor y lluvias intensas en la costa norte y riesgo de huaicos.
 Mar frente a la costa norte (NOAA Niño 1+2): +5.4 °C sobre lo normal
@@ -9,12 +9,3 @@ Instalaciones sobre Nivel 1 (2):
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (39): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Chimbote: 30.0° (+4.0°)
-• FLB Cajamarca: 23.0° (+3.0°)
-• FLB Huancayo: 24.0° (+3.0°)
-• FLB Exp Huaraz: 26.0° (+5.6°)
-• FLB Exp.Ayacucho: 29.0° (+3.0°)
-• FLB Cusco: 26.0° (+4.0°)
-• FLB Huanuco Op: 31.0° (+3.0°)
