@@ -9,3 +9,13 @@ Instalaciones sobre Nivel 1 (2):
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 
 Resto de instalaciones (39): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Chiclayo Mall: 27.8° (-4.2°)
+• FLB Huancayo: 15.5° (-8.5°)
+• FLB Exp Huaraz: 19.1° (-6.9°)
+• FLB Exp.Ayacucho: 16.1° (-12.9°)
+• FLB Iquitos: 28.4° (-6.6°)
+• FLB Pucallpa: 26.6° (-10.4°)
+• FLB Huanuco Op: 15.9° (-15.1°)
+• FLB Tarapoto: 28.6° (-8.4°)
