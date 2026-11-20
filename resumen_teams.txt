@@ -1,5 +1,5 @@
-🌊 Monitor FEN · 19/11/2026
-Estado ENFEN: s/d (Comunicado Oficial Enfen N° 20-2026 · 13 Noviembre, 2026)
+🌊 Monitor FEN · 20/11/2026
+Estado ENFEN: s/d ( · )
 Mar frente a la costa norte (NOAA Niño 1+2): +5.4 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
@@ -16,27 +16,3 @@ Instalaciones sobre Nivel 1 (10):
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Resto de instalaciones (31): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Merced: 18.2° (+3.3°)
-• CD Lurín: 26.0° (-5.8°)
-• CD Villa El Salvador: 26.0° (-5.8°)
-• FLB Santa Anita: 26.0° (-5.8°)
-• FLB Puruchuco: 26.0° (-5.8°)
-• FLB Mega Plaza: 27.0° (-3.0°)
-• FLB Lima Norte (Plaza Norte): 27.0° (-3.0°)
-• FLB Bellavista: 27.0° (-3.0°)
-• FLB San Miguel: 27.0° (-3.0°)
-• FLB Mall del Sur: 26.0° (-5.8°)
-• FLB Atocongo: 26.0° (-5.8°)
-• FLB Comas: 27.0° (-3.0°)
-• FLB Centro Civico: 27.0° (-3.0°)
-• FLB Lima Centro: 27.0° (-3.0°)
-• FLB Expo Lima Centro: 27.0° (-3.0°)
-• FLB Angamos: 26.0° (-5.8°)
-• FLB Miraflores: 26.0° (-5.8°)
-• FLB Salaverry: 27.0° (-3.0°)
-• FLB Jockey Plaza: 26.0° (-5.8°)
-• FLB San Isidro: 26.0° (-5.8°)
-• Oficinas SF San Isidro: 26.0° (-5.8°)
-• FLB MOLINA: 26.0° (-5.8°)
