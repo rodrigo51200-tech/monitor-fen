@@ -16,3 +16,14 @@ Instalaciones sobre Nivel 1 (10):
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Resto de instalaciones (31): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Chiclayo Mall: 28.5° (-3.5°)
+• FLB Trujillo CC: 22.6° (-6.4°)
+• FLB Huancayo: 19.0° (-5.0°)
+• FLB Exp Huaraz: 18.7° (-7.3°)
+• FLB Exp.Ayacucho: 18.4° (-9.6°)
+• FLB Cusco: 29.0° (+3.0°)
+• FLB Pucallpa: 30.6° (-5.4°)
+• FLB Huanuco Op: 18.4° (-13.6°)
+• FLB Tarapoto: 28.6° (-8.4°)
