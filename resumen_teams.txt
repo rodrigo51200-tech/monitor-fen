@@ -3,11 +3,15 @@ Estado ENFEN: s/d ( · )
 Mar frente a la costa norte (NOAA Niño 1+2): +5.4 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (11):
+🔔 Cambios desde la última actualización (1):
+▲ FLB Huancayo: Nivel 1 → Nivel 2 Alerta Amarilla – Reporte de emergencia de INDECI por lluvias intensas a 5 km de la tienda (Pilcomayo).
+
+Instalaciones sobre Nivel 1 (12):
 • FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 2 medios confiables informan inundación o lluvias intensas en la zona de la tienda, con mención de fuente oficial (noticias de las últimas 6 h).
 • FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 2 medios confiables informan inundación o lluvias intensas en la zona de la tienda, con mención de fuente oficial (noticias de las últimas 6 h).
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • CD Lurín (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
+• FLB Huancayo (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 5 km de la tienda (Pilcomayo).
 • FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Bellavista (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB San Miguel (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
@@ -16,4 +20,4 @@ Instalaciones sobre Nivel 1 (11):
 • Oficinas SF San Isidro (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
-Resto de instalaciones (30): Nivel 1 Alerta Verde – monitoreo preventivo.
+Resto de instalaciones (29): Nivel 1 Alerta Verde – monitoreo preventivo.
