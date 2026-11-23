@@ -3,10 +3,6 @@ Estado ENFEN: s/d ( · )
 Mar frente a la costa norte (NOAA Niño 1+2): +5.7 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-🔔 Cambios desde la última actualización (2):
-▲ FLB Piura Centro: Nivel 2 → Nivel 3 Alerta Roja – 3 medios confiables informan inundación o lluvias intensas en la zona de la tienda, hecho grave (noticias de las últimas 6 h).
-▲ FLB Piura Mall Open: Nivel 2 → Nivel 3 Alerta Roja – 3 medios confiables informan inundación o lluvias intensas en la zona de la tienda, hecho grave (noticias de las últimas 6 h).
-
 Instalaciones sobre Nivel 1 (12):
 • FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 3 medios confiables informan inundación o lluvias intensas en la zona de la tienda, hecho grave (noticias de las últimas 6 h).
 • FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 3 medios confiables informan inundación o lluvias intensas en la zona de la tienda, hecho grave (noticias de las últimas 6 h).
@@ -25,4 +21,5 @@ Resto de instalaciones (29): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Exp Huaraz: 28.0° (+8.7°)
+• FLB Exp.Ayacucho: 27.0° (-3.0°)
 • FLB Exp Tacna: 26.0° (+3.0°)
