@@ -1,4 +1,4 @@
-🌊 Monitor FEN · 22/11/2026
+🌊 Monitor FEN · 23/11/2026
 Estado ENFEN: s/d (Comunicado Oficial Enfen N° 20-2026 · 13 Noviembre, 2026)
 Mar frente a la costa norte (NOAA Niño 1+2): +5.4 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
@@ -17,19 +17,3 @@ Instalaciones sobre Nivel 1 (11):
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Resto de instalaciones (30): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Exp Huaraz: 19.3° (-9.7°)
-• FLB Exp.Ayacucho: 30.0° (+3.0°)
-• CD Lurín: 29.5° (+3.7°)
-• CD Villa El Salvador: 29.5° (+3.7°)
-• FLB Santa Anita: 29.5° (+3.7°)
-• FLB Puruchuco: 29.5° (+3.7°)
-• FLB Mall del Sur: 29.5° (+3.7°)
-• FLB Atocongo: 29.5° (+3.7°)
-• FLB Angamos: 29.5° (+3.7°)
-• FLB Miraflores: 29.5° (+3.7°)
-• FLB Jockey Plaza: 29.5° (+3.7°)
-• FLB San Isidro: 29.5° (+3.7°)
-• Oficinas SF San Isidro: 29.5° (+3.7°)
-• FLB MOLINA: 29.5° (+3.7°)
