@@ -1,16 +1,18 @@
 🌊 Monitor FEN · 24/11/2026
-Estado ENFEN: s/d (Comunicado Oficial Enfen N° 20-2026 · 13 Noviembre, 2026)
+Estado ENFEN: s/d ( · )
 Mar frente a la costa norte (NOAA Niño 1+2): +5.7 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-Instalaciones sobre Nivel 1 (17):
+🔔 Cambios desde la última actualización (1):
+▼ FLB Exp Huaraz: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
+
+Instalaciones sobre Nivel 1 (16):
 • CD Villa El Salvador (Zona Lima Metropolitana, riesgo Alto) – Nivel 3 Alerta Roja: Se mantiene hasta el 25/11 15:14 (último reporte: 24/11 15:14): Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) en el distrito de la tienda.
 • FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición muy alta a inundaciones.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • CD Lurín (Zona Lima Metropolitana, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Huancayo (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por lluvias intensas a 5 km de la tienda (Pilcomayo).
-• FLB Exp Huaraz (Zona Centro/Sur, riesgo Medio Alto) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 24/11 23:45 (último reporte: 23/11 23:45): Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Bellavista (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB San Miguel (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 • FLB Mall del Sur (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 4 km de la tienda (Villa Maria Del Triunfo).
@@ -22,7 +24,7 @@ Instalaciones sobre Nivel 1 (17):
 • FLB MOLINA (Zona Lima Metropolitana, riesgo Bajo) – Nivel 2 Alerta Amarilla: Reporte de emergencia de INDECI por inundacion por saturacion del suelo para drenaje (pluvial) a 10 km de la tienda (Villa Maria Del Triunfo).
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
-Resto de instalaciones (24): Nivel 1 Alerta Verde – monitoreo preventivo.
+Resto de instalaciones (25): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • CD Lurín: 27.8° (-3.6°)
