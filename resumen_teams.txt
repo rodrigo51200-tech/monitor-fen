@@ -1,5 +1,5 @@
 🌊 Monitor FEN · 26/11/2026
-Estado ENFEN: s/d ( · )
+Estado ENFEN: s/d (Comunicado Oficial Enfen N° 20-2026 · 13 Noviembre, 2026)
 Mar frente a la costa norte (NOAA Niño 1+2): +5.7 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
@@ -23,9 +23,10 @@ Instalaciones sobre Nivel 1 (15):
 Resto de instalaciones (26): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Huancayo: 21.0° (-3.0°)
 • FLB Exp Huaraz: 26.0° (-3.0°)
 • FLB Cusco: 26.0° (+4.0°)
+• FLB Iquitos: 29.0° (-3.0°)
+• FLB Tarapoto: 34.0° (-3.0°)
 • CD Lurín: 32.3° (+5.3°)
 • CD Villa El Salvador: 32.3° (+5.3°)
 • FLB Santa Anita: 32.3° (+5.3°)
