@@ -26,6 +26,7 @@ Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Exp Huaraz: 26.0° (-3.0°)
 • FLB Cusco: 26.0° (+4.0°)
 • FLB Iquitos: 29.0° (-3.0°)
+• FLB Pucallpa: 29.0° (-6.0°)
 • FLB Tarapoto: 34.0° (-3.0°)
 • CD Lurín: 32.3° (+5.3°)
 • CD Villa El Salvador: 32.3° (+5.3°)
