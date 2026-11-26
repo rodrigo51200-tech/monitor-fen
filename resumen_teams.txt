@@ -21,3 +21,17 @@ Instalaciones sobre Nivel 1 (15):
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Resto de instalaciones (26): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• CD Lurín: 32.3° (+5.3°)
+• CD Villa El Salvador: 32.3° (+5.3°)
+• FLB Santa Anita: 32.3° (+5.3°)
+• FLB Puruchuco: 32.3° (+5.3°)
+• FLB Mall del Sur: 32.3° (+5.3°)
+• FLB Atocongo: 32.3° (+5.3°)
+• FLB Angamos: 32.3° (+5.3°)
+• FLB Miraflores: 32.3° (+5.3°)
+• FLB Jockey Plaza: 32.3° (+5.3°)
+• FLB San Isidro: 32.3° (+5.3°)
+• Oficinas SF San Isidro: 32.3° (+5.3°)
+• FLB MOLINA: 32.3° (+5.3°)
