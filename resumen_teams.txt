@@ -1,4 +1,4 @@
-🌊 Monitor FEN · 25/11/2026
+🌊 Monitor FEN · 26/11/2026
 Estado ENFEN: s/d ( · )
 Mar frente a la costa norte (NOAA Niño 1+2): +5.7 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
@@ -22,6 +22,3 @@ Instalaciones sobre Nivel 1 (16):
 • FLB Exp Tacna (Zona Sur, riesgo Bajo) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
 
 Resto de instalaciones (25): Nivel 1 Alerta Verde – monitoreo preventivo.
-
-Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Exp.Ayacucho: 26.0° (-3.0°)
