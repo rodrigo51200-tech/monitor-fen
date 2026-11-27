@@ -20,4 +20,7 @@ Resto de instalaciones (30): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
 • FLB Chiclayo Mall: 30.0° (-3.0°)
-• FLB Merced: 29.0° (+9.0°)
+• FLB Cajamarca: 21.0° (-3.0°)
+• FLB Huancayo: 19.0° (-3.0°)
+• FLB Cusco: 22.0° (-4.0°)
+• FLB Merced: 28.0° (+8.0°)
