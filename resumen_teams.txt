@@ -19,12 +19,5 @@ Instalaciones sobre Nivel 1 (11):
 Resto de instalaciones (30): Nivel 1 Alerta Verde – monitoreo preventivo.
 
 Cambios fuertes de T. máx (≥3 °C vs ayer):
-• FLB Piura Centro: 35.0° (+3.0°)
-• FLB Piura Mall Open: 35.0° (+3.0°)
-• FLB Chiclayo Mall: 28.4° (-4.6°)
-• FLB Huancayo: 18.4° (-3.6°)
-• FLB Exp Huaraz: 20.9° (-5.1°)
-• FLB Exp.Ayacucho: 17.9° (-9.1°)
-• FLB Merced: 30.9° (+10.9°)
-• FLB Huanuco Op: 19.2° (-10.8°)
-• FLB Tarapoto: 27.8° (-6.2°)
+• FLB Chiclayo Mall: 30.0° (-3.0°)
+• FLB Merced: 29.0° (+9.0°)
