@@ -1,11 +1,7 @@
 🌊 Monitor FEN · 26/11/2026
-Estado ENFEN: s/d (Comunicado Oficial Enfen N° 20-2026 · 13 Noviembre, 2026)
+Estado ENFEN: s/d ( · )
 Mar frente a la costa norte (NOAA Niño 1+2): +5.7 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
-
-🔔 Cambios desde la última actualización (2):
-▲ FLB Piura Centro: Nivel 2 → Nivel 3 Alerta Roja – Registro manual: Pronóstico de lluvia fuerte esta noche (98 % de más de 20 mm; ECMWF/GFS)
-▲ FLB Piura Mall Open: Nivel 2 → Nivel 3 Alerta Roja – Registro manual: Pronóstico de lluvia fuerte esta noche (99 % de más de 20 mm; ECMWF/GFS)
 
 Instalaciones sobre Nivel 1 (10):
 • FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: Registro manual: Pronóstico de lluvia fuerte esta noche (98 % de más de 20 mm; ECMWF/GFS)
