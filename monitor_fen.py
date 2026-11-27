@@ -28,7 +28,7 @@ import math
 import os
 import re
 import traceback
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pandas as pd
@@ -357,10 +357,35 @@ def seguro(nombre: str, funcion, por_defecto):
 # ----------------------------------------------------------------------------
 # Fuentes
 # ----------------------------------------------------------------------------
+ARCH_CACHE_ENFEN = CARPETA / "cache" / "enfen.json"   # ultimo comunicado leido bien
+
+
 def fuente_enfen() -> dict:
-    r = http_get(ENFEN_HOME, headers=HEADERS, timeout=TIMEOUT)
-    r.raise_for_status()
-    txt = r.text
+    """ENFEN bloquea (403) a ratos las IP de GitHub: se reintenta y, si sigue fallando, se usa el ultimo dato leido bien."""
+    import time
+    ultimo = None
+    for intento in range(3):
+        try:
+            r = http_get(ENFEN_HOME, headers=HEADERS, timeout=TIMEOUT)
+            r.raise_for_status()
+            info = _leer_enfen(r.text)
+            if info.get("estado") or info.get("comunicado"):
+                ARCH_CACHE_ENFEN.parent.mkdir(exist_ok=True)
+                ARCH_CACHE_ENFEN.write_text(json.dumps(info, ensure_ascii=False), encoding="utf-8")
+                return info
+            ultimo = ValueError("ENFEN: la página no trajo comunicado ni estado")
+        except Exception as err:  # noqa: BLE001
+            ultimo = err
+        time.sleep(4 * (intento + 1))
+    try:
+        info = json.loads(ARCH_CACHE_ENFEN.read_text(encoding="utf-8"))
+        log(f"     ENFEN: sin respuesta ({str(ultimo)[:60]}); se usa el último comunicado leído")
+        return info
+    except Exception:  # noqa: BLE001
+        raise ultimo
+
+
+def _leer_enfen(txt: str) -> dict:
     info = {"comunicado": "", "fecha": "", "url_pdf": "", "estado": "", "url_noticia": "",
             "informe": "", "url_informe": ""}
 
@@ -698,6 +723,18 @@ def fuente_indeci() -> list[dict]:
             mas_antiguo = fecha.timestamp()
             if fecha.timestamp() < limite or link in vistos:
                 continue
+            # Un "reporte complementario" puede publicarse semanas despues del evento; la fecha y hora del
+            # reporte original van en el enlace (...-30-10-2026-coen-indeci-0610-horas-...): se usa la mas antigua.
+            ref = fecha.timestamp()
+            me = re.search(r"-(\d{1,2})-(\d{1,2})-(20\d{2})-coen-indeci-(\d{2})(\d{2})-horas", link)
+            if me:
+                try:
+                    d, mo, a, hh, mi = (int(x) for x in me.groups())
+                    ref = min(ref, datetime(a, mo, d, hh, mi, tzinfo=timezone(timedelta(hours=-5))).timestamp())
+                except ValueError:
+                    pass
+            if ref < limite:
+                continue
             vistos.add(link)
             t = norm(titulo)
             if "BOLETIN INFORMATIVO DE AVISO METEOROLOGICO" in t:
@@ -716,7 +753,7 @@ def fuente_indeci() -> list[dict]:
                     "Informe de emergencia" if "INFORME DE EMERGENCIA" in t else "Reporte de emergencia")
             ev = re.search(r"\)\s*(?:POR\s+)?(.+?) EN (?:EL|LOS) DISTRITOS? DE", t)
             out.append({"fecha": fecha.astimezone().strftime("%d/%m %H:%M"), "tipo": tipo,
-                        "horas": (datetime.now().astimezone().timestamp() - fecha.timestamp()) / 3600,
+                        "horas": (datetime.now().astimezone().timestamp() - ref) / 3600,
                         "evento": (ev.group(1).strip().capitalize() if ev else "Lluvias"),
                         "distritos": distritos, "departamento": m.group(2).strip(),
                         "titulo": titulo, "link": link})
@@ -1041,7 +1078,7 @@ def nivel_del_plan(avisos):
     """Nivel del Plan FEN (1 a 3; el 4 es manual) segun las fuentes oficiales:
     - Nivel 2 Amarilla: aviso SENAMHI amarillo/naranja sobre la tienda, quebradas a <= DIST_QUEBRADA_KM,
       evento INDECI por lluvias a <= DIST_INDECI_KM, umbral superado entre 15 y 30 km,
-      o distrito en riesgo Alto/Muy alto (CENEPRED).
+      (el riesgo Alto/Muy alto de CENEPRED solo se muestra como contexto: es estructural y no sube el nivel).
     - Nivel 3 Roja: aviso SENAMHI rojo, umbral superado a <= DIST_UMBRAL_ROJA_KM,
       o emergencia / peligro inminente INDECI por lluvias en el mismo distrito (ultimas 24 h)."""
     nivel, motivo = 1, "Temporada de lluvias: monitoreo preventivo."
@@ -1291,7 +1328,7 @@ def procesar(tiendas, datos):
         r["sigrid_mm"], r["sigrid_inund"] = datos["sigrid"]["mm"].get(k, ""), datos["sigrid"]["inund"].get(k, "")
         for clave, txt in (("sigrid_mm", "movimientos en masa"), ("sigrid_inund", "exposición a inundaciones")):
             if r[clave] in ("MA", "A"):
-                av.append({"origen": f"CENEPRED/SIGRID · {txt}", "fuente": "SIGRID", "nivel": 0, "plan": 2,
+                av.append({"origen": f"CENEPRED/SIGRID · {txt}", "fuente": "SIGRID", "nivel": 0, "plan": 1,   # informativo: riesgo estructural del distrito, no sube el nivel
                            "motivo": (f"escenario de riesgo CENEPRED: distrito en riesgo {RIESGO_SIGRID_TXT[r[clave]].lower()} por {txt}"
                                       if clave == "sigrid_mm" else
                                       f"escenario de riesgo CENEPRED: distrito con exposición {EXPOSICION_TXT[r[clave]]} a inundaciones"),
@@ -1372,14 +1409,17 @@ def persistencia_y_cambios(filas):
             rec = hf[hf["ts"] >= ahora - pd.Timedelta(hours=PERSISTENCIA_HORAS)]
             por_noticias = rec["motivo"].astype(str).str.contains("informa", na=False) & \
                 rec["motivo"].astype(str).str.contains("medio", na=False)
-            rec = rec[~por_noticias | (rec["ts"] >= ahora - pd.Timedelta(hours=noticias.PERSISTENCIA_NOTICIAS_HORAS))]
+            # Nivel 2 por noticias no persiste; Nivel 3 por noticias se mantiene PERSISTENCIA_NOTICIAS_ROJA_HORAS
+            h_not = pd.to_numeric(rec["nivel_calculado"], errors="coerce").fillna(1).map(
+                lambda n: noticias.PERSISTENCIA_NOTICIAS_ROJA_HORAS if n >= 3 else noticias.PERSISTENCIA_NOTICIAS_HORAS)
+            rec = rec[~por_noticias | (rec["ts"] >= ahora - pd.to_timedelta(h_not, unit="h"))]
             if not rec.empty and not f.get("manual"):
                 niv = rec["nivel_calculado"].astype(int)
                 fila = rec[niv == niv.max()].sort_values("ts").iloc[-1]     # ultima vez que se calculo ese nivel
                 if int(fila["nivel_calculado"]) > f["nivel_plan"]:
                     f["nivel_plan"] = int(fila["nivel_calculado"])
                     es_noticia = "informa" in str(fila["motivo"]) and "medio" in str(fila["motivo"])
-                    hasta = fila["ts"] + pd.Timedelta(hours=noticias.PERSISTENCIA_NOTICIAS_HORAS if es_noticia
+                    hasta = fila["ts"] + pd.Timedelta(hours=noticias.PERSISTENCIA_NOTICIAS_ROJA_HORAS if es_noticia
                                                       else PERSISTENCIA_HORAS)
                     f["motivo_nivel"] = (f"Se mantiene hasta el {hasta:%d/%m %H:%M} (último reporte: {fila['ts']:%d/%m %H:%M}): "
                                          f"{str(fila['motivo']).rstrip('.')}.")
@@ -2059,7 +2099,6 @@ def generar_html(filas, enfen, noaa, errores, escenarios=(), extra=None):
         2: ["Aviso SENAMHI amarillo o naranja de lluvias sobre la tienda.",
             f"Quebrada en posible activación a {DIST_QUEBRADA_KM} km o menos.",
             f"Emergencia o peligro inminente INDECI por lluvias a {DIST_INDECI_KM} km o menos (48 h).",
-            "Distrito en riesgo Alto o Muy alto en un escenario CENEPRED vigente.",
             f"Lluvia sobre el umbral en una estación a {DIST_UMBRAL_ROJA_KM}–{DIST_UMBRAL_AMARILLA_KM} km.",
             f"Al menos 1 medio confiable informa inundación, aniego, huaico o lluvias intensas en la zona de la tienda "
             f"(últimas {noticias.HORAS_NOTICIAS} h)."],

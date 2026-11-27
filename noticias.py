@@ -29,6 +29,7 @@ from urllib.parse import parse_qs, quote, urlparse
 HORAS_NOTICIAS = 6           # antiguedad maxima de una noticia para contar
 PERSISTENCIA_NOTICIAS_HORAS = 0   # sin persistencia extra: la ventana de HORAS_NOTICIAS ya la da; el nivel
                                   # baja solo en cuanto no hay notas confiables recientes (SENAMHI/INDECI: 24 h)
+PERSISTENCIA_NOTICIAS_ROJA_HORAS = 24   # un Nivel 3 alcanzado por noticias no baja antes de estas horas (como INDECI/SENAMHI)
 HORAS_CACHE = 2              # si una busqueda falla, se usan sus noticias guardadas de hasta 2 h
 REINTENTOS = 2
 NOTICIAS_RADIO_KM = 8        # distritos vecinos que cuentan como "la zona de la tienda"
