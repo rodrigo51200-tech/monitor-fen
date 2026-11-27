@@ -1,11 +1,11 @@
 🌊 Monitor FEN · 27/11/2026
-Estado ENFEN: s/d ( · )
+Estado ENFEN: s/d (Comunicado Oficial Enfen N° 20-2026 · 13 Noviembre, 2026)
 Mar frente a la costa norte (NOAA Niño 1+2): +5.7 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
 Instalaciones sobre Nivel 1 (10):
-• FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: Se mantiene hasta el 27/11 23:53 (último reporte: 26/11 23:53): Registro manual: Pronóstico de lluvia fuerte esta noche (98 % de más de 20 mm; ECMWF/GFS).
-• FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: Se mantiene hasta el 27/11 23:53 (último reporte: 26/11 23:53): Registro manual: Pronóstico de lluvia fuerte esta noche (99 % de más de 20 mm; ECMWF/GFS).
+• FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 3 medios confiables informan inundación o lluvias intensas en la zona de la tienda, hecho grave (noticias de las últimas 6 h).
+• FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 3 medios confiables informan inundación o lluvias intensas en la zona de la tienda, hecho grave (noticias de las últimas 6 h).
 • CD Lurín (Zona Lima Metropolitana, riesgo Alto) – Nivel 3 Alerta Roja: Reporte de emergencia de INDECI por lluvias intensas en el distrito de la tienda.
 • FLB Cajamarca (Zona Norte, riesgo Alto) – Nivel 2 Alerta Amarilla: Escenario de riesgo CENEPRED: distrito en riesgo alto por movimientos en masa.
 • FLB Bellavista (Zona Lima Metropolitana, riesgo Medio) – Nivel 2 Alerta Amarilla: Se mantiene hasta el 27/11 23:53 (último reporte: 26/11 23:53): Escenario de riesgo CENEPRED: distrito con exposición alta a inundaciones.
