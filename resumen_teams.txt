@@ -3,13 +3,8 @@ Estado ENFEN: s/d (Comunicado Oficial Enfen N° 20-2026 · 13 Noviembre, 2026)
 Mar frente a la costa norte (NOAA Niño 1+2): +5.7 °C sobre lo normal
 Calendario Plan FEN: Fase 3 · Respuesta (octubre – marzo)
 
-🔔 Cambios desde la última actualización (3):
-▼ FLB Cajamarca: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-▼ CD Lurín: Nivel 3 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-▼ FLB Exp Tacna: Nivel 2 → Nivel 1 Alerta Verde – Temporada de lluvias: monitoreo preventivo.
-
 Instalaciones sobre Nivel 1 (2):
-• FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: Se mantiene hasta el 29/11 07:20 (último reporte: 28/11 07:20): 2 medios confiables informan inundación o lluvias intensas en la zona de la tienda, hecho grave (noticias de las últimas 6 h).
-• FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: Se mantiene hasta el 29/11 07:20 (último reporte: 28/11 07:20): 2 medios confiables informan inundación o lluvias intensas en la zona de la tienda, hecho grave (noticias de las últimas 6 h).
+• FLB Piura Centro (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 2 medios confiables informan inundación o lluvias intensas en la zona de la tienda, hecho grave (noticias de las últimas 6 h).
+• FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 2 medios confiables informan inundación o lluvias intensas en la zona de la tienda, hecho grave (noticias de las últimas 6 h).
 
 Resto de instalaciones (39): Nivel 1 Alerta Verde – monitoreo preventivo.
