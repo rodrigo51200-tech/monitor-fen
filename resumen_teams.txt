@@ -8,3 +8,6 @@ Instalaciones sobre Nivel 1 (2):
 • FLB Piura Mall Open (Zona Norte, riesgo Crítico) – Nivel 3 Alerta Roja: 2 medios confiables informan inundación o lluvias intensas en la zona de la tienda, hecho grave (noticias de las últimas 6 h).
 
 Resto de instalaciones (39): Nivel 1 Alerta Verde – monitoreo preventivo.
+
+Cambios fuertes de T. máx (≥3 °C vs ayer):
+• FLB Cajamarca: 24.0° (+3.0°)
